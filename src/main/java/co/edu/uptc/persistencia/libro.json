@@ -1,0 +1,74 @@
+{
+  "Ficción": [
+    {
+      "isbn": "9795403245242",
+      "titulo": "Libro 7",
+      "autor": "Ignacio",
+      "anioPublicacion": 0,
+      "categoria": "Ficción",
+      "editorial": "",
+      "numeroPaginas": 400,
+      "precioVenta": 32000.0,
+      "stockDisponible": 14,
+      "stockReservado": 10,
+      "tipoLibro": "DIGITAL"
+    }
+  ],
+  "No Ficción": [
+    {
+      "isbn": "9786664738478",
+      "titulo": "Libro 8",
+      "autor": "Hang Pablo",
+      "anioPublicacion": 0,
+      "categoria": "No Ficción",
+      "editorial": "",
+      "numeroPaginas": 200,
+      "precioVenta": 23000.0,
+      "stockDisponible": 0,
+      "stockReservado": 30,
+      "tipoLibro": "DIGITAL"
+    }
+  ],
+  "Misterio": [
+    {
+      "isbn": "9786664325234",
+      "titulo": "Libro 6",
+      "autor": "Miguel S",
+      "anioPublicacion": 0,
+      "categoria": "Misterio",
+      "editorial": "",
+      "numeroPaginas": 200,
+      "precioVenta": 200000.0,
+      "stockDisponible": 20,
+      "stockReservado": 0,
+      "tipoLibro": "DIGITAL"
+    },
+    {
+      "isbn": "9782322212341",
+      "titulo": "Libro 2",
+      "autor": "Santiago Rx",
+      "anioPublicacion": 0,
+      "categoria": "Misterio",
+      "editorial": "",
+      "numeroPaginas": 234,
+      "precioVenta": 400000.0,
+      "stockDisponible": 20,
+      "stockReservado": 0,
+      "tipoLibro": "FISICO"
+    },
+    {
+      "isbn": "9786666754564",
+      "titulo": "El precio",
+      "autor": "Segundo F",
+      "anioPublicacion": 0,
+      "categoria": "Misterio",
+      "editorial": "",
+      "numeroPaginas": 300,
+      "precioVenta": 32000.0,
+      "stockDisponible": 23,
+      "stockReservado": 0,
+      "tipoLibro": "FISICO"
+    }
+  ],
+  "Ciencia": []
+}

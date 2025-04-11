@@ -1,0 +1,55 @@
+@startuml
+VentanaPrincipal --> "1" PanelInicioSesion
+VentanaPrincipal --> "1" Evento
+VentanaPrincipal --> "1" MenuPrincipal
+VentanaPrincipal --> "1" EventoLista
+VentanaPrincipal --> "1" EventoCantidad
+VentanaPrincipal --> "1" EventoCerrarFrame
+VentanaPrincipal ..> PanelLibro
+VentanaPrincipal ..> "3"PanelProducto
+Evento --> "1" VentanaPrincipal
+MenuPrincipal --> "1" PanelCatalogo
+MenuPrincipal --> "1" PanelCarrito
+MenuPrincipal --> "1" PanelPerfil
+MenuPrincipal --> "1" PanelCompras
+MenuPrincipal --> "1" PanelGestionLibro
+MenuPrincipal --> "1" PanelRegistrarLibro
+MenuPrincipal --> "1" PanelRegistrarUsuario
+MenuPrincipal --> "1" PanelModificarLibro
+MenuPrincipal --> "1" PanelModificarUsuario
+MenuPrincipal --> "1" PanelEliminarLibro
+MenuPrincipal --> "1" PanelConfirmCompra
+MenuPrincipal ..> Evento
+MenuPrincipal ..> EventoLista
+MenuPrincipal ..> VentanaPrincipal
+PanelConfirmCompra ..> Evento
+PanelLibro --> "1" EventoCatalogo
+PanelLibro ..> VentanaPrincipal
+PanelModificarUsuario ..> Evento
+PanelProducto --> "1" EventoCantidad
+PanelProducto ..> VentanaPrincipal
+EventoLista --> "1" VentanaPrincipal
+EventoCerrarFrame --> "1" VentanaPrincipal
+PanelCarrito --> "*" PanelProducto
+PanelCarrito --> "1" VentanaPrincipal
+PanelCarrito --> "1" PanelResumenCompra
+PanelCarrito ..> Evento
+PanelGestionLibro ..> Evento
+PanelInicioSesion ..> Evento
+EventoCantidad --> "1" PanelProducto
+EventoCantidad --> "1" VentanaPrincipal
+PanelModificarLibro ..> Evento
+PanelModificarLibro ..> EventoLista
+EventoCatalogo --> "1" VentanaPrincipal
+EventoCatalogo --> "1" PanelLibro
+PanelResumenCompra ..> Evento
+PanelPerfil ..> Evento
+PanelRegistrarLibro ..> Evento
+PanelLibroEliminar ..> VentanaPrincipal
+PanelCatalogo --> "1" VentanaPrincipal
+PanelCatalogo ..> PanelLibro
+PanelRegistrarUsuario ..> Evento
+PanelEliminarLibro --> "1" VentanaPrincipal
+PanelEliminarLibro --> "*" PanelLibroEliminar
+PanelEliminarLibro ..> Evento
+@enduml
