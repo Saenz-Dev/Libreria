@@ -1,17 +1,21 @@
 package co.edu.uptc.negocio;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.ArrayList;
 
 /**
  * Clase encargada de almacenar los libros del carrito de compras.
  * Contiene un ArrayList de Libro.
  */
+@Entity @Table(name = "CARRITO")
 public class Carrito {
 
     /**
      * ArrayList de libros del carrito
      */
-    private ArrayList<Libro> libros;
+    @Column(name = "LIBROS") private ArrayList<Libro> libros;
 
     /**
      * Constructor de la clase

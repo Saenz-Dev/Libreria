@@ -1,17 +1,21 @@
 package co.edu.uptc.negocio;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Map;
 
 /**
  * Clase encargada de almacenar los libros disponibles en el catálogo.
  */
+@Entity @Table(name = "CATALOGO")
 public class Catalogo {
 
     /**
      * Mapa de libros
      */
-    private Map<String, ArrayList<Libro>> mapLibros;
+    @Column(name = "LIBROS") private Map<String, ArrayList<Libro>> mapLibros;
 
     /**
      * Constructor de la clase

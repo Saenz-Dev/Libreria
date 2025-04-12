@@ -1,24 +1,30 @@
 package co.edu.uptc.negocio;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Clase encargada de almacenar la cuenta asociada al usuario.
  */
+@Entity @Table(name = "CUENTA")
 public class Cuenta {
 
     /**
      * Correo del usuario
      */
-    private String correo;
+    @Id @Column(name = "CORREO") private String correo;
 
     /**
      * Contraseña del usuario
      */
-    private String contrasena;
+    @Column(name = "CONTRASENA") private String contrasena;
 
     /**
      * Indica si el usuario está logueado
      */
-    private boolean isLog;
+    @Column(name = "LOGIN") private boolean isLog;
 
     /**
      * Constructor de la clase

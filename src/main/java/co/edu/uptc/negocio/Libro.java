@@ -1,65 +1,72 @@
 package co.edu.uptc.negocio;
 
+import org.checkerframework.checker.units.qual.C;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Clase encargada de almacenar los datos de un libro.
  * Representa un libro en el catálogo.
  */
-public class Libro {
+@Entity @Table(name = "LIBROS") public class Libro {
 
     /**
      * ISBN del libro
      */
-    private String isbn;
+    @Id @Column(name = "ISBN") private String isbn;
 
     /**
      * Título del libro
      */
-    private String titulo;
+    @Column(name = "TITULO") private String titulo;
 
     /**
      * Autor del libro
      */
-    private String autor;
+    @Column(name = "AUTOR") private String autor;
 
     /**
      * Año de publicación
      */
-    private int anioPublicacion;
+    @Column(name = "AÑO PUBLICACION") private int anioPublicacion;
 
     /**
      * Categoría del libro
      */
-    private String categoria;
+    @Column(name = "CATEGORIA") private String categoria;
 
     /**
      * Editorial del libro
      */
-    private String editorial;
+    @Column(name = "EDITORIAL") private String editorial;
 
     /**
      * Número de páginas del libro
      */
-    private int numeroPaginas;
+    @Column(name = "PAGINAS") private int numeroPaginas;
 
     /**
      * Precio de venta del libro
      */
-    private double precioVenta;
+    @Column(name = "PRECIO") private double precioVenta;
 
     /**
      * Stock disponible del libro
      */
-    private int stockDisponible;
+    @Column(name = "STOCK DISPONIBLE") private int stockDisponible;
 
     /**
      * Stock reservado del libro
      */
-    private int stockReservado;
+    @Column(name = "STOCK RESERVADO") private int stockReservado;
 
     /**
      * Tipo de libro
      */
-    private TipoLibro tipoLibro;
+    @Column(name = "FORMATO") private TipoLibro tipoLibro;
 
     /**
      * Constructor de la clase Libro

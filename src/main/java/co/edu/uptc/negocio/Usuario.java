@@ -1,40 +1,45 @@
 package co.edu.uptc.negocio;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * Clase que representa a un usuario en el sistema.
  * Contiene información personal y de cuenta para la gestión de compras y acceso.
  */
+@Entity @Table(name = "USUARIOS")
 public class Usuario {
 
     /**
      * Nombre del usuario.
      */
-    private String nombre;
+    @Column(name = "NOMBRE") private String nombre;
 
     /**
      * Dirección de envío del usuario.
      */
-    private String direccionEnvio;
+    @Column(name = "DIRECCION") private String direccionEnvio;
 
     /**
      * Número de teléfono del usuario.
      */
-    private long telefono;
+    @Column(name = "TELEFONO") private long telefono;
 
     /**
      * Tipo de cliente (por ejemplo, "regular", "VIP", etc.).
      */
-    private String tipoCliente;
+    @Column(name = "TIPO CLIENTE") private String tipoCliente;
 
     /**
      * Cuenta asociada al usuario, que contiene información de inicio de sesión.
      */
-    private Cuenta cuenta;
+    @Column(name = "CUENTA") private Cuenta cuenta;
 
     /**
      * Carrito de compras del usuario, donde se almacenan los libros seleccionados.
      */
-    private Carrito carrito;
+    @Column(name = "CARRITO") private Carrito carrito;
 
 
     public Usuario() {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- Configuración de la conexión a la base de datos -->
+        <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+        <property name="hibernate.connection.url">jdbc:sqlite:data/tienda.db</property>
+
+        <!-- Dialecto de Hibernate para SQLite -->
+        <property name="hibernate.dialect">org.hibernate.community.dialect.SQLiteDialect</property>
+
+        <!-- Mostrar las sentencias SQL en la consola -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Formatear las sentencias SQL mostradas -->
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Mostrar las sentencias SQL con resaltado -->
+        <property name="hibernate.highlight_sql">true</property>
+
+        <!-- Acción a tomar con el esquema de la base de datos -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+    </session-factory>
+</hibernate-configuration>
