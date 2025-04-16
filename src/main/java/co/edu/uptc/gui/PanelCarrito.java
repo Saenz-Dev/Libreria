@@ -1,6 +1,7 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.negocio.*;
+import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.ValorCompra;
 
 import javax.swing.*;
 import java.awt.*;

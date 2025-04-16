@@ -1,13 +1,19 @@
-package co.edu.uptc.negocio;
+package co.edu.uptc.modelo;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Clase encargada de almacenar los libros del carrito de compras.
  * Contiene un ArrayList de Libro.
  */
-public class Carrito {
+public class Carrito implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2108683978684726974L;
     /**
      * ArrayList de libros del carrito
      */
@@ -20,7 +26,7 @@ public class Carrito {
         libros = new ArrayList<>();
     }
 
-    /**
+    /*
      * Método que devuelve el arrayList de libros del carrito
      * @return arrayList de libros del carrito
      */

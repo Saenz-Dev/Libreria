@@ -1,9 +1,16 @@
-package co.edu.uptc.negocio;
+package co.edu.uptc.modelo;
+
+import java.io.Serializable;
 
 /**
  * Clase encargada de almacenar la cuenta asociada al usuario.
  */
-public class Cuenta {
+public class Cuenta implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -379150053994745711L;
 
     /**
      * Correo del usuario

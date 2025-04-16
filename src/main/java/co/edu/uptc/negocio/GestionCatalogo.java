@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import co.edu.uptc.modelo.Catalogo;
+import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.Tienda;
+
 /**
  * Clase encargada de gestionar el catálogo de libros.
  */
@@ -22,8 +26,8 @@ public class GestionCatalogo {
     /**
      * Constructor de la clase
      */
-    public GestionCatalogo() {
-        manejoLibroJSON = new ManejoLibroJSON();
+    public GestionCatalogo(Tienda tienda) {
+        manejoLibroJSON = new ManejoLibroJSON(tienda);
     }
 
     /**

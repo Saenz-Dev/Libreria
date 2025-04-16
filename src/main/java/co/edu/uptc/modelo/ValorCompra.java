@@ -1,9 +1,16 @@
-package co.edu.uptc.negocio;
+package co.edu.uptc.modelo;
+
+import java.io.Serializable;
 
 /**
  * Representa el valor de una compra, incluyendo subtotal, impuestos y total.
  */
-public class ValorCompra {
+public class ValorCompra implements Serializable{
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7831877015225731172L;
 
     /**
      * Subtotal de la compra antes de impuestos.

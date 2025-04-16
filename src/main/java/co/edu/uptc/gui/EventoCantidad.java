@@ -1,7 +1,5 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.negocio.Libro;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

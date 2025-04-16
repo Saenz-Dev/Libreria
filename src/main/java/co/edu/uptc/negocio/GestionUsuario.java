@@ -3,6 +3,10 @@ package co.edu.uptc.negocio;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import co.edu.uptc.modelo.Administrador;
+import co.edu.uptc.modelo.Tienda;
+import co.edu.uptc.modelo.Usuario;
+
 /**
  * Clase encargada de gestionar los usuarios.
  */
@@ -27,16 +31,14 @@ public class GestionUsuario {
      * Instancia de Administrador
      */
     private Administrador administrador;
-
-
+    
     /**
      * Método que devuelve el usuario logueado
      *
      * @return usuario logueado
      */
     public Usuario userLogin() {
-        Usuario usuario = manejoUsuarioJSON.getUsuarioLogin();
-        return usuario;
+        return manejoUsuarioJSON.getUsuarioLogin();
     }
 
     /**
@@ -51,8 +53,8 @@ public class GestionUsuario {
     /**
      * Constructor de la clase
      */
-    public GestionUsuario() {
-        manejoUsuarioJSON = new ManejoUsuarioJSON();
+    public GestionUsuario(Tienda tienda) {
+        manejoUsuarioJSON = new ManejoUsuarioJSON(tienda);
         expresion = new Expresion();
         usuarioLogin = new Usuario();
         administrador = new Administrador();

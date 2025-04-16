@@ -1,10 +1,19 @@
-package co.edu.uptc.negocio;
+package co.edu.uptc.modelo;
+
+import co.edu.uptc.negocio.TipoLibro;
+
+import java.io.Serializable;
 
 /**
  * Clase encargada de almacenar los datos de un libro.
  * Representa un libro en el catálogo.
  */
-public class Libro {
+public class Libro implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7932726996518039079L;
 
     /**
      * ISBN del libro

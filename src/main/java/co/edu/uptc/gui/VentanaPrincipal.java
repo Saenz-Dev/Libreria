@@ -1,5 +1,9 @@
 package co.edu.uptc.gui;
 
+import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.ResumenProductoDTO;
+import co.edu.uptc.modelo.Usuario;
+import co.edu.uptc.modelo.ValorCompra;
 import co.edu.uptc.negocio.*;
 
 import javax.swing.*;
@@ -11,7 +15,7 @@ public class VentanaPrincipal extends JFrame {
 
     private final Evento evento;
     private final MenuPrincipal menuPrincipal;
-    private final Tienda tienda;
+    private final GestionTienda gestionTienda;
     private final EventoCerrarFrame eventoCerrarFrame;
 
     public MenuPrincipal getMenuPrincipal() {
@@ -23,7 +27,7 @@ public class VentanaPrincipal extends JFrame {
         setLayout(new BorderLayout());
 
         evento = new Evento(this);
-        tienda = new Tienda();
+        gestionTienda = new GestionTienda();
         eventoCerrarFrame = new EventoCerrarFrame(this);
 
         menuPrincipal = new MenuPrincipal(evento, this);
@@ -42,9 +46,9 @@ public class VentanaPrincipal extends JFrame {
 
     public void iniciaAplicacion() {
         try {
-            tienda.asignarUsuarioGenerico();
+            gestionTienda.asignarUsuarioGenerico();
             menuPrincipal.usuarioNull();
-            menuPrincipal.getPanelCatalogo().crearPanelesLibros(tienda.listarLibros());
+            menuPrincipal.getPanelCatalogo().crearPanelesLibros(gestionTienda.listarLibros());
             menuPrincipal.activarPanelCatalogo();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -71,13 +75,13 @@ public class VentanaPrincipal extends JFrame {
         String correo = menuPrincipal.getPanelInicioSesion().getTxtCorreo().getText();
         String contrasena = menuPrincipal.getPanelInicioSesion().getTxtContrasena().getText();
         try {
-            tienda.iniciarSesion(correo, contrasena);
+            gestionTienda.iniciarSesion(correo, contrasena);
             limpiarTxtLogin();
-            menuPrincipal.getPanelCatalogo().crearPanelesLibros(tienda.listarLibros());
+            menuPrincipal.getPanelCatalogo().crearPanelesLibros(gestionTienda.listarLibros());
             menuPrincipal.vistaPanelVenta();
             menuPrincipal.activarPanelCatalogo();
-            menuPrincipal.setLabelNombreUsuario(tienda.getUserLogin().getNombre());
-            if (tienda.isAdminLogin()) {
+            menuPrincipal.setLabelNombreUsuario(gestionTienda.getUserLogin().getNombre());
+            if (gestionTienda.isAdminLogin()) {
                 menuPrincipal.usuarioIniciaSesion();
                 menuPrincipal.anadirFuncionesAdmin();
             } else {
@@ -91,7 +95,7 @@ public class VentanaPrincipal extends JFrame {
 
     public void activarCerrarSesion() {
         try {
-            tienda.cerrarSesion();
+            gestionTienda.cerrarSesion();
             menuPrincipal.activarIniciarSesion();
             menuPrincipal.usuarioNull();
             menuPrincipal.activarPanelCatalogo();
@@ -101,19 +105,19 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void activarPanelPerfil() {
-        menuPrincipal.getPanelPerfil().setLabelNombre("Nombre: " + tienda.getUserLogin().getNombre());
-        menuPrincipal.getPanelPerfil().setLabelCorreo("Correo: " + tienda.getUserLogin().getCuenta().getCorreo());
-        menuPrincipal.getPanelPerfil().setLabelDireccionEnvio("Dirección de envío: " + tienda.getUserLogin().getDireccionEnvio());
-        menuPrincipal.getPanelPerfil().setLabelTelefono("Teléfono: " + tienda.getUserLogin().getTelefono());
-        menuPrincipal.getPanelPerfil().setLabelTipoUsuario("Tipo de usuario: " + tienda.getUserLogin().getTipoCliente());
-        menuPrincipal.setLabelNombreUsuario(tienda.getUserLogin().getNombre());
+        menuPrincipal.getPanelPerfil().setLabelNombre("Nombre: " + gestionTienda.getUserLogin().getNombre());
+        menuPrincipal.getPanelPerfil().setLabelCorreo("Correo: " + gestionTienda.getUserLogin().getCuenta().getCorreo());
+        menuPrincipal.getPanelPerfil().setLabelDireccionEnvio("Dirección de envío: " + gestionTienda.getUserLogin().getDireccionEnvio());
+        menuPrincipal.getPanelPerfil().setLabelTelefono("Teléfono: " + gestionTienda.getUserLogin().getTelefono());
+        menuPrincipal.getPanelPerfil().setLabelTipoUsuario("Tipo de usuario: " + gestionTienda.getUserLogin().getTipoCliente());
+        menuPrincipal.setLabelNombreUsuario(gestionTienda.getUserLogin().getNombre());
         menuPrincipal.activarPanelPerfil();
     }
 
     public void activarCarrito() {
         menuPrincipal.activarPanelCarrito();
-        menuPrincipal.getPanelCarrito().anadirProductosPanel(tienda.getUserLogin().getCarrito().getLibros());
-        ValorCompra valorCompra = tienda.resumenCompra();
+        menuPrincipal.getPanelCarrito().anadirProductosPanel(gestionTienda.getUserLogin().getCarrito().getLibros());
+        ValorCompra valorCompra = gestionTienda.resumenCompra();
         menuPrincipal.getPanelCarrito().modificarValores(valorCompra);
     }
 
@@ -140,13 +144,13 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void activarPanelModificarLibro() {
-        String[] titulosLibros = tienda.obtenerTitulosLibros();
+        String[] titulosLibros = gestionTienda.obtenerTitulosLibros();
         menuPrincipal.getPanelModificarLibro().listarLibros(titulosLibros);
         menuPrincipal.activarPanelModificarLibro();
     }
 
     public void llenarCamposModificarLibros(String tituloLibro) {
-        Libro libro = tienda.buscarLibro(tituloLibro);
+        Libro libro = gestionTienda.buscarLibro(tituloLibro);
         menuPrincipal.getPanelModificarLibro().llenarCampos(libro);
     }
 
@@ -157,7 +161,7 @@ public class VentanaPrincipal extends JFrame {
 
     //Estar pendiente, puede que me ocasione algun tipo de error
     public void activarModificarDatosUsuario() {
-        Usuario usuario = tienda.getUserLogin();
+        Usuario usuario = gestionTienda.getUserLogin();
         menuPrincipal.getPanelModificarUsuario().llenarCampos(usuario);
         menuPrincipal.activarActualizarDatosUsuario();
     }
@@ -174,7 +178,7 @@ public class VentanaPrincipal extends JFrame {
     public void activarFuncionRegistrarUsuario() {
         try {
             Usuario usuario = menuPrincipal.getPanelRegistrarUsuario().obtenerDatos();
-            tienda.registrarUsuario(usuario);
+            gestionTienda.registrarUsuario(usuario);
             JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarUsuario(), "Usuario Registrado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             menuPrincipal.getPanelRegistrarUsuario().limpiarTxt();
             menuPrincipal.getPanelRegistrarUsuario().setVisible(false);
@@ -186,7 +190,7 @@ public class VentanaPrincipal extends JFrame {
     public void activarEliminarLibros() {
         try {
             menuPrincipal.activarEliminarLibros();
-            menuPrincipal.getPanelEliminarLibro().crearPanelesLibros(tienda.listarLibros());
+            menuPrincipal.getPanelEliminarLibro().crearPanelesLibros(gestionTienda.listarLibros());
         } catch (IOException | IllegalArgumentException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelEliminarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -196,10 +200,10 @@ public class VentanaPrincipal extends JFrame {
     public void activarFuncionEliminarLibros() {
         try {
             ArrayList<String> isbnLibros = menuPrincipal.getPanelEliminarLibro().isbnLibros();
-            tienda.eliminarLibro(isbnLibros);
+            gestionTienda.eliminarLibro(isbnLibros);
             menuPrincipal.getPanelEliminarLibro().eliminarPanelesSeleccionados();
             menuPrincipal.getPanelEliminarLibro().repintarPanelLibros();
-            menuPrincipal.getPanelEliminarLibro().crearPanelesLibros(tienda.listarLibros());
+            menuPrincipal.getPanelEliminarLibro().crearPanelesLibros(gestionTienda.listarLibros());
         } catch (IOException | IllegalArgumentException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelEliminarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -209,7 +213,7 @@ public class VentanaPrincipal extends JFrame {
     public void activarAceptarModificarUsuario() {
         try {
             Usuario usuario = menuPrincipal.getPanelModificarUsuario().obtenerDatos();
-            tienda.modificarUsuario(usuario);
+            gestionTienda.modificarUsuario(usuario);
             JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), "Usuario Modificado Exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             menuPrincipal.getPanelModificarUsuario().limpiarTxt();
             activarPanelPerfil();
@@ -222,9 +226,9 @@ public class VentanaPrincipal extends JFrame {
     public void activarFuncionModificarLibro() {
         try {
             Libro libro = menuPrincipal.getPanelModificarLibro().obtenerDatos();
-            tienda.modificarLibro(libro);
+            gestionTienda.modificarLibro(libro);
             JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarLibro(), "Libro Modificado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            String[] titulosLibros = tienda.obtenerTitulosLibros();
+            String[] titulosLibros = gestionTienda.obtenerTitulosLibros();
             menuPrincipal.getPanelModificarLibro().listarLibros(titulosLibros);
         } catch (IOException | RuntimeException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -234,7 +238,7 @@ public class VentanaPrincipal extends JFrame {
     public void activarFuncionRegistrarLibro() {
         try {
             Libro libro = menuPrincipal.getPanelRegistrarLibro().obtenerDatos();
-            tienda.registrarLibro(libro);
+            gestionTienda.registrarLibro(libro);
             JOptionPane.showMessageDialog(this, "El libro ha sido registrado", "Libro Registrado", JOptionPane.INFORMATION_MESSAGE);
             menuPrincipal.getPanelRegistrarLibro().limpiarTxtFieldsLibro();
             menuPrincipal.getPanelRegistrarLibro().setVisible(false);
@@ -245,7 +249,7 @@ public class VentanaPrincipal extends JFrame {
 
     public void activarPanelCatalogo() {
         try {
-            menuPrincipal.getPanelCatalogo().crearPanelesLibros(tienda.listarLibros());
+            menuPrincipal.getPanelCatalogo().crearPanelesLibros(gestionTienda.listarLibros());
             menuPrincipal.activarPanelCatalogo();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -254,8 +258,8 @@ public class VentanaPrincipal extends JFrame {
 
     public void anadirProductosCarrito(String isbnLibro, int cantidad, PanelLibro panelLibro) {
         try {
-            tienda.anadirLibrosCarrito(isbnLibro, cantidad);
-            panelLibro.habilitacionBoton(tienda.validarExistenciaLibro(isbnLibro));
+            gestionTienda.anadirLibrosCarrito(isbnLibro, cantidad);
+            panelLibro.habilitacionBoton(gestionTienda.validarExistenciaLibro(isbnLibro));
         } catch (IOException | IllegalArgumentException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -263,10 +267,10 @@ public class VentanaPrincipal extends JFrame {
 
     public void sumarProductoCarrito(String isbnProducto, PanelProducto panelProducto) {
         try {
-            ResumenProductoDTO resumenProductoDTO = tienda.sumarProductos(isbnProducto);
+            ResumenProductoDTO resumenProductoDTO = gestionTienda.sumarProductos(isbnProducto);
             panelProducto.actualizarPrecio(resumenProductoDTO.getSubtotal());
             panelProducto.actualizarCantidad(resumenProductoDTO.getCantidadReservada());
-            ValorCompra valorCompra = tienda.resumenCompra();
+            ValorCompra valorCompra = gestionTienda.resumenCompra();
             menuPrincipal.getPanelCarrito().repaintPanel(valorCompra);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -275,10 +279,10 @@ public class VentanaPrincipal extends JFrame {
 
     public void disminuirProductoCarrito(String isbnProducto, PanelProducto panelProducto) {
         try {
-            ResumenProductoDTO resumenProductoDTO = tienda.disminuirProductoCarrito(isbnProducto);
+            ResumenProductoDTO resumenProductoDTO = gestionTienda.disminuirProductoCarrito(isbnProducto);
             panelProducto.actualizarPrecio(resumenProductoDTO.getSubtotal());
             panelProducto.actualizarCantidad(resumenProductoDTO.getCantidadReservada());
-            ValorCompra valorCompra = tienda.resumenCompra();
+            ValorCompra valorCompra = gestionTienda.resumenCompra();
             menuPrincipal.getPanelCarrito().repaintPanel(valorCompra);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -288,10 +292,10 @@ public class VentanaPrincipal extends JFrame {
 
     public void eliminarProductoCarrito(String isbnProducto, PanelProducto panelProducto) {
         try {
-            tienda.eliminarProductoCarrito(isbnProducto);
+            gestionTienda.eliminarProductoCarrito(isbnProducto);
             menuPrincipal.getPanelCarrito().getListPanelesProductos().remove(panelProducto);
             menuPrincipal.getPanelCarrito().eliminarPanelProducto(panelProducto);
-            ValorCompra valorCompra = tienda.resumenCompra();
+            ValorCompra valorCompra = gestionTienda.resumenCompra();
             menuPrincipal.getPanelCarrito().repaintPanel(valorCompra);
         } catch (IOException | IllegalArgumentException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -312,7 +316,7 @@ public class VentanaPrincipal extends JFrame {
     }
 
     private boolean debeIniciarSesion() {
-        if (tienda.isGenericoLogin() /* || tienda.getUserLogin().getCuenta().getCorreo().equals("user_default")*/) {
+        if (gestionTienda.isGenericoLogin() /* || tienda.getUserLogin().getCuenta().getCorreo().equals("user_default")*/) {
             int respuesta = JOptionPane.showConfirmDialog(this, "No ha iniciado sesión, ¿Desea Iniciar Sesión?", "Inicie Sesión", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             if (respuesta == JOptionPane.YES_OPTION) {
@@ -339,10 +343,10 @@ public class VentanaPrincipal extends JFrame {
 
     public void cerrarSesionUsuario() {
         try {
-            if (tienda.isGenericoLogin()) {
-                tienda.eliminarLibroUsuarioGenerico();
+            if (gestionTienda.isGenericoLogin()) {
+                gestionTienda.eliminarLibroUsuarioGenerico();
             }
-            tienda.cerrarSesionUsuario();
+            gestionTienda.cerrarSesionUsuario();
         } catch (IOException | RuntimeException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

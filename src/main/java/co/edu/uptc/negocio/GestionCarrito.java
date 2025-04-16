@@ -1,6 +1,7 @@
 package co.edu.uptc.negocio;
 
-import javax.swing.border.LineBorder;
+import co.edu.uptc.modelo.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -35,9 +36,9 @@ public class GestionCarrito {
      *
      * @param manejoUsuarioJSON Instancia deManejo de usuarios con JSON
      */
-    public GestionCarrito(ManejoUsuarioJSON manejoUsuarioJSON) {
+    public GestionCarrito(ManejoUsuarioJSON manejoUsuarioJSON, Tienda tienda) {
         carrito = new Carrito();
-        manejoLibroJSON = new ManejoLibroJSON();
+        manejoLibroJSON = new ManejoLibroJSON(tienda);
         this.manejoUsuarioJSON = manejoUsuarioJSON;
         calculadoraIVA = new CalculadoraIVA();
     }
@@ -260,7 +261,7 @@ public class GestionCarrito {
 
         if (index >= 0) {
             Libro libroModificar = encontrarLibro(isbnProducto, catalogo);
-            if (libroModificar.getStockDisponible() == 0) throw new IllegalArgumentException("Libro agotado.");
+            //if (libroModificar.getStockDisponible() == 0) throw new IllegalArgumentException("Libro agotado.");
             libroModificar.cancelarReserva();
             librosCarrito.get(index).disminuirCantidadUnidad();
 

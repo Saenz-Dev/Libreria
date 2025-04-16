@@ -1,5 +1,8 @@
 package co.edu.uptc.negocio;
 
+import co.edu.uptc.modelo.Carrito;
+import co.edu.uptc.modelo.Libro;
+
 import java.util.ArrayList;
 
 /**

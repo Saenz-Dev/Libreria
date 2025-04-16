@@ -1,7 +1,13 @@
-package co.edu.uptc.negocio;
+package co.edu.uptc.modelo;
 
-public class ResumenProductoDTO {
+import java.io.Serializable;
 
+public class ResumenProductoDTO implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4950101089868893193L;
     private double subtotal;
     private int cantidadReservada;
 

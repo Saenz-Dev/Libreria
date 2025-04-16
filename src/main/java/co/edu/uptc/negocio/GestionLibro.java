@@ -1,10 +1,11 @@
 package co.edu.uptc.negocio;
 
-import co.edu.uptc.gui.PanelLibroEliminar;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+
+import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.Tienda;
 
 /**
  * Clase encargada de gestionar los libros del catálogo.
@@ -24,8 +25,8 @@ public class GestionLibro {
     /**
      * Constructor de la clase
      */
-    public GestionLibro() {
-        manejoLibroJSON = new ManejoLibroJSON();
+    public GestionLibro(Tienda tienda) {
+        manejoLibroJSON = new ManejoLibroJSON(tienda);
         expresion = new Expresion();
     }
 
