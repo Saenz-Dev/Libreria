@@ -80,9 +80,6 @@ public class Evento implements ActionListener {
     /** Acción para modificar un libro. */
     public final static String MODIFICAR_LIBRO = "Modificar Libro";
 
-    /** Acción para realizar una compra. */
-    public final static String COMPRAR = "Comprar";
-
     /**Accion para acceder al panel de confirmar la compra */
     public final static String ACTIVAR_PANEL_CONFIRMAR = "Activar Panel Confirmar Compra";
 
@@ -139,7 +136,6 @@ public class Evento implements ActionListener {
             case ACTIVAR_PANEL_CONFIRMAR -> ventana.activarPanelConfirmCompra();
             case ACEPTAR_CONFIRMAR_COMPRA -> ventana.aceptarConfirmarCompra();
             case CANCELAR_CONFIRMAR_COMPRA -> ventana.cancelarConfirmarCompra();
-            //case COMPRAR -> ventana.activarFuncionComprar();
         }
     }
 }

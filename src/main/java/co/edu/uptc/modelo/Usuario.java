@@ -1,10 +1,17 @@
-package co.edu.uptc.negocio;
+package co.edu.uptc.modelo;
+
+import java.io.Serializable;
 
 /**
  * Clase que representa a un usuario en el sistema.
  * Contiene información personal y de cuenta para la gestión de compras y acceso.
  */
-public class Usuario {
+public class Usuario implements Serializable{
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7354483159484201335L;
 
     /**
      * Nombre del usuario.

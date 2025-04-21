@@ -1,10 +1,11 @@
 package co.edu.uptc.negocio;
 
-import co.edu.uptc.gui.PanelLibroEliminar;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+
+import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.Tienda;
 
 /**
  * Clase encargada de gestionar los libros del catálogo.
@@ -24,8 +25,8 @@ public class GestionLibro {
     /**
      * Constructor de la clase
      */
-    public GestionLibro() {
-        manejoLibroJSON = new ManejoLibroJSON();
+    public GestionLibro(Tienda tienda) {
+        manejoLibroJSON = new ManejoLibroJSON(tienda);
         expresion = new Expresion();
     }
 
@@ -93,14 +94,21 @@ public class GestionLibro {
     //TODO revisar este metodo, puede ocasionar errores
     public void eliminarLibro(ArrayList<String> isbnLibros) throws IllegalArgumentException, IOException{
         Map<String, ArrayList<Libro>> catalogo = manejoLibroJSON.leerLibro();
+        StringBuilder sb = new StringBuilder();
         if (isbnLibros.isEmpty()) throw new RuntimeException("No hay libros registrados para eliminar");
         for (String isbn : isbnLibros) {
+            Libro libro = buscarLibroCatalogo(isbn, catalogo);
+            if (libro.getIsComprado()){
+                sb.append("\n- " + libro.getTitulo());
+                continue;
+            }
             if (existeLibro(isbn)) {
-                Libro libro = new Libro();
-                libro.setIsbn(isbn);
-                eliminarLibroPosicion(libro, catalogo);
+                Libro libroEliminar = new Libro();
+                libroEliminar.setIsbn(isbn);
+                eliminarLibroPosicion(libroEliminar, catalogo);
             }
         }
+        if (!sb.isEmpty()) throw new IllegalArgumentException("Estos libros no se pueden eliminar por que ya se han comprado: " + sb);
         manejoLibroJSON.escribirLibros(catalogo);
     }
 
@@ -133,6 +141,17 @@ public class GestionLibro {
             arrayLibros[i] = libros.get(i);
         }
         return arrayLibros;
+    }
+
+    public Libro buscarLibroCatalogo(String isbn, Map<String, ArrayList<Libro>> catalogo) {
+        for (ArrayList<Libro> catalogoLib : catalogo.values()) {
+            for (Libro libroBuscado : catalogoLib) {
+                if (libroBuscado.getIsbn().equals(isbn)) {
+                    return libroBuscado;
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -190,6 +209,7 @@ public class GestionLibro {
      * @return posición del libro en el Map del catálogo
      */
     public void eliminarLibroPosicion(Libro libroParametro, Map<String,ArrayList<Libro>> catalogo) {
+        //TODO hacer validación la cual si el producto que se va a eliminar ya tiene compras, no se puede eliminar
         int index = 0;
         for (ArrayList<Libro> libros : catalogo.values()) {
             for (Libro libro : libros) {

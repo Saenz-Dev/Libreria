@@ -1,12 +1,14 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.negocio.Libro;
+import co.edu.uptc.modelo.Libro;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -71,13 +73,14 @@ public class PanelEliminarLibro extends JPanel {
     }
 
     public void eliminarPanelesSeleccionados() {
-        int index = 0;
         if (listPanelesLibros.isEmpty()) return;
-        for (PanelLibroEliminar panelLibroEliminar: listPanelesLibros) {
+
+        Iterator<PanelLibroEliminar> iterator = listPanelesLibros.iterator();
+        while (iterator.hasNext()) {
+            PanelLibroEliminar panelLibroEliminar = iterator.next();
             if (panelLibroEliminar.isSelected()) {
-                listPanelesLibros.remove(index);
+                iterator.remove();
             }
-            index++;
         }
     }
 
@@ -199,6 +202,8 @@ public class PanelEliminarLibro extends JPanel {
         listPanelesLibros = new ArrayList<>();
 
         panelLibros.removeAll();
+        panelLibros.revalidate();
+        panelLibros.repaint();
         conteoColumnas = 0;
         conteoFilas = 0;
 

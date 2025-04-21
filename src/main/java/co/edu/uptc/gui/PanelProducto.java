@@ -1,6 +1,6 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.negocio.Libro;
+import co.edu.uptc.modelo.Libro;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,6 +38,10 @@ public class PanelProducto extends JPanel {
 
     /** Evento que maneja las acciones de aumentar, disminuir y eliminar el producto. */
     private EventoCantidad eventoCantidad;
+
+    public String getIsbnProducto() {
+        return isbnProducto;
+    }
 
     /**
      * Constructor del panel de un producto.

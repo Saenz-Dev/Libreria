@@ -75,6 +75,8 @@ public class MenuPrincipal extends JPanel {
      */
     private PanelPerfil panelPerfil;
 
+    private PanelRecibo panelRecibo;
+
     /**
      * Scroll que permite visualizar tablas con datos extensos.
      */
@@ -259,6 +261,10 @@ public class MenuPrincipal extends JPanel {
         return panelCarrito;
     }
 
+    public PanelRecibo getPanelRecibo() {
+        return panelRecibo;
+    }
+
     public PanelConfirmCompra getPanelConfirmCompra() {
         return panelConfirmCompra;
     }
@@ -290,6 +296,7 @@ public class MenuPrincipal extends JPanel {
         panelConfirmCompra = new PanelConfirmCompra(evento);
         panelGestionLibro = new PanelGestionLibro(evento);
         panelInicioSesion = new PanelInicioSesion(evento);
+        panelRecibo = new PanelRecibo();
         clPrincipal = new CardLayout();
         panelClPrincipal = new JPanel(clPrincipal);
 
@@ -552,5 +559,9 @@ public class MenuPrincipal extends JPanel {
 
     public void activarPanelConfirmCompra() {
         panelConfirmCompra.visibilizar();
+    }
+
+    public void activarPanelRecibo() {
+        panelRecibo.setVisible(true);
     }
 }

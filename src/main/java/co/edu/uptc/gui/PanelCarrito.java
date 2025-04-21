@@ -1,6 +1,7 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.negocio.*;
+import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.ValorCompra;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,32 +13,49 @@ import java.util.ArrayList;
  */
 public class PanelCarrito extends JPanel {
 
-    /** Etiqueta que muestra el título del panel. */
+    /**
+     * Etiqueta que muestra el título del panel.
+     */
     private JLabel labelTitulo;
 
-    /** Contenedor con barra de desplazamiento para los productos en el carrito. */
+    /**
+     * Contenedor con barra de desplazamiento para los productos en el carrito.
+     */
     private JScrollPane scrollPane;
 
-    /** Panel que contiene los productos agregados al carrito. */
+    /**
+     * Panel que contiene los productos agregados al carrito.
+     */
     private JPanel panelProductos;
 
-    /** Lista de paneles individuales para cada producto en el carrito. */
+    /**
+     * Lista de paneles individuales para cada producto en el carrito.
+     */
     private ArrayList<PanelProducto> listPanelesProductos;
 
-    /** Restricciones para la disposición general de los componentes en el panel. */
+    /**
+     * Restricciones para la disposición general de los componentes en el panel.
+     */
     private GridBagConstraints gbcGeneral;
 
-    /** Referencia a la ventana principal de la aplicación. */
+    /**
+     * Referencia a la ventana principal de la aplicación.
+     */
     private VentanaPrincipal ventanaPrincipal;
 
-    /** Restricciones para la disposición de los productos dentro del panel. */
+    /**
+     * Restricciones para la disposición de los productos dentro del panel.
+     */
     private GridBagConstraints gbcPanelProductos;
 
-    /** Panel que muestra el resumen de la compra. */
+    /**
+     * Panel que muestra el resumen de la compra.
+     */
     private PanelResumenCompra panelResumenCompra;
 
     /**
      * Obtiene la lista de paneles de productos en el carrito.
+     *
      * @return Lista de paneles de productos.
      */
     public ArrayList<PanelProducto> getListPanelesProductos() {
@@ -46,6 +64,7 @@ public class PanelCarrito extends JPanel {
 
     /**
      * Elimina un panel de producto del carrito.
+     *
      * @param panelProducto Panel del producto a eliminar.
      */
     public void eliminarPanelProducto(PanelProducto panelProducto) {
@@ -54,8 +73,9 @@ public class PanelCarrito extends JPanel {
 
     /**
      * Constructor del panel del carrito.
+     *
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.
-     * @param evento Manejador de eventos de la aplicación.
+     * @param evento           Manejador de eventos de la aplicación.
      */
     public PanelCarrito(VentanaPrincipal ventanaPrincipal, Evento evento) {
         listPanelesProductos = new ArrayList<>();
@@ -87,6 +107,7 @@ public class PanelCarrito extends JPanel {
 
     /**
      * Agrega los productos al panel del carrito.
+     *
      * @param librosCarrito Lista de libros que están en el carrito.
      */
     public void anadirProductosPanel(ArrayList<Libro> librosCarrito) {
@@ -157,19 +178,23 @@ public class PanelCarrito extends JPanel {
      */
     private void validarExistenciaProductos() {
         if (!listPanelesProductos.isEmpty()) return;
+        panelProductos.repaint();
         gbcPanelProductos.weighty = 1.0;
-        gbcPanelProductos.fill = GridBagConstraints.BOTH;
+        gbcPanelProductos.fill = GridBagConstraints.CENTER;
+        gbcPanelProductos.anchor = GridBagConstraints.CENTER;
         JLabel label = new JLabel("No hay productos seleccionados");
         panelProductos.add(label, gbcPanelProductos);
     }
 
     /**
      * Actualiza la vista del panel del carrito.
+     *
      * @param valorCompra Información actualizada del valor de la compra.
      */
     public void repaintPanel(ValorCompra valorCompra) {
         modificarValores(valorCompra);
         validarExistenciaProductos();
+        panelResumenCompra.revalidate();
         panelResumenCompra.repaint();
         revalidate();
         repaint();
@@ -177,11 +202,30 @@ public class PanelCarrito extends JPanel {
 
     /**
      * Modifica los valores del resumen de compra.
+     *
      * @param valorCompra Información del valor de la compra.
      */
     public void modificarValores(ValorCompra valorCompra) {
         panelResumenCompra.modificarValor(valorCompra);
         repaint();
+    }
+
+
+    public ArrayList<String> isbnLibrosCarrito() {
+        ArrayList<String> titulosLibros = new ArrayList<>();
+        if (listPanelesProductos.isEmpty()) return null;
+        for (PanelProducto panelProducto : listPanelesProductos) {
+            titulosLibros.add(panelProducto.getIsbnProducto());
+        }
+        return titulosLibros;
+    }
+
+    public void vaciarCarrito() {
+        panelProductos.removeAll();
+        listPanelesProductos = new ArrayList<>();
+        validarExistenciaProductos();
+        panelProductos.revalidate();
+        panelProductos.repaint();
     }
 }
 

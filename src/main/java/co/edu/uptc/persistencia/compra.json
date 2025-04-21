@@ -1,0 +1,74 @@
+{
+  "admin@gmail.com": [
+    {
+      "usuario": "admin@gmail.com",
+      "nombreUser": "Administrador",
+      "valorCompra": {
+        "subtotal": 70000.0,
+        "impuestos": 13300.0,
+        "total": 83300.0
+      },
+      "numeroRecibo": 1,
+      "fecha": "2025/4/21 12:29 p. m.",
+      "tipoPago": "EFECTIVO",
+      "direccion": "Calle 123 #45-67, Bogotá, Colombia",
+      "listaProductosComprados": [
+        {
+          "isbn": "9786664738479",
+          "titulo": "El poder de los hábitos",
+          "numeroLibros": 2,
+          "precioUnitario": 35000.0,
+          "precioTotal": 70000.0
+        }
+      ]
+    }
+  ],
+  "angel@gmail.com": [
+    {
+      "usuario": "angel@gmail.com",
+      "nombreUser": "Miguel Angel Saenz",
+      "valorCompra": {
+        "subtotal": 84000.0,
+        "impuestos": 15960.0,
+        "total": 99960.0
+      },
+      "numeroRecibo": 0,
+      "fecha": "2025/4/21 12:27 p. m.",
+      "tipoPago": "EFECTIVO",
+      "direccion": "Calle 34#32, Togui, Boyaca",
+      "listaProductosComprados": [
+        {
+          "isbn": "9786664738480",
+          "titulo": "Sapiens: De animales a dioses",
+          "numeroLibros": 2,
+          "precioUnitario": 42000.0,
+          "precioTotal": 84000.0
+        }
+      ]
+    }
+  ],
+  "segundo@gmail.com": [
+    {
+      "usuario": "segundo@gmail.com",
+      "nombreUser": "Segundo",
+      "valorCompra": {
+        "subtotal": 126000.0,
+        "impuestos": 23940.000000000004,
+        "total": 149940.0
+      },
+      "numeroRecibo": 2,
+      "fecha": "2025/4/21 12:31 p. m.",
+      "tipoPago": "EFECTIVO",
+      "direccion": "Calle 12#2, Moniquira, Colombia",
+      "listaProductosComprados": [
+        {
+          "isbn": "9786664738480",
+          "titulo": "Sapiens: De animales a dioses",
+          "numeroLibros": 3,
+          "precioUnitario": 42000.0,
+          "precioTotal": 126000.0
+        }
+      ]
+    }
+  ]
+}

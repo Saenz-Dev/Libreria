@@ -1,10 +1,16 @@
-package co.edu.uptc.negocio;
+package co.edu.uptc.modelo;
+
+import java.io.Serializable;
 
 /**
  * Clase encargada de almacenar los datos del administrador.
  */
-public class Administrador {
+public class Administrador implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -3956750637462768249L;
     /**
      * Correo del administrador
      */

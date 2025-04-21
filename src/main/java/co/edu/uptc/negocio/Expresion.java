@@ -1,5 +1,8 @@
 package co.edu.uptc.negocio;
 
+import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.Usuario;
+
 import java.time.LocalDate;
 
 /**

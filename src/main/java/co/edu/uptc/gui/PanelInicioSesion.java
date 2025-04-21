@@ -12,7 +12,7 @@ public class PanelInicioSesion extends JPanel {
     private JTextField txtCorreo;
 
     /** Campo de texto para ingresar la contraseña del usuario. */
-    private JTextField txtContrasena;
+    private JTextField txtContrasena;//TODO En lugar de poner JTextFiel cambiarlo por un JPasswordField
 
     /** Etiqueta del título del panel. */
     private JLabel labelTitulo;

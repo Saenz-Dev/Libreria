@@ -1,13 +1,18 @@
-package co.edu.uptc.negocio;
+package co.edu.uptc.modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
 /**
  * Clase encargada de almacenar los libros disponibles en el catálogo.
  */
-public class Catalogo {
+public class Catalogo implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1097085679808862543L;
     /**
      * Mapa de libros
      */

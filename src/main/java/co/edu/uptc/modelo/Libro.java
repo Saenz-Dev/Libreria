@@ -1,10 +1,19 @@
-package co.edu.uptc.negocio;
+package co.edu.uptc.modelo;
+
+import co.edu.uptc.negocio.TipoLibro;
+
+import java.io.Serializable;
 
 /**
  * Clase encargada de almacenar los datos de un libro.
  * Representa un libro en el catálogo.
  */
-public class Libro {
+public class Libro implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7932726996518039079L;
 
     /**
      * ISBN del libro
@@ -61,10 +70,13 @@ public class Libro {
      */
     private TipoLibro tipoLibro;
 
+    private boolean isComprado;
+
     /**
      * Constructor de la clase Libro
      */
     public Libro() {
+        isComprado = false;
     }
 
     /**
@@ -91,6 +103,14 @@ public class Libro {
         this.precioVenta = precioVenta;
         this.stockDisponible = stockDisponible;
         this.tipoLibro = tipoLibro;
+    }
+
+    public boolean getIsComprado() {
+        return isComprado;
+    }
+
+    public void setIsComprado(boolean comprado) {
+        isComprado = comprado;
     }
 
     /**
@@ -321,9 +341,9 @@ public class Libro {
     /**
      * Elimina la cantidad reservada del stock reservado para confirmar la compra
      */
-    public void confirmarCompra() {
+    public void confirmarCompra(int cantidadDisminuir) {
         if (stockReservado > 0) {
-            stockReservado = 0;
+            stockReservado -= cantidadDisminuir;
         }
     }
 }
