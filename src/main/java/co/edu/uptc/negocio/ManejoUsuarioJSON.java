@@ -294,6 +294,7 @@ public class ManejoUsuarioJSON {
                 usuarioEncontrado.getCarrito().trasladarLibros(libro);
             }
         }
+
     }
 
 }
