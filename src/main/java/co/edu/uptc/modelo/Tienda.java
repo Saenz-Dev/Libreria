@@ -1,10 +1,10 @@
 package co.edu.uptc.modelo;
 
+import com.sun.source.tree.Tree;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class Tienda implements Serializable {
 	
@@ -14,18 +14,18 @@ public class Tienda implements Serializable {
     private static final long serialVersionUID = 4563764538288413272L;
 	private Map<String, ArrayList<Libro>> mapLibros;
 	private ArrayList<Usuario> usuarios;
-	private List<Recibo> recibos;
+	private TreeMap<String, ArrayList<Recibo>> productoCompras;
 	
 	public Tienda() {
 		mapLibros = new HashMap<>();
 		usuarios = new ArrayList<>();
-		recibos = new ArrayList<>();
+		productoCompras = new TreeMap<>();
 	}
 	
-	public Tienda(Map<String, ArrayList<Libro>> mapLibros, ArrayList<Usuario> usuarios, List<Recibo> recibos) {
+	public Tienda(Map<String, ArrayList<Libro>> mapLibros, ArrayList<Usuario> usuarios, TreeMap<String, ArrayList<Recibo>> productoCompras) {
 		this.mapLibros = mapLibros;
 		this.usuarios = usuarios;
-		this.recibos = recibos;
+		this.productoCompras = productoCompras;
 	}
 
 	public Map<String, ArrayList<Libro>> getMapLibros() {
@@ -44,12 +44,11 @@ public class Tienda implements Serializable {
 		this.usuarios= usuarios;
 	}
 	
-	public List<Recibo> getRecibos() {
-		return recibos;
+	public TreeMap<String, ArrayList<Recibo>> getRecibos() {
+		return productoCompras;
 	}
 	
-	public void setRecibos(List<Recibo> recibos) {
-		this.recibos = recibos;
+	public void setRecibos(TreeMap<String, ArrayList<Recibo>> productoCompras) {
+		this.productoCompras = productoCompras;
 	}
-	
 }

@@ -32,6 +32,7 @@ public class GestionCatalogo {
 
     /**
      * Método que devuelve la instancia manejo de libros con JSON
+     *
      * @return instancia manejo de libros con JSON
      */
     public ManejoLibroJSON getManejoLibroJSON() {
@@ -40,6 +41,7 @@ public class GestionCatalogo {
 
     /**
      * Método que actualiza la instancia manejo de libros con JSON
+     *
      * @param manejoLibroJSON instancia manejo de libros con JSON
      */
     public void setManejoLibroJSON(ManejoLibroJSON manejoLibroJSON) {
@@ -48,6 +50,7 @@ public class GestionCatalogo {
 
     /**
      * Método que devuelve el catalogo
+     *
      * @return catalogo
      */
     public Catalogo getCatalogo() {
@@ -56,6 +59,7 @@ public class GestionCatalogo {
 
     /**
      * Método que actualiza el catalogo
+     *
      * @param catalogo catalogo
      */
     public void setCatalogo(Catalogo catalogo) {
@@ -64,12 +68,11 @@ public class GestionCatalogo {
 
     /**
      * Método que devuelve el catalogo de libros disponibles en la tienda
+     *
      * @return catalogo de libros disponibles en la tienda
      * @throws IOException si ocurre algún error cuando no se lee el JSON
      */
     public Map<String, ArrayList<Libro>> listarLibros() throws IOException {
         return manejoLibroJSON.leerLibro();
     }
-
-
 }

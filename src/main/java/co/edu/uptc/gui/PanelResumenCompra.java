@@ -5,6 +5,7 @@ import co.edu.uptc.modelo.ValorCompra;
 import javax.swing.*;
 import java.awt.*;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 
 /**
  * Clase que representa el panel de resumen de la compra en el {@link PanelCarrito}.

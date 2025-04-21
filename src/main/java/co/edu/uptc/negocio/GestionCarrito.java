@@ -4,6 +4,7 @@ import co.edu.uptc.modelo.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -92,6 +93,7 @@ public class GestionCarrito {
         }
 
         Libro libroCarrito = existeProductoCarrito(isbnLibro, usuarioLogin);
+        libroCatalogo.setIsComprado(true);
         if (libroCarrito != null) {
             anadirProductoExistente(libroCarrito, libroCatalogo, usuarioLogin);
         } else {
@@ -284,6 +286,7 @@ public class GestionCarrito {
 
         if (index >= 0) {
             Libro libroModificar = encontrarLibro(isbnProducto, catalogo);
+            libroModificar.setIsComprado(false);
             libroModificar.eliminarReserva(librosCarrito.get(index).getStockReservado());
             manejoLibroJSON.escribirLibros(catalogo);
             librosCarrito.remove(index);
@@ -322,5 +325,24 @@ public class GestionCarrito {
         valorCompra.setSubtotal(calculadoraIVA.subtotal(carritoLocal));
         valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
         return valorCompra;
+    }
+
+    public void disminuirStock() throws IOException {
+        Usuario userLogin = manejoUsuarioJSON.getUsuarioLogin();
+        Map<String, ArrayList<Libro>> catalogo = manejoLibroJSON.leerLibro();
+//        for (Libro libro : userLogin.getCarrito().getLibros()) {
+//            Libro libroDisminuir = encontrarLibro(libro.getIsbn(), catalogo);
+//            libroDisminuir.confirmarCompra(libro.getStockReservado());
+//            userLogin.getCarrito().getLibros().remove(libro);
+//        }
+        Iterator<Libro> iteratorCarrito = userLogin.getCarrito().getLibros().iterator();
+        while (iteratorCarrito.hasNext()) {
+            Libro libro = iteratorCarrito.next();
+            Libro libroDisminuir = encontrarLibro(libro.getIsbn(), catalogo);
+            libroDisminuir.confirmarCompra(libro.getStockReservado());
+            iteratorCarrito.remove();
+        }
+        manejoLibroJSON.escribirLibros(catalogo);
+        manejoUsuarioJSON.escribirUsuario();
     }
 }

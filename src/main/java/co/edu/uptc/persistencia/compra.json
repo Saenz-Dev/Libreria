@@ -1,0 +1,26 @@
+{
+  "admin@gmail.com": [
+    {
+      "usuario": "admin@gmail.com",
+      "nombreUser": "Administrador",
+      "valorCompra": {
+        "subtotal": 105000.0,
+        "impuestos": 19950.000000000004,
+        "total": 124950.0
+      },
+      "numeroRecibo": 0,
+      "fecha": "2025/4/20 11:20 p. m.",
+      "tipoPago": "EFECTIVO",
+      "direccion": "Calle 123 #45-67, Bogotá, Colombia",
+      "listaProductosComprados": [
+        {
+          "isbn": "9786664738479",
+          "titulo": "El poder de los hábitos",
+          "numeroLibros": 3,
+          "precioUnitario": 35000.0,
+          "precioTotal": 105000.0
+        }
+      ]
+    }
+  ]
+}

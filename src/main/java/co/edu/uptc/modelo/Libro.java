@@ -70,10 +70,13 @@ public class Libro implements Serializable {
      */
     private TipoLibro tipoLibro;
 
+    private boolean isComprado;
+
     /**
      * Constructor de la clase Libro
      */
     public Libro() {
+        isComprado = false;
     }
 
     /**
@@ -100,6 +103,14 @@ public class Libro implements Serializable {
         this.precioVenta = precioVenta;
         this.stockDisponible = stockDisponible;
         this.tipoLibro = tipoLibro;
+    }
+
+    public boolean getIsComprado() {
+        return isComprado;
+    }
+
+    public void setIsComprado(boolean comprado) {
+        isComprado = comprado;
     }
 
     /**
@@ -330,9 +341,9 @@ public class Libro implements Serializable {
     /**
      * Elimina la cantidad reservada del stock reservado para confirmar la compra
      */
-    public void confirmarCompra() {
+    public void confirmarCompra(int cantidadDisminuir) {
         if (stockReservado > 0) {
-            stockReservado = 0;
+            stockReservado -= cantidadDisminuir;
         }
     }
 }

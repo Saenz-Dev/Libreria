@@ -232,6 +232,7 @@ public class PanelModificarUsuario extends JDialog {
         labelTipoCliente = new JLabel("Tipo de Cliente:");
         txtNombre = new JTextField(20);
         txtCorreo = new JTextField(20);
+        txtCorreo.setEditable(false);
         txtContrasena = new JTextField(20);
         txtDireccion = new JTextField(20);
         txtTelefono = new JTextField(20);

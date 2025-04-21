@@ -39,6 +39,10 @@ public class PanelProducto extends JPanel {
     /** Evento que maneja las acciones de aumentar, disminuir y eliminar el producto. */
     private EventoCantidad eventoCantidad;
 
+    public String getIsbnProducto() {
+        return isbnProducto;
+    }
+
     /**
      * Constructor del panel de un producto.
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.

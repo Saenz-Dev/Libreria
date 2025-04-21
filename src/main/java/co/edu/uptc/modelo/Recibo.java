@@ -1,40 +1,40 @@
 package co.edu.uptc.modelo;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
+import co.edu.uptc.negocio.TipoPago;
 
-public class Recibo implements Serializable {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -2814081768628314889L;
-    private Usuario usuario;
-    private List<Libro> libros;
+public class Recibo {
+
+    private String usuario;
+    private String nombreUser;
+    private ValorCompra valorCompra;
     private int numeroRecibo;
-    private LocalDateTime fecha;
-    private int subtotal;
+    private String fecha;
+    private TipoPago tipoPago;
+    private String direccion;
+    private ArrayList<ProductoCompra> listaProductosComprados;
     //private Descuento descuento;
-    private int impuestos;
-    private int total;
 
-    public Recibo() {}
+    public Recibo() {
+        listaProductosComprados = new ArrayList<>();
+    }
 
-    public Usuario getUsuario() {
+    public String getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
-    public List<Libro> getLibros() {
-        return libros;
+    public ValorCompra getValorCompra() {
+        return valorCompra;
     }
 
-    public void setLibros(List<Libro> libros) {
-        this.libros = libros;
+    public void setValorCompra(ValorCompra valorCompra) {
+        this.valorCompra = valorCompra;
     }
 
     public int getNumeroRecibo() {
@@ -45,35 +45,43 @@ public class Recibo implements Serializable {
         this.numeroRecibo = numeroRecibo;
     }
 
-    public LocalDateTime getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
+    public void setFecha(int anio, int mes, int dia, String horaActual) {
+        this.fecha = String.format("%d/%d/%d %s", anio, mes, dia, horaActual);
     }
 
-    public int getSubtotal() {
-        return subtotal;
+    public TipoPago getTipoPago() {
+        return tipoPago;
     }
 
-    public void setSubtotal(int subtotal) {
-        this.subtotal = subtotal;
+    public void setTipoPago(TipoPago tipoPago) {
+        this.tipoPago = tipoPago;
     }
 
-    public int getImpuestos() {
-        return impuestos;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setImpuestos(int impuestos) {
-        this.impuestos = impuestos;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
-    public int getTotal() {
-        return total;
+    public ArrayList<ProductoCompra> getListaProductosComprados() {
+        return listaProductosComprados;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setListaProductosComprados(ArrayList<ProductoCompra> listaProductosComprados) {
+        this.listaProductosComprados = listaProductosComprados;
+    }
+
+    public String getNombreUser() {
+        return nombreUser;
+    }
+
+    public void setNombreUser(String nombreUser) {
+        this.nombreUser = nombreUser;
     }
 }

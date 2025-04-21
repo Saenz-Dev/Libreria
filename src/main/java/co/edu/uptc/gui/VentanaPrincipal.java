@@ -122,7 +122,12 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void activarPanelCompras() {
-        menuPrincipal.activarPanelCompras();
+        try {
+            menuPrincipal.activarPanelCompras();
+            menuPrincipal.getPanelCompras().llenarTabla(gestionTienda.getComprasUserLogin());
+        } catch (IOException | RuntimeException e) {
+            JOptionPane.showMessageDialog(menuPrincipal, e.getMessage(), "Cerrar Sesión", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void activarPanelRegistrarLibros() {
@@ -157,7 +162,6 @@ public class VentanaPrincipal extends JFrame {
     public void activarCancelarModificacionLibro() {
         menuPrincipal.activarCancelarModificacionLibro();
     }
-
 
     //Estar pendiente, puede que me ocasione algun tipo de error
     public void activarModificarDatosUsuario() {
@@ -196,7 +200,6 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
-    //TODO Verificar si el método funciona correctamente
     public void activarFuncionEliminarLibros() {
         try {
             ArrayList<String> isbnLibros = menuPrincipal.getPanelEliminarLibro().isbnLibros();
@@ -307,12 +310,17 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void activarPanelConfirmCompra() {
-        if (menuPrincipal.getPanelCarrito().getListPanelesProductos().isEmpty()) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), "No hay productos en el carrito para comprar \nSeleccionalos en la sección catálogo.", "Información", JOptionPane.INFORMATION_MESSAGE);
-            return;
+        try {
+            if (menuPrincipal.getPanelCarrito().getListPanelesProductos().isEmpty()) {
+                JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), "No hay productos en el carrito para comprar \nSeleccionalos en la sección catálogo.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            if (debeIniciarSesion()) return;// Salimos del método sin activar el panel si el usuario es genérico
+            menuPrincipal.getPanelConfirmCompra().llenarTabla(gestionTienda.valorCompra(), gestionTienda.listaCarrito());
+            menuPrincipal.activarPanelConfirmCompra();
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        if (debeIniciarSesion()) return; // Salimos del método sin activar el panel si el usuario es genérico
-        menuPrincipal.activarPanelConfirmCompra();
     }
 
     private boolean debeIniciarSesion() {
@@ -328,13 +336,25 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void aceptarConfirmarCompra() {
-        if (menuPrincipal.getPanelConfirmCompra().seleccionEfectivo()) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(), "Se pagará con efectivo", "Información", JOptionPane.WARNING_MESSAGE);
+        try {
+
+            if (menuPrincipal.getPanelConfirmCompra().seleccionEfectivo()) {
+                ArrayList<String> listaIsbn = menuPrincipal.getPanelCarrito().isbnLibrosCarrito();
+                gestionTienda.registrarCompra(listaIsbn, TipoPago.EFECTIVO);
+            }
+            if (menuPrincipal.getPanelConfirmCompra().seleccionTarjeta()) {
+                ArrayList<String> listaIsbn = menuPrincipal.getPanelCarrito().isbnLibrosCarrito();
+                gestionTienda.registrarCompra(listaIsbn, TipoPago.TARJETA);
+            }
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(), "Su compra ha sido exitosa.");
+            menuPrincipal.getPanelConfirmCompra().setVisible(false);
+            menuPrincipal.activarPanelRecibo();
+            menuPrincipal.getPanelRecibo().modificarLabels(gestionTienda.valorCompra(), gestionTienda.getComprasUserLogin().getLast());
+            menuPrincipal.getPanelCarrito().repaintPanel(new ValorCompra(0,0,0));
+            menuPrincipal.getPanelCarrito().vaciarCarrito();
+        } catch (IOException | RuntimeException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        if (menuPrincipal.getPanelConfirmCompra().seleccionTarjeta()) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(), "Se pagará con Tarjeta de Crédito", "Información", JOptionPane.WARNING_MESSAGE);
-        }
-        menuPrincipal.getPanelConfirmCompra().setVisible(false);
     }
 
     public void cancelarConfirmarCompra() {
