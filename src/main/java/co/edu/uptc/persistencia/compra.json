@@ -45,6 +45,35 @@
           "precioTotal": 84000.0
         }
       ]
+    },
+    {
+      "usuario": "segundo@gmail.com",
+      "nombreUser": "Segundo",
+      "valorCompra": {
+        "subtotal": 180000.0,
+        "impuestos": 14880.0,
+        "total": 194880.0
+      },
+      "numeroRecibo": 3,
+      "fecha": "2025/4/21 03:28 p. m.",
+      "tipoPago": "TARJETA",
+      "direccion": "Calle 34#32, Togui, Boyaca",
+      "listaProductosComprados": [
+        {
+          "isbn": "9786664738480",
+          "titulo": "Sapiens: De animales a dioses",
+          "numeroLibros": 1,
+          "precioUnitario": 42000.0,
+          "precioTotal": 42000.0
+        },
+        {
+          "isbn": "9786664738478",
+          "titulo": "Libro 8",
+          "numeroLibros": 6,
+          "precioUnitario": 23000.0,
+          "precioTotal": 138000.0
+        }
+      ]
     }
   ],
   "segundo@gmail.com": [
