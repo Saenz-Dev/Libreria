@@ -348,8 +348,9 @@ public class VentanaPrincipal extends JFrame {
             }
             JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(), "Su compra ha sido exitosa.");
             menuPrincipal.getPanelConfirmCompra().setVisible(false);
+            menuPrincipal.getPanelRecibo().modificarLabels(gestionTienda.getComprasUserLogin().getLast());
             menuPrincipal.activarPanelRecibo();
-            menuPrincipal.getPanelRecibo().modificarLabels(gestionTienda.valorCompra(), gestionTienda.getComprasUserLogin().getLast());
+
             menuPrincipal.getPanelCarrito().repaintPanel(new ValorCompra(0,0,0));
             menuPrincipal.getPanelCarrito().vaciarCarrito();
         } catch (IOException | RuntimeException e) {

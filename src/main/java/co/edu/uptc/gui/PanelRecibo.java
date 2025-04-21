@@ -73,61 +73,77 @@ public class PanelRecibo extends JDialog {
     }
 
     public PanelRecibo() {
+        setLayout(new GridBagLayout());
         setTitle("Factura de Compra");
+        setLocationRelativeTo(null);
+        setSize(400, 600);
+        setModal(true);
+        setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         initAtributos();
+        modificarRecibo();
     }
 
     private void modificarRecibo() {
         gbc.gridy = 0;
         gbc.gridx = 0;
         gbc.weightx = 1;
+        gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(5, 10, 5, 10);
         add(labelRecibo, gbc);
-        gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 0;
+        gbc.gridy = 1;
         add(labelNombreCliente, gbc);
         gbc.gridy = 2;
         add(labelCorreoElectronico, gbc);
         gbc.gridy = 3;
         add(labelFechaHora, gbc);
         gbc.gridy = 4;
-        add(labelMetodoPago);
-        gbc.gridy = 6;
+        add(labelMetodoPago, gbc);
+        gbc.gridy = 5;
         add(labelNumeroRecibo, gbc);
-        gbc.gridy = 7;
-        add(labelNombreLibreria, gbc);
         gbc.gridy = 8;
-        add(labelTelefonoLibreria, gbc);
+        add(labelNombreLibreria, gbc);
         gbc.gridy = 9;
-        add(labelCorreoLibreria, gbc);
+        add(labelTelefonoLibreria, gbc);
         gbc.gridy = 10;
+        add(labelCorreoLibreria, gbc);
+        gbc.gridy = 11;
         add(labelMensaje, gbc);
     }
 
-    public void modificarLabels(ValorCompra valorCompra, Recibo recibo) {
+    public void modificarLabels(Recibo recibo) {
+        if (getComponentCount() == 0) {
+            modificarRecibo();
+        }
         labelNombreCliente.setText("Nombre: " + recibo.getNombreUser());
         labelCorreoElectronico.setText("Correo: " + recibo.getUsuario());
         labelFechaHora.setText("Fecha y hora: " + recibo.getFecha());
-        labelMetodoPago.setText("Método de pago: " + recibo.getTipoPago());
+        labelMetodoPago.setText("M.Pago: " + recibo.getTipoPago());
         labelNumeroRecibo.setText("Recibo Nº: " + recibo.getNumeroRecibo());
         labelNombreLibreria.setText("Libreria Virtual");
         labelTelefonoLibreria.setText("3105432039");
-        labelCorreoElectronico.setText("libreria.virtual@gmail.com");
+        labelCorreoLibreria.setText("libreria.virtual@gmail.com");
         labelMensaje.setText("Gracias por tu compra, vuelve pronto :)");
-        modificarRecibo();
+
+        llenarTabla(recibo);
+        revalidate();
+        repaint();
     }
 
     public void initAtributos() {
         labelRecibo = new JLabel("RECIBO DE COMPRA");
         labelNombreCliente = new JLabel();
-        labelCorreoElectronico = new JLabel("Correo: ");
+        labelCorreoElectronico = new JLabel();
         labelFechaHora = new JLabel();
-        labelMetodoPago = new JLabel("Método de pago: ");
-        labelNombreLibreria = new JLabel("Librería El Saber");
-        labelTelefonoLibreria = new JLabel("Tel: 123-4567890");
-        labelCorreoLibreria = new JLabel("Correo: contacto@libreria.com");
-        labelNumeroRecibo = new JLabel("Recibo Nº: ");
-        labelMensaje = new JLabel("¡Gracias por tu compra!");
+        labelMetodoPago = new JLabel();
+        labelNombreLibreria = new JLabel();
+        labelTelefonoLibreria = new JLabel();
+        labelCorreoLibreria = new JLabel();
+        labelNumeroRecibo = new JLabel();
+        labelMensaje = new JLabel();
         gbc = new GridBagConstraints();
     }
 
@@ -139,10 +155,11 @@ public class PanelRecibo extends JDialog {
 
         NumberFormat format = NumberFormat.getCurrencyInstance();
         format.setMinimumFractionDigits(0);
-        gbc.gridy = 2;
+        gbc.gridy = 6;
+        gbc.gridheight = 2;
         gbc.weighty = 1.0;
         gbc.weightx = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
 
         String[] cabecera = {"Producto", "Cantidad", "P. Unitario", "Subtotal"};
         DefaultTableModel tableModel = new DefaultTableModel();
@@ -150,15 +167,16 @@ public class PanelRecibo extends JDialog {
 
         //Quede aqui, modificar de aqui para abajo que datos van y cuales no van gracias :)
         for (ProductoCompra productoCompra : recibo.getListaProductosComprados()) {
-            String fecha = String.valueOf(recibo.getFecha());
-            String direccion = recibo.getDireccion();
-            double total = recibo.getValorCompra().getTotal();
-            String tipoPago = String.valueOf(recibo.getTipoPago());
-
-            String tituloLibro = productoCompra.getTitulo();
+            String producto = productoCompra.getTitulo();
             int cantidad = productoCompra.getNumeroLibros();
-            tableModel.addRow(new Object[]{fecha, tituloLibro, direccion, cantidad, format.format(total), tipoPago});
+            double precioUnitario = productoCompra.getPrecioUnitario();
+            double subtotal = productoCompra.getPrecioTotal();
+
+            tableModel.addRow(new Object[]{producto, cantidad, format.format(precioUnitario), format.format(subtotal)});
         }
+        tableModel.addRow(new Object[]{"", "", "Impuestos", format.format(recibo.getValorCompra().getImpuestos())});
+        tableModel.addRow(new Object[]{"", "", "Subtotal", format.format(recibo.getValorCompra().getSubtotal())});
+        tableModel.addRow(new Object[]{"", "", "Total", format.format(recibo.getValorCompra().getTotal())});
 
         tablaCompras = new JTable(tableModel);
         tablaCompras.revalidate();
@@ -175,7 +193,5 @@ public class PanelRecibo extends JDialog {
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         add(scroll, gbc);
-        revalidate();
-        repaint();
     }
 }

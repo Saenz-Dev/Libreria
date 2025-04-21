@@ -50,12 +50,12 @@ public class ManejoCompraJSON {
             leerCompras();
             if (tienda.getRecibos().get(usuarioLog.getCuenta().getCorreo()) == null) {
                 ArrayList<Recibo> listaRecibos = new ArrayList<>();
+                recibo.setNumeroRecibo(numeroFactura());
                 listaRecibos.add(recibo);
                 tienda.getRecibos().put(usuarioLog.getCuenta().getCorreo(), listaRecibos);
                 objectMapper.writeValue(file, tienda.getRecibos());
                 return;
             }
-
             recibo.setNumeroRecibo(numeroFactura());
             tienda.getRecibos().get(usuarioLog.getCuenta().getCorreo()).add(recibo);
 
@@ -70,7 +70,9 @@ public class ManejoCompraJSON {
         int numero = 0;
         for (ArrayList<Recibo> listaRecibos: getTienda().getRecibos().values()) {
             for (Recibo p : listaRecibos) {
-                numero++;
+                for (ProductoCompra compra : p.getListaProductosComprados()) {
+                    numero++;
+                }
             }
         }
         return numero++;

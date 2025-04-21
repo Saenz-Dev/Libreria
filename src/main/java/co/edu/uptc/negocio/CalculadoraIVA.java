@@ -87,7 +87,7 @@ public class CalculadoraIVA {
     public double subtotalProducto(Libro libroParametro, ArrayList<Libro> librosCarrito) {
         for (Libro libro : librosCarrito) {
             if (libro.getIsbn().equals(libroParametro.getIsbn())) {
-                return libroParametro.getStockReservado() * libro.getPrecioVenta();
+                return libro.getStockReservado() * libro.getPrecioVenta();
             }
         }
         return 0;
