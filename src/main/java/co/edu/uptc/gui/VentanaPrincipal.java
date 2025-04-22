@@ -337,13 +337,11 @@ public class VentanaPrincipal extends JFrame {
 
     public void aceptarConfirmarCompra() {
         try {
-
+            ArrayList<String> listaIsbn = menuPrincipal.getPanelCarrito().isbnLibrosCarrito();
             if (menuPrincipal.getPanelConfirmCompra().seleccionEfectivo()) {
-                ArrayList<String> listaIsbn = menuPrincipal.getPanelCarrito().isbnLibrosCarrito();
                 gestionTienda.registrarCompra(listaIsbn, TipoPago.EFECTIVO);
             }
             if (menuPrincipal.getPanelConfirmCompra().seleccionTarjeta()) {
-                ArrayList<String> listaIsbn = menuPrincipal.getPanelCarrito().isbnLibrosCarrito();
                 gestionTienda.registrarCompra(listaIsbn, TipoPago.TARJETA);
             }
             JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(), "Su compra ha sido exitosa.");
@@ -351,7 +349,7 @@ public class VentanaPrincipal extends JFrame {
             menuPrincipal.getPanelRecibo().modificarLabels(gestionTienda.getComprasUserLogin().getLast());
             menuPrincipal.activarPanelRecibo();
 
-            menuPrincipal.getPanelCarrito().repaintPanel(new ValorCompra(0,0,0));
+            menuPrincipal.getPanelCarrito().repaintPanel(new ValorCompra(0,0,0, 0));
             menuPrincipal.getPanelCarrito().vaciarCarrito();
         } catch (IOException | RuntimeException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

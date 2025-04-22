@@ -42,6 +42,10 @@ public class PanelResumenCompra extends JPanel {
      */
     private JLabel labelImpuestos;
 
+    private JLabel labelDescuento;
+
+    private JLabel labelDescuentoValor;
+
     /**
      * Etiqueta descriptiva para el total.
      */
@@ -86,9 +90,11 @@ public class PanelResumenCompra extends JPanel {
         labelImpuestos = new JLabel("Impuestos");
         labelSubtotal = new JLabel("Subtotal");
         labelTotal = new JLabel("Total");
+        labelDescuento = new JLabel("Descuento");
         labelImpuestosValor = new JLabel(format.format(0));
         labelSubtotalValor = new JLabel(format.format(0));
         labelTotalValor = new JLabel(format.format(0));
+        labelDescuentoValor = new JLabel(format.format(0));
         botonComprar = new JButton("Comprar");
         gbc = new GridBagConstraints();
     }
@@ -126,10 +132,15 @@ public class PanelResumenCompra extends JPanel {
         add(labelImpuestosValor, gbc);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.gridy = 3;
+        add(labelDescuento, gbc);
+        gbc.anchor = GridBagConstraints.EAST;
+        add(labelDescuentoValor, gbc);
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.gridy = 4;
         add(labelTotal, gbc);
         gbc.anchor = GridBagConstraints.EAST;
         add(labelTotalValor, gbc);
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -151,6 +162,7 @@ public class PanelResumenCompra extends JPanel {
         labelImpuestosValor.setText(format.format(valorCompra.getImpuestos()));
         labelSubtotalValor.setText(format.format(valorCompra.getSubtotal()));
         labelTotalValor.setText(format.format(valorCompra.getTotal()));
+        labelDescuentoValor.setText(format.format(valorCompra.getDescuento()));
         repaint();
     }
 }

@@ -3,9 +3,7 @@ package co.edu.uptc.negocio;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import co.edu.uptc.modelo.Administrador;
-import co.edu.uptc.modelo.Tienda;
-import co.edu.uptc.modelo.Usuario;
+import co.edu.uptc.modelo.*;
 
 /**
  * Clase encargada de gestionar los usuarios.
@@ -130,16 +128,6 @@ public class GestionUsuario {
     public void modificarUsuarioCarrito(Usuario usuario) throws IOException, IllegalArgumentException {
         expresion.validarDatosUsuario(usuario);
         manejoUsuarioJSON.modificarUsuarioCarrito(usuario);
-    }
-
-    /**
-     * Cierra sesión del usuario logueado
-     * @throws IOException si ocurre algún error cuando no se escribe el usuario en el JSON
-     */
-    public void cerrarSesion() throws IOException {
-        manejoUsuarioJSON.getUsuarioLogin().getCuenta().setLog(false);
-        manejoUsuarioJSON.modificarUsuario(manejoUsuarioJSON.getUsuarioLogin());
-        manejoUsuarioJSON.setUsuarioLogin(null);
     }
 
     public void cerrarSesionUsuario() throws RuntimeException, IOException{

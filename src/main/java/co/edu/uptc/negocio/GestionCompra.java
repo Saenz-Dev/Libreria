@@ -62,6 +62,8 @@ public class GestionCompra {
             valorCompra.setImpuestos(calculadoraIVA.impuestos(usuarioLog.getCarrito()));
             valorCompra.setSubtotal(calculadoraIVA.subtotal(usuarioLog.getCarrito()));
             valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
+            valorCompra.setDescuento(calculadoraIVA.descuento(valorCompra.getTotal(), usuarioLog));
+            valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuento());
             recibo.setValorCompra(valorCompra);
 
             recibo.setTipoPago(tipoPago);

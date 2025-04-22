@@ -324,6 +324,8 @@ public class GestionCarrito {
         valorCompra.setImpuestos(calculadoraIVA.impuestos(carritoLocal));
         valorCompra.setSubtotal(calculadoraIVA.subtotal(carritoLocal));
         valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
+        valorCompra.setDescuento(calculadoraIVA.descuento(valorCompra.getTotal(), manejoUsuarioJSON.getUsuarioLogin()));
+        valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuento());
         return valorCompra;
     }
 

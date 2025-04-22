@@ -5,20 +5,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.edu.uptc.modelo.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.modelo.Tienda;
-import co.edu.uptc.modelo.Usuario;
 
 /**
  * Clase para gestionar la persistencia de usuarios en formato JSON.
  * Permite la lectura, escritura y manipulación de los datos de los usuarios en un archivo JSON.
  */
 public class ManejoUsuarioJSON {
-	
-	private Tienda tienda;
+
+    private Tienda tienda;
 
     /**
      * Archivo donde se almacenan los datos de los usuarios en formato JSON.
@@ -55,7 +52,8 @@ public class ManejoUsuarioJSON {
      * @param listaUsuarios La nueva lista de usuarios.
      */
     public void setListaUsuarios(List<Usuario> listaUsuarios) {
-        tienda.setUsuarios((ArrayList<Usuario>)listaUsuarios);;
+        tienda.setUsuarios((ArrayList<Usuario>) listaUsuarios);
+        ;
     }
 
     /**
@@ -102,9 +100,10 @@ public class ManejoUsuarioJSON {
     public Usuario getUsuarioLogin() {
         return usuarioLogin;
     }
-    
+
     /**
      * Establece el usuario que ha iniciado sesión en el sistema.
+     *
      * @param usuario El usuario autenticado.
      */
     public void setUsuarioLogin(Usuario usuario) {
@@ -122,12 +121,12 @@ public class ManejoUsuarioJSON {
         file = new File(ruta);
     }
 
-    public void leerListaUsuarios() throws IOException{
+    public void leerListaUsuarios() throws IOException {
         tienda.setUsuarios(objectMapper.readValue(file, new TypeReference<ArrayList<Usuario>>() {
         }));
     }
 
-    public void escribirUsuario() throws IOException{
+    public void escribirUsuario() throws IOException {
         objectMapper.writeValue(file, tienda.getUsuarios());
     }
 
@@ -139,13 +138,19 @@ public class ManejoUsuarioJSON {
      */
     public void crearUsuario(Usuario usuario) throws IllegalArgumentException {
         try {
+            Usuario usuarioGuardar;
+            if (usuario.getTipoCliente().equals("Premium")) {
+                usuarioGuardar = new UsuarioPremium(usuario);
+            } else {
+                usuarioGuardar = new UsuarioRegular(usuario);
+            }
             if (tienda.getUsuarios() == null || !file.exists()) {
                 tienda.setUsuarios(new ArrayList<>());
             } else {
                 tienda.setUsuarios(objectMapper.readValue(file, new TypeReference<ArrayList<Usuario>>() {
                 }));
             }
-            tienda.getUsuarios().add(usuario);
+            tienda.getUsuarios().add(usuarioGuardar);
             objectMapper.writeValue(file, tienda.getUsuarios());
         } catch (IOException e) {
             throw new RuntimeException("Error al acceder al archivo JSON de usuarios");
@@ -156,7 +161,7 @@ public class ManejoUsuarioJSON {
      * Modifica los datos del usuario existente en el archivo JSON.
      *
      * @param usuarioBuscar El usuario que se desea modificar.
-     * @throws IOException Si ocurre algún error al leer o escribir el archivo JSON.
+     * @throws IOException              Si ocurre algún error al leer o escribir el archivo JSON.
      * @throws IllegalArgumentException Si la lista de usuarios no está inicializada o el usuario no existe.
      */
     public void modificarUsuario(Usuario usuarioBuscar) throws IOException, IllegalArgumentException {
@@ -196,8 +201,9 @@ public class ManejoUsuarioJSON {
 
     /**
      * Reemplaza los datos del usuario.
+     *
      * @param usuarioBuscado usuario a reemplazar los datos.
-     * @param usuarioBuscar usuario que contiene los datos para reemplazar.
+     * @param usuarioBuscar  usuario que contiene los datos para reemplazar.
      */
     public void actualizarDatosUsuario(Usuario usuarioBuscado, Usuario usuarioBuscar) {
         usuarioBuscado.setNombre(usuarioBuscar.getNombre());
@@ -212,7 +218,7 @@ public class ManejoUsuarioJSON {
     /**
      * Escribe el usuario actualmente autenticado en el archivo JSON.
      *
-     * @throws IOException Si ocurre algún error al leer o escribir el archivo JSON.
+     * @throws IOException              Si ocurre algún error al leer o escribir el archivo JSON.
      * @throws IllegalArgumentException Si la lista de usuarios no está inicializada.
      */
     public void escribirUsuarioLogin() throws IOException, IllegalArgumentException {
@@ -221,7 +227,7 @@ public class ManejoUsuarioJSON {
                 throw new IllegalArgumentException("No hay usuarios registrados");
             }
             tienda.setUsuarios(objectMapper.readValue(file, new TypeReference<ArrayList<Usuario>>() {
-            }))	;
+            }));
             Usuario usuarioBuscado = buscarUsuario(tienda.getUsuarios(), usuarioLogin);
             usuarioBuscado.getCarrito().setLibros(usuarioLogin.getCarrito().getLibros());
             objectMapper.writeValue(file, tienda.getUsuarios());
@@ -233,7 +239,7 @@ public class ManejoUsuarioJSON {
     /**
      * Busca un usuario en la lista de usuarios.
      *
-     * @param usuarioSet Lista de usuarios.
+     * @param usuarioSet    Lista de usuarios.
      * @param usuarioBuscar Usuario a buscar.
      * @return Usuario encontrado.
      */
@@ -296,5 +302,11 @@ public class ManejoUsuarioJSON {
         }
 
     }
+
+//    public void x(Usuario usuario) {
+//        if (usuario instanceof UsuarioPremium) {
+//            usuario.setCarrito(new Carrito());
+//        }
+//    }
 
 }

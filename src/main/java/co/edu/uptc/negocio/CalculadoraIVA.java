@@ -2,6 +2,7 @@ package co.edu.uptc.negocio;
 
 import co.edu.uptc.modelo.Carrito;
 import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.Usuario;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -91,6 +92,10 @@ public class CalculadoraIVA {
             }
         }
         return 0;
+    }
+
+    public double descuento(double total, Usuario usuario) {
+        return total * usuario.getDescuentoTipoUsuario();
     }
 }
 

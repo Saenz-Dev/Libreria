@@ -176,6 +176,7 @@ public class PanelRecibo extends JDialog {
         }
         tableModel.addRow(new Object[]{"", "", "Impuestos", format.format(recibo.getValorCompra().getImpuestos())});
         tableModel.addRow(new Object[]{"", "", "Subtotal", format.format(recibo.getValorCompra().getSubtotal())});
+        tableModel.addRow(new Object[]{"", "", "Descuento", format.format(recibo.getValorCompra().getDescuento())});
         tableModel.addRow(new Object[]{"", "", "Total", format.format(recibo.getValorCompra().getTotal())});
 
         tablaCompras = new JTable(tableModel);

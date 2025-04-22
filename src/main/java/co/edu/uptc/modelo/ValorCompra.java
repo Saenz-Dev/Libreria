@@ -27,6 +27,8 @@ public class ValorCompra implements Serializable{
      */
     private double total;
 
+    private double descuento;
+
     /**
      * Constructor con parámetros para inicializar los valores de la compra.
      *
@@ -34,10 +36,11 @@ public class ValorCompra implements Serializable{
      * @param impuestos El monto de los impuestos aplicados a la compra.
      * @param total     El total a pagar después de aplicar impuestos.
      */
-    public ValorCompra(double subtotal, double impuestos, double total) {
+    public ValorCompra(double subtotal, double impuestos, double total, double descuento) {
         this.subtotal = subtotal;
         this.impuestos = impuestos;
         this.total = total;
+        this.descuento = descuento;
     }
 
     /**
@@ -97,5 +100,13 @@ public class ValorCompra implements Serializable{
      */
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
     }
 }

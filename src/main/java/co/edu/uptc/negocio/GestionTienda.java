@@ -162,9 +162,12 @@ public class GestionTienda {
     public ValorCompra valorCompra() {
         ValorCompra valorCompra = new ValorCompra();
         CalculadoraIVA calculadoraIVA = new CalculadoraIVA();
+
         valorCompra.setImpuestos(calculadoraIVA.impuestos(carritoUserLog()));
         valorCompra.setSubtotal(calculadoraIVA.subtotal(carritoUserLog()));
-        valorCompra.setTotal(calculadoraIVA.total(valorCompra.getImpuestos(), valorCompra.getSubtotal()));
+        valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
+        valorCompra.setDescuento(calculadoraIVA.descuento(valorCompra.getTotal(), gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin()));
+        valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuento());
         return valorCompra;
     }
 }
