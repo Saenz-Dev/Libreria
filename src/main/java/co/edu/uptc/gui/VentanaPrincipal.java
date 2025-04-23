@@ -309,8 +309,18 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    public void eliminarProductoTabla(String isbnProducto) {
+        try {
+            gestionTienda.eliminarProductoCarrito(isbnProducto);
+            menuPrincipal.getPanelConfirmCompra().llenarTabla(gestionTienda.valorCompra(), gestionTienda.listaCarrito());
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     public void activarCancelarEliminarLibro() {
         menuPrincipal.activarPanelGestionLibro();
+        activarCarrito();
     }
 
     public void activarPanelConfirmCompra() {
@@ -341,6 +351,13 @@ public class VentanaPrincipal extends JFrame {
 
     public void aceptarConfirmarCompra() {
         try {
+            if (gestionTienda.getUserLogin().getCarrito().getLibros().isEmpty()) {
+                menuPrincipal.getPanelConfirmCompra().setVisible(false);
+                JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(), "No puede continuar con la compra, no tiene productos en el carrito...", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                activarCarrito();
+                return;
+            }
+
             ArrayList<String> listaIsbn = menuPrincipal.getPanelCarrito().isbnLibrosCarrito();
             if (menuPrincipal.getPanelConfirmCompra().seleccionEfectivo()) {
                 gestionTienda.registrarCompra(listaIsbn, TipoPago.EFECTIVO);
@@ -362,6 +379,7 @@ public class VentanaPrincipal extends JFrame {
 
     public void cancelarConfirmarCompra() {
         menuPrincipal.getPanelConfirmCompra().setVisible(false);
+        activarCarrito();
     }
 
     public void cerrarSesionUsuario() {
@@ -374,6 +392,4 @@ public class VentanaPrincipal extends JFrame {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    //TODO implementar que cuando inicie la app se muestre la interfaz de Catalogo con un usuario 'user_default' y que haya un boton arriba de cerrar sesión que sea el de iniciar sesión...:) y pues también la lógica obviamente
 }

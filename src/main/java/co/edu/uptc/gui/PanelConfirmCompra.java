@@ -21,6 +21,7 @@ public class PanelConfirmCompra extends JDialog {
     private ButtonGroup buttonGroup;
     private JTable tablaCompras;
     private JScrollPane scroll;
+    private VentanaPrincipal ventanaPrincipal;
 
     public ButtonGroup getButtonGroup() {
         return buttonGroup;
@@ -34,7 +35,8 @@ public class PanelConfirmCompra extends JDialog {
         return botonTarjeta.isSelected();
     }
 
-    public PanelConfirmCompra(Evento evento) {
+    public PanelConfirmCompra(VentanaPrincipal ventanaPrincipal, Evento evento) {
+        this.ventanaPrincipal = ventanaPrincipal;
         setTitle("Confirmar Compra");
         revalidate();
         repaint();
@@ -111,6 +113,8 @@ public class PanelConfirmCompra extends JDialog {
             remove(scroll);
         }
 
+        botonEfectivo.setSelected(true);
+
         NumberFormat format = NumberFormat.getCurrencyInstance();
         format.setMinimumFractionDigits(0);
         gbc.gridy = 0;
@@ -122,26 +126,28 @@ public class PanelConfirmCompra extends JDialog {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.NORTH;
 
-        String[] cabecera = {"Producto", "Cantidad", "Valor"};
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.setColumnIdentifiers(cabecera);
+        DefaultTableModel tableModel = getDefaultTableModel();
 
 
         for (ProductoCompra productoCompra : listaCarrito) {
+            String isbn = productoCompra.getIsbn();
             String tituloLibro = productoCompra.getTitulo();
             int cantidad = productoCompra.getNumeroLibros();
             double valor = productoCompra.getPrecioTotal();
-            tableModel.addRow(new Object[]{tituloLibro, cantidad, format.format(valor)});
+            tableModel.addRow(new Object[]{isbn, tituloLibro, cantidad, format.format(valor), false});
         }
 
-
-        tableModel.addRow(new Object[]{"", "Subtotal", format.format(valorCompra.getSubtotal())});
-        tableModel.addRow(new Object[]{"", "Impuestos", "+ " +  format.format(valorCompra.getImpuestos())});
-        tableModel.addRow(new Object[]{"", "Desc. Premium", "- " +  format.format(valorCompra.getDescuentoPremium())});
-        tableModel.addRow(new Object[]{"", "Des. Frecuencia", "- " +  format.format(valorCompra.getDescuentoFrecuencia())});
-        tableModel.addRow(new Object[]{"", "Total", format.format(valorCompra.getTotal())});
+        tableModel.addRow(new Object[]{"", "", "Subtotal", format.format(valorCompra.getSubtotal())});
+        tableModel.addRow(new Object[]{"", "", "Impuestos", "+ " +  format.format(valorCompra.getImpuestos())});
+        tableModel.addRow(new Object[]{"", "", "Desc. Premium", "- " +  format.format(valorCompra.getDescuentoPremium())});
+        tableModel.addRow(new Object[]{"", "", "Des. Frecuencia", "- " +  format.format(valorCompra.getDescuentoFrecuencia())});
+        tableModel.addRow(new Object[]{"", "", "Total", format.format(valorCompra.getTotal())});
 
         tablaCompras = new JTable(tableModel);
+
+        tablaCompras.getColumnModel().getColumn(4).setCellRenderer(new EventoRenderTable());
+
+        tablaCompras.getDefaultEditor(Boolean.class).addCellEditorListener(new EventoCelda(tablaCompras, ventanaPrincipal));
         tablaCompras.revalidate();
         tablaCompras.repaint();
         tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -159,4 +165,26 @@ public class PanelConfirmCompra extends JDialog {
         revalidate();
         repaint();
     }
+
+    private static DefaultTableModel getDefaultTableModel() {
+        String[] cabecera = {"ISBN", "Producto", "Cantidad", "Valor", "Eliminar"};
+        DefaultTableModel tableModel = new DefaultTableModel() {
+            public Class<?> getColumnClass(int indexColumna) {
+                return indexColumna == 4 ?  Boolean.class : String.class;
+            }
+
+            public boolean isCellEditable(int row, int column) {
+                return column == 4 && tieneCheckBox(row);
+            }
+
+            public boolean tieneCheckBox(int fila) {
+                String nombre = (String) getValueAt(fila, 0);
+                return nombre != null && !nombre.isEmpty();
+            }
+        };
+        tableModel.setColumnIdentifiers(cabecera);
+        return tableModel;
+    }
+
+
 }

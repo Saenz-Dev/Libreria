@@ -293,7 +293,7 @@ public class MenuPrincipal extends JPanel {
         panelModificarLibro = new PanelModificarLibro(evento, eventoLista);
         panelModificarUsuario = new PanelModificarUsuario(evento);
         panelEliminarLibro = new PanelEliminarLibro(ventanaPrincipal, evento);
-        panelConfirmCompra = new PanelConfirmCompra(evento);
+        panelConfirmCompra = new PanelConfirmCompra(ventanaPrincipal, evento);
         panelGestionLibro = new PanelGestionLibro(evento);
         panelInicioSesion = new PanelInicioSesion(evento);
         panelRecibo = new PanelRecibo();

@@ -105,6 +105,7 @@ public class CalculadoraIVA {
 
     public double descuentoFrecuencia(double total, Tienda tienda, Usuario usuario) throws IOException {
         ArrayList<Recibo> recibosUsuario = tienda.getRecibos().get(usuario.getCuenta().getCorreo());
+        if (recibosUsuario == null || recibosUsuario.isEmpty()) return 0;
         if (recibosUsuario.size() == 10) return total * descFrecuencia.getDESCUENTO_DIEZ_COMPRAS();
         if (recibosUsuario.size() == 50) return total * descFrecuencia.getDESCUENTO_CINCUENTA_COMPRAS();
         if (recibosUsuario.size() == 100) return total * descFrecuencia.getDESCUENTO_CIEN_COMPRAS();
