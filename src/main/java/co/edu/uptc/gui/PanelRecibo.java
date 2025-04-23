@@ -2,15 +2,12 @@ package co.edu.uptc.gui;
 
 import co.edu.uptc.modelo.ProductoCompra;
 import co.edu.uptc.modelo.Recibo;
-import co.edu.uptc.modelo.Usuario;
-import co.edu.uptc.modelo.ValorCompra;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 
 public class PanelRecibo extends JDialog {
 
@@ -174,9 +171,10 @@ public class PanelRecibo extends JDialog {
 
             tableModel.addRow(new Object[]{producto, cantidad, format.format(precioUnitario), format.format(subtotal)});
         }
-        tableModel.addRow(new Object[]{"", "", "Impuestos", format.format(recibo.getValorCompra().getImpuestos())});
         tableModel.addRow(new Object[]{"", "", "Subtotal", format.format(recibo.getValorCompra().getSubtotal())});
-        tableModel.addRow(new Object[]{"", "", "Descuento", format.format(recibo.getValorCompra().getDescuento())});
+        tableModel.addRow(new Object[]{"", "", "Impuestos", "+ " + format.format(recibo.getValorCompra().getImpuestos())});
+        tableModel.addRow(new Object[]{"", "", "Desc. Premium", "- " +  format.format(recibo.getValorCompra().getDescuentoPremium())});
+        tableModel.addRow(new Object[]{"","", "Desc. Frecuencia", "- " +  format.format(recibo.getValorCompra().getDescuentoFrecuencia())});
         tableModel.addRow(new Object[]{"", "", "Total", format.format(recibo.getValorCompra().getTotal())});
 
         tablaCompras = new JTable(tableModel);

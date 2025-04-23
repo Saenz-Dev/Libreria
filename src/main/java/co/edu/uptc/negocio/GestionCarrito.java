@@ -318,14 +318,15 @@ public class GestionCarrito {
      *
      * @return valor total del carrito
      */
-    public ValorCompra calculoResumenCompra() {
+    public ValorCompra calculoResumenCompra() throws IOException {
         ValorCompra valorCompra = new ValorCompra();
         Carrito carritoLocal = manejoUsuarioJSON.getUsuarioLogin().getCarrito();
         valorCompra.setImpuestos(calculadoraIVA.impuestos(carritoLocal));
         valorCompra.setSubtotal(calculadoraIVA.subtotal(carritoLocal));
         valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
-        valorCompra.setDescuento(calculadoraIVA.descuento(valorCompra.getTotal(), manejoUsuarioJSON.getUsuarioLogin()));
-        valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuento());
+        valorCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(valorCompra.getTotal(), manejoUsuarioJSON.getUsuarioLogin()));
+        valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(valorCompra.getTotal(), manejoUsuarioJSON.getTienda(), manejoUsuarioJSON.getUsuarioLogin()));
+        valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuentoPremium());
         return valorCompra;
     }
 

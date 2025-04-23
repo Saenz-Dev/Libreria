@@ -8,6 +8,6 @@ public class UsuarioPremium extends Usuario implements Serializable {
 
     public UsuarioPremium(Usuario usuario) {
         super(usuario);
-        super.setDescuentoTipoUsuario(0.08);
+        super.setDescuentoTipoUsuario(0.2); //TODO puede que al haber cambiado de 0.08 a 0.2 me genere error al leer o escribir el archivo
     }
 }

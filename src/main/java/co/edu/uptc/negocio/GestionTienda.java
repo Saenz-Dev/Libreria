@@ -99,7 +99,8 @@ public class GestionTienda {
     // ---------------------------------------------Métodos de
     // GesionCarrito----------------------------------------------------------------------
 
-    public ValorCompra resumenCompra() {
+    public ValorCompra resumenCompra() throws IOException {
+        gestionCompra.getManejoCompraJSON().leerCompras();
         return gestionCarrito.calculoResumenCompra();
     }
 
@@ -159,15 +160,16 @@ public class GestionTienda {
         return listaCarrito;
     }
 
-    public ValorCompra valorCompra() {
+    public ValorCompra valorCompra() throws IOException {
         ValorCompra valorCompra = new ValorCompra();
         CalculadoraIVA calculadoraIVA = new CalculadoraIVA();
 
         valorCompra.setImpuestos(calculadoraIVA.impuestos(carritoUserLog()));
         valorCompra.setSubtotal(calculadoraIVA.subtotal(carritoUserLog()));
         valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
-        valorCompra.setDescuento(calculadoraIVA.descuento(valorCompra.getTotal(), gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin()));
-        valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuento());
+        valorCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(valorCompra.getTotal(), gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin()));
+        valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(valorCompra.getTotal(), tienda, gestionUsuario.userLogin()));
+        valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuentoPremium());
         return valorCompra;
     }
 }

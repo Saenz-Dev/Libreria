@@ -110,6 +110,10 @@ public class ManejoUsuarioJSON {
         usuarioLogin = usuario;
     }
 
+    public Tienda getTienda() {
+        return tienda;
+    }
+
     /**
      * Constructor de la clase ManejoUsuarioJSON.
      * Inicializa el ObjectMapper, la lista de usuarios y define la ruta del archivo JSON.

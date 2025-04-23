@@ -115,10 +115,14 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void activarCarrito() {
-        menuPrincipal.activarPanelCarrito();
-        menuPrincipal.getPanelCarrito().anadirProductosPanel(gestionTienda.getUserLogin().getCarrito().getLibros());
-        ValorCompra valorCompra = gestionTienda.resumenCompra();
-        menuPrincipal.getPanelCarrito().modificarValores(valorCompra);
+        try {
+            menuPrincipal.activarPanelCarrito();
+            menuPrincipal.getPanelCarrito().anadirProductosPanel(gestionTienda.getUserLogin().getCarrito().getLibros());
+            ValorCompra valorCompra = gestionTienda.resumenCompra();
+            menuPrincipal.getPanelCarrito().modificarValores(valorCompra);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(menuPrincipal, e.getMessage(), "Cerrar Sesión", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void activarPanelCompras() {
@@ -315,10 +319,10 @@ public class VentanaPrincipal extends JFrame {
                 JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), "No hay productos en el carrito para comprar \nSeleccionalos en la sección catálogo.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            if (debeIniciarSesion()) return;// Salimos del método sin activar el panel si el usuario es genérico
+            if (debeIniciarSesion()) return;// Salimos del metodo sin activar el panel si el usuario es genérico
             menuPrincipal.getPanelConfirmCompra().llenarTabla(gestionTienda.valorCompra(), gestionTienda.listaCarrito());
             menuPrincipal.activarPanelConfirmCompra();
-        } catch (RuntimeException e) {
+        } catch (RuntimeException | IOException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -349,7 +353,7 @@ public class VentanaPrincipal extends JFrame {
             menuPrincipal.getPanelRecibo().modificarLabels(gestionTienda.getComprasUserLogin().getLast());
             menuPrincipal.activarPanelRecibo();
 
-            menuPrincipal.getPanelCarrito().repaintPanel(new ValorCompra(0,0,0, 0));
+            menuPrincipal.getPanelCarrito().repaintPanel(new ValorCompra(0, 0, 0, 0, 0));
             menuPrincipal.getPanelCarrito().vaciarCarrito();
         } catch (IOException | RuntimeException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

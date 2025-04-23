@@ -208,7 +208,7 @@ public class MenuPrincipal extends JPanel {
     }
 
     /**
-     * Método duplicado de getPanelModificarUsuario. Se recomienda eliminar o corregir si tiene un propósito diferente.
+     * Metodo duplicado de getPanelModificarUsuario. Se recomienda eliminar o corregir si tiene un propósito diferente.
      *
      * @return PanelModificarUsuario utilizado para actualizar usuarios.
      */
