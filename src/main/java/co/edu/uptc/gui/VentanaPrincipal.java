@@ -1,9 +1,6 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.modelo.ResumenProductoDTO;
-import co.edu.uptc.modelo.Usuario;
-import co.edu.uptc.modelo.ValorCompra;
+import co.edu.uptc.modelo.*;
 import co.edu.uptc.negocio.*;
 
 import javax.swing.*;
@@ -115,10 +112,14 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void activarCarrito() {
-        menuPrincipal.activarPanelCarrito();
-        menuPrincipal.getPanelCarrito().anadirProductosPanel(gestionTienda.getUserLogin().getCarrito().getLibros());
-        ValorCompra valorCompra = gestionTienda.resumenCompra();
-        menuPrincipal.getPanelCarrito().modificarValores(valorCompra);
+        try {
+            menuPrincipal.activarPanelCarrito();
+            menuPrincipal.getPanelCarrito().anadirProductosPanel(gestionTienda.getUserLogin().getCarrito().getLibros());
+            ValorCompra valorCompra = gestionTienda.resumenCompra();
+            menuPrincipal.getPanelCarrito().modificarValores(valorCompra);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(menuPrincipal, e.getMessage(), "Cerrar Sesión", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void activarPanelCompras() {
@@ -305,8 +306,18 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    public void eliminarProductoTabla(String isbnProducto) {
+        try {
+            gestionTienda.eliminarProductoCarrito(isbnProducto);
+            menuPrincipal.getPanelConfirmCompra().llenarTabla(gestionTienda.valorCompra(), gestionTienda.listaCarrito());
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     public void activarCancelarEliminarLibro() {
         menuPrincipal.activarPanelGestionLibro();
+        activarCarrito();
     }
 
     public void activarPanelConfirmCompra() {
@@ -315,10 +326,10 @@ public class VentanaPrincipal extends JFrame {
                 JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), "No hay productos en el carrito para comprar \nSeleccionalos en la sección catálogo.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            if (debeIniciarSesion()) return;// Salimos del método sin activar el panel si el usuario es genérico
+            if (debeIniciarSesion()) return;// Salimos del metodo sin activar el panel si el usuario es genérico
             menuPrincipal.getPanelConfirmCompra().llenarTabla(gestionTienda.valorCompra(), gestionTienda.listaCarrito());
             menuPrincipal.activarPanelConfirmCompra();
-        } catch (RuntimeException e) {
+        } catch (RuntimeException | IOException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -337,13 +348,18 @@ public class VentanaPrincipal extends JFrame {
 
     public void aceptarConfirmarCompra() {
         try {
+            if (gestionTienda.getUserLogin().getCarrito().getLibros().isEmpty()) {
+                menuPrincipal.getPanelConfirmCompra().setVisible(false);
+                JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(), "No puede continuar con la compra, no tiene productos en el carrito...", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                activarCarrito();
+                return;
+            }
 
+            ArrayList<String> listaIsbn = menuPrincipal.getPanelCarrito().isbnLibrosCarrito();
             if (menuPrincipal.getPanelConfirmCompra().seleccionEfectivo()) {
-                ArrayList<String> listaIsbn = menuPrincipal.getPanelCarrito().isbnLibrosCarrito();
                 gestionTienda.registrarCompra(listaIsbn, TipoPago.EFECTIVO);
             }
             if (menuPrincipal.getPanelConfirmCompra().seleccionTarjeta()) {
-                ArrayList<String> listaIsbn = menuPrincipal.getPanelCarrito().isbnLibrosCarrito();
                 gestionTienda.registrarCompra(listaIsbn, TipoPago.TARJETA);
             }
             JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(), "Su compra ha sido exitosa.");
@@ -351,7 +367,7 @@ public class VentanaPrincipal extends JFrame {
             menuPrincipal.getPanelRecibo().modificarLabels(gestionTienda.getComprasUserLogin().getLast());
             menuPrincipal.activarPanelRecibo();
 
-            menuPrincipal.getPanelCarrito().repaintPanel(new ValorCompra(0,0,0));
+            menuPrincipal.getPanelCarrito().repaintPanel(new ValorCompra(0, 0, 0, 0, 0));
             menuPrincipal.getPanelCarrito().vaciarCarrito();
         } catch (IOException | RuntimeException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -360,6 +376,7 @@ public class VentanaPrincipal extends JFrame {
 
     public void cancelarConfirmarCompra() {
         menuPrincipal.getPanelConfirmCompra().setVisible(false);
+        activarCarrito();
     }
 
     public void cerrarSesionUsuario() {
@@ -373,5 +390,33 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
-    //TODO implementar que cuando inicie la app se muestre la interfaz de Catalogo con un usuario 'user_default' y que haya un boton arriba de cerrar sesión que sea el de iniciar sesión...:) y pues también la lógica obviamente
+    public void activarRegistrarComentario(String isbn, String nombreLibro) {
+        menuPrincipal.getPanelCalificar().setLabelLibro(isbn, nombreLibro);
+        menuPrincipal.activarPanelCalificar();
+    }
+
+    public void registrarComentario() {
+        try {
+            Comentario comentario = menuPrincipal.getPanelCalificar().getComentario();
+            gestionTienda.guardarComentario(comentario);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelCalificar(), "Comentario registrado exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            menuPrincipal.desactivarPanelCalificar();
+            menuPrincipal.getPanelCalificar().limpiarComentario();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    public void activarMostrarComentario(String isbn) {
+        try {
+            menuPrincipal.getPanelComentario().agregarComentarios(gestionTienda.listarComentarios(isbn));
+            menuPrincipal.getPanelComentario().setVisible(true);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje", JOptionPane.WARNING_MESSAGE);
+        }
+    }
 }

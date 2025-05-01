@@ -31,6 +31,10 @@ public class ManejoLibroJSON {
 
     private Tienda tienda;
 
+    public Tienda getTienda() {
+        return tienda;
+    }
+
     /**
      * Objeto utilizado para manejar la serialización y deserialización de objetos
      * en formato JSON.

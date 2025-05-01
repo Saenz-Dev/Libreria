@@ -28,6 +28,8 @@ public class PanelLibro extends JPanel {
     /** Botón para agregar el libro al carrito de compras. */
     private JButton botonAgregar;
 
+    private JButton botonComentario;
+
     /** Objeto que gestiona los eventos del catálogo. */
     private EventoCatalogo eventoCatalogo;
 
@@ -47,7 +49,7 @@ public class PanelLibro extends JPanel {
         gbc = new GridBagConstraints();
         setBorder(new LineBorder(Color.WHITE, 1, true));
         setBackground(Color.WHITE);
-        setPreferredSize(new Dimension(20, 150));
+        setPreferredSize(new Dimension(20, 170));
 
         modificarAtributos(libro);
         personalizar();
@@ -55,11 +57,14 @@ public class PanelLibro extends JPanel {
 
         botonAgregar.addActionListener(eventoCatalogo);
         botonAgregar.setActionCommand(eventoCatalogo.AGREGAR_LIBRO);
+        botonComentario.addActionListener(eventoCatalogo);
+        botonComentario.setActionCommand(eventoCatalogo.VER_COMENTARIOS);
 
         gbc.gridy = 0;
         gbc.gridx = 0;
         gbc.weightx = 1;
         gbc.weighty = 1;
+        gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(2, 0, 2, 0);
@@ -73,6 +78,8 @@ public class PanelLibro extends JPanel {
         add(labelPrecio, gbc);
         gbc.gridy = 4;
         habilitacionBoton(libro.getStockDisponible() > 0);
+        gbc.gridy = 5;
+        add(botonComentario, gbc);
     }
 
     /**
@@ -87,6 +94,7 @@ public class PanelLibro extends JPanel {
         labelCategoriaPaginas = new JLabel(libro.getCategoria() + ((libro.getNumeroPaginas() != 0 ? " - " + libro.getNumeroPaginas()+ " pags." : "")));
         labelPrecio = new JLabel(String.valueOf(format.format(libro.getPrecioVenta())));
         botonAgregar = new JButton("Agregar al carrito");
+        botonComentario = new JButton("Comentarios");
     }
 
     /**

@@ -1,15 +1,21 @@
 package co.edu.uptc.negocio;
 
-import co.edu.uptc.modelo.Carrito;
-import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Clase encargada de realizar cálculos sobre el carrito de compras.
  */
 public class CalculadoraIVA {
+
+    private DescFrecuencia descFrecuencia;
+
+    public CalculadoraIVA() {
+        descFrecuencia = new DescFrecuencia();
+    }
 
     /**
      * Método que devuelve el subtotal total de un carrito
@@ -90,6 +96,19 @@ public class CalculadoraIVA {
                 return libro.getStockReservado() * libro.getPrecioVenta();
             }
         }
+        return 0;
+    }
+
+    public double descuentoPremium(double total, Usuario usuario) {
+        return total * usuario.getDescuentoTipoUsuario();
+    }
+
+    public double descuentoFrecuencia(double total, Tienda tienda, Usuario usuario) throws IOException {
+        ArrayList<Recibo> recibosUsuario = tienda.getRecibos().get(usuario.getCuenta().getCorreo());
+        if (recibosUsuario == null || recibosUsuario.isEmpty()) return 0;
+        if (recibosUsuario.size() == 10) return total * descFrecuencia.getDESCUENTO_DIEZ_COMPRAS();
+        if (recibosUsuario.size() == 50) return total * descFrecuencia.getDESCUENTO_CINCUENTA_COMPRAS();
+        if (recibosUsuario.size() == 100) return total * descFrecuencia.getDESCUENTO_CIEN_COMPRAS();
         return 0;
     }
 }

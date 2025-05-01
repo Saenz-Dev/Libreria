@@ -2,7 +2,6 @@ package co.edu.uptc.negocio;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -62,20 +61,14 @@ public class GestionCompra {
             valorCompra.setImpuestos(calculadoraIVA.impuestos(usuarioLog.getCarrito()));
             valorCompra.setSubtotal(calculadoraIVA.subtotal(usuarioLog.getCarrito()));
             valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
+            valorCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(valorCompra.getTotal(), usuarioLog));
+            valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(valorCompra.getTotal(), manejoCompraJSON.getTienda(), usuarioLog));
+            valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuentoPremium() - valorCompra.getDescuentoFrecuencia());
             recibo.setValorCompra(valorCompra);
 
             recibo.setTipoPago(tipoPago);
         }
         manejoCompraJSON.crearCompra(recibo, usuarioLog);
-    }
-
-    public double buscarCantidadLibro(String isbn, Usuario usuario) {
-        for (Libro libro : usuario.getCarrito().getLibros()) {
-            if (libro.getIsbn().equals(isbn)) {
-                return libro.getStockReservado();
-            }
-        }
-        return -1;
     }
 
     public Usuario buscarUsuarioLogin() {

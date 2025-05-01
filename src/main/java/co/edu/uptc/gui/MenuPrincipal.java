@@ -153,6 +153,10 @@ public class MenuPrincipal extends JPanel {
      */
     private PanelConfirmCompra panelConfirmCompra;
 
+    private PanelComentario panelComentario;
+
+    private PanelCalificar panelCalificar;
+
     /**
      * Obtiene el panel de compras del usuario.
      *
@@ -208,7 +212,7 @@ public class MenuPrincipal extends JPanel {
     }
 
     /**
-     * Método duplicado de getPanelModificarUsuario. Se recomienda eliminar o corregir si tiene un propósito diferente.
+     * Metodo duplicado de getPanelModificarUsuario. Se recomienda eliminar o corregir si tiene un propósito diferente.
      *
      * @return PanelModificarUsuario utilizado para actualizar usuarios.
      */
@@ -269,11 +273,26 @@ public class MenuPrincipal extends JPanel {
         return panelConfirmCompra;
     }
 
+    public PanelComentario getPanelComentario() {
+        return panelComentario;
+    }
+
+    public void setPanelComentario(PanelComentario panelComentario) {
+        this.panelComentario = panelComentario;
+    }
+
+    public PanelCalificar getPanelCalificar() {
+        return panelCalificar;
+    }
+
+    public void setPanelCalificar(PanelCalificar panelCalificar) {
+        this.panelCalificar = panelCalificar;
+    }
+
     /**
      * Constructor del menú principal, inicializa los paneles y los agrega al cardLayout.
      *
      * @param evento Manejador de eventos principal de la aplicación.
-     * @param eventoLista Manejador de eventos de la lista de libros a modificar en el comboBox.
      * @param ventanaPrincipal Referencia de ventanas de la aplicación.
      */
     public MenuPrincipal(Evento evento, VentanaPrincipal ventanaPrincipal) {
@@ -285,7 +304,7 @@ public class MenuPrincipal extends JPanel {
         panelCatalogo = new PanelCatalogo(ventanaPrincipal);
         panelPerfil = new PanelPerfil(evento);
         panelCarrito = new PanelCarrito(ventanaPrincipal, evento);
-        panelCompras = new PanelCompras();
+        panelCompras = new PanelCompras(evento, ventanaPrincipal);
         scrollTabla = new JScrollPane(panelCompras);
         panelGestionLibro = new PanelGestionLibro(evento);
         panelRegistrarLibro = new PanelRegistrarLibro(evento);
@@ -293,9 +312,11 @@ public class MenuPrincipal extends JPanel {
         panelModificarLibro = new PanelModificarLibro(evento, eventoLista);
         panelModificarUsuario = new PanelModificarUsuario(evento);
         panelEliminarLibro = new PanelEliminarLibro(ventanaPrincipal, evento);
-        panelConfirmCompra = new PanelConfirmCompra(evento);
+        panelConfirmCompra = new PanelConfirmCompra(ventanaPrincipal, evento);
         panelGestionLibro = new PanelGestionLibro(evento);
         panelInicioSesion = new PanelInicioSesion(evento);
+        panelComentario = new PanelComentario();
+        panelCalificar = new PanelCalificar(evento);
         panelRecibo = new PanelRecibo();
         clPrincipal = new CardLayout();
         panelClPrincipal = new JPanel(clPrincipal);
@@ -563,5 +584,25 @@ public class MenuPrincipal extends JPanel {
 
     public void activarPanelRecibo() {
         panelRecibo.setVisible(true);
+    }
+
+    public void activarPanelComentario() {
+        panelComentario.setVisible(true);
+    }
+
+    public void desactivarPanelComentario() {
+        panelComentario.setVisible(false);
+    }
+
+    public void activarPanelCalificar() {
+        panelCalificar.setVisible(true);
+    }
+
+    public void desactivarPanelCalificar() {
+        panelCalificar.setVisible(false);
+    }
+
+    public String getIsbn() {
+        return "";
     }
 }

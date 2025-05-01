@@ -11,7 +11,7 @@ public class Usuario implements Serializable{
     /**
      * 
      */
-    private static final long serialVersionUID = 7354483159484201335L;
+    public static final long serialVersionUID = 7354483159484201335L;
 
     /**
      * Nombre del usuario.
@@ -38,15 +38,29 @@ public class Usuario implements Serializable{
      */
     private Cuenta cuenta;
 
+    private double descuentoTipoUsuario;
+
     /**
      * Carrito de compras del usuario, donde se almacenan los libros seleccionados.
      */
     private Carrito carrito;
 
-
     public Usuario() {
         cuenta = new Cuenta();
         carrito = new Carrito();
+    }
+
+    public Usuario(Usuario usuario) {
+        cuenta = new Cuenta();
+        carrito = new Carrito();
+        nombre = usuario.getNombre();
+        direccionEnvio = usuario.getDireccionEnvio();
+        telefono = usuario.getTelefono();
+        tipoCliente = usuario.getTipoCliente();
+        cuenta.setCorreo(usuario.getCuenta().getCorreo());
+        cuenta.setContrasena(usuario.getCuenta().getContrasena());
+        descuentoTipoUsuario = 0;
+        cuenta.setLog(false);
     }
 
     /**
@@ -161,4 +175,11 @@ public class Usuario implements Serializable{
         this.carrito = carrito;
     }
 
+    public double getDescuentoTipoUsuario() {
+        return descuentoTipoUsuario;
+    }
+
+    public void setDescuentoTipoUsuario(double descuentoTipoUsuario) {
+        this.descuentoTipoUsuario = descuentoTipoUsuario;
+    }
 }

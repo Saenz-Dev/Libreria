@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Clase encargada de gestionar el carrito de compras del usuario.
@@ -286,13 +287,30 @@ public class GestionCarrito {
 
         if (index >= 0) {
             Libro libroModificar = encontrarLibro(isbnProducto, catalogo);
-            libroModificar.setIsComprado(false);
+            libroModificar.setIsComprado(isComprado(isbnProducto));
             libroModificar.eliminarReserva(librosCarrito.get(index).getStockReservado());
             manejoLibroJSON.escribirLibros(catalogo);
             librosCarrito.remove(index);
 
             actualizarCantidadProducto(catalogo);
         }
+    }
+
+    public boolean isComprado(String isbn) {
+        TreeMap<String, ArrayList<Recibo>> datosRecibos = manejoLibroJSON.getTienda().getRecibos();
+        if (datosRecibos.isEmpty()) {
+            return false;
+        }
+        for (ArrayList<Recibo> listaRecibo : datosRecibos.values()) {
+            for (Recibo recibo : listaRecibo) {
+                for (ProductoCompra productoCompra : recibo.getListaProductosComprados()) {
+                    if (productoCompra.getIsbn().equals(isbn)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -318,12 +336,17 @@ public class GestionCarrito {
      *
      * @return valor total del carrito
      */
-    public ValorCompra calculoResumenCompra() {
+    public ValorCompra calculoResumenCompra() throws IOException {
+        Usuario usuario = manejoUsuarioJSON.getUsuarioLogin();
         ValorCompra valorCompra = new ValorCompra();
-        Carrito carritoLocal = manejoUsuarioJSON.getUsuarioLogin().getCarrito();
+        if (usuario.getCarrito().getLibros().isEmpty()) return valorCompra;
+        Carrito carritoLocal = usuario.getCarrito();
         valorCompra.setImpuestos(calculadoraIVA.impuestos(carritoLocal));
         valorCompra.setSubtotal(calculadoraIVA.subtotal(carritoLocal));
         valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
+        valorCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(valorCompra.getTotal(), manejoUsuarioJSON.getUsuarioLogin()));
+        valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(valorCompra.getTotal(), manejoUsuarioJSON.getTienda(), manejoUsuarioJSON.getUsuarioLogin()));
+        valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuentoPremium());
         return valorCompra;
     }
 
