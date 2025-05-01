@@ -89,6 +89,12 @@ public class Evento implements ActionListener {
     /**Accion para confirmar la compra */
     public final static String ACEPTAR_CONFIRMAR_COMPRA = "Aceptar Confirmar Compra";
 
+    /**Accion para registrar el comentario*/
+    public final static String REGISTRAR_COMENTARIO = "Registrar Comentario";
+
+    /**Accion para mostrar los comentarios*/
+    public final static String MOSTRAR_COMENTARIOS = "Mostrar Comentarios";
+
     /** Referencia a la VentanaPrincipal. */
     private VentanaPrincipal ventana;
 
@@ -136,6 +142,7 @@ public class Evento implements ActionListener {
             case ACTIVAR_PANEL_CONFIRMAR -> ventana.activarPanelConfirmCompra();
             case ACEPTAR_CONFIRMAR_COMPRA -> ventana.aceptarConfirmarCompra();
             case CANCELAR_CONFIRMAR_COMPRA -> ventana.cancelarConfirmarCompra();
+            case REGISTRAR_COMENTARIO -> ventana.registrarComentario();
         }
     }
 }

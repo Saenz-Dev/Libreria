@@ -4,6 +4,7 @@ import co.edu.uptc.modelo.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Stack;
 
 public class GestionTienda {
 
@@ -13,6 +14,7 @@ public class GestionTienda {
     private GestionCatalogo gestionCatalogo;
     private GestionCarrito gestionCarrito;
     private GestionCompra gestionCompra;
+    private GestionComentario gestionComentario;
 
     public GestionTienda() {
         tienda = new Tienda();
@@ -21,6 +23,7 @@ public class GestionTienda {
         gestionCatalogo = new GestionCatalogo(tienda);
         gestionCarrito = new GestionCarrito(gestionUsuario.getManejoUsuarioJSON(), tienda);
         gestionCompra = new GestionCompra(tienda);
+        gestionComentario = new GestionComentario(tienda);
     }
 
     // -----------------------------------Métodos GestionUsuario-----------------------------------
@@ -171,5 +174,16 @@ public class GestionTienda {
         valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(valorCompra.getTotal(), tienda, gestionUsuario.userLogin()));
         valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuentoPremium());
         return valorCompra;
+    }
+
+    public void guardarComentario(Comentario comentario) throws IOException, RuntimeException {
+        comentario.setCorreo(gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin().getCuenta().getCorreo());
+        comentario.setUsuario(gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin().getNombre());
+        comentario.fechaActual();
+        gestionComentario.registrarComentario(comentario);
+    }
+
+    public Stack<Comentario> listarComentarios(String isbn) throws IOException, RuntimeException {
+        return gestionComentario.buscarComentario(isbn);
     }
 }

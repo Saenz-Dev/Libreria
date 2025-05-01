@@ -15,11 +15,13 @@ public class Tienda implements Serializable {
 	private Map<String, ArrayList<Libro>> mapLibros;
 	private ArrayList<Usuario> usuarios;
 	private TreeMap<String, ArrayList<Recibo>> productoCompras;
-	
+	private TreeMap<String, Stack<Comentario>> mapComentarios;
+
 	public Tienda() {
 		mapLibros = new HashMap<>();
 		usuarios = new ArrayList<>();
 		productoCompras = new TreeMap<>();
+		mapComentarios = new TreeMap<>();
 	}
 	
 	public Tienda(Map<String, ArrayList<Libro>> mapLibros, ArrayList<Usuario> usuarios, TreeMap<String, ArrayList<Recibo>> productoCompras) {
@@ -50,5 +52,21 @@ public class Tienda implements Serializable {
 	
 	public void setRecibos(TreeMap<String, ArrayList<Recibo>> productoCompras) {
 		this.productoCompras = productoCompras;
+	}
+
+	public TreeMap<String, ArrayList<Recibo>> getProductoCompras() {
+		return productoCompras;
+	}
+
+	public void setProductoCompras(TreeMap<String, ArrayList<Recibo>> productoCompras) {
+		this.productoCompras = productoCompras;
+	}
+
+	public TreeMap<String, Stack<Comentario>> getMapComentarios() {
+		return mapComentarios;
+	}
+
+	public void setMapComentarios(TreeMap<String, Stack<Comentario>> mapComentarios) {
+		this.mapComentarios = mapComentarios;
 	}
 }
