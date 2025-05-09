@@ -13,7 +13,7 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
 
     @Override
     public void crearTabla() throws SQLException {
-        String sentencia = "CREATE TABLE IF NOT EXISTS usuarios (nombre VARCHAR(50) NOT NULL, dirección VARCHAR(50) NOT NULL, telefono BIGINT NOT NULL, cliente VARCHAR(15) NOT NUL, descuento DOUBLE NOT NULL, correo VARCHAR(50), FOREIGN KEY correo REFERENCES cuentas(correo))";
+        String sentencia = "CREATE TABLE IF NOT EXISTS usuarios (nombre VARCHAR(50) NOT NULL, dirección VARCHAR(50) NOT NULL, telefono BIGINT NOT NULL, cliente VARCHAR(15) NOT NUL, descuento DOUBLE NOT NULL, correo VARCHAR(50), FOREIGN KEY (correo) REFERENCES cuentas(correo))";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

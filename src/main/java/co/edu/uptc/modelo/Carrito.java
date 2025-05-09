@@ -98,8 +98,7 @@ public class Carrito implements Serializable {
     }
 
     /**
-     * Retorna {@code true} si encuentra el libro en el carrito del usuario
-     * @param libroParametro libro para buscar.
+     * Retorna {@code true} si encuentra el libro en el carrito del usuario.
      * @return {@code true} si encuentra el libro, false si no lo encuentra.
      */
     public boolean buscarLibro(String isbn, int stockReservado) {
