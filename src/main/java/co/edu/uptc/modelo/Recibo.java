@@ -2,12 +2,11 @@ package co.edu.uptc.modelo;
 
 import co.edu.uptc.negocio.TipoPago;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Recibo {
 
-    private String usuario;
+    private String correo;
     private String nombreUser;
     private ValorCompra valorCompra;
     private int numeroRecibo;
@@ -21,12 +20,12 @@ public class Recibo {
         listaProductosComprados = new ArrayList<>();
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public ValorCompra getValorCompra() {
@@ -49,7 +48,11 @@ public class Recibo {
         return fecha;
     }
 
-    public void setFecha(int anio, int mes, int dia, String horaActual) {
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public void formatearFecha(int anio, int mes, int dia, String horaActual) {
         this.fecha = String.format("%d/%d/%d %s", anio, mes, dia, horaActual);
     }
 

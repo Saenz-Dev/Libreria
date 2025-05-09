@@ -125,32 +125,4 @@ public class PanelComentario extends JDialog {
         }
         repintarComentarios(stackComentarios);
     }
-
-
-//    public void agregarComentarios(Stack<Comentario> stackComentarios) {
-//        GridBagConstraints gridBagConstraints = new GridBagConstraints();
-//        scrollPane.repaint();
-//        for (Comentario comentario : stackComentarios) {
-//            gbc.gridy++;
-//            JLabel labelUsuario = new JLabel(comentario.getUsuario());
-//            JPanel panelComentario = new JPanel();
-//            JLabel labelComentario = new JLabel(comentario.getComentario());
-//            JLabel labelCalificacion = new JLabel(String.valueOf(comentario.getCalificacion()));
-//            panelComentario.setLayout(new GridBagLayout());
-//            gridBagConstraints.gridy = 0;
-//            gridBagConstraints.gridx = 0;
-//            gridBagConstraints.weightx = 1;
-//            gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-//            gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-//            labelComentario.setPreferredSize(new Dimension(400, 30));
-//            panelComentario.add(labelUsuario, gridBagConstraints);
-//            gridBagConstraints.gridy++;
-//            panelComentario.add(labelComentario, gridBagConstraints);
-//            gridBagConstraints.gridy++;
-//            panelComentario.add(labelCalificacion, gridBagConstraints);
-//            scrollPane.add(panelComentario, gbc);
-//        }
-//        revalidate();
-//        repaint();
-//    }
 }

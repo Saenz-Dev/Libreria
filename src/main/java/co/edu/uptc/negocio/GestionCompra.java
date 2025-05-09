@@ -53,8 +53,8 @@ public class GestionCompra {
             recibo.getListaProductosComprados().add(productoCompra);
             LocalTime horaActual = LocalTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-            recibo.setFecha(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), horaActual.format(formatter));
-            recibo.setUsuario(buscarUsuarioLogin().getCuenta().getCorreo());
+            recibo.formatearFecha(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth(), horaActual.format(formatter));
+            recibo.setCorreo(buscarUsuarioLogin().getCuenta().getCorreo());
             recibo.setNombreUser(buscarUsuarioLogin().getNombre());
             recibo.setDireccion(usuarioLog.getDireccionEnvio());
 

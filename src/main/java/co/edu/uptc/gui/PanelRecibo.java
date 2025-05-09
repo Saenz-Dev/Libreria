@@ -116,7 +116,7 @@ public class PanelRecibo extends JDialog {
             modificarRecibo();
         }
         labelNombreCliente.setText("Nombre: " + recibo.getNombreUser());
-        labelCorreoElectronico.setText("Correo: " + recibo.getUsuario());
+        labelCorreoElectronico.setText("Correo: " + recibo.getCorreo());
         labelFechaHora.setText("Fecha y hora: " + recibo.getFecha());
         labelMetodoPago.setText("M.Pago: " + recibo.getTipoPago());
         labelNumeroRecibo.setText("Recibo Nº: " + recibo.getNumeroRecibo());

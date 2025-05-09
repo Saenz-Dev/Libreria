@@ -68,8 +68,19 @@ public class GestionUsuario {
         }
         expresion.validarDatosObligatoriosUser(usuario);
         expresion.validarDatosUsuario(usuario);
-        usuario.getCuenta().setLog(false);
-        manejoUsuarioJSON.crearUsuario(usuario);
+        Usuario usuarioGuardar = convertirUsuario(usuario);
+        usuarioGuardar.getCuenta().setLog(false);
+        //manejoUsuarioJSON.crearUsuario(usuarioGuardar);TODO implementar guardar en la BD
+    }
+
+    private static Usuario convertirUsuario(Usuario usuario) {
+        Usuario usuarioGuardar;
+        if (usuario.getTipoCliente().equals("Premium")) {
+            usuarioGuardar = new UsuarioPremium(usuario);
+        } else {
+            usuarioGuardar = new UsuarioRegular(usuario);
+        }
+        return usuarioGuardar;
     }
 
     /**

@@ -14,6 +14,10 @@ public class Carrito implements Serializable {
      * 
      */
     private static final long serialVersionUID = -2108683978684726974L;
+
+    private String correo_usuario;
+
+    private Long isbn_libro;
     /**
      * ArrayList de libros del carrito
      */
@@ -32,6 +36,22 @@ public class Carrito implements Serializable {
      */
     public ArrayList<Libro> getLibros() {
         return libros;
+    }
+
+    public String getCorreo_usuario() {
+        return correo_usuario;
+    }
+
+    public void setCorreo_usuario(String correo_usuario) {
+        this.correo_usuario = correo_usuario;
+    }
+
+    public Long getIsbn_libro() {
+        return isbn_libro;
+    }
+
+    public void setIsbn_libro(Long isbn_libro) {
+        this.isbn_libro = isbn_libro;
     }
 
     /**
@@ -59,7 +79,7 @@ public class Carrito implements Serializable {
      * @param libro libro a asignar al usuario que se loguea
      */
     public void trasladarLibros(Libro libro) {
-        if (buscarLibro(libro)) {
+        if (buscarLibro(libro.getIsbn(), libro.getStockReservado())) {
             return;
         }
         Libro libroGuardar = new Libro();
@@ -78,21 +98,18 @@ public class Carrito implements Serializable {
     }
 
     /**
-     * Retorna {@code true} si encuentra el libro en el carrito del usuario
-     * @param libroParametro libro para buscar.
+     * Retorna {@code true} si encuentra el libro en el carrito del usuario.
      * @return {@code true} si encuentra el libro, false si no lo encuentra.
      */
-    public boolean buscarLibro(Libro libroParametro) {
+    public boolean buscarLibro(String isbn, int stockReservado) {
         for (Libro libro : libros) {
-            if (libro.getIsbn().equals(libroParametro.getIsbn())) {
-                libro.aumentarCantidad(libroParametro.getStockReservado());
+            if (libro.getIsbn().equals(isbn)) {
+                libro.aumentarCantidad(stockReservado);
                 return true;
             }
         }
         return false;
     }
-
-
 
     /**
      * Método que actualiza el los atributos del libro en el carrito

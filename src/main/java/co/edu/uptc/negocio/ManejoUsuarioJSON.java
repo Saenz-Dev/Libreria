@@ -140,14 +140,8 @@ public class ManejoUsuarioJSON {
      * @param usuario El usuario que se desea agregar.
      * @throws IllegalArgumentException Si el correo del usuario ya está vinculado a otra cuenta.
      */
-    public void crearUsuario(Usuario usuario) throws IllegalArgumentException {
+    public void crearUsuario(Usuario usuarioGuardar) throws IllegalArgumentException {
         try {
-            Usuario usuarioGuardar;
-            if (usuario.getTipoCliente().equals("Premium")) {
-                usuarioGuardar = new UsuarioPremium(usuario);
-            } else {
-                usuarioGuardar = new UsuarioRegular(usuario);
-            }
             if (tienda.getUsuarios() == null || !file.exists()) {
                 tienda.setUsuarios(new ArrayList<>());
             } else {
@@ -256,19 +250,6 @@ public class ManejoUsuarioJSON {
         return null;
     }
 
-    /*public void eliminarLibroCarrito(int index) {
-        try {
-            listaUsuarios = objectMapper.readValue(file, new TypeReference<List<Usuario>>() {
-            });
-            Usuario usuarioEncontrado = buscarUsuario(listaUsuarios, usuarioLogin);
-            usuarioEncontrado.getCarrito().getLibros().remove(index);
-            objectMapper.writeValue(file, listaUsuarios);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-            //throw new IllegalArgumentException("Error al eliminar el libro del carrito");
-        }
-    }*/
-
     /**
      * Valida si los datos para iniciar sesión son correctos.
      *
@@ -304,13 +285,5 @@ public class ManejoUsuarioJSON {
                 usuarioEncontrado.getCarrito().trasladarLibros(libro);
             }
         }
-
     }
-
-//    public void x(Usuario usuario) {
-//        if (usuario instanceof UsuarioPremium) {
-//            usuario.setCarrito(new Carrito());
-//        }
-//    }
-
 }
