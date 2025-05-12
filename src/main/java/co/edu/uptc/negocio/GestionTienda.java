@@ -2,6 +2,7 @@ package co.edu.uptc.negocio;
 
 import co.edu.uptc.modelo.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Stack;
@@ -29,14 +30,14 @@ public class GestionTienda {
     // -----------------------------------Métodos GestionUsuario-----------------------------------
 
     public Usuario getUserLogin() {
-        return gestionUsuario.userLogin();
+        return gestionUsuario.userLog();
     }
 
-    public void asignarUsuarioGenerico() throws IOException {
+    public void asignarUsuarioGenerico() throws IOException, SQLException {
         gestionUsuario.asignarUsuarioGenerico();
     }
 
-    public void iniciarSesion(String correo, String contrasena) {
+    public void iniciarSesion(String correo, String contrasena) throws SQLException {
         gestionUsuario.iniciarSesion(correo, contrasena);
     }
 
@@ -44,29 +45,24 @@ public class GestionTienda {
         return gestionUsuario.isAdminLogin();
     }
 
-    public void cerrarSesion() throws IOException, RuntimeException {
+    public void cerrarSesion() throws IOException, RuntimeException, SQLException {
         gestionUsuario.cerrarSesionUsuario();
     }
 
-    public void registrarUsuario(Usuario usuario) throws RuntimeException {
+    public void registrarUsuario(Usuario usuario) throws RuntimeException, SQLException {
         gestionUsuario.registrarUsuario(usuario);
     }
 
-    public void modificarUsuario(Usuario usuario) throws IOException, RuntimeException {
+    public void modificarUsuario(Usuario usuario) throws IOException, RuntimeException, SQLException {
         usuario.getCuenta().setLog(true);
         gestionUsuario.modificarUsuario(usuario);
     }
 
     public boolean isGenericoLogin() {
-        return gestionUsuario.isGenericoLogin();
+        return gestionUsuario.isDefaultUserLogin();
     }
 
-    public void cerrarSesionUsuario() throws RuntimeException, IOException {
-        gestionUsuario.cerrarSesionUsuario();
-    }
-
-    // ----------------------------------------Métodos de
-    // GestionLibro---------------------------------------------
+    // ----------------------------------------Métodos de GestionLibro---------------------------------------------
 
     public String[] obtenerTitulosLibros() {
         return gestionLibro.obtenerLibros();
@@ -171,7 +167,7 @@ public class GestionTienda {
         valorCompra.setSubtotal(calculadoraIVA.subtotal(carritoUserLog()));
         valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
         valorCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(valorCompra.getTotal(), gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin()));
-        valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(valorCompra.getTotal(), tienda, gestionUsuario.userLogin()));
+        valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(valorCompra.getTotal(), tienda, gestionUsuario.userLog()));
         valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuentoPremium());
         return valorCompra;
     }

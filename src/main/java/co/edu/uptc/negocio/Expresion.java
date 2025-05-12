@@ -20,7 +20,7 @@ public class Expresion {
     public static final String EXPRESION_NUMERO_PAGINAS = "^[0-9]{1,4}$";
     public static final String EXPRESION_DIRECCION = "^([\\w\\s#.-]+),\\s*[\\p{L}\\s]+,\\s*[\\p{L}\\s]+$";
     public static final String EXPRESION_CORREO = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}+$";
-    public static final String EXPRESION_CONTRASENA = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
+    public static final String EXPRESION_CONTRASENA = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*()\\-+\\.])[a-zA-Z\\d!@#$%^&*()\\-+\\.]{8,}$";;
     public static final String EXPRESION_ISBN = "^(978|979)(-?[0-9]){10}$";
     public static final String EXPRESION_ANO_PUBLICACION = "^[0-9]{4}$";
     public static final String EXPRESION_CONTRASENA_ADMIN = "^(?=.*[a-zA-Z])[a-zA-Z\\d]{8,}$";

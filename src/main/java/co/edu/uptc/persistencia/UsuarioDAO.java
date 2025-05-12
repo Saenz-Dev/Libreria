@@ -13,24 +13,39 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
 
     @Override
     public void crearTabla() throws SQLException {
-        String sentencia = "CREATE TABLE IF NOT EXISTS usuarios (nombre VARCHAR(50) NOT NULL, dirección VARCHAR(50) NOT NULL, telefono BIGINT NOT NULL, cliente VARCHAR(15) NOT NUL, descuento DOUBLE NOT NULL, correo VARCHAR(50), FOREIGN KEY (correo) REFERENCES cuentas(correo))";
+        String sentencia = "CREATE TABLE IF NOT EXISTS usuarios (correo VARCHAR(50) PRIMARY KEY, nombre VARCHAR(50) NOT NULL, dirección VARCHAR(50) NOT NULL, telefono BIGINT NOT NULL, cliente VARCHAR(15) NOT NULL, descuento DOUBLE NOT NULL, FOREIGN KEY (correo) REFERENCES cuentas(correo))";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("❌ Error al crear la tabla 'usuarios': " + e.getMessage());
         }
+        insertarDatos(crearUsuarioDefault());
+    }
+
+    public Usuario crearUsuarioDefault() {
+        Usuario usuario = new Usuario();
+        Cuenta cuenta = new Cuenta();
+        cuenta.setCorreo("user_default");
+        usuario.setNombre("Default");
+        usuario.setDireccionEnvio("NN");
+        usuario.setTelefono(0);
+        usuario.setTipoCliente("NN");
+        usuario.setDescuentoTipoUsuario(0);
+        usuario.setCuenta(cuenta);
+        return usuario;
     }
 
     @Override
-    public void insertarDatos(Usuario usuario) throws SQLException, RuntimeException {
+    public void  insertarDatos(Usuario usuario) throws SQLException, RuntimeException {
         if (usuario == null) throw new RuntimeException("El usuario a guardar no tiene datos");
-        String sentencia = "INSERT INTO usuarios (nombre, dirección, telefono, cliente, descuento) VALUES (?, ?, ?, ?, ?)";
+        String sentencia = "INSERT INTO usuarios (nombre, dirección, telefono, cliente, descuento, correo) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.setString(1, usuario.getNombre());
             preparedStatement.setString(2, usuario.getDireccionEnvio());
             preparedStatement.setLong(3, usuario.getTelefono());
             preparedStatement.setString(4, usuario.getTipoCliente());
             preparedStatement.setDouble(5, usuario.getDescuentoTipoUsuario());
+            preparedStatement.setString(6, usuario.getCuenta().getCorreo());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("❌ Error al insertar los datos en la tabla 'usuarios': " + e.getMessage());
@@ -56,7 +71,7 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
 
     @Override
     public Usuario seleccionarRegistro(Usuario usuario) throws SQLException, RuntimeException {
-        if (usuario == null) throw new RuntimeException("Usuario null");
+        if (usuario == null) throw new RuntimeException("No ha ingresado algún usuario.");
         String sentencia = "SELECT * FROM usuarios WHERE correo = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.setString(1, usuario.getCuenta().getCorreo());

@@ -6,6 +6,7 @@ import co.edu.uptc.negocio.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class VentanaPrincipal extends JFrame {
@@ -47,6 +48,8 @@ public class VentanaPrincipal extends JFrame {
             menuPrincipal.usuarioNull();
             menuPrincipal.getPanelCatalogo().crearPanelesLibros(gestionTienda.listarLibros());
             menuPrincipal.activarPanelCatalogo();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelInicioSesion(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -85,6 +88,8 @@ public class VentanaPrincipal extends JFrame {
                 menuPrincipal.usuarioIniciaSesion();
                 menuPrincipal.quitarFuncionesAdmin();
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelInicioSesion(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IllegalArgumentException | IOException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelClPrincipal(), e.getMessage(), "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -187,6 +192,8 @@ public class VentanaPrincipal extends JFrame {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarUsuario(), "Usuario Registrado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             menuPrincipal.getPanelRegistrarUsuario().limpiarTxt();
             menuPrincipal.getPanelRegistrarUsuario().setVisible(false);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarUsuario(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarUsuario(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -384,8 +391,10 @@ public class VentanaPrincipal extends JFrame {
             if (gestionTienda.isGenericoLogin()) {
                 gestionTienda.eliminarLibroUsuarioGenerico();
             }
-            gestionTienda.cerrarSesionUsuario();
+            gestionTienda.cerrarSesion();
         } catch (IOException | RuntimeException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

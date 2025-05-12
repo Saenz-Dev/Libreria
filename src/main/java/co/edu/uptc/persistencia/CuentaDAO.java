@@ -1,6 +1,7 @@
 package co.edu.uptc.persistencia;
 
 import co.edu.uptc.modelo.Cuenta;
+import co.edu.uptc.modelo.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +19,15 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
         } catch (SQLException e) {
             throw new SQLException("❌ Error al crear la tabla 'cuentas': " + e.getMessage());
         }
+        insertarDatos(crearCuentaUsuarioDefault());
+    }
+
+    public Cuenta crearCuentaUsuarioDefault() {
+        Cuenta cuenta = new Cuenta();
+        cuenta.setCorreo("user_default");
+        cuenta.setContrasena("NN");
+        cuenta.setLog(false);
+        return cuenta;
     }
 
     @Override
