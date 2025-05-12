@@ -1,12 +1,13 @@
 package co.edu.uptc.negocio;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
 
 import co.edu.uptc.modelo.Catalogo;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.Tienda;
+import co.edu.uptc.persistencia.LibroDAO;
 
 /**
  * Clase encargada de gestionar el catálogo de libros.
@@ -17,7 +18,8 @@ public class GestionCatalogo {
      * Instancia Catalogo
      */
     private Catalogo catalogo;
-
+    
+    private LibroDAO libroDAO; 
     /**
      * Instancia Manejo de Libros con JSON
      */
@@ -25,9 +27,11 @@ public class GestionCatalogo {
 
     /**
      * Constructor de la clase
+     * @throws SQLException 
      */
     public GestionCatalogo(Tienda tienda) {
         manejoLibroJSON = new ManejoLibroJSON(tienda);
+        libroDAO = new LibroDAO();
     }
 
     /**
@@ -72,7 +76,8 @@ public class GestionCatalogo {
      * @return catalogo de libros disponibles en la tienda
      * @throws IOException si ocurre algún error cuando no se lee el JSON
      */
-    public Map<String, ArrayList<Libro>> listarLibros() throws IOException {
-        return manejoLibroJSON.leerLibro();
+    public ArrayList<Libro> listarLibros() throws SQLException{
+	libroDAO.crearTabla();
+	return libroDAO.seleccionarRegistros();
     }
 }

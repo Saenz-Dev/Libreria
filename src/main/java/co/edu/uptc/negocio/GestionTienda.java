@@ -17,7 +17,7 @@ public class GestionTienda {
     private GestionCompra gestionCompra;
     private GestionComentario gestionComentario;
 
-    public GestionTienda() {
+    public GestionTienda() throws SQLException {
         tienda = new Tienda();
         gestionUsuario = new GestionUsuario(tienda);
         gestionLibro = new GestionLibro(tienda);
@@ -29,7 +29,7 @@ public class GestionTienda {
 
     // -----------------------------------Métodos GestionUsuario-----------------------------------
 
-    public Usuario getUserLogin() {
+    public Usuario getUserLogin() throws SQLException, RuntimeException {
         return gestionUsuario.userLog();
     }
 
@@ -64,34 +64,34 @@ public class GestionTienda {
 
     // ----------------------------------------Métodos de GestionLibro---------------------------------------------
 
-    public String[] obtenerTitulosLibros() {
+    public String[] obtenerTitulosLibros() throws SQLException, RuntimeException {
         return gestionLibro.obtenerLibros();
     }
 
-    public Libro buscarLibro(String titulo) {
+    public Libro buscarLibro(String titulo) throws SQLException{
         return gestionLibro.buscarLibro(titulo);
     }
 
-    public void eliminarLibro(ArrayList<String> listaIsbn) throws IllegalArgumentException, IOException {
+    public void eliminarLibro(ArrayList<String> listaIsbn) throws IllegalArgumentException, IOException, SQLException {
         gestionLibro.eliminarLibro(listaIsbn);
     }
 
-    public void modificarLibro(Libro libro) throws RuntimeException, IOException {
+    public void modificarLibro(Libro libro) throws RuntimeException, IOException, SQLException {
         gestionLibro.modificarLibro(libro);
     }
 
-    public void registrarLibro(Libro libro) throws IOException, RuntimeException {
+    public void registrarLibro(Libro libro) throws IOException, RuntimeException, SQLException {
         gestionLibro.registrarLibro(libro);
     }
 
-    public boolean validarExistenciaLibro(String isbnLibro) {
+    public boolean validarExistenciaLibro(String isbnLibro) throws SQLException, RuntimeException {
         return gestionLibro.validarExistencia(isbnLibro);
     }
 
     // ---------------------------------------------Métodos de
     // GestionCatalogo--------------------------------------------
 
-    public Map<String, ArrayList<Libro>> listarLibros() throws IOException {
+    public ArrayList<Libro> listarLibros() throws SQLException {
         return gestionCatalogo.listarLibros();
     }
 
@@ -119,7 +119,7 @@ public class GestionTienda {
         return gestionCarrito.disminuirProducto(isbnProducto);
     }
 
-    public void eliminarLibroUsuarioGenerico() throws IOException {
+    public void eliminarLibroUsuarioGenerico() throws IOException, SQLException, RuntimeException {
         for (Libro libro : getUserLogin().getCarrito().getLibros()) {
             eliminarProductoCarrito(libro.getIsbn());
             if (getUserLogin().getCarrito().getLibros().isEmpty()) {
@@ -159,7 +159,7 @@ public class GestionTienda {
         return listaCarrito;
     }
 
-    public ValorCompra valorCompra() throws IOException {
+    public ValorCompra valorCompra() throws IOException, SQLException, RuntimeException {
         ValorCompra valorCompra = new ValorCompra();
         CalculadoraIVA calculadoraIVA = new CalculadoraIVA();
 

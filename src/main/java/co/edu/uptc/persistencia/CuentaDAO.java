@@ -19,15 +19,6 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
         } catch (SQLException e) {
             throw new SQLException("❌ Error al crear la tabla 'cuentas': " + e.getMessage());
         }
-        insertarDatos(crearCuentaUsuarioDefault());
-    }
-
-    public Cuenta crearCuentaUsuarioDefault() {
-        Cuenta cuenta = new Cuenta();
-        cuenta.setCorreo("user_default");
-        cuenta.setContrasena("NN");
-        cuenta.setLog(false);
-        return cuenta;
     }
 
     @Override

@@ -14,7 +14,7 @@ public class LibroDAO extends ConexionBD<Libro> {
 
     @Override
     public void crearTabla() throws SQLException {
-        String sentencia = "CREATE TABLE IF NOT EXISTS libros (isbn BIGINT PRIMARY KEY, titulo VARCHAR (50) NOT NULL, autor VARCHAR(40) NOT NULL, año_publicación INT, categoria VARCHAR(20) NOT NULL, editorial VARCHAR(30), páginas INT, precio INT NOT NULL, stockDisponible INT NOT NULL, stockReservado INT NOT NULL, tipo VARCHAR(20) NOT NULL, comprado BOOLEAN)";
+        String sentencia = "CREATE TABLE IF NOT EXISTS libros (isbn BIGINT PRIMARY KEY, titulo VARCHAR (100) NOT NULL, autor VARCHAR(40) NOT NULL, año_publicación INT, categoria VARCHAR(20) NOT NULL, editorial VARCHAR(30), páginas INT, precio INT NOT NULL, stockDisponible INT NOT NULL, stockReservado INT NOT NULL, tipo VARCHAR(20) NOT NULL, comprado BOOLEAN)";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -82,7 +82,7 @@ public class LibroDAO extends ConexionBD<Libro> {
                     libroResult.setAnioPublicacion(resultSet.getInt("año_publicación"));
                     libroResult.setCategoria(resultSet.getString("categoria"));
                     libroResult.setEditorial(resultSet.getString("editorial"));
-                    libroResult.setNumeroPaginas(resultSet.getInt("paginas"));
+                    libroResult.setNumeroPaginas(resultSet.getInt("páginas"));
                     libroResult.setPrecioVenta(resultSet.getDouble("precio"));
                     libroResult.setStockDisponible(resultSet.getInt("stockDisponible"));
                     libroResult.setStockReservado(resultSet.getInt("stockReservado"));
@@ -92,9 +92,48 @@ public class LibroDAO extends ConexionBD<Libro> {
                 }
             }
         } catch (SQLException e) {
+            throw new SQLException("❌ Error al seleccionar el dato en la tabla 'libros': " + e.getMessage());
+        }
+        return null;
+    }
+    
+    public Libro seleccionarRegistro(String titulo) throws SQLException, RuntimeException {
+        String sentencia = "SELECT * FROM libros WHERE titulo = ?";
+        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
+            preparedStatement.setString(1, titulo);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Libro libroResult = new Libro();
+                    libroResult.setIsbn(resultSet.getString("isbn"));
+                    libroResult.setTitulo(resultSet.getString("titulo"));
+                    libroResult.setAutor(resultSet.getString("autor"));
+                    libroResult.setAnioPublicacion(resultSet.getInt("año_publicación"));
+                    libroResult.setCategoria(resultSet.getString("categoria"));
+                    libroResult.setEditorial(resultSet.getString("editorial"));
+                    libroResult.setNumeroPaginas(resultSet.getInt("páginas"));
+                    libroResult.setPrecioVenta(resultSet.getDouble("precio"));
+                    libroResult.setStockDisponible(resultSet.getInt("stockDisponible"));
+                    libroResult.setStockReservado(resultSet.getInt(	"stockReservado"));
+                    libroResult.setTipoLibro(TipoLibro.valueOf(resultSet.getString("tipo")));
+                    libroResult.setIsComprado(resultSet.getBoolean("comprado"));
+                    return libroResult;
+                }
+            }
+        } catch (SQLException e) {
             throw new SQLException("❌ Error al seleccionar el dato en la tabla 'cuentas': " + e.getMessage());
         }
         return null;
+    }
+    
+    public boolean eliminarRegistro(Libro libro) throws SQLException {
+	String sql = "DELETE FROM libros WHERE isbn = ?";
+	try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+	    preparedStatement.setString(1, libro.getIsbn());
+	    preparedStatement.executeUpdate();
+	    return true;
+	} catch (SQLException e) {
+            throw new SQLException("❌ Error al intentar borrar el libro '" + libro.getTitulo() +"': " + e.getMessage());
+        }
     }
 
     @Override
@@ -110,7 +149,7 @@ public class LibroDAO extends ConexionBD<Libro> {
                 libroResult.setAnioPublicacion(resultSet.getInt("año_publicación"));
                 libroResult.setCategoria(resultSet.getString("categoria"));
                 libroResult.setEditorial(resultSet.getString("editorial"));
-                libroResult.setNumeroPaginas(resultSet.getInt("paginas"));
+                libroResult.setNumeroPaginas(resultSet.getInt("páginas"));
                 libroResult.setPrecioVenta(resultSet.getDouble("precio"));
                 libroResult.setStockDisponible(resultSet.getInt("stockDisponible"));
                 libroResult.setStockReservado(resultSet.getInt("stockReservado"));
