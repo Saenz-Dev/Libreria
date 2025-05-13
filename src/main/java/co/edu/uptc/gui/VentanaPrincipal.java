@@ -367,6 +367,9 @@ public class VentanaPrincipal extends JFrame {
 	    menuPrincipal.getPanelCarrito().eliminarPanelProducto(panelProducto);
 	    ValorCompra valorCompra = gestionTienda.resumenCompra();
 	    menuPrincipal.getPanelCarrito().repaintPanel(valorCompra);
+	} catch(SQLException e) {
+	    JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error",
+		    JOptionPane.ERROR_MESSAGE);
 	} catch (IOException | IllegalArgumentException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error",
 		    JOptionPane.ERROR_MESSAGE);

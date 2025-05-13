@@ -75,10 +75,10 @@ public class GestionUsuario {
      * 
      * @throws SQLException
      */
-    public GestionUsuario(Tienda tienda) throws SQLException {
+    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, CuentaDAO cuentaDAO) throws SQLException {
 	usuarioLog = new Usuario();
-	cuentaDAO = new CuentaDAO();
-	usuarioDAO = new UsuarioDAO();
+	this.cuentaDAO = cuentaDAO;
+	this.usuarioDAO = usuarioDAO;
 	manejoUsuarioJSON = new ManejoUsuarioJSON(tienda);
 	expresion = new Expresion();
 	administrador = new Administrador();

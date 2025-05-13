@@ -98,10 +98,9 @@ public class CarritoDAO extends ConexionBD<LibroCarrito> {
 
     public ArrayList<LibroCarrito> seleccionarRegistros(LibroCarrito libroCarrito) throws SQLException, RuntimeException {
         ArrayList<LibroCarrito> librosCarrito = new ArrayList<>();
-        String sql = "SELECT * FROM carrito WHERE correo_usuario = ? AND isbn_libro = ?";
+        String sql = "SELECT * FROM carrito WHERE correo_usuario = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, libroCarrito.getCorreo_usuario());
-            preparedStatement.setLong(2, libroCarrito.getIsbn_libro());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     LibroCarrito libroCarritoEncontrado = new LibroCarrito();

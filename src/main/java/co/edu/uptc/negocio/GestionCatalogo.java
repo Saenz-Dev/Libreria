@@ -29,9 +29,9 @@ public class GestionCatalogo {
      * Constructor de la clase
      * @throws SQLException 
      */
-    public GestionCatalogo(Tienda tienda) {
+    public GestionCatalogo(Tienda tienda, LibroDAO libroDAO) {
         manejoLibroJSON = new ManejoLibroJSON(tienda);
-        libroDAO = new LibroDAO();
+        this.libroDAO = libroDAO;
     }
 
     /**

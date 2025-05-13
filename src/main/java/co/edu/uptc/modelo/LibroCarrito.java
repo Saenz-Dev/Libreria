@@ -37,4 +37,12 @@ public class LibroCarrito {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+    
+    public void aumentarCantidad(int cantidadDisponible) {
+        this.cantidad += cantidadDisponible;
+    }
+    
+    public void disminuirCantidad(int cantidad) {
+	this.cantidad -= cantidad;
+    }
 }

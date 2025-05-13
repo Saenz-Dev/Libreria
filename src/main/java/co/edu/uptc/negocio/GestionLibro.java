@@ -29,10 +29,10 @@ public class GestionLibro {
     /**
      * Constructor de la clase
      */
-    public GestionLibro(Tienda tienda) {
+    public GestionLibro(Tienda tienda, LibroDAO libroDAO) {
 	manejoLibroJSON = new ManejoLibroJSON(tienda);
 	expresion = new Expresion();
-	libroDAO = new LibroDAO();
+	this.libroDAO = libroDAO;
     }
 
     /**

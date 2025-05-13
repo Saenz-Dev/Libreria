@@ -55,26 +55,6 @@ public class Carrito implements Serializable {
     }
 
     /**
-     * Agrega un libro al carrito
-     * @param libro libro a agregar a la base de datos
-     */
-    public void agregarLibroCarrito(Libro libro) {
-        Libro libroGuardar = new Libro();
-        libroGuardar.setIsbn(libro.getIsbn());
-        libroGuardar.setAutor(libro.getAutor());
-        libroGuardar.setEditorial(libro.getEditorial());
-        libroGuardar.setCategoria(libro.getCategoria());
-        libroGuardar.setTipoLibro(libro.getTipoLibro());
-        libroGuardar.setTitulo(libro.getTitulo());
-        libroGuardar.setAnioPublicacion(libro.getAnioPublicacion());
-        libroGuardar.setNumeroPaginas(libro.getNumeroPaginas());
-        libroGuardar.setPrecioVenta(libro.getPrecioVenta());
-        libroGuardar.setStockDisponible(0);
-        libroGuardar.setStockReservado(1);
-        libros.add(libroGuardar);
-    }
-
-    /**
      * Pasa los libros del user_default al usuario que inicia sesión
      * @param libro libro a asignar al usuario que se loguea
      */
