@@ -4,7 +4,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import co.edu.uptc.modelo.*;
+import co.edu.uptc.modelo.Administrador;
+import co.edu.uptc.modelo.Cuenta;
+import co.edu.uptc.modelo.LibroCarrito;
+import co.edu.uptc.modelo.Tienda;
+import co.edu.uptc.modelo.Usuario;
+import co.edu.uptc.modelo.UsuarioPremium;
+import co.edu.uptc.modelo.UsuarioRegular;
+import co.edu.uptc.persistencia.CarritoDAO;
 import co.edu.uptc.persistencia.CuentaDAO;
 import co.edu.uptc.persistencia.UsuarioDAO;
 
@@ -16,6 +23,8 @@ public class GestionUsuario {
     private CuentaDAO cuentaDAO;
 
     private UsuarioDAO usuarioDAO;
+    
+    private CarritoDAO carritoDAO;
 
     private Usuario usuarioLog;
 
@@ -75,10 +84,11 @@ public class GestionUsuario {
      * 
      * @throws SQLException
      */
-    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, CuentaDAO cuentaDAO) throws SQLException {
+    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, CuentaDAO cuentaDAO, CarritoDAO carritoDAO) throws SQLException {
 	usuarioLog = new Usuario();
 	this.cuentaDAO = cuentaDAO;
 	this.usuarioDAO = usuarioDAO;
+	this.carritoDAO = carritoDAO;
 	manejoUsuarioJSON = new ManejoUsuarioJSON(tienda);
 	expresion = new Expresion();
 	administrador = new Administrador();
@@ -167,9 +177,17 @@ public class GestionUsuario {
 	    throw new IllegalArgumentException("La contraseña es incorrecta");
 	}
 	cuentaEncontrada.setLog(true);
-	// TODO pasar los libros del usuario default al usuario logueado
-	// TODO vaciar el carrito del usuario default
 	this.usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
+	LibroCarrito libroCarrito = new LibroCarrito();
+	libroCarrito.setCorreo_usuario("user_default");
+	ArrayList<LibroCarrito> librosCarritoDefault = carritoDAO.seleccionarRegistros(libroCarrito);
+	for (LibroCarrito libroCarritoDefault : librosCarritoDefault) {
+	    libroCarritoDefault.setCorreo_usuario(usuarioLog.getCuenta().getCorreo());
+	    libroCarrito.setIsbn_libro(libroCarritoDefault.getIsbn_libro());
+	    carritoDAO.insertarDatos(libroCarritoDefault);
+	    carritoDAO.eliminarRegistro(libroCarrito);
+	}
+	
 	cuentaDAO.actualizarDatos(cuentaEncontrada);
 	return true;
     }
@@ -222,9 +240,16 @@ public class GestionUsuario {
      */
     public void modificarUsuario(Usuario usuario) throws IllegalArgumentException, SQLException {
 	expresion.validarDatosUsuario(usuario);
+	if (usuario.getTipoCliente().equalsIgnoreCase("Premium")) {
+	    UsuarioPremium usuarioPremium = new UsuarioPremium(usuario);
+	    usuarioDAO.actualizarDatos(usuarioPremium);
+	    cuentaDAO.actualizarDatos(usuarioPremium.getCuenta());
+	    return;
+	}
 	usuarioDAO.actualizarDatos(usuario);
 	cuentaDAO.actualizarDatos(usuario.getCuenta());
     }
+    
 
     public void cerrarSesionUsuario() throws RuntimeException, IOException, SQLException {
 	usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));

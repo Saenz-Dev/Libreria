@@ -17,6 +17,8 @@ public class ProductoCompra implements Serializable {
     private int numeroLibros;
     private double precioUnitario;
     private double precioTotal;
+    private double descuentoPremium;
+    private double descuentoFrecuencia;
 
     public ProductoCompra() {}
 
@@ -58,5 +60,21 @@ public class ProductoCompra implements Serializable {
 
     public void setPrecioTotal(double precioTotal) {
         this.precioTotal = precioTotal;
+    }
+
+    public double getDescuentoPremium() {
+	return descuentoPremium;
+    }
+
+    public void setDescuentoPremium(double descuentoPremium) {
+	this.descuentoPremium = descuentoPremium;
+    }
+
+    public double getDescuentoFrecuencia() {
+	return descuentoFrecuencia;
+    }
+
+    public void setDescuentoFrecuencia(double descuentoFrecuencia) {
+	this.descuentoFrecuencia = descuentoFrecuencia;
     }
 }

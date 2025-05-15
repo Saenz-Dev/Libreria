@@ -133,7 +133,7 @@ public class GestionCarrito {
 	if (libroCarrito != null) {
 	    anadirProductoExistente(libroCarrito, libroCatalogo, usuarioLog);
 	} else {
-	    anadirProductoNuevo(usuarioLog, libroCatalogo, libroCarrito);
+	    anadirProductoNuevo(usuarioLog, libroCatalogo);
 	}
     }
 
@@ -167,11 +167,12 @@ public class GestionCarrito {
      * @throws RuntimeException
      * @throws SQLException
      */
-    public void anadirProductoNuevo(Usuario usuarioLogin, Libro libroCatalogo, LibroCarrito libroCarrito)
+    public void anadirProductoNuevo(Usuario usuarioLogin, Libro libroCatalogo)
 	    throws IOException, SQLException, RuntimeException {
 	agregarLibroCarrito(libroCatalogo, usuarioLogin);
 	libroCatalogo.reservarLibro();
-	actualizarDatos(usuarioLogin, libroCatalogo, libroCarrito);
+	usuarioDAO.actualizarDatos(usuarioLogin);
+	libroDAO.actualizarDatos(libroCatalogo);
     }
 
     /**
@@ -246,8 +247,8 @@ public class GestionCarrito {
 	libroCarrito.setIsbn_libro(Long.parseLong(isbn));
 	libroCarrito.setCorreo_usuario(gestionUsuario.userLog().getCuenta().getCorreo());
 	libroCarrito = carritoDAO.seleccionarRegistro(libroCarrito);
-	if (libroCarrito == null)
-	    throw new IllegalArgumentException("No hay ejemplares de este libro en el carrito");
+	/*if (libroCarrito == null)
+	    throw new IllegalArgumentException("No hay ejemplares de este libro en el carrito");*/
 	return libroCarrito;
     }
 
@@ -434,8 +435,10 @@ public class GestionCarrito {
      * @return subtotal del producto
      * @throws IOException si ocurre algún error cuando no se lee el usuario en el
      *                     JSON
+     * @throws RuntimeException 
+     * @throws SQLException 
      */
-    public void eliminarProducto(String isbnProducto) throws IOException {
+    public void eliminarProducto(String isbnProducto) throws IOException, SQLException, RuntimeException {
 	LibroCarrito libroCarrito = new LibroCarrito();
 	libroCarrito.setIsbn_libro(Long.parseLong(isbnProducto));
 	libroCarrito.setCorreo_usuario(gestionUsuario.userLog().getCuenta().getCorreo());
@@ -544,7 +547,7 @@ public class GestionCarrito {
 	valorCompra.setSubtotal(calculadoraIVA.subtotal(librosCarritoUsuario, libroDAO));
 	valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
 	valorCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(valorCompra.getTotal(), gestionUsuario.userLog()));
-	valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(valorCompra.getTotal(), manejoUsuarioJSON.getTienda(), manejoUsuarioJSON.getUsuarioLogin()));
+	//valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(valorCompra.getTotal(), manejoUsuarioJSON.getTienda(), manejoUsuarioJSON.getUsuarioLogin()));
 	//TODO revisar si se esta restando bien el descuento premium y el descuento por frecuencia
 	valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuentoPremium());
 	return valorCompra;

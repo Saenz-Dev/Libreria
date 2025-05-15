@@ -1,11 +1,20 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.modelo.ValorCompra;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+
+import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.ProductoCompra;
+import co.edu.uptc.modelo.ValorCompra;
 
 /**
  * Clase que representa el panel del carrito de compras en la interfaz gráfica.
@@ -110,7 +119,7 @@ public class PanelCarrito extends JPanel {
      *
      * @param librosCarrito Lista de libros que están en el carrito.
      */
-    public void anadirProductosPanel(ArrayList<Libro> librosCarrito) {
+    public void anadirProductosPanel(ArrayList<ProductoCompra> librosCarrito) {
         listPanelesProductos = new ArrayList<>();
 
         if (panelProductos != null) {
@@ -155,14 +164,14 @@ public class PanelCarrito extends JPanel {
         add(scrollPane, gbcGeneral);
     }
 
-    private void agregarLibroPanel(ArrayList<Libro> librosCarrito) {
+    private void agregarLibroPanel(ArrayList<ProductoCompra> librosCarrito) {
         if (librosCarrito.isEmpty()) {
             validarExistenciaProductos();
         } else {
             gbcPanelProductos.fill = GridBagConstraints.HORIZONTAL;
             gbcPanelProductos.weightx = 1.0;
-            for (Libro libro : librosCarrito) {
-                PanelProducto panelProducto = new PanelProducto(ventanaPrincipal, libro);
+            for (ProductoCompra productoCompra : librosCarrito) {
+                PanelProducto panelProducto = new PanelProducto(ventanaPrincipal, productoCompra);
                 gbcPanelProductos.gridy++;
                 panelProductos.add(panelProducto, gbcPanelProductos);
                 listPanelesProductos.add(panelProducto);

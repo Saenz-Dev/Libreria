@@ -38,6 +38,7 @@ public class GestionCompra {
     public void aggListaCompra(ArrayList<String> isbns, Usuario usuarioLog, TipoPago tipoPago) throws IOException {
         Recibo recibo = new Recibo();
         CalculadoraIVA calculadoraIVA = new CalculadoraIVA();
+        
         if (isbns.isEmpty()) return;
 
         for (String isbn : isbns) {
@@ -49,7 +50,7 @@ public class GestionCompra {
             productoCompra.setTitulo(libro.getTitulo());
             productoCompra.setNumeroLibros(libroCarrito(isbn, usuarioLog).getStockReservado());
             productoCompra.setPrecioUnitario(libro.getPrecioVenta());
-            productoCompra.setPrecioTotal(calculadoraIVA.subtotalProducto(libro, usuarioLog.getCarrito().getLibros()));
+            //productoCompra.setPrecioTotal(calculadoraIVA.subtotalProducto(libro, usuarioLog.getCarrito().getLibros()));
             recibo.getListaProductosComprados().add(productoCompra);
             LocalTime horaActual = LocalTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
@@ -58,8 +59,8 @@ public class GestionCompra {
             recibo.setNombreUser(buscarUsuarioLogin().getNombre());
             recibo.setDireccion(usuarioLog.getDireccionEnvio());
 
-            valorCompra.setImpuestos(calculadoraIVA.impuestos(usuarioLog.getCarrito()));
-            valorCompra.setSubtotal(calculadoraIVA.subtotal(usuarioLog.getCarrito()));
+            //valorCompra.setImpuestos(calculadoraIVA.impuestos(usuarioLog.getCarrito()));
+            //valorCompra.setSubtotal(calculadoraIVA.subtotal(usuarioLog.getCarrito()));
             valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
             valorCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(valorCompra.getTotal(), usuarioLog));
             valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(valorCompra.getTotal(), manejoCompraJSON.getTienda(), usuarioLog));

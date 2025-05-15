@@ -62,7 +62,7 @@ public class CarritoDAO extends ConexionBD<LibroCarrito> {
         String sql = "SELECT * FROM carrito WHERE correo_usuario = ? AND isbn_libro = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, libroCarrito.getCorreo_usuario());
-            preparedStatement.setString(2, String.valueOf(libroCarrito.getIsbn_libro()));
+            preparedStatement.setLong(2, libroCarrito.getIsbn_libro());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     LibroCarrito libro = new LibroCarrito();

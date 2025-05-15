@@ -136,7 +136,7 @@ public class VentanaPrincipal extends JFrame {
     public void activarCarrito() {
 	try {
 	    menuPrincipal.activarPanelCarrito();
-	    menuPrincipal.getPanelCarrito().anadirProductosPanel(gestionTienda.getUserLogin().getCarrito().getLibros());
+	    menuPrincipal.getPanelCarrito().anadirProductosPanel(gestionTienda.listaCarrito());
 	    ValorCompra valorCompra = gestionTienda.resumenCompra();
 	    menuPrincipal.getPanelCarrito().modificarValores(valorCompra);
 	} catch (SQLException | IOException e) {
