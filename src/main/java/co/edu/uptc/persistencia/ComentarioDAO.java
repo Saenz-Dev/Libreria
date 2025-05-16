@@ -1,18 +1,19 @@
 package co.edu.uptc.persistencia;
 
-import co.edu.uptc.modelo.Comentario;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Timestamp;
 
-public class ComentariosDAO extends ConexionBD<Comentario> {
+import co.edu.uptc.modelo.Comentario;
+
+public class ComentarioDAO extends ConexionBD<Comentario> {
 
     @Override
     public void crearTabla() throws SQLException {
-        String sql = "CREATE TABLE IF NOT EXISTS comentarios (" + "id INT PRIMARY KEY AUTO_INCREMENT, " + "isbn_libro BIGINT NOT NULL, " + "correo_usuario VARCHAR(50) NOT NULL, " + "comentario TEXT NOT NULL, " + "fecha DATETIME NOT NULL, " + "FOREIGN KEY (isbn_libro) REFERENCES libros(isbn), " + "FOREIGN KEY (correo_usuario) REFERENCES usuarios(correo))";
+        String sql = "CREATE TABLE IF NOT EXISTS comentarios (" + "id INT PRIMARY KEY AUTO_INCREMENT, isbn_libro BIGINT NOT NULL, correo_usuario VARCHAR(50) NOT NULL, comentario TEXT NOT NULL, calificacion INT NOT NULL, fecha DATETIME NOT NULL, FOREIGN KEY (isbn_libro) REFERENCES libros(isbn), FOREIGN KEY (correo_usuario) REFERENCES usuarios(correo))";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -22,12 +23,13 @@ public class ComentariosDAO extends ConexionBD<Comentario> {
 
     @Override
     public void insertarDatos(Comentario comentario) throws SQLException {
-        String sql = "INSERT INTO comentarios (isbn_libro, correo_usuario, comentario, fecha) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO comentarios (isbn_libro, correo_usuario, comentario, calificacion, fecha) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setLong(1, Long.parseLong(comentario.getIsbn()));
             preparedStatement.setString(2, comentario.getCorreo());
             preparedStatement.setString(3, comentario.getComentario());
-            preparedStatement.setTimestamp(4, java.sql.Timestamp.valueOf(comentario.getFecha()));
+            preparedStatement.setInt(4, comentario.getCalificacion());
+            preparedStatement.setTimestamp(5, Timestamp.valueOf(comentario.getFecha()));
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("❌ Error al insertar los datos en la tabla 'comentarios': " + e.getMessage());
@@ -44,6 +46,7 @@ public class ComentariosDAO extends ConexionBD<Comentario> {
                 comentario.setIsbn(resultSet.getString("isbn_libro"));
                 comentario.setCorreo(resultSet.getString("correo_usuario"));
                 comentario.setComentario(resultSet.getString("comentario"));
+                comentario.setCalificacion(resultSet.getInt("calificacion"));
                 comentario.setFecha(resultSet.getTimestamp("fecha").toString());
                 comentarios.add(comentario);
             }
@@ -64,6 +67,7 @@ public class ComentariosDAO extends ConexionBD<Comentario> {
                     comentario.setIsbn(resultSet.getString("isbn_libro"));
                     comentario.setCorreo(resultSet.getString("correo_usuario"));
                     comentario.setComentario(resultSet.getString("comentario"));
+                    comentario.setCalificacion(resultSet.getInt("calificacion"));
                     comentario.setFecha(resultSet.getTimestamp("fecha").toString());
                     comentarios.add(comentario);
                 }

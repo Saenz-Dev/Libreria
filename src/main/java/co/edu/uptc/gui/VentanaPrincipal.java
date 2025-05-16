@@ -148,6 +148,8 @@ public class VentanaPrincipal extends JFrame {
 	try {
 	    menuPrincipal.activarPanelCompras();
 	    menuPrincipal.getPanelCompras().llenarTabla(gestionTienda.getComprasUserLogin());
+	} catch (SQLException e) {
+	    JOptionPane.showMessageDialog(menuPrincipal, e.getMessage(), "Cerrar Sesión", JOptionPane.ERROR_MESSAGE);
 	} catch (IOException | RuntimeException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal, e.getMessage(), "Cerrar Sesión", JOptionPane.ERROR_MESSAGE);
 	}
@@ -501,6 +503,9 @@ public class VentanaPrincipal extends JFrame {
 	} catch (RuntimeException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje",
 		    JOptionPane.WARNING_MESSAGE);
+	} catch (SQLException e) {
+	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje",
+		    JOptionPane.WARNING_MESSAGE);
 	}
     }
 
@@ -512,6 +517,9 @@ public class VentanaPrincipal extends JFrame {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error",
 		    JOptionPane.ERROR_MESSAGE);
 	} catch (RuntimeException e) {
+	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje",
+		    JOptionPane.WARNING_MESSAGE);
+	} catch (SQLException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje",
 		    JOptionPane.WARNING_MESSAGE);
 	}

@@ -130,5 +130,13 @@ public class CalculadoraIVA {
         if (recibosUsuario.size() == 100) return total * descFrecuencia.getDESCUENTO_CIEN_COMPRAS();
         return 0;
     }
+    
+    public double descuentoFrecuencia(ArrayList<Recibo> listaRecibos, double total) throws IOException {
+        if (listaRecibos == null || listaRecibos.isEmpty()) return 0;
+        if (listaRecibos.size() == 10) return total * descFrecuencia.getDESCUENTO_DIEZ_COMPRAS();
+        if (listaRecibos.size() == 50) return total * descFrecuencia.getDESCUENTO_CINCUENTA_COMPRAS();
+        if (listaRecibos.size() == 100) return total * descFrecuencia.getDESCUENTO_CIEN_COMPRAS();
+        return 0;
+    }
 }
 

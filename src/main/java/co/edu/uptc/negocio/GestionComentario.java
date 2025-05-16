@@ -1,26 +1,37 @@
 package co.edu.uptc.negocio;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Stack;
+
 import co.edu.uptc.modelo.Comentario;
 import co.edu.uptc.modelo.Tienda;
-
-import java.io.IOException;
-import java.util.Stack;
+import co.edu.uptc.persistencia.ComentarioDAO;
 
 public class GestionComentario {
 
     private ManejoComentarioJSON manejoComentarioJSON;
+    
+    private ComentarioDAO comentarioDAO;
 
-    public GestionComentario(Tienda tienda) {
+    public GestionComentario(Tienda tienda, ComentarioDAO comentarioDAO) throws SQLException {
         manejoComentarioJSON = new ManejoComentarioJSON(tienda);
+        this.comentarioDAO = comentarioDAO;
+        this.comentarioDAO.crearTabla();
     }
 
-    public void registrarComentario(Comentario comentario) throws IOException, RuntimeException {
-        validarComentario(comentario);
-        manejoComentarioJSON.escribirComentario(comentario.getIsbn(), comentario);
+    public void registrarComentario(Comentario comentario) throws IOException, RuntimeException, SQLException {	
+	validarComentario(comentario);
+	comentarioDAO.insertarDatos(comentario);
+        //manejoComentarioJSON.escribirComentario(comentario.getIsbn(), comentario);
     }
 
-    public Stack<Comentario> buscarComentario(String isbn) throws IOException, RuntimeException {
-        return manejoComentarioJSON.buscarComentario(isbn);
+    public Stack<Comentario> buscarComentario(String isbn) throws IOException, RuntimeException, SQLException {
+	ArrayList<Comentario> listaComentarios = comentarioDAO.seleccionarComentariosPorLibro(isbn);
+	Stack<Comentario> stackComentarios = new Stack<>();
+	stackComentarios.addAll(listaComentarios);
+        return stackComentarios;
     }
 
     private static void validarComentario(Comentario comentario) throws RuntimeException {

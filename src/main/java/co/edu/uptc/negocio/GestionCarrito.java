@@ -19,6 +19,7 @@ import co.edu.uptc.modelo.ValorCompra;
 import co.edu.uptc.persistencia.CarritoDAO;
 import co.edu.uptc.persistencia.CuentaDAO;
 import co.edu.uptc.persistencia.LibroDAO;
+import co.edu.uptc.persistencia.ReciboDAO;
 import co.edu.uptc.persistencia.UsuarioDAO;
 
 /**
@@ -538,7 +539,7 @@ public class GestionCarrito {
      * @throws RuntimeException 
      * @throws SQLException 
      */
-    public ValorCompra calculoResumenCompra() throws IOException, SQLException, RuntimeException {
+    public ValorCompra calculoResumenCompra(ReciboDAO reciboDAO) throws IOException, SQLException, RuntimeException {
 	ValorCompra valorCompra = new ValorCompra();
 	LibroCarrito libroCarrito = new LibroCarrito();
 	libroCarrito.setCorreo_usuario(gestionUsuario.userLog().getCuenta().getCorreo());
@@ -547,8 +548,9 @@ public class GestionCarrito {
 	valorCompra.setSubtotal(calculadoraIVA.subtotal(librosCarritoUsuario, libroDAO));
 	valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
 	valorCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(valorCompra.getTotal(), gestionUsuario.userLog()));
-	//valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(valorCompra.getTotal(), manejoUsuarioJSON.getTienda(), manejoUsuarioJSON.getUsuarioLogin()));
-	//TODO revisar si se esta restando bien el descuento premium y el descuento por frecuencia
+	Recibo recibo = new Recibo();
+	recibo.setCorreo(gestionUsuario.userLog().getCuenta().getCorreo());
+	valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(recibo), valorCompra.getTotal()));
 	valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuentoPremium());
 	return valorCompra;
 	
@@ -566,9 +568,23 @@ public class GestionCarrito {
     }
 
     
-    //TODO falta implementar este metodo
-    public void disminuirStock() throws IOException {
-	Usuario userLogin = manejoUsuarioJSON.getUsuarioLogin();
+    public void disminuirStock() throws IOException, SQLException, RuntimeException {
+	LibroCarrito libroCarrito = new LibroCarrito();
+	libroCarrito.setCorreo_usuario(gestionUsuario.userLog().getCuenta().getCorreo());
+	ArrayList<LibroCarrito> librosCarritoUser = carritoDAO.seleccionarRegistros(libroCarrito);
+	Iterator<LibroCarrito> iteratorCarritoUser = librosCarritoUser.iterator();
+	while (iteratorCarritoUser.hasNext()) {
+	    libroCarrito = iteratorCarritoUser.next();
+	     Libro libroCatalogo = new Libro();
+	     libroCatalogo.setIsbn(String.valueOf(libroCarrito.getIsbn_libro()));
+	     libroCatalogo = libroDAO.seleccionarRegistro(libroCatalogo);
+	     libroCatalogo.confirmarCompra(libroCarrito.getCantidad());
+	     carritoDAO.eliminarRegistro(libroCarrito);
+	     libroDAO.actualizarDatos(libroCatalogo);
+	     iteratorCarritoUser.remove();
+	}
+	
+	/*Usuario userLogin = manejoUsuarioJSON.getUsuarioLogin();
 	Map<String, ArrayList<Libro>> catalogo = manejoLibroJSON.leerLibro();
 	Iterator<Libro> iteratorCarrito = userLogin.getCarrito().getLibros().iterator();
 	while (iteratorCarrito.hasNext()) {
@@ -578,6 +594,6 @@ public class GestionCarrito {
 	    iteratorCarrito.remove();
 	}
 	manejoLibroJSON.escribirLibros(catalogo);
-	manejoUsuarioJSON.escribirUsuario();
+	manejoUsuarioJSON.escribirUsuario();*/
     }
 }

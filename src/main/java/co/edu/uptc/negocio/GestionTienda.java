@@ -1,16 +1,26 @@
 package co.edu.uptc.negocio;
 
-import co.edu.uptc.modelo.*;
-import co.edu.uptc.persistencia.CarritoDAO;
-import co.edu.uptc.persistencia.CuentaDAO;
-import co.edu.uptc.persistencia.LibroDAO;
-import co.edu.uptc.persistencia.UsuarioDAO;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Stack;
+
+import co.edu.uptc.modelo.Carrito;
+import co.edu.uptc.modelo.Comentario;
+import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.LibroCarrito;
+import co.edu.uptc.modelo.ProductoCompra;
+import co.edu.uptc.modelo.Recibo;
+import co.edu.uptc.modelo.ResumenProductoDTO;
+import co.edu.uptc.modelo.Tienda;
+import co.edu.uptc.modelo.Usuario;
+import co.edu.uptc.modelo.ValorCompra;
+import co.edu.uptc.persistencia.CarritoDAO;
+import co.edu.uptc.persistencia.ComentarioDAO;
+import co.edu.uptc.persistencia.CuentaDAO;
+import co.edu.uptc.persistencia.LibroDAO;
+import co.edu.uptc.persistencia.ReciboDAO;
+import co.edu.uptc.persistencia.UsuarioDAO;
 
 public class GestionTienda {
 
@@ -25,6 +35,8 @@ public class GestionTienda {
     private UsuarioDAO usuarioDAO;
     private CuentaDAO cuentaDAO;
     private LibroDAO libroDAO;
+    private ReciboDAO reciboDAO;
+    private ComentarioDAO comentarioDAO;
 
     public GestionTienda() throws SQLException {
 	tienda = new Tienda();
@@ -35,10 +47,9 @@ public class GestionTienda {
 	gestionUsuario = new GestionUsuario(tienda, usuarioDAO, cuentaDAO, carritoDAO);
 	gestionLibro = new GestionLibro(tienda, libroDAO);
 	gestionCatalogo = new GestionCatalogo(tienda, libroDAO);
-	gestionCarrito = new GestionCarrito(gestionUsuario.getManejoUsuarioJSON(), tienda, carritoDAO, usuarioDAO,
-		cuentaDAO, libroDAO, gestionUsuario);
-	gestionCompra = new GestionCompra(tienda);
-	gestionComentario = new GestionComentario(tienda);
+	gestionCarrito = new GestionCarrito(gestionUsuario.getManejoUsuarioJSON(), tienda, carritoDAO, usuarioDAO, cuentaDAO, libroDAO, gestionUsuario);
+	gestionCompra = new GestionCompra(tienda, reciboDAO, carritoDAO);
+	gestionComentario = new GestionComentario(tienda, comentarioDAO);
     }
 
     // -----------------------------------Métodos
@@ -116,7 +127,7 @@ public class GestionTienda {
 
     public ValorCompra resumenCompra() throws IOException, SQLException, RuntimeException {
 	// gestionCompra.getManejoCompraJSON().leerCompras();
-	return gestionCarrito.calculoResumenCompra();
+	return gestionCarrito.calculoResumenCompra(reciboDAO);
     }
 
     public void anadirLibrosCarrito(String isbnLibro, int cantidad) throws RuntimeException, IOException, SQLException {
@@ -157,14 +168,17 @@ public class GestionTienda {
 
     // Metodos de GestionCompra
 
-    public void registrarCompra(ArrayList<String> listaIsbn, TipoPago tipoPago) throws IOException {
-	gestionCompra.aggListaCompra(listaIsbn, gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin(), tipoPago);
+    public void registrarCompra(ArrayList<String> listaIsbn, TipoPago tipoPago) throws IOException, SQLException, RuntimeException {
+	gestionCompra.aggListaCompra(getUserLogin(), tipoPago, usuarioDAO, libroDAO);
 	gestionCarrito.disminuirStock();
     }
 
-    public ArrayList<Recibo> getComprasUserLogin() throws IOException {
-	gestionCompra.getManejoCompraJSON().leerCompras();
-	return tienda.getRecibos().get(gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin().getCuenta().getCorreo());
+    public ArrayList<Recibo> getComprasUserLogin() throws IOException, SQLException, RuntimeException {
+	Recibo recibo = new Recibo();
+	recibo.setCorreo(gestionUsuario.userLog().getCuenta().getCorreo());
+	return reciboDAO.seleccionarRegistrosCompras(recibo);
+	/*gestionCompra.getManejoCompraJSON().leerCompras();
+	return tienda.getRecibos().get(gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin().getCuenta().getCorreo());*/
     }
 
     public Carrito carritoUserLog() {
@@ -221,22 +235,22 @@ public class GestionTienda {
 	valorCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUsuario, libroDAO));
 	valorCompra.setSubtotal(calculadoraIVA.subtotal(librosCarritoUsuario, libroDAO));
 	valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
-	valorCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(valorCompra.getTotal(),
-		gestionUsuario.userLog()));
-	valorCompra.setDescuentoFrecuencia(
-		calculadoraIVA.descuentoFrecuencia(valorCompra.getTotal(), tienda, gestionUsuario.userLog()));
+	valorCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(valorCompra.getTotal(), gestionUsuario.userLog()));
+	Recibo recibo = new Recibo();
+	recibo.setCorreo(gestionUsuario.userLog().getCuenta().getCorreo());
+	valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(recibo), valorCompra.getTotal()));
 	valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuentoPremium());
 	return valorCompra;
     }
 
-    public void guardarComentario(Comentario comentario) throws IOException, RuntimeException {
+    public void guardarComentario(Comentario comentario) throws IOException, RuntimeException, SQLException {
 	comentario.setCorreo(gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin().getCuenta().getCorreo());
 	comentario.setUsuario(gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin().getNombre());
 	comentario.fechaActual();
 	gestionComentario.registrarComentario(comentario);
     }
 
-    public Stack<Comentario> listarComentarios(String isbn) throws IOException, RuntimeException {
+    public Stack<Comentario> listarComentarios(String isbn) throws IOException, RuntimeException, SQLException {
 	return gestionComentario.buscarComentario(isbn);
     }
 }
