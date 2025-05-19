@@ -2,6 +2,8 @@ package co.edu.uptc.modelo;
 
 import co.edu.uptc.negocio.TipoPago;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Recibo {
@@ -10,7 +12,7 @@ public class Recibo {
     private String nombreUser;
     private ValorCompra valorCompra;
     private int numeroRecibo;
-    private String fecha;
+    private LocalDateTime fecha;
     private TipoPago tipoPago;
     private String direccion;
     private ArrayList<ProductoCompra> listaProductosComprados;
@@ -18,6 +20,7 @@ public class Recibo {
 
     public Recibo() {
         listaProductosComprados = new ArrayList<>();
+        valorCompra = new ValorCompra();
     }
 
     public String getCorreo() {
@@ -44,16 +47,16 @@ public class Recibo {
         this.numeroRecibo = numeroRecibo;
     }
 
-    public String getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
-    public void formatearFecha(int anio, int mes, int dia, String horaActual) {
-        this.fecha = String.format("%d/%d/%d %s", anio, mes, dia, horaActual);
+    public LocalDateTime obtenerFechaActual() {
+	return LocalDateTime.now();
     }
 
     public TipoPago getTipoPago() {

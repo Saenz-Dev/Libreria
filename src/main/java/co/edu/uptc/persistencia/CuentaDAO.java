@@ -13,8 +13,10 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
 
     @Override
     public void crearTabla() throws SQLException {
+	String slq = "CREATE DATABASE IF NOT EXISTS bd";
         String sentencia = "CREATE TABLE IF NOT EXISTS cuentas (correo VARCHAR(50) PRIMARY KEY, contraseña VARCHAR(30), conectado BOOLEAN)";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
+            preparedStatement.executeUpdate(slq);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("❌ Error al crear la tabla 'cuentas': " + e.getMessage());

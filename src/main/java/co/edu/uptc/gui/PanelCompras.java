@@ -9,6 +9,7 @@ import javax.swing.table.JTableHeader;
 
 import java.awt.*;
 import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -29,8 +30,6 @@ public class PanelCompras extends JPanel {
 
     private JScrollPane scroll;
 
-    private JButton botonComentar;
-
     private GridBagConstraints gbc;
 
     private VentanaPrincipal ventanaPrincipal;
@@ -44,9 +43,6 @@ public class PanelCompras extends JPanel {
         removeAll();
         gbc = new GridBagConstraints();
         labelTitulo = new JLabel("Mis Compras");
-        botonComentar = new JButton("Comentar");
-        botonComentar.addActionListener(evento);
-        botonComentar.setActionCommand(evento.REGISTRAR_COMENTARIO);
         gbc.gridy = 0;
         gbc.gridx = 0;
         gbc.weightx = 1.0;
@@ -79,10 +75,17 @@ public class PanelCompras extends JPanel {
             repaint();
             return;
         }
-
+        int numCompra = 0;
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
         for (Recibo recibo : listaRecibos) {
-            String fecha = String.valueOf(recibo.getFecha());
-            String direccion = recibo.getDireccion();
+            if (numCompra != recibo.getNumeroRecibo()) {
+        	
+            	numCompra = recibo.getNumeroRecibo();
+                String fecha = formater.format(recibo.getFecha());
+                int numeroRecibo= recibo.getNumeroRecibo();
+                tableModel.addRow(new Object[]{fecha, numeroRecibo});
+            }
+            /*String direccion = recibo.getDireccion();
             double total = recibo.getValorCompra().getTotal();
             String tipoPago = String.valueOf(recibo.getTipoPago());
             for (ProductoCompra productoCompra : recibo.getListaProductosComprados()) {
@@ -90,7 +93,7 @@ public class PanelCompras extends JPanel {
                 String isbn = productoCompra.getIsbn();
                 int cantidad = productoCompra.getNumeroLibros();
                 tableModel.addRow(new Object[]{fecha, isbn, tituloLibro, direccion, cantidad, format.format(total), tipoPago});
-            }
+            }*/
         }
 
         tablaCompras = new JTable(tableModel);
@@ -100,14 +103,10 @@ public class PanelCompras extends JPanel {
         tablaCompras.getDefaultEditor(Boolean.class).addCellEditorListener(new EventoComentario(tablaCompras, ventanaPrincipal));
 
 
-        tablaCompras.getColumnModel().getColumn(0).setPreferredWidth(130);
-        tablaCompras.getColumnModel().getColumn(1).setPreferredWidth(170);
+        tablaCompras.getColumnModel().getColumn(0).setPreferredWidth(200);
+        tablaCompras.getColumnModel().getColumn(1).setPreferredWidth(100);
         tablaCompras.getColumnModel().getColumn(2).setPreferredWidth(200);
-        tablaCompras.getColumnModel().getColumn(3).setPreferredWidth(200);
-        tablaCompras.getColumnModel().getColumn(4).setPreferredWidth(40);
-        tablaCompras.getColumnModel().getColumn(5).setPreferredWidth(100);
-        tablaCompras.getColumnModel().getColumn(6).setPreferredWidth(100);
-
+        
         JTableHeader tableHeader = tablaCompras.getTableHeader();
         tableHeader.setBackground(new Color(0x24242C));
         tableHeader.setForeground(Color.WHITE);
@@ -122,17 +121,17 @@ public class PanelCompras extends JPanel {
     }
 
     private static DefaultTableModel getDefaultTableModel() {
-        String[] cabecera = {"Fecha y Hora", "ISBN", "Producto", "Dirección", "#", "Valor", "Tipo de pago", "Comentario"};
+        String[] cabecera = {"Fecha y Hora", "# Recibo", "Ver compra"};
         DefaultTableModel tableModel = new DefaultTableModel() {
             public Class<?> getColumnClass(int column) {
-                if (column == 7) {
+                if (column == 2) {
                     return Boolean.class; // La columna de comentarios es un botón
                 }
                 return String.class; // Las demás columnas son de tipo String
             }
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 7; // Solo la columna de comentarios es editable
+                return column == 2; // Solo la columna de comentarios es editable
             }
         };
         tableModel.setColumnIdentifiers(cabecera);

@@ -2,6 +2,8 @@ package co.edu.uptc.negocio;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -17,6 +19,7 @@ import co.edu.uptc.modelo.Usuario;
 import co.edu.uptc.modelo.ValorCompra;
 import co.edu.uptc.persistencia.CarritoDAO;
 import co.edu.uptc.persistencia.ComentarioDAO;
+import co.edu.uptc.persistencia.CompraDAO;
 import co.edu.uptc.persistencia.CuentaDAO;
 import co.edu.uptc.persistencia.LibroDAO;
 import co.edu.uptc.persistencia.ReciboDAO;
@@ -37,6 +40,7 @@ public class GestionTienda {
     private LibroDAO libroDAO;
     private ReciboDAO reciboDAO;
     private ComentarioDAO comentarioDAO;
+    private CompraDAO compraDAO;
 
     public GestionTienda() throws SQLException {
 	tienda = new Tienda();
@@ -44,11 +48,14 @@ public class GestionTienda {
 	usuarioDAO = new UsuarioDAO();
 	cuentaDAO = new CuentaDAO();
 	libroDAO = new LibroDAO();
+	reciboDAO = new ReciboDAO();
+	compraDAO = new CompraDAO();
+	comentarioDAO = new ComentarioDAO();
 	gestionUsuario = new GestionUsuario(tienda, usuarioDAO, cuentaDAO, carritoDAO);
 	gestionLibro = new GestionLibro(tienda, libroDAO);
 	gestionCatalogo = new GestionCatalogo(tienda, libroDAO);
 	gestionCarrito = new GestionCarrito(gestionUsuario.getManejoUsuarioJSON(), tienda, carritoDAO, usuarioDAO, cuentaDAO, libroDAO, gestionUsuario);
-	gestionCompra = new GestionCompra(tienda, reciboDAO, carritoDAO);
+	gestionCompra = new GestionCompra(tienda, reciboDAO, carritoDAO, compraDAO);
 	gestionComentario = new GestionComentario(tienda, comentarioDAO);
     }
 
@@ -150,7 +157,7 @@ public class GestionTienda {
 	LibroCarrito libroCarrito  = new LibroCarrito();
 	libroCarrito.setCorreo_usuario(gestionUsuario.userLog().getCuenta().getCorreo());
 	ArrayList<LibroCarrito> librosCarritoDefaul = carritoDAO.seleccionarRegistros(libroCarrito);
-	if (librosCarritoDefaul == null || librosCarritoDefaul.isEmpty()) throw new IllegalArgumentException("El usuario default no tiene libros");
+	if (librosCarritoDefaul == null || librosCarritoDefaul.isEmpty())return;// throw new IllegalArgumentException("El usuario default no tiene libros");
 	for (LibroCarrito libroCarritoDefautl : librosCarritoDefaul) {
 	    Libro libroCatalogo = new Libro();
 	    libroCatalogo.setIsbn(String.valueOf(libroCarritoDefautl.getIsbn_libro()));
@@ -169,16 +176,44 @@ public class GestionTienda {
     // Metodos de GestionCompra
 
     public void registrarCompra(ArrayList<String> listaIsbn, TipoPago tipoPago) throws IOException, SQLException, RuntimeException {
+	LibroCarrito libroCarrito = new LibroCarrito();
+	libroCarrito.setCorreo_usuario(gestionUsuario.userLog().getCuenta().getCorreo());
+	ArrayList<LibroCarrito> listaLibrosCarrito = carritoDAO.seleccionarRegistros(libroCarrito);
+	if (listaLibrosCarrito == null || listaLibrosCarrito.isEmpty()) {
+	    throw new IllegalArgumentException("No puede continuar con la compra, no tiene productos en el carrito...");
+	}
 	gestionCompra.aggListaCompra(getUserLogin(), tipoPago, usuarioDAO, libroDAO);
 	gestionCarrito.disminuirStock();
     }
-
+    //TODO modificar metodo para que envie compras y no recibos
     public ArrayList<Recibo> getComprasUserLogin() throws IOException, SQLException, RuntimeException {
 	Recibo recibo = new Recibo();
 	recibo.setCorreo(gestionUsuario.userLog().getCuenta().getCorreo());
 	return reciboDAO.seleccionarRegistrosCompras(recibo);
 	/*gestionCompra.getManejoCompraJSON().leerCompras();
 	return tienda.getRecibos().get(gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin().getCuenta().getCorreo());*/
+    }    
+    
+    public Recibo reciboUsuario() throws IOException, SQLException, RuntimeException {
+	Recibo recibo = new Recibo();
+	Usuario usuarioLog = gestionUsuario.userLog(); //Se utiliza el metodo que devuelve el usuario logueado
+	recibo.setCorreo(usuarioLog.getCuenta().getCorreo()); //Y tambien el correo del usuario
+	recibo.setNumeroRecibo(compraDAO.seleccionarRegistros().size()); //En la BD compras se busca el numero de compra
+	recibo = reciboDAO.seleccionarRegistroNumero(recibo);
+	recibo.setNombreUser(usuarioLog.getNombre()); //Se asigna el nombre del usuario logueado// Y con este dato se manda por parametro a recibo para buscar cuales fueron los productos comprados
+	buscarNombresLibros(recibo); //Se busca los nombres de los libros y se asignan al recibo
+	return recibo; // Y se retorna el recibo
+	/*gestionCompra.getManejoCompraJSON().leerCompras();
+	return tienda.getRecibos().get(gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin().getCuenta().getCorreo());*/
+    }
+    
+    public void buscarNombresLibros(Recibo recibo) throws SQLException, RuntimeException {
+	for (ProductoCompra productoCompra : recibo.getListaProductosComprados()) {
+	    Libro libroCatalogo = new Libro();
+	    libroCatalogo.setIsbn(productoCompra.getIsbn());
+	    libroCatalogo = libroDAO.seleccionarRegistro(libroCatalogo);
+	    productoCompra.setTitulo(libroCatalogo.getTitulo());
+	}
     }
 
     public Carrito carritoUserLog() {
@@ -252,5 +287,25 @@ public class GestionTienda {
 
     public Stack<Comentario> listarComentarios(String isbn) throws IOException, RuntimeException, SQLException {
 	return gestionComentario.buscarComentario(isbn);
+    }
+
+    public Recibo comprasUsuarioLog(String fecha, int numeroCompra) throws SQLException, RuntimeException {
+	Recibo recibo = new Recibo();
+	recibo.setNumeroRecibo(numeroCompra);
+	DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
+	recibo.setFecha(LocalDateTime.parse(fecha, formater));
+	Recibo compraRecibo = compraDAO.seleccionarRegistro(recibo);
+	if (compraRecibo == null) {
+	    throw new RuntimeException("Compra no encontrada");
+	}
+
+	Recibo reciboFinal = reciboDAO.seleccionarRegistro(compraRecibo);
+	if (reciboFinal == null) {
+	    throw new RuntimeException("Recibo no encontrado");
+	}
+	reciboFinal.setNombreUser(gestionUsuario.userLog().getNombre());
+	buscarNombresLibros(reciboFinal);
+	return reciboFinal;
+	
     }
 }

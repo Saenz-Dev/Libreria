@@ -432,14 +432,6 @@ public class VentanaPrincipal extends JFrame {
 
     public void aceptarConfirmarCompra() {
 	try {
-	    if (gestionTienda.getUserLogin().getCarrito().getLibros().isEmpty()) {
-		menuPrincipal.getPanelConfirmCompra().setVisible(false);
-		JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(),
-			"No puede continuar con la compra, no tiene productos en el carrito...", "Informacion",
-			JOptionPane.INFORMATION_MESSAGE);
-		activarCarrito();
-		return;
-	    }
 
 	    ArrayList<String> listaIsbn = menuPrincipal.getPanelCarrito().isbnLibrosCarrito();
 	    if (menuPrincipal.getPanelConfirmCompra().seleccionEfectivo()) {
@@ -448,9 +440,9 @@ public class VentanaPrincipal extends JFrame {
 	    if (menuPrincipal.getPanelConfirmCompra().seleccionTarjeta()) {
 		gestionTienda.registrarCompra(listaIsbn, TipoPago.TARJETA);
 	    }
-	    JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(), "Su compra ha sido exitosa.");
+ 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(), "Su compra ha sido exitosa.");
 	    menuPrincipal.getPanelConfirmCompra().setVisible(false);
-	    menuPrincipal.getPanelRecibo().modificarLabels(gestionTienda.getComprasUserLogin().getLast());
+	    menuPrincipal.getPanelRecibo().modificarLabels(gestionTienda.reciboUsuario());
 	    menuPrincipal.activarPanelRecibo();
 
 	    menuPrincipal.getPanelCarrito().repaintPanel(new ValorCompra(0, 0, 0, 0, 0));
@@ -460,6 +452,16 @@ public class VentanaPrincipal extends JFrame {
 		    JOptionPane.ERROR_MESSAGE);
 	} catch (IOException | RuntimeException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error",
+		    JOptionPane.ERROR_MESSAGE);
+	}
+    }
+    
+    public void activarPanelVerCompra(String fecha, int numeroRecibo) {
+	try {
+	    menuPrincipal.getPanelRecibo().modificarLabels(gestionTienda.comprasUsuarioLog(fecha, numeroRecibo));
+	    menuPrincipal.activarPanelRecibo();
+	} catch (SQLException | RuntimeException e) {
+	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error",
 		    JOptionPane.ERROR_MESSAGE);
 	}
     }

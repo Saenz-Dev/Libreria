@@ -317,7 +317,7 @@ public class MenuPrincipal extends JPanel {
         panelInicioSesion = new PanelInicioSesion(evento);
         panelComentario = new PanelComentario();
         panelCalificar = new PanelCalificar(evento);
-        panelRecibo = new PanelRecibo();
+        panelRecibo = new PanelRecibo(ventanaPrincipal);
         clPrincipal = new CardLayout();
         panelClPrincipal = new JPanel(clPrincipal);
 

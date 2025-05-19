@@ -71,7 +71,7 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
                     usuarioEncontrado.setTipoCliente(resultSet.getString("cliente"));
                     usuarioEncontrado.setDescuentoTipoUsuario(resultSet.getDouble("descuento"));
                     usuarioEncontrado.getCuenta().setCorreo(resultSet.getString("correo"));
-                    return usuarioEncontrado;
+                    return usuarioEncontrado;	
                 }
             }
         } catch (SQLException e) {

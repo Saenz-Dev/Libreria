@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
 
 public class PanelRecibo extends JDialog {
 
@@ -24,6 +25,7 @@ public class PanelRecibo extends JDialog {
     private JLabel labelMensaje;
     private GridBagConstraints gbc;
     private JScrollPane scroll;
+    private VentanaPrincipal ventanaPrincipal;
 
     public void setLabelRecibo(JLabel labelRecibo) {
         this.labelRecibo = labelRecibo;
@@ -69,7 +71,8 @@ public class PanelRecibo extends JDialog {
         this.labelMensaje = labelMensaje;
     }
 
-    public PanelRecibo() {
+    public PanelRecibo(VentanaPrincipal ventanaPrincipal) {
+	this.ventanaPrincipal = ventanaPrincipal;
         setLayout(new GridBagLayout());
         setTitle("Factura de Compra");
         setLocationRelativeTo(null);
@@ -115,9 +118,10 @@ public class PanelRecibo extends JDialog {
         if (getComponentCount() == 0) {
             modificarRecibo();
         }
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
         labelNombreCliente.setText("Nombre: " + recibo.getNombreUser());
         labelCorreoElectronico.setText("Correo: " + recibo.getCorreo());
-        labelFechaHora.setText("Fecha y hora: " + recibo.getFecha());
+        labelFechaHora.setText("Fecha y hora: " + recibo.getFecha().format(dateTimeFormatter));
         labelMetodoPago.setText("M.Pago: " + recibo.getTipoPago());
         labelNumeroRecibo.setText("Recibo Nº: " + recibo.getNumeroRecibo());
         labelNombreLibreria.setText("Libreria Virtual");
@@ -171,6 +175,7 @@ public class PanelRecibo extends JDialog {
 
             tableModel.addRow(new Object[]{producto, cantidad, format.format(precioUnitario), format.format(subtotal)});
         }
+        
         tableModel.addRow(new Object[]{"", "", "Subtotal", format.format(recibo.getValorCompra().getSubtotal())});
         tableModel.addRow(new Object[]{"", "", "Impuestos", "+ " + format.format(recibo.getValorCompra().getImpuestos())});
         tableModel.addRow(new Object[]{"", "", "Desc. Premium", "- " +  format.format(recibo.getValorCompra().getDescuentoPremium())});
@@ -182,6 +187,7 @@ public class PanelRecibo extends JDialog {
         tablaCompras.repaint();
         tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tablaCompras.setSize(300, 100);
+        tablaCompras.getDefaultEditor(Boolean.class).addCellEditorListener(new EventoRecibo(tablaCompras, ventanaPrincipal));
 
         JTableHeader tableHeader = tablaCompras.getTableHeader();
         tableHeader.setBackground(new Color(0x24242C));
