@@ -33,6 +33,8 @@ public class PanelCompras extends JPanel {
     private GridBagConstraints gbc;
 
     private VentanaPrincipal ventanaPrincipal;
+    
+    private JLabel labelSinCompras;
 
     /**
      * Constructor del panel de compras.
@@ -43,6 +45,7 @@ public class PanelCompras extends JPanel {
         removeAll();
         gbc = new GridBagConstraints();
         labelTitulo = new JLabel("Mis Compras");
+        labelSinCompras = new JLabel("No se encontraron compras realizadas...");
         gbc.gridy = 0;
         gbc.gridx = 0;
         gbc.weightx = 1.0;
@@ -52,6 +55,12 @@ public class PanelCompras extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10);
         labelTitulo.setFont(new Font("Arial", Font.BOLD, 30));
         add(labelTitulo, gbc);
+        
+        gbc.gridy = 2;
+        gbc.weighty = 1.0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(labelSinCompras, gbc);
     }
 
     public void llenarTabla(ArrayList<Recibo> listaRecibos) {
@@ -70,11 +79,13 @@ public class PanelCompras extends JPanel {
         DefaultTableModel tableModel = getDefaultTableModel();
 
         if (listaRecibos == null || listaRecibos.isEmpty()) {
-            add(new JLabel("No se encontraron compras realizadas..."), gbc);
+            labelSinCompras.setVisible(true);
             revalidate();
             repaint();
             return;
         }
+        
+        labelSinCompras.setVisible(false);
         int numCompra = 0;
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
         for (Recibo recibo : listaRecibos) {
@@ -103,9 +114,9 @@ public class PanelCompras extends JPanel {
         tablaCompras.getDefaultEditor(Boolean.class).addCellEditorListener(new EventoComentario(tablaCompras, ventanaPrincipal));
 
 
-        tablaCompras.getColumnModel().getColumn(0).setPreferredWidth(200);
+        tablaCompras.getColumnModel().getColumn(0).setPreferredWidth(300);
         tablaCompras.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tablaCompras.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tablaCompras.getColumnModel().getColumn(2).setPreferredWidth(300);
         
         JTableHeader tableHeader = tablaCompras.getTableHeader();
         tableHeader.setBackground(new Color(0x24242C));

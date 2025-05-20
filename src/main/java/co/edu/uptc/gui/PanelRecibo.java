@@ -72,16 +72,17 @@ public class PanelRecibo extends JDialog {
     }
 
     public PanelRecibo(VentanaPrincipal ventanaPrincipal) {
+	//super(ventanaPrincipal, "Factura de Compra", true);
 	this.ventanaPrincipal = ventanaPrincipal;
-        setLayout(new GridBagLayout());
-        setTitle("Factura de Compra");
-        setLocationRelativeTo(null);
-        setSize(400, 600);
+        setLayout(new GridBagLayout());        
         setModal(true);
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         initAtributos();
         modificarRecibo();
+        setSize(400, 600);
+        
+        setVisible(false);
     }
 
     private void modificarRecibo() {

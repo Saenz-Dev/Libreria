@@ -69,10 +69,10 @@ public class PanelCatalogo extends JPanel {
 	gbc.insets = new Insets(10, 10, 10, 10);
 	gbc.fill = GridBagConstraints.BOTH;
 	gbc.gridy = 1;
-	panelLibros.setBorder(new LineBorder(Color.WHITE));
+	panelLibros.setBorder(null);
 	scrollPanelLibros = new JScrollPane(panelLibros);
 	scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
-	scrollPanelLibros.setBorder(new LineBorder(Color.WHITE));
+	scrollPanelLibros.setBorder(null);
 
 	add(scrollPanelLibros, gbc);
 	repaint();
@@ -134,7 +134,8 @@ public class PanelCatalogo extends JPanel {
 
     private void anadirPanelLibro(Libro libro) {
 	PanelLibro panelLibro = new PanelLibro(ventanaPrincipal, libro);
-	panelLibro.setPreferredSize(new Dimension(270, 150));
+	panelLibro.setPreferredSize(new Dimension(270, 180));
+	panelLibro.setBorder(new LineBorder(Color.BLACK));
 	anadirLibrosPanel(panelLibro);
     }
 

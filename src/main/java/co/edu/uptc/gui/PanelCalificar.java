@@ -25,7 +25,6 @@ public class PanelCalificar extends JDialog {
         setLayout(new GridBagLayout());
         setTitle("Calificación y Comentarios");
         setSize(500, 450);
-        setLocationRelativeTo(null);
         setModal(true);
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

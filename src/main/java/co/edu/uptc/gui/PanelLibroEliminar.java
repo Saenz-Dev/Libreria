@@ -97,8 +97,8 @@ public class PanelLibroEliminar extends JPanel {
      * Personaliza el formato de los textos del panel.
      */
     public void personalizar() {
-        labelTitulo.setFont(new Font("Sunglasses", Font.BOLD, 10));
+        labelTitulo.setFont(new Font("Sunglasses", Font.BOLD, 15));
         labelPrecio.setFont(new Font("Sunglasses", Font.BOLD, 10));
-        labelAutor.setFont(new Font("Sunglasses", Font.BOLD, 10));
+        labelAutor.setFont(new Font("Sunglasses", Font.BOLD, 12));
     }
 }

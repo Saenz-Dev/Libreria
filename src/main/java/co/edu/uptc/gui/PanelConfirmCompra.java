@@ -36,8 +36,8 @@ public class PanelConfirmCompra extends JDialog {
     }
 
     public PanelConfirmCompra(VentanaPrincipal ventanaPrincipal, Evento evento) {
+	super(ventanaPrincipal, "Confirmar Compra", true);
         this.ventanaPrincipal = ventanaPrincipal;
-        setTitle("Confirmar Compra");
         revalidate();
         repaint();
         preferenciasPanel();
@@ -101,10 +101,6 @@ public class PanelConfirmCompra extends JDialog {
         buttonGroup = new ButtonGroup();
         buttonGroup.add(botonEfectivo);
         buttonGroup.add(botonTarjeta);
-    }
-
-    public void visibilizar() {
-        setVisible(true);
     }
 
     public void llenarTabla(ValorCompra valorCompra, ArrayList<ProductoCompra> listaCarrito) {

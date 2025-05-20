@@ -23,7 +23,7 @@ public class GestionUsuario {
     private CuentaDAO cuentaDAO;
 
     private UsuarioDAO usuarioDAO;
-    
+
     private CarritoDAO carritoDAO;
 
     private Usuario usuarioLog;
@@ -70,6 +70,27 @@ public class GestionUsuario {
 	return usuario;
     }
 
+    public Cuenta crearCuentaAdmin() {
+	Cuenta cuenta = new Cuenta();
+	cuenta.setCorreo("administrador");
+	cuenta.setContrasena("");
+	cuenta.setLog(false);
+	return cuenta;
+    }
+
+    public Usuario crearUsuarioAdmin() {
+	Usuario usuario = new Usuario();
+	Cuenta cuenta = new Cuenta();
+	cuenta.setCorreo("administrador");
+	usuario.setNombre("administrador");
+	usuario.setDireccionEnvio("");
+	usuario.setTelefono(0);
+	usuario.setTipoCliente("NN");
+	usuario.setDescuentoTipoUsuario(0);
+	usuario.setCuenta(cuenta);
+	return usuario;
+    }
+
     /**
      * Metodo que devuelve la instancia de ManejoUsuarioJSON
      *
@@ -84,7 +105,8 @@ public class GestionUsuario {
      * 
      * @throws SQLException
      */
-    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, CuentaDAO cuentaDAO, CarritoDAO carritoDAO) throws SQLException {
+    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, CuentaDAO cuentaDAO, CarritoDAO carritoDAO)
+	    throws SQLException {
 	usuarioLog = new Usuario();
 	this.cuentaDAO = cuentaDAO;
 	this.usuarioDAO = usuarioDAO;
@@ -92,21 +114,29 @@ public class GestionUsuario {
 	manejoUsuarioJSON = new ManejoUsuarioJSON(tienda);
 	expresion = new Expresion();
 	administrador = new Administrador();
-	crearTablas();
+	crearTablasUserDefault();
+	crearAdmin();
     }
 
-    public void crearTablas() throws SQLException {
+    public void crearTablasUserDefault() throws SQLException {
 	cuentaDAO.crearTabla();
 	usuarioDAO.crearTabla();
 	usuarioLog.getCuenta().setCorreo("user_default");
 	if (usuarioDAO.seleccionarRegistro(usuarioLog) == null) {
-	    usuarioDAO.insertarDatos(crearUsuarioDefault());
 	    cuentaDAO.insertarDatos(crearCuentaUsuarioDefault());
+	    usuarioDAO.insertarDatos(crearUsuarioDefault());
 	}
-	
+
 	usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
 	usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));
+    }
 
+    public void crearAdmin() throws SQLException {
+	usuarioLog.getCuenta().setCorreo("administrador");
+	if (usuarioDAO.seleccionarRegistro(usuarioLog) == null) {
+	    cuentaDAO.insertarDatos(crearCuentaAdmin());
+	    usuarioDAO.insertarDatos(crearUsuarioAdmin());
+	}
     }
 
     /**
@@ -187,7 +217,7 @@ public class GestionUsuario {
 	    carritoDAO.insertarDatos(libroCarritoDefault);
 	    carritoDAO.eliminarRegistro(libroCarrito);
 	}
-	
+
 	cuentaDAO.actualizarDatos(cuentaEncontrada);
 	return true;
     }
@@ -201,12 +231,14 @@ public class GestionUsuario {
      *                                  no cumple con las reglas
      */
     public void validarCamposVaciosLogin(String correo, String contrasena) throws IllegalArgumentException {
-	if (correo.isBlank() && contrasena.isBlank()) {
-	    throw new IllegalArgumentException("Complete los campos de texto.");
-	} else if (correo.isBlank()) {
-	    throw new IllegalArgumentException("Ingrese un correo.");
-	} else if (contrasena.isBlank()) {
-	    throw new IllegalArgumentException("Ingrese una contraseña.");
+	if (!correo.equals(Administrador.CORREO)) {
+	    if (correo.isBlank() && contrasena.isBlank()) {
+		throw new IllegalArgumentException("Complete los campos de texto.");
+	    } else if (correo.isBlank()) {
+		throw new IllegalArgumentException("Ingrese un correo.");
+	    } else if (contrasena.isBlank()) {
+		throw new IllegalArgumentException("Ingrese una contraseña.");
+	    }
 	}
     }
 
@@ -249,7 +281,6 @@ public class GestionUsuario {
 	usuarioDAO.actualizarDatos(usuario);
 	cuentaDAO.actualizarDatos(usuario.getCuenta());
     }
-    
 
     public void cerrarSesionUsuario() throws RuntimeException, IOException, SQLException {
 	usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));

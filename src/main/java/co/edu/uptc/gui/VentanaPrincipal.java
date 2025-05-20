@@ -75,6 +75,8 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void activarFuncionRegresar() {
+	menuPrincipal.getPanelInicioSesion().setTxtCorreo("");
+	menuPrincipal.getPanelInicioSesion().setTxtContrasena("");
 	menuPrincipal.vistaPanelVenta();
     }
 
@@ -391,7 +393,7 @@ public class VentanaPrincipal extends JFrame {
 
     public void activarCancelarEliminarLibro() {
 	menuPrincipal.activarPanelGestionLibro();
-	activarCarrito();
+	//activarCarrito();
     }
 
     public void activarPanelConfirmCompra() {

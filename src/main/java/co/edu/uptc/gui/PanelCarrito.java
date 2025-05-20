@@ -193,6 +193,8 @@ public class PanelCarrito extends JPanel {
         gbcPanelProductos.anchor = GridBagConstraints.CENTER;
         JLabel label = new JLabel("No hay productos seleccionados");
         panelProductos.add(label, gbcPanelProductos);
+        revalidate();
+        repaint();
     }
 
     /**

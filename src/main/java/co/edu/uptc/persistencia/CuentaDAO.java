@@ -1,23 +1,25 @@
 package co.edu.uptc.persistencia;
 
-import co.edu.uptc.modelo.Cuenta;
-import co.edu.uptc.modelo.Usuario;
-
 import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import co.edu.uptc.modelo.Cuenta;
+
 public class CuentaDAO extends ConexionBD<Cuenta> {
 
+    public CuentaDAO() {
+	super();
+    }
+    
     @Override
     public void crearTabla() throws SQLException {
-	String slq = "CREATE DATABASE IF NOT EXISTS bd";
         String sentencia = "CREATE TABLE IF NOT EXISTS cuentas (correo VARCHAR(50) PRIMARY KEY, contraseña VARCHAR(30), conectado BOOLEAN)";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.executeUpdate(slq);
-            preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate(sentencia);
         } catch (SQLException e) {
             throw new SQLException("❌ Error al crear la tabla 'cuentas': " + e.getMessage());
         }

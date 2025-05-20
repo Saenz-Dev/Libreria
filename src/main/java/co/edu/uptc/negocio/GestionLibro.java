@@ -67,7 +67,6 @@ public class GestionLibro {
     public void registrarLibro(Libro libro) throws IllegalArgumentException, IOException, SQLException {
 	expresion.validarDatosObligatorios(libro);
 	expresion.validarFormatoDatosLibro(libro);
-	libroDAO.crearTabla();
 	libroDAO.insertarDatos(libro);
 	// manejoLibroJSON.crearLibro(libro);
     }

@@ -156,6 +156,8 @@ public class MenuPrincipal extends JPanel {
     private PanelComentario panelComentario;
 
     private PanelCalificar panelCalificar;
+    
+    private VentanaPrincipal ventanaPrincipal;
 
     /**
      * Obtiene el panel de compras del usuario.
@@ -299,6 +301,7 @@ public class MenuPrincipal extends JPanel {
         setLayout(new BorderLayout());
         panelIzquierda = new JPanel(new GridBagLayout());
         gbc = new GridBagConstraints();
+        this.ventanaPrincipal = ventanaPrincipal;
 
         eventoLista = new EventoLista(ventanaPrincipal);
         panelCatalogo = new PanelCatalogo(ventanaPrincipal);
@@ -519,6 +522,7 @@ public class MenuPrincipal extends JPanel {
      * Activa el panel para registrar un nuevo libro.
      */
     public void activarPanelRegistrarLibros() {
+	panelRegistrarLibro.setLocationRelativeTo(ventanaPrincipal);
         panelRegistrarLibro.setVisible(true);
     }
 
@@ -526,6 +530,7 @@ public class MenuPrincipal extends JPanel {
      * Activa el panel para registrar un nuevo usuario.
      */
     public void activarPanelRegistrarUsuario() {
+	panelRegistrarUsuario.setLocationRelativeTo(ventanaPrincipal);
         panelRegistrarUsuario.setVisible(true);
     }
 
@@ -547,6 +552,7 @@ public class MenuPrincipal extends JPanel {
      * Activa el panel para modificar un libro.
      */
     public void activarPanelModificarLibro() {
+	panelModificarLibro.setLocationRelativeTo(ventanaPrincipal);
         panelModificarLibro.setVisible(true);
     }
 
@@ -561,6 +567,7 @@ public class MenuPrincipal extends JPanel {
      * Activa el panel para actualizar los datos de un usuario.
      */
     public void activarActualizarDatosUsuario() {
+	panelModificarUsuario.setLocationRelativeTo(ventanaPrincipal);
         panelModificarUsuario.setVisible(true);
     }
 
@@ -579,10 +586,12 @@ public class MenuPrincipal extends JPanel {
     }
 
     public void activarPanelConfirmCompra() {
-        panelConfirmCompra.visibilizar();
+	panelConfirmCompra.setLocationRelativeTo(ventanaPrincipal);
+        panelConfirmCompra.setVisible(true);
     }
 
     public void activarPanelRecibo() {
+	panelRecibo.setLocationRelativeTo(ventanaPrincipal);
         panelRecibo.setVisible(true);
     }
 
@@ -591,10 +600,12 @@ public class MenuPrincipal extends JPanel {
     }
 
     public void desactivarPanelComentario() {
+	panelComentario.setLocationRelativeTo(ventanaPrincipal);
         panelComentario.setVisible(false);
     }
 
     public void activarPanelCalificar() {
+	panelCalificar.setLocationRelativeTo(ventanaPrincipal);
         panelCalificar.setVisible(true);
     }
 

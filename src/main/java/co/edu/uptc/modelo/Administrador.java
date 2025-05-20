@@ -14,7 +14,7 @@ public class Administrador implements Serializable {
     /**
      * Correo del administrador
      */
-    private final String CORREO = "admin@gmail.com";
+    public static final String CORREO = "administrador";
 
     /**
      * Constructor de la clase

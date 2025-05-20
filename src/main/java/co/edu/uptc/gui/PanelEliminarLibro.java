@@ -179,7 +179,7 @@ public class PanelEliminarLibro extends JPanel {
 	gbcPanelLibros.fill = GridBagConstraints.CENTER;
 	conteoColumnas = 0;
 	conteoFilas = 0;
-	panelLibros.add(new JLabel("No hay libros registrados..."), gbcPanelLibros);
+	panelLibros.add(new JLabel("No hay libros registrados..."));
     }
 
     /**
@@ -193,7 +193,7 @@ public class PanelEliminarLibro extends JPanel {
 
 	gbcPanelLibros.gridx = conteoColumnas;
 	gbcPanelLibros.gridy = conteoFilas;
-	panelLibros.add(panelLibro, gbcPanelLibros);
+	panelLibros.add(panelLibro);
 	listPanelesLibros.add(panelLibro);
 
 	conteoColumnas++;
@@ -201,6 +201,10 @@ public class PanelEliminarLibro extends JPanel {
 	    conteoColumnas = 0;
 	    conteoFilas++;
 	}
+	/*if (conteoColumnas < 3) {
+	    gbcPanelLibros.gridx = conteoColumnas;
+	    panelLibros.add(new JLabel(""), gbcPanelLibros);
+	}*/
     }
 
     /**
@@ -223,6 +227,7 @@ public class PanelEliminarLibro extends JPanel {
 
 	for (Libro libro : catalogo) {
 	    agregarPanelLibro(libro);
+	    gbcPanelLibros.weightx = 0;
 	}
 
 	if (panelLibros.getComponentCount() == 0) {
@@ -237,7 +242,7 @@ public class PanelEliminarLibro extends JPanel {
 
     private void agregarPanelLibro(Libro libro) {
 	PanelLibroEliminar panelLibro = new PanelLibroEliminar(ventanaPrincipal, libro);
-	panelLibro.setPreferredSize(new Dimension(180, 120));
+	panelLibro.setPreferredSize(new Dimension(160, 100));
 	anadirLibrosPanel(panelLibro);
     }
 
@@ -250,7 +255,7 @@ public class PanelEliminarLibro extends JPanel {
 	setLayout(new GridBagLayout());
 	gbcPanelLibros = new GridBagConstraints();
 	gbPanelLibros = new GridBagLayout();
-	panelLibros = new JPanel(gbPanelLibros);
+	panelLibros = new JPanel(new GridLayout(0, 3, 20, 20));
 	this.ventanaPrincipal = ventanaPrincipal;
 	conteoFilas = 0;
 	conteoColumnas = 0;
@@ -280,6 +285,6 @@ public class PanelEliminarLibro extends JPanel {
 	gbcPanelLibros.weighty = 1.0;
 	gbcPanelLibros.fill = GridBagConstraints.BOTH;
 	JLabel label = new JLabel("No hay productos seleccionados");
-	panelLibros.add(label, gbcPanelLibros);
+	panelLibros.add(label);
     }
 }

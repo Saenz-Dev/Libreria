@@ -58,16 +58,16 @@ public class PanelInicioSesion extends JPanel {
      * Establece el campo de texto del correo.
      * @param txtCorreo Nuevo campo de texto para el correo.
      */
-    public void setTxtCorreo(JTextField txtCorreo) {
-        this.txtCorreo = txtCorreo;
+    public void setTxtCorreo(String txtCorreo) {
+        this.txtCorreo.setText(txtCorreo);
     }
 
     /**
      * Establece el campo de texto de la contraseña.
      * @param txtContrasena Nuevo campo de texto para la contraseña.
      */
-    public void setTxtContrasena(JTextField txtContrasena) {
-        this.txtContrasena = txtContrasena;
+    public void setTxtContrasena(String txtContrasena) {
+	this.txtContrasena.setText(txtContrasena);
     }
 
     /**

@@ -123,14 +123,13 @@ public class PanelRegistrarLibro extends JDialog {
      */
     private JButton botonCancelar;
 
-
     /**
      * Obtiene el ISBN ingresado en el campo de texto.
      *
      * @return ISBN como una cadena de texto.
      */
     public String getTxtIsbn() {
-        return txtISBN.getText();
+	return txtISBN.getText();
     }
 
     /**
@@ -139,7 +138,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @return Nombre del libro como una cadena de texto.
      */
     public String getTxtNombre() {
-        return txtNombre.getText();
+	return txtNombre.getText();
     }
 
     /**
@@ -148,7 +147,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @return Autor del libro como una cadena de texto.
      */
     public String getTxtAutor() {
-        return txtAutor.getText();
+	return txtAutor.getText();
     }
 
     /**
@@ -157,7 +156,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @return Año de publicación como una cadena de texto.
      */
     public String getTxtAnoPublicacion() {
-        return txtAnoPublicacion.getText();
+	return txtAnoPublicacion.getText();
     }
 
     /**
@@ -166,7 +165,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @return Categoría del libro como una cadena de texto.
      */
     public String getTxtCategoria() {
-        return (String) txtCategoria.getSelectedItem();
+	return (String) txtCategoria.getSelectedItem();
     }
 
     /**
@@ -175,7 +174,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @return Editorial del libro como una cadena de texto.
      */
     public String getTxtEditorial() {
-        return txtEditorial.getText();
+	return txtEditorial.getText();
     }
 
     /**
@@ -184,7 +183,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @return Número de páginas como una cadena de texto.
      */
     public String getTxtNumeroPaginas() {
-        return txtNumeroPaginas.getText();
+	return txtNumeroPaginas.getText();
     }
 
     /**
@@ -193,7 +192,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @return Precio del libro como una cadena de texto.
      */
     public String getTxtPrecio() {
-        return txtPrecio.getText();
+	return txtPrecio.getText();
     }
 
     /**
@@ -202,7 +201,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @return Cantidad del libro como una cadena de texto.
      */
     public String getTxtCantidad() {
-        return txtCantidad.getText();
+	return txtCantidad.getText();
     }
 
     /**
@@ -211,7 +210,8 @@ public class PanelRegistrarLibro extends JDialog {
      * @return Formato del libro como un objeto TipoLibro.
      */
     public TipoLibro getTxtFormato() {
-        return txtFormato.getSelectedItem().toString().equals(String.valueOf(TipoLibro.FISICO)) ? TipoLibro.FISICO : TipoLibro.DIGITAL;
+	return txtFormato.getSelectedItem().toString().equals(String.valueOf(TipoLibro.FISICO)) ? TipoLibro.FISICO
+		: TipoLibro.DIGITAL;
     }
 
     /**
@@ -220,7 +220,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @param texto ISBN del libro.
      */
     public void setTxtIsbn(String texto) {
-        txtISBN.setText(texto);
+	txtISBN.setText(texto);
     }
 
     /**
@@ -229,7 +229,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @param texto Nombre del libro.
      */
     public void setTxtNombre(String texto) {
-        txtNombre.setText(texto);
+	txtNombre.setText(texto);
     }
 
     /**
@@ -238,7 +238,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @param texto Nombre del autor.
      */
     public void setTxtAutor(String texto) {
-        txtAutor.setText(texto);
+	txtAutor.setText(texto);
     }
 
     /**
@@ -247,7 +247,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @param texto Año de publicación.
      */
     public void setTxtAnoPublicacion(String texto) {
-        txtAnoPublicacion.setText(texto);
+	txtAnoPublicacion.setText(texto);
     }
 
     /**
@@ -256,7 +256,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @param index Categoría del libro.
      */
     public void setTxtCategoria(String index) {
-        txtCategoria.setSelectedItem(index);
+	txtCategoria.setSelectedItem(index);
     }
 
     /**
@@ -265,7 +265,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @param texto Nombre de la editorial.
      */
     public void setTxtEditorial(String texto) {
-        txtEditorial.setText(texto);
+	txtEditorial.setText(texto);
     }
 
     /**
@@ -274,7 +274,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @param texto Número de páginas.
      */
     public void setTxtNumeroPaginas(String texto) {
-        txtNumeroPaginas.setText(texto);
+	txtNumeroPaginas.setText(texto);
     }
 
     /**
@@ -283,7 +283,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @param texto Precio del libro.
      */
     public void setTxtPrecio(String texto) {
-        txtPrecio.setText(texto);
+	txtPrecio.setText(texto);
     }
 
     /**
@@ -292,7 +292,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @param texto Cantidad del libro.
      */
     public void setTxtCantidad(String texto) {
-        txtCantidad.setText(texto);
+	txtCantidad.setText(texto);
     }
 
     /**
@@ -301,7 +301,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @param index Formato del libro.
      */
     public void setTxtFormato(String index) {
-        txtFormato.setSelectedItem(index);
+	txtFormato.setSelectedItem(index);
     }
 
     /**
@@ -310,89 +310,89 @@ public class PanelRegistrarLibro extends JDialog {
      * @param evento Manejador de eventos de la aplicación.
      */
     public PanelRegistrarLibro(Evento evento) {
-        setTitle("Registrar Libro");
-        setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+	setTitle("Registrar Libro");
+	setLayout(new GridBagLayout());
+	GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.insets = new Insets(5, 10, 5, 10);
-        inicializarAtributos();
-        labelTitulo.setFont(new Font("Arial", Font.BOLD, 30));
+	gbc.insets = new Insets(5, 10, 5, 10);
+	inicializarAtributos();
+	labelTitulo.setFont(new Font("Arial", Font.BOLD, 30));
 
-        asignarEventoBoton(evento);
+	asignarEventoBoton(evento);
 
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.NONE;
-        add(labelTitulo, gbc);
-        gbc.gridwidth = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridy = 1;
-        add(labelISBN, gbc);
-        gbc.gridx = 1;
-        add(txtISBN, gbc);
-        gbc.gridy = 2;
-        gbc.gridx = 0;
-        add(labelNombre, gbc);
-        gbc.gridx = 1;
-        add(txtNombre, gbc);
-        gbc.gridy = 3;
-        gbc.gridx = 0;
-        add(labelAutor, gbc);
-        gbc.gridx = 1;
-        add(txtAutor, gbc);
-        gbc.gridy = 4;
-        gbc.gridx = 0;
-        add(labelAnoPublicacion, gbc);
-        gbc.gridx = 1;
-        add(txtAnoPublicacion, gbc);
-        gbc.gridy = 5;
-        gbc.gridx = 0;
-        add(labelCategoria, gbc);
-        gbc.gridx = 1;
-        add(txtCategoria, gbc);
-        gbc.gridy = 6;
-        gbc.gridx = 0;
-        add(labelEditorial, gbc);
-        gbc.gridx = 1;
-        add(txtEditorial, gbc);
-        gbc.gridy = 7;
-        gbc.gridx = 0;
-        add(labelNumeroPaginas, gbc);
-        gbc.gridx = 1;
-        add(txtNumeroPaginas, gbc);
-        gbc.gridy = 8;
-        gbc.gridx = 0;
-        add(labelPrecio, gbc);
-        gbc.gridx = 1;
-        add(txtPrecio, gbc);
-        gbc.gridy = 9;
-        gbc.gridx = 0;
-        add(labelCantidad, gbc);
-        gbc.gridx = 1;
-        add(txtCantidad, gbc);
-        gbc.gridy = 10;
-        gbc.gridx = 0;
-        add(labelFormato, gbc);
-        gbc.gridx = 1;
-        add(txtFormato, gbc);
-        gbc.gridy = 11;
-        gbc.gridx = 0;
-        add(botonAgregar, gbc);
-        gbc.gridx = 1;
-        add(botonCancelar, gbc);
+	gbc.gridwidth = 2;
+	gbc.anchor = GridBagConstraints.CENTER;
+	gbc.fill = GridBagConstraints.NONE;
+	add(labelTitulo, gbc);
+	gbc.gridwidth = 1;
+	gbc.anchor = GridBagConstraints.WEST;
+	gbc.fill = GridBagConstraints.HORIZONTAL;
+	gbc.gridy = 1;
+	add(labelISBN, gbc);
+	gbc.gridx = 1;
+	add(txtISBN, gbc);
+	gbc.gridy = 2;
+	gbc.gridx = 0;
+	add(labelNombre, gbc);
+	gbc.gridx = 1;
+	add(txtNombre, gbc);
+	gbc.gridy = 3;
+	gbc.gridx = 0;
+	add(labelAutor, gbc);
+	gbc.gridx = 1;
+	add(txtAutor, gbc);
+	gbc.gridy = 4;
+	gbc.gridx = 0;
+	add(labelAnoPublicacion, gbc);
+	gbc.gridx = 1;
+	add(txtAnoPublicacion, gbc);
+	gbc.gridy = 5;
+	gbc.gridx = 0;
+	add(labelCategoria, gbc);
+	gbc.gridx = 1;
+	add(txtCategoria, gbc);
+	gbc.gridy = 6;
+	gbc.gridx = 0;
+	add(labelEditorial, gbc);
+	gbc.gridx = 1;
+	add(txtEditorial, gbc);
+	gbc.gridy = 7;
+	gbc.gridx = 0;
+	add(labelNumeroPaginas, gbc);
+	gbc.gridx = 1;
+	add(txtNumeroPaginas, gbc);
+	gbc.gridy = 8;
+	gbc.gridx = 0;
+	add(labelPrecio, gbc);
+	gbc.gridx = 1;
+	add(txtPrecio, gbc);
+	gbc.gridy = 9;
+	gbc.gridx = 0;
+	add(labelCantidad, gbc);
+	gbc.gridx = 1;
+	add(txtCantidad, gbc);
+	gbc.gridy = 10;
+	gbc.gridx = 0;
+	add(labelFormato, gbc);
+	gbc.gridx = 1;
+	add(txtFormato, gbc);
+	gbc.gridy = 11;
+	gbc.gridx = 0;
+	add(botonAgregar, gbc);
+	gbc.gridx = 1;
+	add(botonCancelar, gbc);
 
-        setResizable(false);
-        setModal(true);
-        setSize(500, 500);
-        setLocationRelativeTo(null);
+	setResizable(false);
+	setModal(true);
+	setSize(500, 500);
+	setLocationRelativeTo(null);
     }
 
     private void asignarEventoBoton(Evento evento) {
-        botonAgregar.addActionListener(evento);
-        botonAgregar.setActionCommand(evento.REGISTRAR_LIBRO);
-        botonCancelar.addActionListener(evento);
-        botonCancelar.setActionCommand(evento.CANCELAR_REGISTRO_LIBRO);
+	botonAgregar.addActionListener(evento);
+	botonAgregar.setActionCommand(evento.REGISTRAR_LIBRO);
+	botonCancelar.addActionListener(evento);
+	botonCancelar.setActionCommand(evento.CANCELAR_REGISTRO_LIBRO);
     }
 
     /**
@@ -400,49 +400,49 @@ public class PanelRegistrarLibro extends JDialog {
      */
     public void inicializarAtributos() {
 
-        labelTitulo = new JLabel("Registrar Libro");
-        labelISBN = new JLabel("ISBN*:");
-        labelNombre = new JLabel("Nombre*:");
-        labelAutor = new JLabel("Autor*:");
-        labelAnoPublicacion = new JLabel("Año de Publicación:");
-        labelCategoria = new JLabel("Categoría*:");
-        labelEditorial = new JLabel("Editorial:");
-        labelNumeroPaginas = new JLabel("Número de Páginas*:");
-        labelPrecio = new JLabel("Precio*:");
-        labelCantidad = new JLabel("Cantidad*:");
-        labelFormato = new JLabel("Formato*:");
+	labelTitulo = new JLabel("Registrar Libro");
+	labelISBN = new JLabel("ISBN*:");
+	labelNombre = new JLabel("Nombre*:");
+	labelAutor = new JLabel("Autor*:");
+	labelAnoPublicacion = new JLabel("Año de Publicación:");
+	labelCategoria = new JLabel("Categoría*:");
+	labelEditorial = new JLabel("Editorial:");
+	labelNumeroPaginas = new JLabel("Número de Páginas*:");
+	labelPrecio = new JLabel("Precio*:");
+	labelCantidad = new JLabel("Cantidad*:");
+	labelFormato = new JLabel("Formato*:");
 
-        txtISBN = new JTextField(20);
-        txtNombre = new JTextField(20);
-        txtAutor = new JTextField(20);
-        txtAnoPublicacion = new JTextField(4);
-        txtEditorial = new JTextField(20);
-        txtNumeroPaginas = new JTextField(5);
-        txtPrecio = new JTextField(10);
-        txtCantidad = new JTextField(5);
+	txtISBN = new JTextField(20);
+	txtNombre = new JTextField(20);
+	txtAutor = new JTextField(20);
+	txtAnoPublicacion = new JTextField(4);
+	txtEditorial = new JTextField(20);
+	txtNumeroPaginas = new JTextField(5);
+	txtPrecio = new JTextField(10);
+	txtCantidad = new JTextField(5);
 
-        String[] categorias = {"Ficción", "No Ficción", "Misterio", "Ciencia"};
-        txtCategoria = new JComboBox<>(categorias);
+	String[] categorias = { "Ficción", "No Ficción", "Misterio", "Ciencia" };
+	txtCategoria = new JComboBox<>(categorias);
 
-        String[] formatos = {String.valueOf(TipoLibro.DIGITAL), String.valueOf(TipoLibro.FISICO)};
-        txtFormato = new JComboBox<>(formatos);
+	String[] formatos = { String.valueOf(TipoLibro.DIGITAL), String.valueOf(TipoLibro.FISICO) };
+	txtFormato = new JComboBox<>(formatos);
 
-        botonAgregar = new JButton("Agregar");
-        botonCancelar = new JButton("Cancelar");
+	botonAgregar = new JButton("Agregar");
+	botonCancelar = new JButton("Cancelar");
     }
 
     /**
      * Vacia la información de los JTextFields.
      */
     public void limpiarTxtFieldsLibro() {
-        setTxtNombre("");
-        setTxtIsbn("");
-        setTxtAutor("");
-        setTxtAnoPublicacion("");
-        setTxtEditorial("");
-        setTxtNumeroPaginas("");
-        setTxtPrecio("");
-        setTxtCantidad("");
+	setTxtNombre("");
+	setTxtIsbn("");
+	setTxtAutor("");
+	setTxtAnoPublicacion("");
+	setTxtEditorial("");
+	setTxtNumeroPaginas("");
+	setTxtPrecio("");
+	setTxtCantidad("");
     }
 
     /**
@@ -451,19 +451,25 @@ public class PanelRegistrarLibro extends JDialog {
      * @return Objeto Libro con los datos contenidos en los JTextFields.
      */
     public Libro obtenerDatos() {
-        Libro libro = new Libro();
+	Libro libro = new Libro();
 
-        libro.setIsbn(getTxtIsbn());
-        libro.setTitulo(getTxtNombre());
-        libro.setAutor(getTxtAutor());
-        libro.setCategoria(getTxtCategoria());
-        libro.setEditorial(getTxtEditorial());
-        libro.setTipoLibro(getTxtFormato());
-        libro.setAnioPublicacion(getTxtAnoPublicacion().matches("^[0-9]{4}$") ? Integer.parseInt(getTxtAnoPublicacion()) : 0);
-        libro.setNumeroPaginas(getTxtNumeroPaginas().matches("^[0-9]{1,3}$") ? Integer.parseInt(getTxtNumeroPaginas()) : 0);
-        libro.setPrecioVenta(getTxtPrecio().matches("^[0-9]+$") ? Integer.parseInt(getTxtPrecio()) : 0);
-        libro.setStockDisponible(getTxtCantidad().matches("^[0-9]+$") ? Integer.parseInt(getTxtCantidad()) : 0);
+	libro.setIsbn(getTxtIsbn());
+	libro.setTitulo(getTxtNombre());
+	libro.setAutor(getTxtAutor());
+	libro.setCategoria(getTxtCategoria());
+	libro.setEditorial(getTxtEditorial());
+	libro.setTipoLibro(getTxtFormato());
+	libro.setAnioPublicacion(
+		getTxtAnoPublicacion().matches("^[0-9]{4}$") ? Integer.parseInt(getTxtAnoPublicacion()) : 0);
+	try {
+	    libro.setNumeroPaginas(
+		    getTxtNumeroPaginas().isBlank() ? 0 : Integer.parseInt(getTxtNumeroPaginas()));
+	    libro.setPrecioVenta(getTxtPrecio().isBlank() ? 0 : Integer.parseInt(getTxtPrecio()));
+	    libro.setStockDisponible(getTxtCantidad().isBlank() ? 0 : Integer.parseInt(getTxtCantidad()));
+	} catch (NumberFormatException e) {
+	    throw new IllegalArgumentException("#Paginas, precio y cantidad deben ser válidos.");
+	}
 
-        return libro;
+	return libro;
     }
 }
