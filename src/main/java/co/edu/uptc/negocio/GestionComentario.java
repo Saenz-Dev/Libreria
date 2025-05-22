@@ -16,9 +16,8 @@ public class GestionComentario {
     private ComentarioDAO comentarioDAO;
 
     public GestionComentario(Tienda tienda, ComentarioDAO comentarioDAO) throws SQLException {
-        manejoComentarioJSON = new ManejoComentarioJSON(tienda);
+        //manejoComentarioJSON = new ManejoComentarioJSON(tienda);
         this.comentarioDAO = comentarioDAO;
-        this.comentarioDAO.crearTabla();
     }
 
     public void registrarComentario(Comentario comentario) throws IOException, RuntimeException, SQLException {	
@@ -29,6 +28,7 @@ public class GestionComentario {
 
     public Stack<Comentario> buscarComentario(String isbn) throws IOException, RuntimeException, SQLException {
 	ArrayList<Comentario> listaComentarios = comentarioDAO.seleccionarComentariosPorLibro(isbn);
+	if (listaComentarios == null || listaComentarios.isEmpty()) throw new RuntimeException("Este libro no tiene comentarios.");
 	Stack<Comentario> stackComentarios = new Stack<>();
 	stackComentarios.addAll(listaComentarios);
         return stackComentarios;

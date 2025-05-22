@@ -106,7 +106,7 @@ public class GestionTienda {
 	return gestionLibro.buscarLibro(titulo);
     }
 
-    public void eliminarLibro(ArrayList<String> listaIsbn) throws IllegalArgumentException, IOException, SQLException {
+    public void eliminarLibro(ArrayList<String> listaIsbn) throws RuntimeException, IOException, SQLException {
 	gestionLibro.eliminarLibro(listaIsbn);
     }
 
@@ -279,14 +279,24 @@ public class GestionTienda {
     }
 
     public void guardarComentario(Comentario comentario) throws IOException, RuntimeException, SQLException {
-	comentario.setCorreo(gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin().getCuenta().getCorreo());
-	comentario.setUsuario(gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin().getNombre());
-	comentario.fechaActual();
+	Usuario userLog = gestionUsuario.userLog();
+	comentario.setCorreo(userLog.getCuenta().getCorreo());
+	comentario.setUsuario(userLog.getNombre());
+	comentario.setFecha(LocalDateTime.now());
 	gestionComentario.registrarComentario(comentario);
     }
 
     public Stack<Comentario> listarComentarios(String isbn) throws IOException, RuntimeException, SQLException {
-	return gestionComentario.buscarComentario(isbn);
+	Stack<Comentario> comentarios = gestionComentario.buscarComentario(isbn);
+	Usuario usuarioConsulta = new Usuario();
+	Libro libroConsulta= new Libro();
+	for (Comentario comentario : comentarios) {
+	    usuarioConsulta.getCuenta().setCorreo(comentario.getCorreo());
+	    libroConsulta.setIsbn(isbn);
+	    comentario.setUsuario(usuarioDAO.seleccionarRegistro(usuarioConsulta).getNombre());
+	    comentario.setTituloLibro(libroDAO.seleccionarRegistro(libroConsulta).getTitulo());
+	}
+	return comentarios;
     }
 
     public Recibo comprasUsuarioLog(String fecha, int numeroCompra) throws SQLException, RuntimeException {

@@ -119,8 +119,6 @@ public class GestionUsuario {
     }
 
     public void crearTablasUserDefault() throws SQLException {
-	cuentaDAO.crearTabla();
-	usuarioDAO.crearTabla();
 	usuarioLog.getCuenta().setCorreo("user_default");
 	if (usuarioDAO.seleccionarRegistro(usuarioLog) == null) {
 	    cuentaDAO.insertarDatos(crearCuentaUsuarioDefault());
@@ -146,8 +144,6 @@ public class GestionUsuario {
      *                                  con las reglas
      */
     public void registrarUsuario(Usuario usuario) throws RuntimeException, SQLException {
-	cuentaDAO.crearTabla();
-	usuarioDAO.crearTabla();
 	if (cuentaDAO.seleccionarRegistro(usuario.getCuenta()) != null) {
 	    throw new IllegalArgumentException(
 		    "El correo '" + usuario.getCuenta().getCorreo() + "' ya está vinculado a otra cuenta");

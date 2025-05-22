@@ -10,26 +10,6 @@ import java.util.ArrayList;
 
 public class ProductosReciboDAO extends ConexionBD<ProductoCompra> {
 
-    @Override
-    public void crearTabla() throws SQLException {
-        String sql = "CREATE TABLE IF NOT EXISTS productos_recibo (" +
-                "id INT PRIMARY KEY AUTO_INCREMENT, " +
-                "numero_recibo INT NOT NULL, " +
-                "isbn_libro BIGINT NOT NULL, " +
-                "correo_usuario VARCHAR(50) NOT NULL, " +
-                "cantidad INT NOT NULL, " +
-                "precio_unitario DOUBLE NOT NULL, " +
-                "precio_total DOUBLE NOT NULL, " +
-                "FOREIGN KEY (numero_recibo) REFERENCES recibos(numero_recibo), " +
-                "FOREIGN KEY (isbn_libro) REFERENCES libros(isbn), " +
-                "FOREIGN KEY (correo_usuario) REFERENCES usuarios(correo))";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new SQLException("❌ Error al crear la tabla 'productos_recibo': " + e.getMessage());
-        }
-    }
-
     public void insertarDatos(ProductoCompra productoCompra, int numeroRecibo, String correoUsuario) throws SQLException, RuntimeException {
         String sql = "INSERT INTO productos_recibo (numero_recibo, isbn_libro, correo_usuario, cantidad, precio_unitario, precio_total) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

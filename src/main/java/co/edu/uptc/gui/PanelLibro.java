@@ -39,6 +39,18 @@ public class PanelLibro extends JPanel {
     /** Restricciones para la colocación de los componentes en el diseño de la interfaz gráfica. */
     private GridBagConstraints gbc;
 
+    public JButton getBotonAgregar() {
+	return botonAgregar;
+    }
+    
+    public void enableBotonAgregar(boolean habilitar) {
+	botonAgregar.setEnabled(habilitar);
+    }
+    
+    public JLabel getLabelTitulo() {
+	return labelTitulo;
+    }
+    
     /**
      * Constructor del panel de un libro.
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.
@@ -64,13 +76,16 @@ public class PanelLibro extends JPanel {
         gbc.gridx = 0;
         gbc.weightx = 1;
         gbc.weighty = 1;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.CENTER;
-        gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(2, 0, 2, 0);
-
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        //labelTitulo.setPreferredSize(new Dimension(200, 30));
+        //labelTitulo.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10)); 
         add(labelTitulo, gbc);
         gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.CENTER;
+        gbc.gridwidth = 1;
         add(labelAutorEditorial, gbc);
         gbc.gridy = 2;
         add(labelCategoriaPaginas, gbc);
@@ -89,7 +104,7 @@ public class PanelLibro extends JPanel {
     private void modificarAtributos(Libro libro) {
         format = NumberFormat.getCurrencyInstance();
         format.setMinimumFractionDigits(0);
-        labelTitulo = new JLabel(libro.getTitulo());
+        labelTitulo = new JLabel("<html><div align='center'>" + libro.getTitulo() + "</div></html>" );
         labelAutorEditorial = new JLabel(libro.getAutor() + (!libro.getEditorial().isBlank() ? " - " + libro.getEditorial() : ""));
         labelCategoriaPaginas = new JLabel(libro.getCategoria() + ((libro.getNumeroPaginas() != 0 ? " - " + libro.getNumeroPaginas()+ " pags." : "")));
         labelPrecio = new JLabel(String.valueOf(format.format(libro.getPrecioVenta())));

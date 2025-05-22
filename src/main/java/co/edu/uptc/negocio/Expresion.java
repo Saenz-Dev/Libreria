@@ -40,7 +40,7 @@ public class Expresion {
 		sb.append("El correo debe tener la estructura usuario@dominio.extension\n");
 	    }
 	    if (!usuario.getCuenta().getContrasena().matches(EXPRESION_CONTRASENA)) {
-		sb.append("La contraseña debe tener al menos ocho letras, un número y un caracter especial ().\n");
+		sb.append("La contraseña debe tener al menos ocho letras, un número y un caracter especial.\n");
 	    }
 	    /*
 	     * else { if

@@ -12,17 +12,6 @@ import java.util.ArrayList;
 public class UsuarioDAO extends ConexionBD<Usuario> {
 
     @Override
-    public void crearTabla() throws SQLException {
-        String sentencia = "CREATE TABLE IF NOT EXISTS usuarios (correo VARCHAR(50) PRIMARY KEY, nombre VARCHAR(50) NOT NULL, dirección VARCHAR(50) NOT NULL, telefono BIGINT NOT NULL, cliente VARCHAR(15) NOT NULL, descuento DOUBLE NOT NULL, FOREIGN KEY (correo) REFERENCES cuentas(correo))";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new SQLException("❌ Error al crear la tabla 'usuarios': " + e.getMessage());
-        }
-        
-    }
-
-    @Override
     public void  insertarDatos(Usuario usuario) throws SQLException, RuntimeException {
         if (usuario == null) throw new RuntimeException("El usuario a guardar no tiene datos");
         String sentencia = "INSERT INTO usuarios (nombre, dirección, telefono, cliente, descuento, correo) VALUES (?, ?, ?, ?, ?, ?)";

@@ -12,21 +12,10 @@ public abstract class ConexionBD<T>{
     private final String USUARIO = "root";
     private final String CONTRASENA = "";
     
-    public ConexionBD() {
-	String sql = "CREATE DATABASE IF NOT EXISTS db_libreria";
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306", USUARIO, CONTRASENA); Statement statement = connection.createStatement()) {
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            System.out.print("Error al crear la base de datos");
-	}
-    }
-    
     
     protected Connection crearConexion() throws SQLException {
         return DriverManager.getConnection(URL, USUARIO, CONTRASENA);
     }
-
-    public abstract void crearTabla() throws SQLException;
 
     public abstract void insertarDatos(T objeto) throws  SQLException, RuntimeException;
 

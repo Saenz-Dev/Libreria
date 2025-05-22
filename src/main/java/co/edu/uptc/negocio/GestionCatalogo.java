@@ -32,7 +32,6 @@ public class GestionCatalogo {
     public GestionCatalogo(Tienda tienda, LibroDAO libroDAO) throws SQLException {
         manejoLibroJSON = new ManejoLibroJSON(tienda);
         this.libroDAO = libroDAO;
-        this.libroDAO.crearTabla();
     }
 
     /**
@@ -78,7 +77,6 @@ public class GestionCatalogo {
      * @throws IOException si ocurre algún error cuando no se lee el JSON
      */
     public ArrayList<Libro> listarLibros() throws SQLException{
-	libroDAO.crearTabla();
 	return libroDAO.seleccionarRegistros();
     }
 }

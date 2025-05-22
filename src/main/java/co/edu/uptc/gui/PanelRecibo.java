@@ -1,14 +1,23 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.ProductoCompra;
-import co.edu.uptc.modelo.Recibo;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+import co.edu.uptc.modelo.ProductoCompra;
+import co.edu.uptc.modelo.Recibo;
 
 public class PanelRecibo extends JDialog {
 
@@ -80,7 +89,7 @@ public class PanelRecibo extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         initAtributos();
         modificarRecibo();
-        setSize(400, 600);
+        setSize(500, 600);
         
         setVisible(false);
     }
@@ -163,31 +172,33 @@ public class PanelRecibo extends JDialog {
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
 
-        String[] cabecera = {"Producto", "Cantidad", "P. Unitario", "Subtotal"};
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.setColumnIdentifiers(cabecera);
+        
+        DefaultTableModel tableModel = getDefaultTableModel();
+        
 
         //Quede aqui, modificar de aqui para abajo que datos van y cuales no van gracias :)
         for (ProductoCompra productoCompra : recibo.getListaProductosComprados()) {
+            String isbn = productoCompra.getIsbn();
             String producto = productoCompra.getTitulo();
             int cantidad = productoCompra.getNumeroLibros();
             double precioUnitario = productoCompra.getPrecioUnitario();
             double subtotal = productoCompra.getPrecioTotal();
 
-            tableModel.addRow(new Object[]{producto, cantidad, format.format(precioUnitario), format.format(subtotal)});
+            tableModel.addRow(new Object[]{isbn, producto, format.format(precioUnitario), cantidad, format.format(subtotal)});
         }
         
-        tableModel.addRow(new Object[]{"", "", "Subtotal", format.format(recibo.getValorCompra().getSubtotal())});
-        tableModel.addRow(new Object[]{"", "", "Impuestos", "+ " + format.format(recibo.getValorCompra().getImpuestos())});
-        tableModel.addRow(new Object[]{"", "", "Desc. Premium", "- " +  format.format(recibo.getValorCompra().getDescuentoPremium())});
-        tableModel.addRow(new Object[]{"","", "Desc. Frecuencia", "- " +  format.format(recibo.getValorCompra().getDescuentoFrecuencia())});
-        tableModel.addRow(new Object[]{"", "", "Total", format.format(recibo.getValorCompra().getTotal())});
+        tableModel.addRow(new Object[]{"", "", "", "Subtotal", format.format(recibo.getValorCompra().getSubtotal())});
+        tableModel.addRow(new Object[]{"", "", "", "Impuestos", "+ " + format.format(recibo.getValorCompra().getImpuestos())});
+        tableModel.addRow(new Object[]{"", "", "", "Desc. Premium", "- " +  format.format(recibo.getValorCompra().getDescuentoPremium())});
+        tableModel.addRow(new Object[]{"","", "", "Desc. Frecuencia", "- " +  format.format(recibo.getValorCompra().getDescuentoFrecuencia())});
+        tableModel.addRow(new Object[]{"", "", "", "Total", format.format(recibo.getValorCompra().getTotal())});
 
         tablaCompras = new JTable(tableModel);
         tablaCompras.revalidate();
         tablaCompras.repaint();
         tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tablaCompras.setSize(300, 100);
+        //tablaCompras.setSize(300, 100);
+        tablaCompras.getColumnModel().getColumn(5).setCellRenderer(new EventoRenderTable());
         tablaCompras.getDefaultEditor(Boolean.class).addCellEditorListener(new EventoRecibo(tablaCompras, ventanaPrincipal));
 
         JTableHeader tableHeader = tablaCompras.getTableHeader();
@@ -199,5 +210,23 @@ public class PanelRecibo extends JDialog {
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         add(scroll, gbc);
+    }
+    
+    public static DefaultTableModel getDefaultTableModel() {
+	String[] cabecera = {"ISBN", "Producto", "P. Unitario", "Cantidad", "Subtotal", "Comentar"};
+        DefaultTableModel tableModel = new DefaultTableModel() {
+            public Class<?> getColumnClass(int indexColumna) {
+        	return indexColumna == 5 ? Boolean.class : String.class;
+            }
+            public boolean isCellEditable(int row, int column) {
+        	return column == 5 && tieneCheckBox(row);
+            }
+	    private boolean tieneCheckBox(int fila) {
+		String nombre = (String) getValueAt(fila, 0); 
+		return nombre != null && !nombre.isEmpty();
+	    }
+        };
+        tableModel.setColumnIdentifiers(cabecera);
+	return tableModel;
     }
 }

@@ -116,7 +116,7 @@ public class PanelCompras extends JPanel {
 
         tablaCompras.getColumnModel().getColumn(0).setPreferredWidth(300);
         tablaCompras.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tablaCompras.getColumnModel().getColumn(2).setPreferredWidth(300);
+        tablaCompras.getColumnModel().getColumn(2).setPreferredWidth(232);
         
         JTableHeader tableHeader = tablaCompras.getTableHeader();
         tableHeader.setBackground(new Color(0x24242C));

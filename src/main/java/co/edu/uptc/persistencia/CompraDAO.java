@@ -12,17 +12,6 @@ import co.edu.uptc.modelo.Recibo;
 public class CompraDAO extends ConexionBD<Recibo> {
 
     @Override
-    public void crearTabla() throws SQLException {
-	String sql = "CREATE TABLE IF NOT EXISTS compras (numero_compra INT PRIMARY KEY, correo VARCHAR(100), fecha DATETIME, FOREIGN KEY (correo) REFERENCES usuarios(correo))";
-	try (Connection connection = crearConexion();
-		PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-	    preparedStatement.executeUpdate();
-	} catch (SQLException e) {
-	    throw new SQLException("❌ Error al crear la tabla 'compras': " + e.getMessage());
-	}
-    }
-
-    @Override
     public void insertarDatos(Recibo recibo) throws SQLException, RuntimeException {
 	String sql = "INSERT INTO compras (numero_compra, correo, fecha) VALUES (?, ?, ?)";
 	try (Connection connection = crearConexion();

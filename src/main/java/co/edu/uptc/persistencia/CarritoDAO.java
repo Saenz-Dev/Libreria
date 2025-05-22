@@ -11,16 +11,6 @@ import java.util.ArrayList;
 public class CarritoDAO extends ConexionBD<LibroCarrito> {
 
     @Override
-    public void crearTabla() throws SQLException {
-        String sentencia = "CREATE TABLE IF NOT EXISTS carrito (id INT AUTO_INCREMENT PRIMARY KEY, correo_usuario VARCHAR(50), isbn_libro BIGINT, cantidad INT DEFAULT 1, FOREIGN KEY (correo_usuario) REFERENCES usuarios(correo), FOREIGN KEY (isbn_libro) REFERENCES libros(isbn), UNIQUE (correo_usuario, isbn_libro))";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new SQLException("❌ Error al crear la tabla 'carrito': " + e.getMessage());
-        }
-    }
-
-    @Override
     public void insertarDatos(LibroCarrito libroCarrito) throws SQLException, RuntimeException {
         if (libroCarrito == null) throw new RuntimeException("El libro del carrito proporcionado es nulo.");
 

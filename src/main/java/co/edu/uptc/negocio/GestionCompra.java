@@ -38,9 +38,7 @@ public class GestionCompra {
 	manejoCompraJSON = new ManejoCompraJSON(tienda);
 	productoCompra = new ProductoCompra();
 	this.compraDAO = compraDAO;
-	this.compraDAO.crearTabla();
 	this.reciboDAO = reciboDAO;
-	this.reciboDAO.crearTabla();
 	this.carritoDAO = carritoDAO;
     }
 

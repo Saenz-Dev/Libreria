@@ -13,16 +13,6 @@ import java.util.ArrayList;
 public class LibroDAO extends ConexionBD<Libro> {
 
     @Override
-    public void crearTabla() throws SQLException {
-        String sentencia = "CREATE TABLE IF NOT EXISTS libros (isbn BIGINT PRIMARY KEY, titulo VARCHAR (100) NOT NULL, autor VARCHAR(40) NOT NULL, año_publicación INT, categoria VARCHAR(20) NOT NULL, editorial VARCHAR(30), páginas INT, precio INT NOT NULL, stockDisponible INT NOT NULL, stockReservado INT NOT NULL, tipo VARCHAR(20) NOT NULL, comprado BOOLEAN)";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new SQLException("❌ Error al crear la tabla 'libros': " + e.getMessage());
-        }
-    }
-
-    @Override
     public void insertarDatos(Libro libro) throws SQLException, RuntimeException {
         if (libro == null) throw new RuntimeException("El cuenta a guardar no tiene datos");
         String sentencia = "INSERT INTO libros (isbn, titulo, autor, año_publicación, categoria, editorial, páginas, precio, stockDisponible, stockReservado, tipo, comprado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

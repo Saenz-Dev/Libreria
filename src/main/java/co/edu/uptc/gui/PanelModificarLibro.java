@@ -387,7 +387,8 @@ public class PanelModificarLibro extends JDialog {
     }
 
     private void initCb() {
-        cbLibros = new JComboBox<>(); //Lo agregue para el que se elija, los JTextField se llenen con la informacion de cada libro.
+        cbLibros = new JComboBox<>();//Lo agregue para el que se elija, los JTextField se llenen con la informacion de cada libro.
+        cbLibros.setPreferredSize(new Dimension(20, 20));
         String[] categorias = {"Ficción", "No Ficción", "Misterio", "Ciencia"}; //TODO hacer clase enum para separar que esto tenga sentido
         txtCategoria = new JComboBox<>(categorias);
         String[] formatos = {String.valueOf(TipoLibro.DIGITAL), String.valueOf(TipoLibro.FISICO)};
@@ -412,15 +413,23 @@ public class PanelModificarLibro extends JDialog {
 
     private void initTxt() {
         txtISBN = new JTextField(20);
+        txtISBN.setPreferredSize(new Dimension(20, 20));
         txtISBN.setEditable(false);
         txtISBN.setBackground(Color.WHITE);
         txtNombre = new JTextField(20);
+        txtNombre.setPreferredSize(new Dimension(20, 20));
         txtAutor = new JTextField(20);
+        txtAutor.setPreferredSize(new Dimension(20, 20));
         txtAnoPublicacion = new JTextField(4);
+        txtAnoPublicacion.setPreferredSize(new Dimension(20, 20));
         txtEditorial = new JTextField(20);
+        txtEditorial.setPreferredSize(new Dimension(20, 20));
         txtNumeroPaginas = new JTextField(5);
+        txtNumeroPaginas.setPreferredSize(new Dimension(20, 20));
         txtPrecio = new JTextField(10);
+        txtPrecio.setPreferredSize(new Dimension(20, 20));
         txtCantidad = new JTextField(5);
+        txtCantidad.setPreferredSize(new Dimension(20, 20));
         //cbLibros.setPreferredSize(new Dimension(80, 30));
     }
 

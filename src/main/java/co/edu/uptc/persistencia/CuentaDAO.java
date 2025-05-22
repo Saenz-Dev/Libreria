@@ -11,20 +11,6 @@ import co.edu.uptc.modelo.Cuenta;
 
 public class CuentaDAO extends ConexionBD<Cuenta> {
 
-    public CuentaDAO() {
-	super();
-    }
-    
-    @Override
-    public void crearTabla() throws SQLException {
-        String sentencia = "CREATE TABLE IF NOT EXISTS cuentas (correo VARCHAR(50) PRIMARY KEY, contraseña VARCHAR(30), conectado BOOLEAN)";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.executeUpdate(sentencia);
-        } catch (SQLException e) {
-            throw new SQLException("❌ Error al crear la tabla 'cuentas': " + e.getMessage());
-        }
-    }
-
     @Override
     public void insertarDatos(Cuenta cuenta) throws SQLException, RuntimeException {
         if (cuenta == null) throw new RuntimeException("El cuenta a guardar no tiene datos");

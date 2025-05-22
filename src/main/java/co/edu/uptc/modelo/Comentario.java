@@ -1,10 +1,7 @@
 package co.edu.uptc.modelo;
 
-import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
 
 public class Comentario {
 
@@ -12,16 +9,24 @@ public class Comentario {
     private String isbn;
     private String correo;
     private String usuario;
-    private String fecha;
+    private LocalDateTime fecha;
     private int calificacion;
+    private String tituloLibro;
 
     public Comentario() {
         comentario = "";
         isbn = "";
         correo = "";
         usuario = "";
-        fecha = "";
         calificacion = 0;
+    }
+    
+    public String getTituloLibro() {
+        return tituloLibro;
+    }
+    
+    public void setTituloLibro(String tituloLibro) {
+        this.tituloLibro = tituloLibro;
     }
 
     public String getComentario() {
@@ -40,7 +45,7 @@ public class Comentario {
         return usuario;
     }
 
-    public String getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
@@ -62,15 +67,9 @@ public class Comentario {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
-    }
-
-    public String fechaActual() {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
-        fecha = LocalDateTime.now().format(dateFormat);
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
+    }    
+    
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 

@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Stack;
 
 public class PanelComentario extends JDialog {
@@ -44,7 +45,7 @@ public class PanelComentario extends JDialog {
 
     public void repintarComentarios(Stack<Comentario> stackComentarios) {
         // Supongamos que tienes un panel principal dentro del scrollPane
-        labelComentario.setText("Comentarios: " + stackComentarios.getFirst().getIsbn());
+        labelComentario.setText("Comentarios: " + stackComentarios.getFirst().getTituloLibro());
         JPanel panelComentarios = new JPanel(new GridBagLayout());
         GridBagConstraints gbcComentarios = new GridBagConstraints();
 
@@ -57,6 +58,7 @@ public class PanelComentario extends JDialog {
 
         int fila = 0; // Control manual de filas
 
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
         for (Comentario comentario : stackComentarios) {
             JPanel panelComentario = new JPanel(new GridBagLayout());
             panelComentario.setBorder(BorderFactory.createTitledBorder(comentario.getUsuario()));
@@ -70,7 +72,7 @@ public class PanelComentario extends JDialog {
 
             JTextArea textComentario = new JTextArea("Comentario: " + comentario.getComentario());
             JLabel labelCalificacion = new JLabel("Calificación: " + comentario.getCalificacion());
-            JLabel labelFecha = new JLabel("Fecha: " + comentario.getFecha());
+            JLabel labelFecha = new JLabel("Fecha: " + comentario.getFecha().format(format));
             textComentario.setLineWrap(true);
             textComentario.setWrapStyleWord(true);
             textComentario.setEditable(false);

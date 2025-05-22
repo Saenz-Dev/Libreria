@@ -440,6 +440,8 @@ public class MenuPrincipal extends JPanel {
         botonIniciarSesion.setVisible(true);
         botonGestionarLibros.setVisible(false);
         botonRegistrarUsuario.setVisible(false);
+        botonCatalogo.setVisible(true);
+        botonCarrito.setVisible(true);
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.gridy = 9;
         panelIzquierda.add(botonIniciarSesion, gbc);
@@ -464,6 +466,10 @@ public class MenuPrincipal extends JPanel {
     public void anadirFuncionesAdmin() {
         botonGestionarLibros.setVisible(true);
         botonRegistrarUsuario.setVisible(true);
+        botonCompras.setVisible(false);
+        botonCatalogo.setVisible(true);
+        botonCarrito.setVisible(false);
+        
         gbc.weighty = 0;
         gbc.gridy = 5;
         panelIzquierda.add(botonGestionarLibros, gbc);

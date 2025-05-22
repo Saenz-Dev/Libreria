@@ -12,7 +12,7 @@ public class PanelInicioSesion extends JPanel {
     private JTextField txtCorreo;
 
     /** Campo de texto para ingresar la contraseña del usuario. */
-    private JTextField txtContrasena;//TODO En lugar de poner JTextFiel cambiarlo por un JPasswordField
+    private JPasswordField txtContrasena;//TODO En lugar de poner JTextFiel cambiarlo por un JPasswordField
 
     /** Etiqueta del título del panel. */
     private JLabel labelTitulo;
@@ -138,6 +138,6 @@ public class PanelInicioSesion extends JPanel {
         labelContrasena = new JLabel("Contraseña: ");
         labelCorreo = new JLabel("Correo: ");
         txtCorreo = new JTextField( 25);
-        txtContrasena = new JTextField(25);
+        txtContrasena = new JPasswordField(25);
     }
 }

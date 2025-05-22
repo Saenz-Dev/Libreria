@@ -110,7 +110,7 @@ public class PanelCatalogo extends JPanel {
      * 
      * @param mapLibros Libros en el catalogo.
      */
-    public void crearPanelesLibros(ArrayList<Libro> catalogo) {
+    public void crearPanelesLibros(ArrayList<Libro> catalogo, boolean enableAnadirCarrito) {
 	panelLibros.removeAll();
 	conteoColumnas = 0;
 	conteoFilas = 0;
@@ -120,7 +120,7 @@ public class PanelCatalogo extends JPanel {
 	gbcPanelLibros.anchor = GridBagConstraints.NORTHWEST;
 
 	for (Libro libro : catalogo) {
-	    anadirPanelLibro(libro);
+	    anadirPanelLibro(libro, enableAnadirCarrito);
 	}
 
 	if (panelLibros.getComponentCount() == 0) {
@@ -132,8 +132,9 @@ public class PanelCatalogo extends JPanel {
 	repaint();
     }
 
-    private void anadirPanelLibro(Libro libro) {
+    private void anadirPanelLibro(Libro libro, boolean enableAnadirCarrito) {
 	PanelLibro panelLibro = new PanelLibro(ventanaPrincipal, libro);
+	panelLibro.enableBotonAgregar(enableAnadirCarrito);
 	panelLibro.setPreferredSize(new Dimension(270, 180));
 	panelLibro.setBorder(new LineBorder(Color.BLACK));
 	anadirLibrosPanel(panelLibro);

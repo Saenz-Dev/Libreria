@@ -74,11 +74,6 @@ public class GestionCarrito {
 	manejoLibroJSON = new ManejoLibroJSON(tienda);
 	this.manejoUsuarioJSON = manejoUsuarioJSON;
 	calculadoraIVA = new CalculadoraIVA();
-	crearTabla();
-    }
-
-    public void crearTabla() throws SQLException {
-	carritoDAO.crearTabla();
     }
 
     /**

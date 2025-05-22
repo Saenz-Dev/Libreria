@@ -6,25 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 
 import co.edu.uptc.modelo.Comentario;
 
 public class ComentarioDAO extends ConexionBD<Comentario> {
 
     @Override
-    public void crearTabla() throws SQLException {
-        String sql = "CREATE TABLE IF NOT EXISTS comentarios (" + "id INT PRIMARY KEY AUTO_INCREMENT, isbn_libro BIGINT NOT NULL, correo_usuario VARCHAR(50) NOT NULL, comentario TEXT NOT NULL, calificacion INT NOT NULL, fecha DATETIME NOT NULL, FOREIGN KEY (isbn_libro) REFERENCES libros(isbn), FOREIGN KEY (correo_usuario) REFERENCES usuarios(correo))";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new SQLException("❌ Error al crear la tabla 'comentarios': " + e.getMessage());
-        }
-    }
-
-    @Override
     public void insertarDatos(Comentario comentario) throws SQLException {
-        String sql = "INSERT INTO comentarios (isbn_libro, correo_usuario, comentario, calificacion, fecha) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO comentarios (isbn_libro, correo_usuario, comentario, calificacion, fecha) VALUES (?, ?, ?, ?, ?)";        
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            comentario.getFecha().format(dateFormat);
             preparedStatement.setLong(1, Long.parseLong(comentario.getIsbn()));
             preparedStatement.setString(2, comentario.getCorreo());
             preparedStatement.setString(3, comentario.getComentario());
@@ -47,7 +40,7 @@ public class ComentarioDAO extends ConexionBD<Comentario> {
                 comentario.setCorreo(resultSet.getString("correo_usuario"));
                 comentario.setComentario(resultSet.getString("comentario"));
                 comentario.setCalificacion(resultSet.getInt("calificacion"));
-                comentario.setFecha(resultSet.getTimestamp("fecha").toString());
+                comentario.setFecha(resultSet.getTimestamp("fecha").toLocalDateTime());
                 comentarios.add(comentario);
             }
             return comentarios;
@@ -68,7 +61,7 @@ public class ComentarioDAO extends ConexionBD<Comentario> {
                     comentario.setCorreo(resultSet.getString("correo_usuario"));
                     comentario.setComentario(resultSet.getString("comentario"));
                     comentario.setCalificacion(resultSet.getInt("calificacion"));
-                    comentario.setFecha(resultSet.getTimestamp("fecha").toString());
+                    comentario.setFecha(resultSet.getTimestamp("fecha").toLocalDateTime());
                     comentarios.add(comentario);
                 }
                 return comentarios;

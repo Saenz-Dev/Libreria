@@ -12,35 +12,6 @@ import java.util.ArrayList;
 public class ReciboDAO extends ConexionBD<Recibo>{
 
     @Override
-    public void crearTabla() throws SQLException {
-        String sql = "CREATE TABLE IF NOT EXISTS recibos (" +
-        	"numero_producto INT AUTO_INCREMENT PRIMARY KEY, " +
-                "numero_recibo INT, " +
-                "correo VARCHAR(50) NOT NULL, " +
-                "fecha DATETIME NOT NULL, " +
-                "tipo_pago VARCHAR(20) NOT NULL, " +
-                "direccion VARCHAR(100) NOT NULL, " +
-                "descuento_Premium DOUBLE, " +
-                "descuento_Frecuencia DOUBLE, " +
-                "isbn BIGINT, " +
-                "cantidad INT, " +
-                "precio_Unitario DOUBLE, " +
-                "precio_Total DOUBLE, " +
-                "subtotal DOUBLE, " +
-                "impuestos DOUBLE, " +
-                "total DOUBLE, " +
-                "FOREIGN KEY (numero_recibo) REFERENCES compras(numero_compra), " +
-                "FOREIGN KEY (correo) REFERENCES usuarios(correo), " +
-                "FOREIGN KEY (isbn) REFERENCES libros(isbn))";
-
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new SQLException("❌ Error al crear la tabla 'recibos': " + e.getMessage());
-        }
-    }
-
-    @Override
     public void insertarDatos(Recibo recibo) throws SQLException, RuntimeException {
         String sql = "INSERT INTO recibos (numero_recibo, correo, fecha, tipo_pago, direccion, descuento_Premium, descuento_Frecuencia, isbn, cantidad, precio_Unitario, precio_Total, subtotal, impuestos, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
