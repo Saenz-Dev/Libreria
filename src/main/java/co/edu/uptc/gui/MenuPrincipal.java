@@ -1,12 +1,26 @@
 package co.edu.uptc.gui;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
-import java.awt.*;
 
 /**
- * Clase que representa el menú principal de la aplicación.
- * Contiene los botones de navegación y los paneles asociados a cada sección.
+ * Clase que representa el menú principal de la aplicación. Contiene los botones
+ * de navegación y los paneles asociados a cada sección.
  */
 public class MenuPrincipal extends JPanel {
 
@@ -128,7 +142,8 @@ public class MenuPrincipal extends JPanel {
     private PanelEliminarLibro panelEliminarLibro;
 
     /**
-     * Restricciones de diseño para la disposición de los elementos en el GridBagLayout.
+     * Restricciones de diseño para la disposición de los elementos en el
+     * GridBagLayout.
      */
     private GridBagConstraints gbc;
 
@@ -156,8 +171,12 @@ public class MenuPrincipal extends JPanel {
     private PanelComentario panelComentario;
 
     private PanelCalificar panelCalificar;
-    
+
     private VentanaPrincipal ventanaPrincipal;
+
+    private Color colorVerdeClaro;
+
+    private Color colorVerdeOscuro;
 
     /**
      * Obtiene el panel de compras del usuario.
@@ -165,16 +184,17 @@ public class MenuPrincipal extends JPanel {
      * @return PanelCompras que muestra el historial de compras.
      */
     public PanelCompras getPanelCompras() {
-        return panelCompras;
+	return panelCompras;
     }
 
     /**
      * Obtiene el panel de gestión de libros.
      *
-     * @return PanelGestionLibro utilizado para administrar libros (solo administradores).
+     * @return PanelGestionLibro utilizado para administrar libros (solo
+     *         administradores).
      */
     public PanelGestionLibro getPanelGestionLibro() {
-        return panelGestionLibro;
+	return panelGestionLibro;
     }
 
     /**
@@ -183,16 +203,17 @@ public class MenuPrincipal extends JPanel {
      * @return PanelRegistrarLibro utilizado para registrar nuevos libros.
      */
     public PanelRegistrarLibro getPanelRegistrarLibro() {
-        return panelRegistrarLibro;
+	return panelRegistrarLibro;
     }
 
     /**
      * Obtiene el panel para registrar un nuevo usuario.
      *
-     * @return PanelRegistrarUsuario utilizado para registrar nuevos usuarios (solo administradores).
+     * @return PanelRegistrarUsuario utilizado para registrar nuevos usuarios (solo
+     *         administradores).
      */
     public PanelRegistrarUsuario getPanelRegistrarUsuario() {
-        return panelRegistrarUsuario;
+	return panelRegistrarUsuario;
     }
 
     /**
@@ -201,7 +222,7 @@ public class MenuPrincipal extends JPanel {
      * @return PanelModificarLibro utilizado para editar libros.
      */
     public PanelModificarLibro getPanelModificarLibro() {
-        return panelModificarLibro;
+	return panelModificarLibro;
     }
 
     /**
@@ -210,16 +231,17 @@ public class MenuPrincipal extends JPanel {
      * @return PanelModificarUsuario utilizado para editar usuarios.
      */
     public PanelModificarUsuario getPanelModificarUsuario() {
-        return panelModificarUsuario;
+	return panelModificarUsuario;
     }
 
     /**
-     * Metodo duplicado de getPanelModificarUsuario. Se recomienda eliminar o corregir si tiene un propósito diferente.
+     * Metodo duplicado de getPanelModificarUsuario. Se recomienda eliminar o
+     * corregir si tiene un propósito diferente.
      *
      * @return PanelModificarUsuario utilizado para actualizar usuarios.
      */
     public PanelModificarUsuario getPanelActualizarUsuario() {
-        return panelModificarUsuario;
+	return panelModificarUsuario;
     }
 
     /**
@@ -228,7 +250,7 @@ public class MenuPrincipal extends JPanel {
      * @return PanelPerfil que muestra la información del usuario.
      */
     public PanelPerfil getPanelPerfil() {
-        return panelPerfil;
+	return panelPerfil;
     }
 
     /**
@@ -237,7 +259,7 @@ public class MenuPrincipal extends JPanel {
      * @return PanelCatalogo que muestra la lista de libros disponibles.
      */
     public PanelCatalogo getPanelCatalogo() {
-        return panelCatalogo;
+	return panelCatalogo;
     }
 
     /**
@@ -246,7 +268,7 @@ public class MenuPrincipal extends JPanel {
      * @return PanelEliminarLibro utilizado para eliminar libros.
      */
     public PanelEliminarLibro getPanelEliminarLibro() {
-        return panelEliminarLibro;
+	return panelEliminarLibro;
     }
 
     /**
@@ -255,7 +277,7 @@ public class MenuPrincipal extends JPanel {
      * @param nombreUsuario Nombre del usuario a mostrar en la interfaz.
      */
     public void setLabelNombreUsuario(String nombreUsuario) {
-        labelNombreUsuario.setText(nombreUsuario);
+	labelNombreUsuario.setText(nombreUsuario);
     }
 
     /**
@@ -264,272 +286,300 @@ public class MenuPrincipal extends JPanel {
      * @return PanelCarrito que muestra los libros agregados al carrito.
      */
     public PanelCarrito getPanelCarrito() {
-        return panelCarrito;
+	return panelCarrito;
     }
 
     public PanelRecibo getPanelRecibo() {
-        return panelRecibo;
+	return panelRecibo;
     }
 
     public PanelConfirmCompra getPanelConfirmCompra() {
-        return panelConfirmCompra;
+	return panelConfirmCompra;
     }
 
     public PanelComentario getPanelComentario() {
-        return panelComentario;
+	return panelComentario;
     }
 
     public void setPanelComentario(PanelComentario panelComentario) {
-        this.panelComentario = panelComentario;
+	this.panelComentario = panelComentario;
     }
 
     public PanelCalificar getPanelCalificar() {
-        return panelCalificar;
+	return panelCalificar;
     }
 
     public void setPanelCalificar(PanelCalificar panelCalificar) {
-        this.panelCalificar = panelCalificar;
+	this.panelCalificar = panelCalificar;
     }
 
     /**
-     * Constructor del menú principal, inicializa los paneles y los agrega al cardLayout.
+     * Constructor del menú principal, inicializa los paneles y los agrega al
+     * cardLayout.
      *
-     * @param evento Manejador de eventos principal de la aplicación.
+     * @param evento           Manejador de eventos principal de la aplicación.
      * @param ventanaPrincipal Referencia de ventanas de la aplicación.
      */
     public MenuPrincipal(Evento evento, VentanaPrincipal ventanaPrincipal) {
-        setLayout(new BorderLayout());
-        panelIzquierda = new JPanel(new GridBagLayout());
-        gbc = new GridBagConstraints();
-        this.ventanaPrincipal = ventanaPrincipal;
+	setLayout(new BorderLayout());
+	panelIzquierda = new JPanel(new GridBagLayout());
+	gbc = new GridBagConstraints();
+	this.ventanaPrincipal = ventanaPrincipal;
 
-        eventoLista = new EventoLista(ventanaPrincipal);
-        panelCatalogo = new PanelCatalogo(ventanaPrincipal);
-        panelPerfil = new PanelPerfil(evento);
-        panelCarrito = new PanelCarrito(ventanaPrincipal, evento);
-        panelCompras = new PanelCompras(evento, ventanaPrincipal);
-        scrollTabla = new JScrollPane(panelCompras);
-        panelGestionLibro = new PanelGestionLibro(evento);
-        panelRegistrarLibro = new PanelRegistrarLibro(evento);
-        panelRegistrarUsuario = new PanelRegistrarUsuario(evento);
-        panelModificarLibro = new PanelModificarLibro(evento, eventoLista);
-        panelModificarUsuario = new PanelModificarUsuario(evento);
-        panelEliminarLibro = new PanelEliminarLibro(ventanaPrincipal, evento);
-        panelConfirmCompra = new PanelConfirmCompra(ventanaPrincipal, evento);
-        panelGestionLibro = new PanelGestionLibro(evento);
-        panelInicioSesion = new PanelInicioSesion(evento);
-        panelComentario = new PanelComentario();
-        panelCalificar = new PanelCalificar(evento);
-        panelRecibo = new PanelRecibo(ventanaPrincipal);
-        clPrincipal = new CardLayout();
-        panelClPrincipal = new JPanel(clPrincipal);
+	eventoLista = new EventoLista(ventanaPrincipal);
+	panelCatalogo = new PanelCatalogo(ventanaPrincipal);
+	panelPerfil = new PanelPerfil(evento);
+	panelCarrito = new PanelCarrito(ventanaPrincipal, evento);
+	panelCompras = new PanelCompras(evento, ventanaPrincipal);
+	scrollTabla = new JScrollPane(panelCompras);
+	panelGestionLibro = new PanelGestionLibro(evento);
+	panelRegistrarLibro = new PanelRegistrarLibro(evento);
+	panelRegistrarUsuario = new PanelRegistrarUsuario(evento);
+	panelModificarLibro = new PanelModificarLibro(evento, eventoLista);
+	panelModificarUsuario = new PanelModificarUsuario(evento);
+	panelEliminarLibro = new PanelEliminarLibro(ventanaPrincipal, evento);
+	panelConfirmCompra = new PanelConfirmCompra(ventanaPrincipal, evento);
+	panelGestionLibro = new PanelGestionLibro(evento);
+	panelInicioSesion = new PanelInicioSesion(evento);
+	panelComentario = new PanelComentario();
+	panelCalificar = new PanelCalificar(evento);
+	panelRecibo = new PanelRecibo(ventanaPrincipal);
+	clPrincipal = new CardLayout();
+	panelClPrincipal = new JPanel(clPrincipal);
 
-        cardLayout = new CardLayout();
-        panelCL = new JPanel(cardLayout);
-        panelCL.add(panelCatalogo, "Catalogo");
-        panelCL.add(panelPerfil, "Perfil");
-        panelCL.add(panelCarrito, "Carrito");
-        panelCL.add(scrollTabla, "Compras");
-        panelCL.add(panelGestionLibro, "Gestion Libros");
-        panelCL.add(panelEliminarLibro, "Eliminar Libros");
+	cardLayout = new CardLayout();
+	panelCL = new JPanel(cardLayout);
+	panelCL.add(panelCatalogo, "Catalogo");
+	panelCL.add(panelPerfil, "Perfil");
+	panelCL.add(panelCarrito, "Carrito");
+	panelCL.add(scrollTabla, "Compras");
+	panelCL.add(panelGestionLibro, "Gestion Libros");
+	panelCL.add(panelEliminarLibro, "Eliminar Libros");
 
-        add(panelIzquierda(evento), BorderLayout.WEST);
-        add(panelCL, BorderLayout.CENTER);
+	add(panelIzquierda(evento), BorderLayout.WEST);
+	add(panelCL, BorderLayout.CENTER);
     }
 
     public PanelInicioSesion getPanelInicioSesion() {
-        return panelInicioSesion;
+	return panelInicioSesion;
     }
 
     public JPanel getPanelClPrincipal() {
-        return panelClPrincipal;
+	return panelClPrincipal;
     }
 
     public void activarIniciarSesion() {
-        clPrincipal.show(panelClPrincipal, "Iniciar Sesion");
+	clPrincipal.show(panelClPrincipal, "Iniciar Sesion");
     }
 
     public void vistaPanelVenta() {
-        clPrincipal.show(panelClPrincipal, "Panel Venta");
+	clPrincipal.show(panelClPrincipal, "Panel Venta");
     }
 
     public void agregarVentanaCl(MenuPrincipal menuPrincipal) {
-        panelClPrincipal.add(menuPrincipal, "Panel Venta");
+	panelClPrincipal.add(menuPrincipal, "Panel Venta");
     }
 
     public void agregarInicioSesion() {
-        panelClPrincipal.add(panelInicioSesion, "Iniciar Sesion");
+	panelClPrincipal.add(panelInicioSesion, "Iniciar Sesion");
     }
 
     /**
-     * Crea el panel que contiene el menú, las opciones de navegación y los botones de acción.
+     * Crea el panel que contiene el menú, las opciones de navegación y los botones
+     * de acción.
+     * 
      * @param evento Manejador de eventos principal de la aplicación.
      * @return JPanel que contiene el menú principal.
      */
     public JPanel panelIzquierda(Evento evento) {
-        panelIzquierda = new JPanel(new GridBagLayout());
+	panelIzquierda = new JPanel(new GridBagLayout());
 
-        initAtributos();
-        asignarAccionBotones(evento);
-        labelNombreUsuario.setForeground(new Color(255, 0, 0));
+	initAtributos();
+	personalizarBotones();
+	asignarAccionBotones(evento);
+	labelNombreUsuario.setForeground(new Color(255, 0, 0));
 
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+	gbc.anchor = GridBagConstraints.NORTH;
+	gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        gbc.insets = new Insets(5, 5, 5, 5);
-        panelIzquierda.add(labelTituloMenu, gbc);
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.gridy = 1;
-        panelIzquierda.add(botonCatalogo, gbc);
-        gbc.gridy = 2;
-        panelIzquierda.add(botonCarrito, gbc);
-        gbc.gridy = 3;
-        panelIzquierda.add(botonCompras, gbc);
-        gbc.gridy = 4;
-        panelIzquierda.add(botonPerfil, gbc);
-        gbc.weighty = 1.0;
-        gbc.gridy = 7;
-        panelIzquierda.add(new JLabel(), gbc);
-        gbc.weighty = 0;
-        gbc.gridy = 8;
-        gbc.anchor = GridBagConstraints.SOUTH;
-        panelIzquierda.add(labelNombreUsuario, gbc);
-        gbc.gridy = 9;
-        panelIzquierda.add(botonCerrarSesion, gbc);
-        panelIzquierda.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
-        return panelIzquierda;
+	gbc.insets = new Insets(5, 5, 5, 5);
+	panelIzquierda.add(labelTituloMenu, gbc);
+	gbc.anchor = GridBagConstraints.NORTH;
+	gbc.gridy = 1;
+	panelIzquierda.add(botonCatalogo, gbc);
+	gbc.gridy = 2;
+	panelIzquierda.add(botonCarrito, gbc);
+	gbc.gridy = 3;
+	panelIzquierda.add(botonCompras, gbc);
+	gbc.gridy = 4;
+	panelIzquierda.add(botonPerfil, gbc);
+	gbc.weighty = 1.0;
+	gbc.gridy = 7;
+	panelIzquierda.add(new JLabel(), gbc);
+	gbc.weighty = 0;
+	gbc.gridy = 8;
+	gbc.anchor = GridBagConstraints.SOUTH;
+	panelIzquierda.add(labelNombreUsuario, gbc);
+	gbc.gridy = 9;
+	panelIzquierda.add(botonCerrarSesion, gbc);
+	panelIzquierda.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
+	return panelIzquierda;
     }
 
     private void asignarAccionBotones(Evento evento) {
-        botonCatalogo.addActionListener(evento);
-        botonCatalogo.setActionCommand(evento.CATALOGO);
-        botonPerfil.addActionListener(evento);
-        botonPerfil.setActionCommand(evento.PERFIL);
-        botonCarrito.addActionListener(evento);
-        botonCarrito.setActionCommand(evento.CARRITO);
-        botonCerrarSesion.addActionListener(evento);
-        botonCerrarSesion.setActionCommand(evento.CERRAR_SESION);
-        botonCompras.addActionListener(evento);
-        botonCompras.setActionCommand(evento.COMPRAS);
-        botonGestionarLibros.addActionListener(evento);
-        botonGestionarLibros.setActionCommand(evento.GESTIONAR_LIBROS);
-        botonRegistrarUsuario.addActionListener(evento);
-        botonRegistrarUsuario.setActionCommand(evento.VENTANA_REGISTRAR_USUARIO);
-        botonIniciarSesion.addActionListener(evento);
-        botonIniciarSesion.setActionCommand(evento.ACTIVAR_INICIAR_SESION);
+	botonCatalogo.addActionListener(evento);
+	botonCatalogo.setActionCommand(evento.CATALOGO);
+	botonPerfil.addActionListener(evento);
+	botonPerfil.setActionCommand(evento.PERFIL);
+	botonCarrito.addActionListener(evento);
+	botonCarrito.setActionCommand(evento.CARRITO);
+	botonCerrarSesion.addActionListener(evento);
+	botonCerrarSesion.setActionCommand(evento.CERRAR_SESION);
+	botonCompras.addActionListener(evento);
+	botonCompras.setActionCommand(evento.COMPRAS);
+	botonGestionarLibros.addActionListener(evento);
+	botonGestionarLibros.setActionCommand(evento.GESTIONAR_LIBROS);
+	botonRegistrarUsuario.addActionListener(evento);
+	botonRegistrarUsuario.setActionCommand(evento.VENTANA_REGISTRAR_USUARIO);
+	botonIniciarSesion.addActionListener(evento);
+	botonIniciarSesion.setActionCommand(evento.ACTIVAR_INICIAR_SESION);
     }
 
     private void initAtributos() {
-        labelTituloMenu = new JLabel("Librería Virtual", SwingUtilities.CENTER);
-        labelNombreUsuario = new JLabel("", SwingUtilities.CENTER);
-        botonCatalogo = new JButton("Catalogo");
-        botonCarrito = new JButton("Mi carrito");
-        botonCompras = new JButton("Mis compras");
-        botonPerfil = new JButton("Perfil");
-        botonIniciarSesion = new JButton("Iniciar Sesión");
-        botonCerrarSesion = new JButton("Cerrar Sesión");
-        botonGestionarLibros = new JButton("Gestionar Libros");
-        botonRegistrarUsuario = new JButton("Registrar Usuario");
+	colorVerdeOscuro = new Color(34, 139, 34);
+	colorVerdeClaro = new Color(144, 238, 144);
+	labelTituloMenu = new JLabel("Libreria Virtual", SwingUtilities.CENTER);
+	labelNombreUsuario = new JLabel("", SwingUtilities.CENTER);
+	botonCatalogo = new JButton("Catalogo");
+	botonCarrito = new JButton("Mi carrito");
+	botonCompras = new JButton("Mis compras");
+	botonPerfil = new JButton("Perfil");
+	botonIniciarSesion = new JButton("Iniciar Sesión");
+	botonCerrarSesion = new JButton("Cerrar Sesión");
+	botonGestionarLibros = new JButton("Gestionar Libros");
+	botonRegistrarUsuario = new JButton("Registrar Usuario");
+    }
+
+    private void personalizarBotones() {
+	botonCatalogo.setBackground(colorVerdeClaro);
+	botonCarrito.setBackground(colorVerdeClaro);
+	botonCompras.setBackground(colorVerdeClaro);
+	botonPerfil.setBackground(colorVerdeClaro);
+	botonIniciarSesion.setBackground(colorVerdeClaro);
+	botonCerrarSesion.setBackground(colorVerdeClaro);
+	botonGestionarLibros.setBackground(colorVerdeClaro);
+	botonRegistrarUsuario.setBackground(colorVerdeClaro);
     }
 
     public void usuarioNull() {
-        botonCompras.setVisible(false);
-        botonPerfil.setVisible(false);
-        botonCerrarSesion.setVisible(false);
-        labelNombreUsuario.setVisible(false);
-        botonIniciarSesion.setVisible(true);
-        botonGestionarLibros.setVisible(false);
-        botonRegistrarUsuario.setVisible(false);
-        botonCatalogo.setVisible(true);
-        botonCarrito.setVisible(true);
-        gbc.anchor = GridBagConstraints.SOUTH;
-        gbc.gridy = 9;
-        panelIzquierda.add(botonIniciarSesion, gbc);
-        panelIzquierda.revalidate();
-        panelIzquierda.repaint();
+	botonCompras.setVisible(false);
+	botonPerfil.setVisible(false);
+	botonCerrarSesion.setVisible(false);
+	labelNombreUsuario.setVisible(false);
+	botonIniciarSesion.setVisible(true);
+	botonGestionarLibros.setVisible(false);
+	botonRegistrarUsuario.setVisible(false);
+	botonCatalogo.setVisible(true);
+	botonCarrito.setVisible(true);
+	gbc.anchor = GridBagConstraints.SOUTH;
+	gbc.gridy = 9;
+	panelIzquierda.add(botonIniciarSesion, gbc);
+	panelIzquierda.revalidate();
+	panelIzquierda.repaint();
     }
 
     public void usuarioIniciaSesion() {
 
-        botonCompras.setVisible(true);
-        botonPerfil.setVisible(true);
-        botonCerrarSesion.setVisible(true);
-        labelNombreUsuario.setVisible(true);
-        botonIniciarSesion.setVisible(false);
-        panelIzquierda.revalidate();
-        panelIzquierda.repaint();
+	botonCompras.setVisible(true);
+	botonPerfil.setVisible(true);
+	botonCerrarSesion.setVisible(true);
+	labelNombreUsuario.setVisible(true);
+	botonIniciarSesion.setVisible(false);
+	panelIzquierda.revalidate();
+	panelIzquierda.repaint();
     }
 
     /**
      * Agrega botones de administrador si se encuentra logueado.
      */
     public void anadirFuncionesAdmin() {
-        botonGestionarLibros.setVisible(true);
-        botonRegistrarUsuario.setVisible(true);
-        botonCompras.setVisible(false);
-        botonCatalogo.setVisible(true);
-        botonCarrito.setVisible(false);
-        
-        gbc.weighty = 0;
-        gbc.gridy = 5;
-        panelIzquierda.add(botonGestionarLibros, gbc);
-        gbc.gridy = 6;
-        panelIzquierda.add(botonRegistrarUsuario, gbc);
-        panelIzquierda.revalidate();
-        panelIzquierda.repaint();
+	botonGestionarLibros.setVisible(true);
+	botonRegistrarUsuario.setVisible(true);
+	botonCompras.setVisible(false);
+	botonCatalogo.setVisible(true);
+	botonCarrito.setVisible(false);
+
+	gbc.weighty = 0;
+	gbc.gridy = 5;
+	panelIzquierda.add(botonGestionarLibros, gbc);
+	gbc.gridy = 6;
+	panelIzquierda.add(botonRegistrarUsuario, gbc);
+	panelIzquierda.revalidate();
+	panelIzquierda.repaint();
     }
 
     /**
      * Elimina botones de administrador si no se encuentra logueado.
      */
     public void quitarFuncionesAdmin() {
-        panelIzquierda.remove(botonGestionarLibros);
-        panelIzquierda.remove(botonRegistrarUsuario);
-        panelIzquierda.revalidate();
-        panelIzquierda.repaint();
+	panelIzquierda.remove(botonGestionarLibros);
+	panelIzquierda.remove(botonRegistrarUsuario);
+	panelIzquierda.revalidate();
+	panelIzquierda.repaint();
     }
 
     /**
      * Muestra el panel del catálogo de libros.
      */
     public void activarPanelCatalogo() {
-        cardLayout.show(panelCL, "Catalogo");
+	personalizarBotones();
+	botonCatalogo.setBackground(colorVerdeOscuro);
+	cardLayout.show(panelCL, "Catalogo");
     }
 
     /**
      * Muestra el panel del perfil del usuario.
      */
     public void activarPanelPerfil() {
-        cardLayout.show(panelCL, "Perfil");
+	personalizarBotones();
+	botonPerfil.setBackground(colorVerdeOscuro);
+	cardLayout.show(panelCL, "Perfil");
     }
 
     /**
      * Muestra el panel del carrito de compras.
      */
     public void activarPanelCarrito() {
-        cardLayout.show(panelCL, "Carrito");
+	personalizarBotones();
+	botonCarrito.setBackground(colorVerdeOscuro);
+	cardLayout.show(panelCL, "Carrito");
     }
 
     /**
      * Muestra el panel del historial de compras.
      */
     public void activarPanelCompras() {
-        cardLayout.show(panelCL, "Compras");
+	personalizarBotones();
+	botonCompras.setBackground(colorVerdeOscuro);
+	cardLayout.show(panelCL, "Compras");
     }
 
     /**
      * Muestra el panel de gestión de libros (para administradores).
      */
     public void activarPanelGestionLibro() {
-        cardLayout.show(panelCL, "Gestion Libros");
+	personalizarBotones();
+	botonGestionarLibros.setBackground(colorVerdeOscuro);
+	cardLayout.show(panelCL, "Gestion Libros");
     }
 
     /**
      * Activa el panel para registrar un nuevo libro.
      */
     public void activarPanelRegistrarLibros() {
+	personalizarBotones();
 	panelRegistrarLibro.setLocationRelativeTo(ventanaPrincipal);
-        panelRegistrarLibro.setVisible(true);
+	panelRegistrarLibro.setVisible(true);
     }
 
     /**
@@ -537,21 +587,21 @@ public class MenuPrincipal extends JPanel {
      */
     public void activarPanelRegistrarUsuario() {
 	panelRegistrarUsuario.setLocationRelativeTo(ventanaPrincipal);
-        panelRegistrarUsuario.setVisible(true);
+	panelRegistrarUsuario.setVisible(true);
     }
 
     /**
      * Oculta el panel de registro de libros.
      */
     public void activarCancelarRegistroLibro() {
-        panelRegistrarLibro.setVisible(false);
+	panelRegistrarLibro.setVisible(false);
     }
 
     /**
      * Oculta el panel de registro de usuario.
      */
     public void activarCancelarRegistroUsuario() {
-        panelRegistrarUsuario.setVisible(false);
+	panelRegistrarUsuario.setVisible(false);
     }
 
     /**
@@ -559,14 +609,14 @@ public class MenuPrincipal extends JPanel {
      */
     public void activarPanelModificarLibro() {
 	panelModificarLibro.setLocationRelativeTo(ventanaPrincipal);
-        panelModificarLibro.setVisible(true);
+	panelModificarLibro.setVisible(true);
     }
 
     /**
      * Oculta el panel de modificación de libros.
      */
     public void activarCancelarModificacionLibro() {
-        panelModificarLibro.setVisible(false);
+	panelModificarLibro.setVisible(false);
     }
 
     /**
@@ -574,52 +624,52 @@ public class MenuPrincipal extends JPanel {
      */
     public void activarActualizarDatosUsuario() {
 	panelModificarUsuario.setLocationRelativeTo(ventanaPrincipal);
-        panelModificarUsuario.setVisible(true);
+	panelModificarUsuario.setVisible(true);
     }
 
     /**
      * Oculta el panel de actualización de usuario.
      */
     public void activarCancelarActualizarUser() {
-        panelModificarUsuario.setVisible(false);
+	panelModificarUsuario.setVisible(false);
     }
 
     /**
      * Muestra el panel de eliminación de libros.
      */
     public void activarEliminarLibros() {
-        cardLayout.show(panelCL, "Eliminar Libros");
+	cardLayout.show(panelCL, "Eliminar Libros");
     }
 
     public void activarPanelConfirmCompra() {
 	panelConfirmCompra.setLocationRelativeTo(ventanaPrincipal);
-        panelConfirmCompra.setVisible(true);
+	panelConfirmCompra.setVisible(true);
     }
 
     public void activarPanelRecibo() {
 	panelRecibo.setLocationRelativeTo(ventanaPrincipal);
-        panelRecibo.setVisible(true);
+	panelRecibo.setVisible(true);
     }
 
     public void activarPanelComentario() {
-        panelComentario.setVisible(true);
+	panelComentario.setVisible(true);
     }
 
     public void desactivarPanelComentario() {
 	panelComentario.setLocationRelativeTo(ventanaPrincipal);
-        panelComentario.setVisible(false);
+	panelComentario.setVisible(false);
     }
 
     public void activarPanelCalificar() {
 	panelCalificar.setLocationRelativeTo(ventanaPrincipal);
-        panelCalificar.setVisible(true);
+	panelCalificar.setVisible(true);
     }
 
     public void desactivarPanelCalificar() {
-        panelCalificar.setVisible(false);
+	panelCalificar.setVisible(false);
     }
 
     public String getIsbn() {
-        return "";
+	return "";
     }
 }

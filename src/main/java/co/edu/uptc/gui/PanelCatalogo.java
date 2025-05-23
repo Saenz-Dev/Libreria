@@ -86,7 +86,8 @@ public class PanelCatalogo extends JPanel {
 	labelTitulo = new JLabel("Catálogo de Libros");
 	labelTitulo.setFont(font);
     }
-
+    
+    Image imagen;
     /**
      * Inicializa los atributos del panel del catalogo.
      * 

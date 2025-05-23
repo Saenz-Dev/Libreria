@@ -37,6 +37,8 @@ public class PanelInicioSesion extends JPanel {
 
     /** Botón para crear una nueva cuenta de usuario. */
     private JButton botonCrearCuenta;
+    
+    private Image imagenFondo;
 
     /**
      * Obtiene el campo de texto donde se ingresa la contraseña.
@@ -70,6 +72,7 @@ public class PanelInicioSesion extends JPanel {
 	this.txtContrasena.setText(txtContrasena);
     }
 
+    
     /**
      * Constructor del panel de inicio de sesión.
      * @param evento Manejador de eventos de la aplicación.
@@ -119,13 +122,18 @@ public class PanelInicioSesion extends JPanel {
 
     private void personalizarPanel() {
         Dimension dimensiontxt = new Dimension(500, 25);
-        Font letra = new Font("Arial", Font.BOLD, 20);
+        Font letra = new Font("Arial", Font.BOLD, 40);
         txtCorreo.setPreferredSize(dimensiontxt);
         txtContrasena.setPreferredSize(dimensiontxt);
         txtContrasena.selectAll();
         txtCorreo.selectAll();
+        labelTitulo.setForeground(Color.BLACK);
+        labelIniciarSesion.setForeground(Color.WHITE);
+        labelTexto.setForeground(Color.WHITE);        
+        labelCorreo.setForeground(Color.WHITE);
+        labelContrasena.setForeground(Color.WHITE);
         labelTitulo.setFont(letra);
-        labelIniciarSesion.setFont(new Font("Arial", Font.BOLD, 15));
+        labelIniciarSesion.setFont(new Font("Arial", Font.BOLD, 25));
     }
 
     private void initAtributos() {
@@ -139,5 +147,11 @@ public class PanelInicioSesion extends JPanel {
         labelCorreo = new JLabel("Correo: ");
         txtCorreo = new JTextField( 25);
         txtContrasena = new JPasswordField(25);
+        imagenFondo = new ImageIcon(ClassLoader.getSystemResource("libreria.jpg")).getImage();
+    }
+    
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
     }
 }

@@ -254,7 +254,7 @@ public class VentanaPrincipal extends JFrame {
 	try {
 	    menuPrincipal.activarEliminarLibros();
 	    menuPrincipal.getPanelEliminarLibro().crearPanelesLibros(gestionTienda.listarLibros());
-	} catch (SQLException | IllegalArgumentException e) {
+	} catch (SQLException | RuntimeException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelEliminarLibro(), e.getMessage(), "Error",
 		    JOptionPane.ERROR_MESSAGE);
 	}
@@ -270,7 +270,7 @@ public class VentanaPrincipal extends JFrame {
 	} catch (SQLException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelEliminarLibro(), e.getMessage(), "Error",
 		    JOptionPane.ERROR_MESSAGE);
-	} catch (IOException | IllegalArgumentException e) {
+	} catch (IOException | RuntimeException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelEliminarLibro(), e.getMessage(), "Error",
 		    JOptionPane.ERROR_MESSAGE);
 	}

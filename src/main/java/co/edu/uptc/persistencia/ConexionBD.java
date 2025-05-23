@@ -10,7 +10,7 @@ public abstract class ConexionBD<T>{
 
     private final String URL = "jdbc:mysql://localhost:3306/db_libreria";
     private final String USUARIO = "root";
-    private final String CONTRASENA = "";
+    private final String CONTRASENA = "Niosaenz123";
     
     
     protected Connection crearConexion() throws SQLException {
