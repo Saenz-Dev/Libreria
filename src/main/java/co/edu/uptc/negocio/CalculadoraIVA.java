@@ -10,6 +10,7 @@ import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.LibroCarrito;
 import co.edu.uptc.modelo.Recibo;
 import co.edu.uptc.modelo.Tienda;
+import co.edu.uptc.modelo.TipoLibro;
 import co.edu.uptc.modelo.Usuario;
 import co.edu.uptc.persistencia.LibroDAO;
 

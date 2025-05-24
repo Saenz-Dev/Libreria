@@ -44,7 +44,8 @@ public class PanelLibro extends JPanel {
     }
     
     public void enableBotonAgregar(boolean habilitar) {
-	botonAgregar.setEnabled(habilitar);
+	botonAgregar.setVisible(habilitar);
+	botonComentario.setVisible(habilitar);
     }
     
     public JLabel getLabelTitulo() {
@@ -60,8 +61,7 @@ public class PanelLibro extends JPanel {
         setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         setBorder(new LineBorder(Color.WHITE, 1, true));
-        setBackground(Color.WHITE);
-        setPreferredSize(new Dimension(20, 170));
+        setBackground(Color.WHITE);       
 
         modificarAtributos(libro);
         personalizar();
@@ -104,8 +104,8 @@ public class PanelLibro extends JPanel {
     private void modificarAtributos(Libro libro) {
         format = NumberFormat.getCurrencyInstance();
         format.setMinimumFractionDigits(0);
-        labelTitulo = new JLabel("<html><div align='center'>" + libro.getTitulo() + "</div></html>" );
-        labelAutorEditorial = new JLabel(libro.getAutor() + (!libro.getEditorial().isBlank() ? " - " + libro.getEditorial() : ""));
+        labelTitulo = new JLabel("<html><div align='left'>" + libro.getTitulo() + "</div></html>" );
+        labelAutorEditorial = new JLabel("<html><div align='center'>" +( libro.getAutor() + (!libro.getEditorial().isBlank() ? " - " + libro.getEditorial() : "")) + "</div></html>" );
         labelCategoriaPaginas = new JLabel(libro.getCategoria() + ((libro.getNumeroPaginas() != 0 ? " - " + libro.getNumeroPaginas()+ " pags." : "")));
         labelPrecio = new JLabel(String.valueOf(format.format(libro.getPrecioVenta())));
         botonAgregar = new JButton("Agregar al carrito");
@@ -118,7 +118,7 @@ public class PanelLibro extends JPanel {
     public void personalizar() {
         labelTitulo.setFont(new Font("Sunglasses", Font.BOLD, 20));
         labelPrecio.setFont(new Font("Sunglasses", Font.BOLD, 20));
-        botonAgregar.setBorderPainted(false);
+        botonAgregar.setBorderPainted(false); 	
         botonAgregar.setBackground(new Color(98, 218, 93, 199));
     }
 

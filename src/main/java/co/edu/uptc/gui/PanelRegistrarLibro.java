@@ -1,10 +1,19 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.negocio.TipoLibro;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import co.edu.uptc.modelo.CategoriaLibro;
+import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.TipoLibro;
 
 public class PanelRegistrarLibro extends JDialog {
 
@@ -421,11 +430,8 @@ public class PanelRegistrarLibro extends JDialog {
 	txtPrecio = new JTextField(10);
 	txtCantidad = new JTextField(5);
 
-	String[] categorias = { "Ficción", "No Ficción", "Misterio", "Ciencia" };
-	txtCategoria = new JComboBox<>(categorias);
-
-	String[] formatos = { String.valueOf(TipoLibro.DIGITAL), String.valueOf(TipoLibro.FISICO) };
-	txtFormato = new JComboBox<>(formatos);
+	txtCategoria = new JComboBox<>(CategoriaLibro.values());
+	txtFormato = new JComboBox<>(TipoLibro.values());
 
 	botonAgregar = new JButton("Agregar");
 	botonCancelar = new JButton("Cancelar");

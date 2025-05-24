@@ -4,6 +4,9 @@ import co.edu.uptc.modelo.Libro;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
 import java.awt.*;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -35,6 +38,8 @@ public class PanelCatalogo extends JPanel {
 
     /** Restricciones para la disposición de los libros dentro del panel. */
     private GridBagConstraints gbcPanelLibros;
+    
+    private GridBagConstraints gbc;
 
     /** Panel con barra de desplazamiento que contiene el panel de libros. */
     private JScrollPane scrollPanelLibros;
@@ -44,6 +49,8 @@ public class PanelCatalogo extends JPanel {
 
     /** Referencia a la ventana principal de la aplicación. */
     private VentanaPrincipal ventanaPrincipal;
+    
+    private JLabel labelSinLibros;
 
     /**
      * Constructor del panel del catalogo.
@@ -52,7 +59,7 @@ public class PanelCatalogo extends JPanel {
      */
     public PanelCatalogo(VentanaPrincipal ventanaPrincipal) {
 	initAtributos(ventanaPrincipal);
-	GridBagConstraints gbc = new GridBagConstraints();
+	gbc = new GridBagConstraints();
 	personalizarFont();
 
 	gbc.weightx = 1.0;
@@ -86,8 +93,9 @@ public class PanelCatalogo extends JPanel {
 	labelTitulo = new JLabel("Catálogo de Libros");
 	labelTitulo.setFont(font);
     }
-    
+
     Image imagen;
+
     /**
      * Inicializa los atributos del panel del catalogo.
      * 
@@ -103,16 +111,67 @@ public class PanelCatalogo extends JPanel {
 	conteoColumnas = 0;
 	numberFormat = NumberFormat.getCurrencyInstance();
 	numberFormat.setMinimumFractionDigits(0);
+	labelSinLibros = new JLabel("No hay libros registrados");
     }
 
+    
+    public void crearTablaLibros(ArrayList<Libro> catalogo) {
+	if (catalogo == null || catalogo.isEmpty()) {
+	    repintarPanelLibros();
+	    return;
+	}
+	labelSinLibros.setVisible(false);
+	DefaultTableModel tableModel = new DefaultTableModel();
+	NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+	numberFormat.setMinimumFractionDigits(0);
+	tableModel.setColumnIdentifiers(new Object[]{"ISBN", "Titulo", "Autor", "Año", "Categoria", "Editorial", "#Paginas", "Precio", "Disponible", "Reservado", "Tipo"});
+	
+	for (Libro libro : catalogo) {
+	    tableModel.addRow(new Object[]{libro.getIsbn(), libro.getTitulo(), libro.getAutor(), libro.getAnioPublicacion(), libro.getCategoria(), libro.getEditorial(), libro.getNumeroPaginas(), numberFormat.format(libro.getPrecioVenta()),  libro.getStockDisponible(), libro.getStockReservado(), libro.getTipoLibro()});
+	}
+	
+	JTable tabla = new JTable(tableModel);
+	tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+	JTableHeader tableHeader = tabla.getTableHeader();
+	tableHeader.setBackground(new Color(0x24242C));
+	tableHeader.setForeground(Color.WHITE);
+	tableHeader.setFont(new Font("Arial", Font.BOLD, 12));
+	remove(scrollPanelLibros);
+	gbc.gridwidth = 1;
+	gbc.weighty = 0.9;
+	gbc.insets = new Insets(10, 10, 10, 10);
+	gbc.fill = GridBagConstraints.BOTH;
+	gbc.gridy = 1;
+	scrollPanelLibros = new JScrollPane(tabla);
+	scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
+	scrollPanelLibros.setBorder(null);
+	add(scrollPanelLibros, gbc);
+	
+	revalidate();
+	repaint();
+	//tabla.getColumnModel().getColumn(0).setPreferredWidth();
+	
+    }
+    
     /**
      * Crea paneles de libros a partir de un mapa de libros que son los libros
      * disponibles en el catálogo.
      * 
      * @param mapLibros Libros en el catalogo.
      */
-    public void crearPanelesLibros(ArrayList<Libro> catalogo, boolean enableAnadirCarrito) {
+    public void crearPanelesLibros(ArrayList<Libro> catalogo) {
+	
+	remove(scrollPanelLibros);
 	panelLibros.removeAll();
+	gbc.gridwidth = 1;
+	gbc.weighty = 0.9;
+	gbc.insets = new Insets(10, 10, 10, 10);
+	gbc.fill = GridBagConstraints.BOTH;
+	gbc.gridy = 1;
+	scrollPanelLibros = new JScrollPane(panelLibros);
+	scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
+	scrollPanelLibros.setBorder(null);
+	add(scrollPanelLibros, gbc);
 	conteoColumnas = 0;
 	conteoFilas = 0;
 
@@ -121,7 +180,7 @@ public class PanelCatalogo extends JPanel {
 	gbcPanelLibros.anchor = GridBagConstraints.NORTHWEST;
 
 	for (Libro libro : catalogo) {
-	    anadirPanelLibro(libro, enableAnadirCarrito);
+	    anadirPanelLibro(libro);
 	}
 
 	if (panelLibros.getComponentCount() == 0) {
@@ -133,9 +192,8 @@ public class PanelCatalogo extends JPanel {
 	repaint();
     }
 
-    private void anadirPanelLibro(Libro libro, boolean enableAnadirCarrito) {
+    private void anadirPanelLibro(Libro libro) {
 	PanelLibro panelLibro = new PanelLibro(ventanaPrincipal, libro);
-	panelLibro.enableBotonAgregar(enableAnadirCarrito);
 	panelLibro.setPreferredSize(new Dimension(270, 180));
 	panelLibro.setBorder(new LineBorder(Color.BLACK));
 	anadirLibrosPanel(panelLibro);
@@ -150,9 +208,9 @@ public class PanelCatalogo extends JPanel {
 	gbcPanelLibros.weightx = 1;
 	gbcPanelLibros.weighty = 1;
 	gbcPanelLibros.fill = GridBagConstraints.CENTER;
-	conteoColumnas = 0;
 	conteoFilas = 0;
-	panelLibros.add(new JLabel("No hay libros registrados..."), gbcPanelLibros);
+	labelSinLibros.setVisible(true);
+	panelLibros.add(labelSinLibros, gbcPanelLibros);
     }
 
     /**
@@ -166,7 +224,7 @@ public class PanelCatalogo extends JPanel {
 	gbcPanelLibros.insets = new Insets(10, 10, 10, 10);
 	gbcPanelLibros.fill = GridBagConstraints.NONE;
 	gbcPanelLibros.gridwidth = 1;
-
+	
 	gbcPanelLibros.gridx = conteoColumnas;
 	gbcPanelLibros.gridy = conteoFilas;
 	panelLibros.add(panelLibro, gbcPanelLibros);

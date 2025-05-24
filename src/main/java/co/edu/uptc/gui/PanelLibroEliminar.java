@@ -76,7 +76,7 @@ public class PanelLibroEliminar extends JPanel {
         add(labelPrecio, gbc);
 
         gbc.gridy = 3;
-        add(checkBox, gbc);
+        habilitacionBoton(libro.getIsComprado());
     }
 
     /**
@@ -100,5 +100,16 @@ public class PanelLibroEliminar extends JPanel {
         labelTitulo.setFont(new Font("Sunglasses", Font.BOLD, 15));
         labelPrecio.setFont(new Font("Sunglasses", Font.BOLD, 10));
         labelAutor.setFont(new Font("Sunglasses", Font.BOLD, 12));
+    }
+    
+    public void habilitacionBoton(boolean valor) {
+        if (valor) {
+            checkBox.setVisible(false);
+            add(new JLabel("Ventas Asociadas"), gbc);
+        } else {
+            setBackground(new Color(251, 123, 96));
+            add(checkBox, gbc);
+        }
+        repaint();
     }
 }

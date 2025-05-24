@@ -1,7 +1,5 @@
 package co.edu.uptc.modelo;
 
-import co.edu.uptc.negocio.TipoPago;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

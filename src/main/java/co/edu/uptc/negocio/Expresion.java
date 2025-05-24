@@ -15,7 +15,7 @@ public class Expresion {
     /**
      * Expresiones regulares
      */
-    public static final String EXPRESION_ALFABETICA = "^[a-zA-Z\\s]+$";
+    public static final String EXPRESION_ALFABETICA = "^[a-zA-Z{L}\\s]+$";
     public static final String EXPRESION_NUMERICA_TELEFONO = "^3[0-9]{9}$";
     public static final String EXPRESION_NUMERICA_PRECIO = "^[0-9]+$";
     public static final String EXPRESION_NUMERO_PAGINAS = "^[0-9]{1,4}$";

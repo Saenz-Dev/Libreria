@@ -1,7 +1,5 @@
 package co.edu.uptc.modelo;
 
-import co.edu.uptc.negocio.TipoPago;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

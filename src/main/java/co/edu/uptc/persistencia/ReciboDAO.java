@@ -2,8 +2,9 @@ package co.edu.uptc.persistencia;
 
 import co.edu.uptc.modelo.ProductoCompra;
 import co.edu.uptc.modelo.Recibo;
+import co.edu.uptc.modelo.TipoPago;
 import co.edu.uptc.modelo.ValorCompra;
-import co.edu.uptc.negocio.TipoPago;
+
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 import java.sql.*;

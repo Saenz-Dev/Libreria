@@ -12,6 +12,7 @@ import co.edu.uptc.modelo.LibroCarrito;
 import co.edu.uptc.modelo.ProductoCompra;
 import co.edu.uptc.modelo.Recibo;
 import co.edu.uptc.modelo.Tienda;
+import co.edu.uptc.modelo.TipoPago;
 import co.edu.uptc.modelo.Usuario;
 import co.edu.uptc.modelo.ValorCompra;
 import co.edu.uptc.persistencia.CarritoDAO;

@@ -1,7 +1,5 @@
 package co.edu.uptc.modelo;
 
-import co.edu.uptc.negocio.TipoLibro;
-
 import java.io.Serializable;
 
 /**

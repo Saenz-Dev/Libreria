@@ -1,4 +1,4 @@
-package co.edu.uptc.negocio;
+package co.edu.uptc.modelo;
 
 public enum TipoPago {
     EFECTIVO, TARJETA;

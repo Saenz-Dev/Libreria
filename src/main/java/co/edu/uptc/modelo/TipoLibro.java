@@ -1,4 +1,4 @@
-package co.edu.uptc.negocio;
+package co.edu.uptc.modelo;
 
 /**
  * Representa los diferentes formatos en los que un libro puede estar disponible.

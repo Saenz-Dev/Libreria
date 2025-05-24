@@ -1,7 +1,6 @@
 package co.edu.uptc.gui;
 
 import co.edu.uptc.modelo.*;
-import co.edu.uptc.negocio.TipoPago;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

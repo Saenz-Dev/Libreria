@@ -13,8 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * Clase que representa el panel de compras en la interfaz gráfica.
- * Permite visualizar las compras realizadas por el usuario y gestionar su presentación.
+ * Clase que representa el panel de compras en la interfaz gráfica. Permite
+ * visualizar las compras realizadas por el usuario y gestionar su presentación.
  */
 public class PanelCompras extends JPanel {
 
@@ -33,119 +33,111 @@ public class PanelCompras extends JPanel {
     private GridBagConstraints gbc;
 
     private VentanaPrincipal ventanaPrincipal;
-    
+
     private JLabel labelSinCompras;
 
     /**
      * Constructor del panel de compras.
      */
     public PanelCompras(Evento evento, VentanaPrincipal ventanaPrincipal) {
-        this.ventanaPrincipal = ventanaPrincipal;
-        setLayout(new GridBagLayout());
-        removeAll();
-        gbc = new GridBagConstraints();
-        labelTitulo = new JLabel("Mis Compras");
-        labelSinCompras = new JLabel("No se encontraron compras realizadas...");
-        gbc.gridy = 0;
-        gbc.gridx = 0;
-        gbc.weightx = 1.0;
+	this.ventanaPrincipal = ventanaPrincipal;
+	setLayout(new GridBagLayout());
+	removeAll();
+	gbc = new GridBagConstraints();
+	labelTitulo = new JLabel("Mis Compras");
+	labelSinCompras = new JLabel("No se encontraron compras realizadas...");
+	gbc.gridy = 0;
+	gbc.gridx = 0;
+	gbc.weightx = 1.0;
 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.NORTHWEST;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        labelTitulo.setFont(new Font("Arial", Font.BOLD, 30));
-        add(labelTitulo, gbc);
-        
-        gbc.gridy = 2;
-        gbc.weighty = 1.0;
-        gbc.weightx = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(labelSinCompras, gbc);
+	gbc.fill = GridBagConstraints.HORIZONTAL;
+	gbc.anchor = GridBagConstraints.NORTHWEST;
+	gbc.insets = new Insets(10, 10, 10, 10);
+	labelTitulo.setFont(new Font("Arial", Font.BOLD, 30));
+	add(labelTitulo, gbc);
+
+	gbc.gridy = 2;
+	gbc.weighty = 1.0;
+	gbc.weightx = 1.0;
+	gbc.fill = GridBagConstraints.HORIZONTAL;
+	add(labelSinCompras, gbc);
     }
 
     public void llenarTabla(ArrayList<Recibo> listaRecibos) {
 
-        if (scroll != null) {
-            remove(scroll);
-        }
+	if (scroll != null) {
+	    remove(scroll);
+	}
 
-        NumberFormat format = NumberFormat.getCurrencyInstance();
-        format.setMinimumFractionDigits(0);
-        gbc.gridy = 2;
-        gbc.weighty = 1.0;
-        gbc.weightx = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+	NumberFormat format = NumberFormat.getCurrencyInstance();
+	format.setMinimumFractionDigits(0);
+	gbc.gridy = 2;
+	gbc.weighty = 1.0;
+	gbc.weightx = 1.0;
+	gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        DefaultTableModel tableModel = getDefaultTableModel();
+	DefaultTableModel tableModel = getDefaultTableModel();
 
-        if (listaRecibos == null || listaRecibos.isEmpty()) {
-            labelSinCompras.setVisible(true);
-            revalidate();
-            repaint();
-            return;
-        }
-        
-        labelSinCompras.setVisible(false);
-        int numCompra = 0;
-        DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
-        for (Recibo recibo : listaRecibos) {
-            if (numCompra != recibo.getNumeroRecibo()) {
-        	
-            	numCompra = recibo.getNumeroRecibo();
-                String fecha = formater.format(recibo.getFecha());
-                int numeroRecibo= recibo.getNumeroRecibo();
-                tableModel.addRow(new Object[]{fecha, numeroRecibo});
-            }
-            /*String direccion = recibo.getDireccion();
-            double total = recibo.getValorCompra().getTotal();
-            String tipoPago = String.valueOf(recibo.getTipoPago());
-            for (ProductoCompra productoCompra : recibo.getListaProductosComprados()) {
-                String tituloLibro = productoCompra.getTitulo();
-                String isbn = productoCompra.getIsbn();
-                int cantidad = productoCompra.getNumeroLibros();
-                tableModel.addRow(new Object[]{fecha, isbn, tituloLibro, direccion, cantidad, format.format(total), tipoPago});
-            }*/
-        }
+	if (listaRecibos == null || listaRecibos.isEmpty()) {
+	    labelSinCompras.setVisible(true);
+	    revalidate();
+	    repaint();
+	    return;
+	}
 
-        tablaCompras = new JTable(tableModel);
-        tablaCompras.revalidate();
-        tablaCompras.repaint();
-        tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tablaCompras.getDefaultEditor(Boolean.class).addCellEditorListener(new EventoComentario(tablaCompras, ventanaPrincipal));
+	labelSinCompras.setVisible(false);
+	int numCompra = 0;
+	DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
+	for (Recibo recibo : listaRecibos) {
+	    if (numCompra != recibo.getNumeroRecibo()) {
 
+		numCompra = recibo.getNumeroRecibo();
+		String fecha = formater.format(recibo.getFecha());
+		int numeroRecibo = recibo.getNumeroRecibo();
+		tableModel.addRow(new Object[] { fecha, numeroRecibo });
+	    }
+	}
 
-        tablaCompras.getColumnModel().getColumn(0).setPreferredWidth(300);
-        tablaCompras.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tablaCompras.getColumnModel().getColumn(2).setPreferredWidth(232);
-        
-        JTableHeader tableHeader = tablaCompras.getTableHeader();
-        tableHeader.setBackground(new Color(0x24242C));
-        tableHeader.setForeground(Color.WHITE);
-        tableHeader.setFont(new Font("Arial", Font.BOLD, 12));
-        scroll = new JScrollPane(tablaCompras);
-        scroll.setPreferredSize(new Dimension(500, 380));
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+	tablaCompras = new JTable(tableModel);
+	tablaCompras.revalidate();
+	tablaCompras.repaint();
+	tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+	tablaCompras.getDefaultEditor(Boolean.class)
+		.addCellEditorListener(new EventoComentario(tablaCompras, ventanaPrincipal));
 
-        add(scroll, gbc);
-        revalidate();
-        repaint();
+	tablaCompras.getColumnModel().getColumn(0).setPreferredWidth(300);
+	tablaCompras.getColumnModel().getColumn(1).setPreferredWidth(100);
+	tablaCompras.getColumnModel().getColumn(2).setPreferredWidth(232);
+
+	JTableHeader tableHeader = tablaCompras.getTableHeader();
+	tableHeader.setBackground(new Color(0x24242C));
+	tableHeader.setForeground(Color.WHITE);
+	tableHeader.setFont(new Font("Arial", Font.BOLD, 12));
+	scroll = new JScrollPane(tablaCompras);
+	scroll.setPreferredSize(new Dimension(500, 380));
+	scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+	add(scroll, gbc);
+	revalidate();
+	repaint();
     }
 
     private static DefaultTableModel getDefaultTableModel() {
-        String[] cabecera = {"Fecha y Hora", "# Recibo", "Ver compra"};
-        DefaultTableModel tableModel = new DefaultTableModel() {
-            public Class<?> getColumnClass(int column) {
-                if (column == 2) {
-                    return Boolean.class; // La columna de comentarios es un botón
-                }
-                return String.class; // Las demás columnas son de tipo String
-            }
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 2; // Solo la columna de comentarios es editable
-            }
-        };
-        tableModel.setColumnIdentifiers(cabecera);
-        return tableModel;
+	String[] cabecera = { "Fecha y Hora", "# Recibo", "Ver compra" };
+	DefaultTableModel tableModel = new DefaultTableModel() {
+	    public Class<?> getColumnClass(int column) {
+		if (column == 2) {
+		    return Boolean.class; // La columna de comentarios es un botón
+		}
+		return String.class; // Las demás columnas son de tipo String
+	    }
+
+	    @Override
+	    public boolean isCellEditable(int row, int column) {
+		return column == 2; // Solo la columna de comentarios es editable
+	    }
+	};
+	tableModel.setColumnIdentifiers(cabecera);
+	return tableModel;
     }
 }

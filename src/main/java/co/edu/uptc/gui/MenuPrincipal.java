@@ -277,7 +277,7 @@ public class MenuPrincipal extends JPanel {
      * @param nombreUsuario Nombre del usuario a mostrar en la interfaz.
      */
     public void setLabelNombreUsuario(String nombreUsuario) {
-	labelNombreUsuario.setText(nombreUsuario);
+	labelNombreUsuario.setText("<html><div align: 'center'>" + nombreUsuario + "</div></html>");
     }
 
     /**
@@ -450,6 +450,7 @@ public class MenuPrincipal extends JPanel {
 	colorVerdeClaro = new Color(144, 238, 144);
 	labelTituloMenu = new JLabel("Libreria Virtual", SwingUtilities.CENTER);
 	labelNombreUsuario = new JLabel("", SwingUtilities.CENTER);
+	labelNombreUsuario.setPreferredSize(new Dimension(20, 35));
 	botonCatalogo = new JButton("Catalogo");
 	botonCarrito = new JButton("Mi carrito");
 	botonCompras = new JButton("Mis compras");
@@ -508,6 +509,7 @@ public class MenuPrincipal extends JPanel {
 	botonCompras.setVisible(false);
 	botonCatalogo.setVisible(true);
 	botonCarrito.setVisible(false);
+	botonPerfil.setVisible(false);
 
 	gbc.weighty = 0;
 	gbc.gridy = 5;

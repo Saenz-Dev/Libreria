@@ -1,7 +1,9 @@
 package co.edu.uptc.gui;
 
+import co.edu.uptc.modelo.CategoriaLibro;
 import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.negocio.TipoLibro;
+import co.edu.uptc.modelo.TipoLibro;
+import co.edu.uptc.modelo.TipoPago;
 
 import javax.swing.*;
 import java.awt.*;
@@ -389,10 +391,8 @@ public class PanelModificarLibro extends JDialog {
     private void initCb() {
         cbLibros = new JComboBox<>();//Lo agregue para el que se elija, los JTextField se llenen con la informacion de cada libro.
         cbLibros.setPreferredSize(new Dimension(20, 20));
-        String[] categorias = {"Ficción", "No Ficción", "Misterio", "Ciencia"}; //TODO hacer clase enum para separar que esto tenga sentido
-        txtCategoria = new JComboBox<>(categorias);
-        String[] formatos = {String.valueOf(TipoLibro.DIGITAL), String.valueOf(TipoLibro.FISICO)};
-        txtFormato = new JComboBox<>(formatos);
+        txtCategoria = new JComboBox<>(CategoriaLibro.values());
+        txtFormato = new JComboBox<>(TipoLibro.values());
     }
 
     private void initJLabels() {
