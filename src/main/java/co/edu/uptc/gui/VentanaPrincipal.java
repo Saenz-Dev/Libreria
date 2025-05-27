@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Comentario;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.ResumenProductoDTO;
@@ -246,6 +247,7 @@ public class VentanaPrincipal extends JFrame {
 	} catch (RuntimeException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarUsuario(), e.getMessage(), "Error",
 		    JOptionPane.ERROR_MESSAGE);
+	    RegistroLog.registrarAdvertencia(e.getMessage(), null);
 	}
     }
 

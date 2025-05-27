@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 
+import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Comentario;
 
 public class ComentarioDAO extends ConexionBD<Comentario> {
@@ -24,8 +25,11 @@ public class ComentarioDAO extends ConexionBD<Comentario> {
             preparedStatement.setInt(4, comentario.getCalificacion());
             preparedStatement.setTimestamp(5, Timestamp.valueOf(comentario.getFecha()));
             preparedStatement.executeUpdate();
+            RegistroLog.registrarInfo("📝 Comentario insertado correctamente para ISBN " + comentario.getIsbn()
+            + ", usuario: " + comentario.getCorreo());
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al insertar los datos en la tabla 'comentarios': " + e.getMessage());
+            RegistroLog.registrarError("❌ Error al insertar los datos en la tabla 'comentarios':" +  e.getMessage(), e);
+            throw new SQLException("❌ No se pudo guardar el comentario. Intenta nuevamente.");
         }
     }
 
@@ -43,9 +47,15 @@ public class ComentarioDAO extends ConexionBD<Comentario> {
                 comentario.setFecha(resultSet.getTimestamp("fecha").toLocalDateTime());
                 comentarios.add(comentario);
             }
+            if (comentarios.isEmpty()) {
+        	RegistroLog.registrarInfo("No se encontraron comentarios en el libro");
+            } else {
+        	 RegistroLog.registrarInfo("✅ Se encontraron " + comentarios.size() + " comentarios.");
+            }
             return comentarios;
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al seleccionar los registros en la tabla 'comentarios': " + e.getMessage());
+            RegistroLog.registrarError("❌ Error al seleccionar los registros en la tabla 'comentarios': " + e.getMessage(), e);
+            throw new SQLException("❌ No se pudieron obtener los comentarios. Intenta nuevamente");
         }
     }
 
@@ -67,7 +77,9 @@ public class ComentarioDAO extends ConexionBD<Comentario> {
                 return comentarios;
             }
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al seleccionar los comentarios del libro con ISBN " + isbnLibro + ": " + e.getMessage());
+            RegistroLog.registrarError("❌ Error al seleccionar los comentarios del libro con ISBN " + isbnLibro + ": " + e.getMessage(), e);
+            throw new SQLException("❌ No se pudieron obtener los comentarios del libro. Intenta nuevamente.");
+        
         }
     }
 

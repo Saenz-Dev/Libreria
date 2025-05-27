@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Administrador;
 import co.edu.uptc.modelo.Cuenta;
 import co.edu.uptc.modelo.LibroCarrito;
@@ -206,6 +207,10 @@ public class GestionUsuario {
 	this.usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
 	LibroCarrito libroCarrito = new LibroCarrito();
 	libroCarrito.setCorreo_usuario("user_default");
+	if (libroCarrito == null || libroCarrito.getCorreo_usuario() == null || libroCarrito.getCorreo_usuario().isBlank()) {
+	    RegistroLog.registrarAdvertencia("❗ Se intentó seleccionar registros con un correo de usuario nulo o vacío.");
+	    throw new RuntimeException("⚠️ No se proporcionó un usuario válido para consultar su carrito.");
+	}
 	ArrayList<LibroCarrito> librosCarritoDefault = carritoDAO.seleccionarRegistros(libroCarrito);
 	for (LibroCarrito libroCarritoDefault : librosCarritoDefault) {
 	    libroCarritoDefault.setCorreo_usuario(usuarioLog.getCuenta().getCorreo());
