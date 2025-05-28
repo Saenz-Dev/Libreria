@@ -1,5 +1,6 @@
 package co.edu.uptc.persistencia;
 
+import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Cuenta;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.TipoLibro;
@@ -14,7 +15,7 @@ public class LibroDAO extends ConexionBD<Libro> {
 
     @Override
     public void insertarDatos(Libro libro) throws SQLException, RuntimeException {
-        if (libro == null) throw new RuntimeException("El cuenta a guardar no tiene datos");
+        if (libro == null) throw new RuntimeException("No se puede guardar un libro vacío.");
         String sentencia = "INSERT INTO libros (isbn, titulo, autor, año_publicación, categoria, editorial, páginas, precio, stockDisponible, stockReservado, tipo, comprado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.setString(1, libro.getIsbn());
@@ -30,14 +31,16 @@ public class LibroDAO extends ConexionBD<Libro> {
             preparedStatement.setString(11, String.valueOf(libro.getTipoLibro()));
             preparedStatement.setBoolean(12, libro.getIsComprado());
             preparedStatement.executeUpdate();
+            RegistroLog.registrarInfo("✅ Libro insertado correctamente con ISBN: " + libro.getIsbn());
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al insertar los datos en la tabla 'libros': " + e.getMessage());
+            RegistroLog.registrarError("❌ Error al insertar el libro con ISBN: " + libro.getIsbn() + ". Detalles: " + e.getMessage(), e);
+            throw new SQLException("❌ No se pudo guardar el libro. Por favor revisa los datos o contacta soporte.");
         }
     }
 
     @Override
     public void actualizarDatos(Libro libro) throws SQLException, RuntimeException {
-        if (libro == null) throw new RuntimeException("Cuenta vacía");
+        if (libro == null) throw new RuntimeException("No se puede actualizar un libro nulo.");
         String sentencia = "UPDATE libros SET titulo = ?, autor = ?, año_publicación = ?, categoria = ?, editorial = ?, páginas = ?, precio = ?, stockDisponible = ?, tipo = ? WHERE isbn = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.setString(1, libro.getTitulo());
@@ -51,8 +54,17 @@ public class LibroDAO extends ConexionBD<Libro> {
             preparedStatement.setString(9, String.valueOf(libro.getTipoLibro()));
             preparedStatement.setString(10, libro.getIsbn());
             preparedStatement.executeUpdate();
+            int filasActualizadas = preparedStatement.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                RegistroLog.registrarInfo("✅ Libro actualizado con éxito: " + libro.getIsbn());
+            } else {
+                RegistroLog.registrarInfo("⚠️ No se encontró el libro con ISBN: " + libro.getIsbn());
+            }
+
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al insertar los datos en la tabla 'libros': " + e.getMessage());
+            RegistroLog.registrarError("❌ Error al actualizar el libro con ISBN: " + libro.getIsbn() + ". Detalles: " + e.getMessage(), e);
+            throw new SQLException("❌ No se pudo actualizar el libro. Verifica los datos o intenta más tarde.");
         }
     }
 
@@ -76,11 +88,15 @@ public class LibroDAO extends ConexionBD<Libro> {
                     libroResult.setStockReservado(resultSet.getInt("stockReservado"));
                     libroResult.setTipoLibro(TipoLibro.valueOf(resultSet.getString("tipo")));
                     libroResult.setIsComprado(resultSet.getBoolean("comprado"));
+                    RegistroLog.registrarInfo("✅ Libro encontrado: " + libro.getIsbn());
                     return libroResult;
+                } else {
+                    RegistroLog.registrarInfo("⚠️ No se encontró un libro con ISBN: " + libro.getIsbn());
                 }
             }
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al seleccionar el dato en la tabla 'libros': " + e.getMessage());
+            RegistroLog.registrarError("❌ Error al buscar el libro con ISBN: " + libro.getIsbn() + ". Detalles: " + e.getMessage(), e);
+            throw new SQLException("❌ No se pudo obtener el libro. Intenta nuevamente más tarde.");
         }
         return null;
     }
@@ -104,11 +120,15 @@ public class LibroDAO extends ConexionBD<Libro> {
                     libroResult.setStockReservado(resultSet.getInt(	"stockReservado"));
                     libroResult.setTipoLibro(TipoLibro.valueOf(resultSet.getString("tipo")));
                     libroResult.setIsComprado(resultSet.getBoolean("comprado"));
+                    RegistroLog.registrarInfo("✅ Libro encontrado con título: " + titulo);
                     return libroResult;
+                } else {
+                    RegistroLog.registrarInfo("⚠️ No se encontró un libro con título: " + titulo);
                 }
             }
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al seleccionar el dato en la tabla 'cuentas': " + e.getMessage());
+            RegistroLog.registrarError("❌ Error al buscar el libro con título: " + titulo + ". Detalles: " + e.getMessage(), e);
+            throw new SQLException("❌ No se pudo obtener el libro. Intenta nuevamente más tarde.");
         }
         return null;
     }
@@ -117,10 +137,18 @@ public class LibroDAO extends ConexionBD<Libro> {
 	String sql = "DELETE FROM libros WHERE isbn = ?";
 	try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 	    preparedStatement.setString(1, libro.getIsbn());
-	    preparedStatement.executeUpdate();
-	    return true;
+	    int filasAfectadas = preparedStatement.executeUpdate();
+
+	    if (filasAfectadas > 0) {
+	        RegistroLog.registrarInfo("✅ Libro eliminado: " + libro.getTitulo() + " (ISBN: " + libro.getIsbn() + ")");
+	        return true;
+	    } else {
+	        RegistroLog.registrarInfo("⚠️ No se encontró el libro para eliminar: " + libro.getTitulo() + " (ISBN: " + libro.getIsbn() + ")");
+	        return false;
+	    }
 	} catch (SQLException e) {
-            throw new SQLException("❌ Error al intentar borrar el libro '" + libro.getTitulo() +"': " + e.getMessage());
+	    RegistroLog.registrarError("❌ Error al intentar borrar el libro '" + libro.getTitulo() + "': " + e.getMessage(), e);
+	    throw new SQLException("❌ No se pudo eliminar el libro. Intenta nuevamente más tarde.");
         }
     }
 
@@ -145,9 +173,11 @@ public class LibroDAO extends ConexionBD<Libro> {
                 libroResult.setIsComprado(resultSet.getBoolean("comprado"));
                 libros.add(libroResult);
             }
+            RegistroLog.registrarInfo("✅ Se obtuvieron " + libros.size() + " libros de la base de datos");
             return libros;
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al seleccionar el dato en la tabla 'cuentas': " + e.getMessage());
+            RegistroLog.registrarError("❌ Error al seleccionar libros: " + e.getMessage(), e);
+            throw new SQLException("❌ Error al obtener la lista de libros. Intenta nuevamente más tarde.");
         }
     }
 }

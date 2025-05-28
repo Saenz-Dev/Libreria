@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Recibo;
 
 public class CompraDAO extends ConexionBD<Recibo> {
@@ -21,10 +22,11 @@ public class CompraDAO extends ConexionBD<Recibo> {
 	    preparedStatement.setString(2, recibo.getCorreo());
 	    preparedStatement.setTimestamp(3, Timestamp.valueOf(recibo.getFecha()));
 	    preparedStatement.executeUpdate();
+	    RegistroLog.registrarInfo("Compra " + recibo.getNumeroRecibo()+ " registrada correctamente para el correo: " + recibo.getCorreo());
 	} catch (SQLException e) {
-	    throw new SQLException("❌ Error al insertar los datos en la tabla 'compras': " + e.getMessage());
+	    RegistroLog.registrarError("❌ Error al insertar los datos en la tabla 'compras': " + e.getMessage(), e);
+	    throw new SQLException("❌ No se pudo registrar la compra. Por favor, intenta de nuevo o contacta soporte.");
 	}
-
     }
  
     @Override
@@ -44,10 +46,12 @@ public class CompraDAO extends ConexionBD<Recibo> {
 		    recibo.setCorreo(resultSet.getString("correo"));
 		    recibo.setFecha(resultSet.getTimestamp("fecha").toLocalDateTime());
 		}
+		RegistroLog.registrarInfo("✅ Registro de compra consultado correctamente. Número: " + recibo.getNumeroRecibo());
 		return recibo;
 	    }
 	}  catch (SQLException e) {
-            throw new SQLException("❌ Error al seleccionar el registro en la tabla 'compras': " + e.getMessage());
+	    RegistroLog.registrarError("❌ Error al consultar el registro de compra: " + e.getMessage(), e);
+	    throw new SQLException("❌ No se pudo consultar el registro de la compra. Intenta de nuevo más tarde.");
         }
     }
 
@@ -89,10 +93,15 @@ public class CompraDAO extends ConexionBD<Recibo> {
 		    recibo.setFecha(resultSet.getTimestamp("fecha").toLocalDateTime());
 		    listaRecibos.add(recibo);
 		}
+		 if (listaRecibos.isEmpty()) {
+		    RegistroLog.registrarInfo("No se encontraron registros en la tabla 'compras'.");
+		}
+
 		return listaRecibos;
 	    }
 	}  catch (SQLException e) {
-            throw new SQLException("❌ Error al seleccionar el registro en la tabla 'compras': " + e.getMessage());
+	    RegistroLog.registrarError("❌ Error al seleccionar los registros en la tabla 'compras': " + e.getMessage(), e);
+	    throw new SQLException("❌ No se pudo buscar las compras: ");
         }
     }
 

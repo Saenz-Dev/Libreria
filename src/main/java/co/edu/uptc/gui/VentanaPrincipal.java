@@ -110,14 +110,14 @@ public class VentanaPrincipal extends JFrame {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelInicioSesion(), e.getMessage(), "Error",
 		    JOptionPane.ERROR_MESSAGE);
 	} catch (IllegalArgumentException e) {
-	    JOptionPane.showMessageDialog(menuPrincipal.getPanelClPrincipal(), e.getMessage(), "Informacion",
-		    JOptionPane.INFORMATION_MESSAGE);
+	    JOptionPane.showMessageDialog(menuPrincipal.getPanelClPrincipal(), e.getMessage(), "Advertencia",
+		    JOptionPane.WARNING_MESSAGE);
 	}
     }
 
     public void activarCerrarSesion() {
 	try {
-	    gestionTienda.cerrarSesion();
+	    gestionTienda.cerrarSesion(false);
 	    menuPrincipal.activarIniciarSesion();
 	    menuPrincipal.usuarioNull();
 	    menuPrincipal.activarPanelCatalogo();
@@ -245,9 +245,8 @@ public class VentanaPrincipal extends JFrame {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarUsuario(), e.getMessage(), "Error",
 		    JOptionPane.ERROR_MESSAGE);
 	} catch (RuntimeException e) {
-	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarUsuario(), e.getMessage(), "Error",
-		    JOptionPane.ERROR_MESSAGE);
-	    RegistroLog.registrarAdvertencia(e.getMessage(), null);
+	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarUsuario(), e.getMessage(), "Advertencia",
+		    JOptionPane.WARNING_MESSAGE);
 	}
     }
 
@@ -498,7 +497,7 @@ public class VentanaPrincipal extends JFrame {
 	    if (gestionTienda.isGenericoLogin()) {
 		gestionTienda.eliminarLibroUsuarioGenerico();
 	    }
-	    gestionTienda.cerrarSesion();
+	    gestionTienda.cerrarSesion(true);
 	} catch (IOException | RuntimeException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error",
 		    JOptionPane.ERROR_MESSAGE);

@@ -5,13 +5,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Comentario;
 import co.edu.uptc.modelo.Tienda;
 import co.edu.uptc.persistencia.ComentarioDAO;
 
 public class GestionComentario {
-
-    private ManejoComentarioJSON manejoComentarioJSON;
     
     private ComentarioDAO comentarioDAO;
 
@@ -23,12 +22,16 @@ public class GestionComentario {
     public void registrarComentario(Comentario comentario) throws IOException, RuntimeException, SQLException {	
 	validarComentario(comentario);
 	comentarioDAO.insertarDatos(comentario);
-        //manejoComentarioJSON.escribirComentario(comentario.getIsbn(), comentario);
     }
 
     public Stack<Comentario> buscarComentario(String isbn) throws IOException, RuntimeException, SQLException {
 	ArrayList<Comentario> listaComentarios = comentarioDAO.seleccionarComentariosPorLibro(isbn);
-	if (listaComentarios == null || listaComentarios.isEmpty()) throw new RuntimeException("Este libro no tiene comentarios.");
+	if (listaComentarios == null ||  listaComentarios.isEmpty() ) {
+    		RegistroLog.registrarInfo("No se encontraron comentarios en el libro");
+    		throw new RuntimeException("Este libro no tiene comentarios.");
+        } else {
+    		RegistroLog.registrarInfo("✅ Se encontraron " + listaComentarios.size() + " comentarios.");
+        }
 	Stack<Comentario> stackComentarios = new Stack<>();
 	stackComentarios.addAll(listaComentarios);
         return stackComentarios;

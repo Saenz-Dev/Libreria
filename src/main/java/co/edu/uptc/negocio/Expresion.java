@@ -1,5 +1,6 @@
 package co.edu.uptc.negocio;
 
+import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Administrador;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.Usuario;
@@ -42,11 +43,7 @@ public class Expresion {
 	    if (!usuario.getCuenta().getContrasena().matches(EXPRESION_CONTRASENA)) {
 		sb.append("La contraseña debe tener al menos ocho letras, un número y un caracter especial.\n");
 	    }
-	    /*
-	     * else { if
-	     * (!usuario.getCuenta().getContrasena().matches(EXPRESION_CONTRASENA_ADMIN)) {
-	     * sb.append("La contraseña debe tener al menos ocho letras.\n"); } }
-	     */
+	    
 	    if (!String.valueOf(usuario.getTelefono()).matches(EXPRESION_NUMERICA_TELEFONO)) {
 		sb.append("El telefono debe comenzar con 3 y tener diez digitos sin espacios\n");
 	    }
@@ -57,6 +54,7 @@ public class Expresion {
 		sb.append("El nombre solo puede llevar letras\n");
 	    }
 	    if (!sb.isEmpty()) {
+		RegistroLog.registrarAdvertencia(sb.toString());
 		throw new IllegalArgumentException(sb.toString());
 	    }
 	}
@@ -95,6 +93,7 @@ public class Expresion {
 	    sb.append("Cantidad ingresada invalida\n");
 	}
 	if (!sb.isEmpty()) {
+	    RegistroLog.registrarAdvertencia(sb.toString());
 	    throw new IllegalArgumentException(sb.toString());
 	}
     }
@@ -110,13 +109,16 @@ public class Expresion {
 	if (libro.getIsbn() == null || libro.getIsbn().isBlank() || 
 	        libro.getTitulo() == null || libro.getTitulo().isBlank() || 
 	        libro.getAutor() == null || libro.getAutor().isBlank()) {
+	    	RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
 	        throw new IllegalArgumentException("Los campos con * con obligatorios.");
 	    }
 	
 	if (libro.getPrecioVenta() < 0 || libro.getStockDisponible() < 0 || libro.getNumeroPaginas() < 0) {
-	        throw new IllegalArgumentException("Precio, Stock y Páginas deben ser positivos");
+	    RegistroLog.registrarAdvertencia("Precio, Stock y Páginas deben ser positivos");
+	    throw new IllegalArgumentException("Precio, Stock y Páginas deben ser positivos.");
 	    }
 	if (libro.getPrecioVenta() == 0 || libro.getNumeroPaginas() == 0) {
+	    RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
 	    throw new IllegalArgumentException("Los campos con * con obligatorios.");
 	}
     } 	
@@ -132,6 +134,7 @@ public class Expresion {
 	if (usuario.getNombre().isBlank() || String.valueOf(usuario.getTelefono()).isBlank()
 		|| usuario.getDireccionEnvio().isBlank() || usuario.getCuenta().getCorreo().isBlank()
 		|| usuario.getCuenta().getContrasena().isBlank()) {
+	    RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
 	    throw new IllegalArgumentException("Los campos con * son obligatorios.\n");
 	}
     }

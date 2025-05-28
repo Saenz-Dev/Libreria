@@ -25,7 +25,7 @@ public class ComentarioDAO extends ConexionBD<Comentario> {
             preparedStatement.setInt(4, comentario.getCalificacion());
             preparedStatement.setTimestamp(5, Timestamp.valueOf(comentario.getFecha()));
             preparedStatement.executeUpdate();
-            RegistroLog.registrarInfo("📝 Comentario insertado correctamente para ISBN " + comentario.getIsbn()
+            RegistroLog.registrarInfo("Comentario insertado correctamente para ISBN " + comentario.getIsbn()
             + ", usuario: " + comentario.getCorreo());
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al insertar los datos en la tabla 'comentarios':" +  e.getMessage(), e);

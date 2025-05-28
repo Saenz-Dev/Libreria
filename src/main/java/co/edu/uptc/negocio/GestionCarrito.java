@@ -249,7 +249,10 @@ public class GestionCarrito {
 	    throws IOException, SQLException, RuntimeException {
 	if (usuarioLogin == null)
 	    return null;
-	LibroCarrito libroCarrito = consultaLibroCarrito(isbn);
+	LibroCarrito libroCarrito = new LibroCarrito();
+	libroCarrito.setIsbn_libro(Long.parseLong(isbn));
+	libroCarrito.setCorreo_usuario(gestionUsuario.userLog().getCuenta().getCorreo());
+	libroCarrito = carritoDAO.seleccionarRegistro(libroCarrito);
 	return libroCarrito;
     }
 

@@ -80,8 +80,8 @@ public class GestionTienda {
 	return gestionUsuario.isAdminLogin();
     }
 
-    public void cerrarSesion() throws IOException, RuntimeException, SQLException {
-	gestionUsuario.cerrarSesionUsuario();
+    public void cerrarSesion(boolean cerrarAplicacion) throws IOException, RuntimeException, SQLException {
+	gestionUsuario.cerrarSesionUsuario(cerrarAplicacion);
     }
 
     public void registrarUsuario(Usuario usuario) throws RuntimeException, SQLException {

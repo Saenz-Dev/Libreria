@@ -146,8 +146,8 @@ public class GestionUsuario {
      */
     public void registrarUsuario(Usuario usuario) throws RuntimeException, SQLException {
 	if (cuentaDAO.seleccionarRegistro(usuario.getCuenta()) != null) {
-	    throw new IllegalArgumentException(
-		    "El correo '" + usuario.getCuenta().getCorreo() + "' ya está vinculado a otra cuenta");
+	    RegistroLog.registrarAdvertencia("Intento de registrar un correo ya existente: " + usuario.getCuenta().getCorreo());
+	    throw new IllegalArgumentException("El correo '" + usuario.getCuenta().getCorreo() + "' ya está vinculado a otra cuenta");
 	}
 	expresion.validarDatosObligatoriosUser(usuario);
 	expresion.validarDatosUsuario(usuario);
@@ -197,12 +197,8 @@ public class GestionUsuario {
 	Usuario usuarioLog = new Usuario();
 	usuarioLog.setCuenta(cuentaEncontrada);// Creo y asigno la cuenta al usuario para seleccionar el registro
 					       // despues para asignar a una variable de Usuario el usuario logueado
-	if (cuentaEncontrada == null) {
-	    throw new IllegalArgumentException("El usuario no existe");
-	}
-	if (!cuentaEncontrada.getContrasena().equals(cuenta.getContrasena())) {
-	    throw new IllegalArgumentException("La contraseña es incorrecta");
-	}
+	validarCuentaBuscada(cuenta, cuentaEncontrada);
+
 	cuentaEncontrada.setLog(true);
 	this.usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
 	LibroCarrito libroCarrito = new LibroCarrito();
@@ -221,6 +217,18 @@ public class GestionUsuario {
 
 	cuentaDAO.actualizarDatos(cuentaEncontrada);
 	return true;
+    }
+
+    private void validarCuentaBuscada(Cuenta cuenta, Cuenta cuentaEncontrada) {
+	if (cuentaEncontrada == null) {
+	    RegistroLog.registrarAdvertencia("❌ Intento de inicio de sesión con correo no registrado: " + cuenta.getCorreo());
+	    throw new IllegalArgumentException("El usuario ingresado no está registrado.");
+	}
+
+	if (!cuentaEncontrada.getContrasena().equals(cuenta.getContrasena())) {
+	    RegistroLog.registrarAdvertencia("❌ Contraseña incorrecta para el correo: " + cuenta.getCorreo());
+	    throw new IllegalArgumentException("La contraseña es incorrecta. Inténtalo de nuevo.");
+	}
     }
 
     /**
@@ -283,12 +291,16 @@ public class GestionUsuario {
 	cuentaDAO.actualizarDatos(usuario.getCuenta());
     }
 
-    public void cerrarSesionUsuario() throws RuntimeException, IOException, SQLException {
+    public void cerrarSesionUsuario(boolean cerrarAplicacion) throws RuntimeException, IOException, SQLException {
 	usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));
 	usuarioLog.getCuenta().setLog(false);
+	RegistroLog.registrarInfo(usuarioLog.getCuenta().getCorreo() + " cerró la sesión.");
 	usuarioDAO.actualizarDatos(this.usuarioLog);
 	cuentaDAO.actualizarDatos(this.usuarioLog.getCuenta());
 	asignarUsuarioGenerico();
+	if (cerrarAplicacion) {
+	    RegistroLog.fileHandler.close();
+	}
     }
 
     public void asignarUsuarioGenerico() throws SQLException {
@@ -296,9 +308,5 @@ public class GestionUsuario {
 	usuario.setCuenta(new Cuenta());
 	usuario.getCuenta().setCorreo("user_default");
 	this.usuarioLog = usuarioDAO.seleccionarRegistro(usuario);
-	// TODO Implementar logica para que el carrito del usuario quede vacio ->
-	// reemplazar esto ->
-	// manejoUsuarioJSON.getListaUsuarios().get(0).getCarrito().setLibros(new
-	// ArrayList<>());
     }
 }

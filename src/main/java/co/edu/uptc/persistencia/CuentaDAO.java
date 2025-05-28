@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Cuenta;
 
 public class CuentaDAO extends ConexionBD<Cuenta> {
@@ -20,7 +21,9 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
             preparedStatement.setString(2, cuenta.getContrasena());
             preparedStatement.setBoolean(3, cuenta.isLog());
             preparedStatement.executeUpdate();
+            RegistroLog.registrarInfo("✔ Cuenta insertada correctamente con correo: " + cuenta.getCorreo());
         } catch (SQLException e) {
+            RegistroLog.registrarError("❌ Error al insertar los datos en la tabla 'cuentas': " + e.getMessage(), e);
             throw new SQLException("❌ Error al insertar los datos en la tabla 'cuentas': " + e.getMessage());
         }
     }
@@ -33,14 +36,25 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
             preparedStatement.setString(1, cuenta.getContrasena());
             preparedStatement.setBoolean(2, cuenta.isLog());
             preparedStatement.setString(3, cuenta.getCorreo());
-            preparedStatement.executeUpdate();
+            int filasActualizadas = preparedStatement.executeUpdate();
+           if (filasActualizadas > 0) {
+                RegistroLog.registrarInfo("✔ Cuenta actualizada correctamente con correo: " + cuenta.getCorreo());
+            } else {
+                RegistroLog.registrarAdvertencia("⚠ No se encontró ninguna cuenta con el correo: " + cuenta.getCorreo());
+                //throw new RuntimeException("No se encontró una cuenta asociada al correo ingresado.");
+            }
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al actualizar los datos en la tabla 'cuentas': " + e.getMessage());
+            RegistroLog.registrarError("Error al actualizar los datos en la tabla 'cuentas': " + e.getMessage(), e);
+            throw new SQLException("Ocurrió un problema técnico al actualizar la cuenta.");
         }
     }
 
     @Override
     public Cuenta seleccionarRegistro(Cuenta cuenta) throws SQLException, RuntimeException {
+	 if (cuenta == null || cuenta.getCorreo() == null || cuenta.getCorreo().isBlank()) {
+	        RegistroLog.registrarAdvertencia("Intento de búsqueda de cuenta con correo nulo o vacío.");
+	        throw new RuntimeException("⚠ El correo proporcionado no es válido.");
+	    }
         String sentencia = "SELECT * FROM cuentas WHERE correo = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.setString(1, cuenta.getCorreo());
@@ -51,10 +65,13 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
                     cuentaQuery.setContrasena(resultSet.getString(2));
                     cuentaQuery.setLog(resultSet.getBoolean(3));
                     return cuentaQuery;
+                } else {
+                    RegistroLog.registrarAdvertencia("Cuenta no encontrada con el correo: " + cuenta.getCorreo());
                 }
             }
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al seleccionar el dato en la tabla 'cuentas': " + e.getMessage());
+            RegistroLog.registrarError("❌ Error SQL al buscar cuenta con correo " + cuenta.getCorreo() + ": " + e.getMessage(), e);
+            throw new SQLException("❌ Error al consultar la base de datos. Intente nuevamente.");
         }
         return null;
     }

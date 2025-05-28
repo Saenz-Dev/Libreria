@@ -1,5 +1,6 @@
 package co.edu.uptc.persistencia;
 
+import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.ProductoCompra;
 import co.edu.uptc.modelo.Recibo;
 import co.edu.uptc.modelo.TipoPago;
@@ -7,8 +8,11 @@ import co.edu.uptc.modelo.ValorCompra;
 
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
+import java.rmi.registry.Registry;
 import java.sql.*;
 import java.util.ArrayList;
+
+import com.mysql.cj.jdbc.exceptions.SQLError;
 
 public class ReciboDAO extends ConexionBD<Recibo>{
 
@@ -34,8 +38,10 @@ public class ReciboDAO extends ConexionBD<Recibo>{
             preparedStatement.setDouble(14, recibo.getValorCompra().getTotal());
             
             preparedStatement.executeUpdate();
+            RegistroLog.registrarInfo("Se insertó correctamente el recibo num: " + recibo.getNumeroRecibo() + " del usuario: " + recibo.getCorreo());
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al insertar los datos en la tabla 'recibos': " + e.getMessage());
+            RegistroLog.registrarError("❌ Error al insertar los datos en la tabla 'recibos': " + e.getMessage(), e);
+            throw new SQLException("Ocurrió un problema al guardar el recibo. Por favor, intenta de nuevo mas tarde.");
         }
     }
 
@@ -73,8 +79,10 @@ public class ReciboDAO extends ConexionBD<Recibo>{
             preparedStatement.setInt(2, recibo.getNumeroRecibo());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
         	Recibo reciboQuery = new Recibo();
+        	boolean encontrado = false;
         	
                 while(resultSet.next()) {
+                    encontrado = true;
                     reciboQuery.setNumeroRecibo(resultSet.getInt(2));
                     reciboQuery.setCorreo(resultSet.getString(3));
                     reciboQuery.setFecha(resultSet.getTimestamp(4).toLocalDateTime());
@@ -94,10 +102,17 @@ public class ReciboDAO extends ConexionBD<Recibo>{
                     reciboQuery.getValorCompra().setImpuestos(resultSet.getDouble(14));
                     reciboQuery.getValorCompra().setTotal(resultSet.getDouble(15));                    
                 }
-                return reciboQuery;
+                if (encontrado) {
+                    RegistroLog.registrarInfo("✅ Se consultó el recibo N° " + recibo.getNumeroRecibo() + " del usuario: " + recibo.getCorreo());
+                    return reciboQuery;
+                } else {
+                    RegistroLog.registrarInfo("⚠️ No se encontró el recibo N° " + recibo.getNumeroRecibo() + " del usuario: " + recibo.getCorreo());
+                    return null;
+                }
             }
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al seleccionar el registro en la tabla 'recibos': " + e.getMessage());
+            RegistroLog.registrarError("❌ Error al seleccionar el registro en la tabla 'recibos': " + e.getMessage(), e);
+            throw new SQLException("No fue posible buscar el recibo, intentalo más tarde.");
         }
     }
     
@@ -142,8 +157,7 @@ public class ReciboDAO extends ConexionBD<Recibo>{
             preparedStatement.setString(1, recibo.getCorreo());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
         	ArrayList<Recibo> compras = new ArrayList<>();
-        	DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
-                while(resultSet.next()) {
+        	while(resultSet.next()) {
                     Recibo reciboQuery = new Recibo();
                     reciboQuery.setNumeroRecibo(resultSet.getInt(2));
                     reciboQuery.setCorreo(resultSet.getString(3));
@@ -165,10 +179,17 @@ public class ReciboDAO extends ConexionBD<Recibo>{
                     reciboQuery.getValorCompra().setTotal(resultSet.getDouble(15)); 
                     compras.add(reciboQuery);
                 }
-                return compras;
+        	if (compras.size() > 0) {
+        	    RegistroLog.registrarInfo("Se encontraron " + compras.size() + " recibos del usuario: " + recibo.getCorreo());
+        	    return compras;
+        	} else {
+        	    RegistroLog.registrarInfo("No se encontraron recibos del usuario: " + recibo.getCorreo());
+        	    return null;
+        	}
             }
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al seleccionar el registro en la tabla 'recibos': " + e.getMessage());
+            RegistroLog.registrarError("❌ Error al seleccionar el registro en la tabla 'recibos': " + e.getMessage(), e);
+            throw new SQLException("Ocurrió un error al buscar los recibos, intentalo más tarde.");
         }
     }
 

@@ -41,7 +41,7 @@ public class CalculadoraIVA {
             Libro libro = new Libro();
             libro.setIsbn(String.valueOf(libroCarrito.getIsbn_libro()));
             libro = libroDAO.seleccionarRegistro(libro);
-            subtotal += libro.getStockReservado() * libro.getPrecioVenta();
+            subtotal += libroCarrito.getCantidad()* libro.getPrecioVenta();
         }
         return subtotal;
     }
@@ -62,9 +62,9 @@ public class CalculadoraIVA {
             libro.setIsbn(String.valueOf(libroCarrito.getIsbn_libro()));
             libro = libroDAO.seleccionarRegistro(libro);
 	    if (libro.getTipoLibro() == TipoLibro.FISICO) {
-                impuestos += libro.getStockReservado() * 0.19 * libro.getPrecioVenta();
+                impuestos += libroCarrito.getCantidad() * 0.19 * libro.getPrecioVenta();
             } else {
-                impuestos += libro.getStockReservado() * 0.05 * libro.getPrecioVenta();
+                impuestos += libroCarrito.getCantidad() * 0.05 * libro.getPrecioVenta();
             }
         }
         return impuestos;
@@ -123,14 +123,6 @@ public class CalculadoraIVA {
         return total * usuario.getDescuentoTipoUsuario();
     }
 
-    public double descuentoFrecuencia(double total, Tienda tienda, Usuario usuario) throws IOException {
-        ArrayList<Recibo> recibosUsuario = tienda.getRecibos().get(usuario.getCuenta().getCorreo());
-        if (recibosUsuario == null || recibosUsuario.isEmpty()) return 0;
-        if (recibosUsuario.size() == 10) return total * descFrecuencia.getDESCUENTO_DIEZ_COMPRAS();
-        if (recibosUsuario.size() == 50) return total * descFrecuencia.getDESCUENTO_CINCUENTA_COMPRAS();
-        if (recibosUsuario.size() == 100) return total * descFrecuencia.getDESCUENTO_CIEN_COMPRAS();
-        return 0;
-    }
     
     public double descuentoFrecuencia(ArrayList<Recibo> listaRecibos, double total) throws IOException {
         if (listaRecibos == null || listaRecibos.isEmpty()) return 0;

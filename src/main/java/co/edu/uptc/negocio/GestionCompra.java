@@ -88,7 +88,7 @@ public class GestionCompra {
 
     private boolean validarCompraRegistrada(boolean registradoCompra, Recibo recibo) throws SQLException {
 	if (!registradoCompra) {
-	compraDAO.insertarDatos(recibo);
+	compraDAO.insertarDatos(recibo); 
 	registradoCompra = true;
 	}
 	return registradoCompra;
