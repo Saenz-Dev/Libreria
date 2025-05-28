@@ -31,7 +31,7 @@ public class Usuario implements Serializable{
     /**
      * Tipo de cliente (por ejemplo, "regular", "VIP", etc.).
      */
-    private String tipoCliente;
+    private TipoUsuario tipoCliente;
 
     /**
      * Cuenta asociada al usuario, que contiene información de inicio de sesión.
@@ -140,7 +140,7 @@ public class Usuario implements Serializable{
      *
      * @return El tipo de cliente.
      */
-    public String getTipoCliente() {
+    public TipoUsuario getTipoCliente() {
         return tipoCliente;
     }
 
@@ -149,7 +149,7 @@ public class Usuario implements Serializable{
      *
      * @param tipoCliente El tipo de cliente a asignar.
      */
-    public void setTipoCliente(String tipoCliente) {
+    public void setTipoCliente(TipoUsuario tipoCliente) {
         this.tipoCliente = tipoCliente;
     }
 

@@ -52,8 +52,8 @@ public class LibroDAO extends ConexionBD<Libro> {
             preparedStatement.setDouble(7, libro.getPrecioVenta());
             preparedStatement.setInt(8, libro.getStockDisponible());
             preparedStatement.setString(9, String.valueOf(libro.getTipoLibro()));
-            preparedStatement.setString(10, libro.getIsbn()); 
-            preparedStatement.setInt(11, libro.getStockReservado());
+            preparedStatement.setInt(10, libro.getStockReservado());
+            preparedStatement.setString(11, libro.getIsbn()); 
             int filasActualizadas = preparedStatement.executeUpdate();
 
             if (filasActualizadas > 0) {

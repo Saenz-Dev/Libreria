@@ -9,6 +9,7 @@ import co.edu.uptc.modelo.Administrador;
 import co.edu.uptc.modelo.Cuenta;
 import co.edu.uptc.modelo.LibroCarrito;
 import co.edu.uptc.modelo.Tienda;
+import co.edu.uptc.modelo.TipoUsuario;
 import co.edu.uptc.modelo.Usuario;
 import co.edu.uptc.modelo.UsuarioPremium;
 import co.edu.uptc.modelo.UsuarioRegular;
@@ -65,7 +66,7 @@ public class GestionUsuario {
 	usuario.setNombre("Default");
 	usuario.setDireccionEnvio("NN");
 	usuario.setTelefono(0);
-	usuario.setTipoCliente("NN");
+	usuario.setTipoCliente(TipoUsuario.Regular);
 	usuario.setDescuentoTipoUsuario(0);
 	usuario.setCuenta(cuenta);
 	return usuario;
@@ -86,7 +87,7 @@ public class GestionUsuario {
 	usuario.setNombre("administrador");
 	usuario.setDireccionEnvio("");
 	usuario.setTelefono(0);
-	usuario.setTipoCliente("NN");
+	usuario.setTipoCliente(TipoUsuario.Regular);
 	usuario.setDescuentoTipoUsuario(0);
 	usuario.setCuenta(cuenta);
 	return usuario;
@@ -115,28 +116,8 @@ public class GestionUsuario {
 	manejoUsuarioJSON = new ManejoUsuarioJSON(tienda);
 	expresion = new Expresion();
 	administrador = new Administrador();
-	crearTablasUserDefault();
-	crearAdmin();
     }
 
-    public void crearTablasUserDefault() throws SQLException {
-	usuarioLog.getCuenta().setCorreo("user_default");
-	if (usuarioDAO.seleccionarRegistro(usuarioLog) == null) {
-	    cuentaDAO.insertarDatos(crearCuentaUsuarioDefault());
-	    usuarioDAO.insertarDatos(crearUsuarioDefault());
-	}
-
-	usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
-	usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));
-    }
-
-    public void crearAdmin() throws SQLException {
-	usuarioLog.getCuenta().setCorreo("administrador");
-	if (usuarioDAO.seleccionarRegistro(usuarioLog) == null) {
-	    cuentaDAO.insertarDatos(crearCuentaAdmin());
-	    usuarioDAO.insertarDatos(crearUsuarioAdmin());
-	}
-    }
 
     /**
      * Registra un usuario en la base de datos
@@ -159,7 +140,7 @@ public class GestionUsuario {
 
     private Usuario convertirUsuario(Usuario usuario) {
 	Usuario usuarioGuardar;
-	if (usuario.getTipoCliente().equals("Premium")) {
+	if (usuario.getTipoCliente().equals(TipoUsuario.Premium)) {
 	    usuarioGuardar = new UsuarioPremium(usuario);
 	} else {
 	    usuarioGuardar = new UsuarioRegular(usuario);
@@ -281,7 +262,7 @@ public class GestionUsuario {
      */
     public void modificarUsuario(Usuario usuario) throws IllegalArgumentException, SQLException {
 	expresion.validarDatosUsuario(usuario);
-	if (usuario.getTipoCliente().equalsIgnoreCase("Premium")) {
+	if (usuario.getTipoCliente().equals(TipoUsuario.Premium)) {
 	    UsuarioPremium usuarioPremium = new UsuarioPremium(usuario);
 	    usuarioDAO.actualizarDatos(usuarioPremium);
 	    cuentaDAO.actualizarDatos(usuarioPremium.getCuenta());

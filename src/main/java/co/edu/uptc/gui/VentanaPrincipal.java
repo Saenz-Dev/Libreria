@@ -105,6 +105,7 @@ public class VentanaPrincipal extends JFrame {
 		menuPrincipal.quitarFuncionesAdmin();
 		menuPrincipal.getPanelCatalogo().crearPanelesLibros(gestionTienda.listarLibros());
 	    }
+	    JOptionPane.showMessageDialog(menuPrincipal.getPanelInicioSesion(), "Inicio de sesión exitoso. Bienvenido(a) al sistema.", "Inicio Sesión", JOptionPane.INFORMATION_MESSAGE);
 	    menuPrincipal.setLabelNombreUsuario(gestionTienda.getUserLogin().getNombre());
 	} catch (SQLException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelInicioSesion(), e.getMessage(), "Error",
@@ -135,9 +136,8 @@ public class VentanaPrincipal extends JFrame {
 	    menuPrincipal.getPanelPerfil()
 		    .setLabelDireccionEnvio("Dirección de envío: " + gestionTienda.getUserLogin().getDireccionEnvio());
 	    menuPrincipal.getPanelPerfil().setLabelTelefono("Teléfono: " + gestionTienda.getUserLogin().getTelefono());
-	    menuPrincipal.getPanelPerfil()
-		    .setLabelTipoUsuario("Tipo de usuario: " + gestionTienda.getUserLogin().getTipoCliente());
-	    menuPrincipal.setLabelNombreUsuario(gestionTienda.getUserLogin().getNombre());
+	    menuPrincipal.getPanelPerfil().setLabelTipoUsuario("Tipo de usuario: " + gestionTienda.getUserLogin().getTipoCliente());
+	    menuPrincipal.setLabelNombreUsuario(gestionTienda.getUserLogin().getNombre()); 	
 	    menuPrincipal.activarPanelPerfil();
 	} catch (SQLException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error",
@@ -172,6 +172,11 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void activarPanelRegistrarUsuario() {
+	if (gestionTienda.isAdminLogin()) {
+		menuPrincipal.getPanelRegistrarUsuario().setVisibleCbTipoUsuario(true);
+	    } else {
+		menuPrincipal.getPanelRegistrarUsuario().setVisibleCbTipoUsuario(false);
+	    }
 	menuPrincipal.activarPanelRegistrarUsuario();
     }
 
