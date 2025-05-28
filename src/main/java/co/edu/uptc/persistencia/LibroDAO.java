@@ -41,7 +41,7 @@ public class LibroDAO extends ConexionBD<Libro> {
     @Override
     public void actualizarDatos(Libro libro) throws SQLException, RuntimeException {
         if (libro == null) throw new RuntimeException("No se puede actualizar un libro nulo.");
-        String sentencia = "UPDATE libros SET titulo = ?, autor = ?, año_publicación = ?, categoria = ?, editorial = ?, páginas = ?, precio = ?, stockDisponible = ?, tipo = ? WHERE isbn = ?";
+        String sentencia = "UPDATE libros SET titulo = ?, autor = ?, año_publicación = ?, categoria = ?, editorial = ?, páginas = ?, precio = ?, stockDisponible = ?, tipo = ?, stockReservado = ? WHERE isbn = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.setString(1, libro.getTitulo());
             preparedStatement.setString(2, libro.getAutor());
@@ -52,8 +52,8 @@ public class LibroDAO extends ConexionBD<Libro> {
             preparedStatement.setDouble(7, libro.getPrecioVenta());
             preparedStatement.setInt(8, libro.getStockDisponible());
             preparedStatement.setString(9, String.valueOf(libro.getTipoLibro()));
-            preparedStatement.setString(10, libro.getIsbn());
-            preparedStatement.executeUpdate();
+            preparedStatement.setString(10, libro.getIsbn()); 
+            preparedStatement.setInt(11, libro.getStockReservado());
             int filasActualizadas = preparedStatement.executeUpdate();
 
             if (filasActualizadas > 0) {
@@ -61,7 +61,6 @@ public class LibroDAO extends ConexionBD<Libro> {
             } else {
                 RegistroLog.registrarInfo("⚠️ No se encontró el libro con ISBN: " + libro.getIsbn());
             }
-
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al actualizar el libro con ISBN: " + libro.getIsbn() + ". Detalles: " + e.getMessage(), e);
             throw new SQLException("❌ No se pudo actualizar el libro. Verifica los datos o intenta más tarde.");

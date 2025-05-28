@@ -2014,3 +2014,336 @@ INFO: ✅ Usuario encontrado: saenzm@gmail.com
 may 27, 2025 8:46:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
 INFO: Se encontraron 10 recibos del usuario: saenzm@gmail.com
 
+may 27, 2025 9:18:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: saenzm@gmail.com cerró la sesión.
+
+may 27, 2025 9:18:17 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario saenzm@gmail.com, fueron afectadas 1 filas, 
+
+may 27, 2025 9:18:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: saenzm@gmail.com
+
+may 27, 2025 9:18:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 27, 2025 9:23:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9786453645342,  usuario: user_default.
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ⚠️ No se encontró el libro con ISBN: 9786453645342
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ⚠️ No se encontró el libro con ISBN: 9786453645342
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9786453645342, usuario: user_default
+
+may 27, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:23:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:23:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: user_default
+
+may 27, 2025 9:23:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:23:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:23:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:23:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+may 27, 2025 9:24:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:24:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9786453645342, Usuario: user_default).
+
+may 27, 2025 9:24:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ⚠️ No se encontró el libro con ISBN: 9786453645342
+
+may 27, 2025 9:24:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 27, 2025 9:24:07 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 27, 2025 9:24:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 27, 2025 9:24:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 27, 2025 9:24:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 27, 2025 9:24:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: user_default
+
+may 27, 2025 9:24:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+may 27, 2025 9:24:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9786453645342,  usuario: user_default.
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9786453645342
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9786453645342
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9786453645342, usuario: user_default
+
+may 27, 2025 9:24:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:26:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 27, 2025 9:26:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9786453645342, Usuario: user_default).
+
+may 27, 2025 9:26:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9786453645342
+
+may 27, 2025 9:26:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 27, 2025 9:26:11 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 27, 2025 9:26:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 27, 2025 9:26:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 27, 2025 9:26:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 27, 2025 9:26:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: user_default
+
+may 27, 2025 9:26:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+may 27, 2025 9:26:24 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9798576647564,  usuario: user_default.
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ⚠️ No se encontró el libro con ISBN: 9798576647564
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ⚠️ No se encontró el libro con ISBN: 9798576647564
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9798576647564, usuario: user_default
+
+may 27, 2025 9:26:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+may 27, 2025 9:26:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+may 27, 2025 9:26:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: user_default
+
+may 27, 2025 9:26:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+may 27, 2025 9:26:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+may 27, 2025 9:26:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 27, 2025 9:26:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+

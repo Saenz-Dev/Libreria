@@ -503,7 +503,7 @@ public class VentanaPrincipal extends JFrame {
 		    JOptionPane.ERROR_MESSAGE);
 	} catch (SQLException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error",
-		    JOptionPane.ERROR_MESSAGE);
+		    JOptionPane.ERROR_MESSAGE); 
 	}
     }
 
