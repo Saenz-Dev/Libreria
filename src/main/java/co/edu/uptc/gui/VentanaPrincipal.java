@@ -7,12 +7,19 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Comentario;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.ResumenProductoDTO;
 import co.edu.uptc.modelo.TipoPago;
+import co.edu.uptc.modelo.TipoResultado;
 import co.edu.uptc.modelo.Usuario;
 import co.edu.uptc.modelo.ValorCompra;
 import co.edu.uptc.negocio.GestionTienda;
@@ -35,8 +42,11 @@ public class VentanaPrincipal extends JFrame {
 	evento = new Evento(this);
 	try {
 	    gestionTienda = new GestionTienda();
+	    UIManager.setLookAndFeel(new FlatMacLightLaf());
 	} catch (SQLException e) {
 	    JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	} catch (UnsupportedLookAndFeelException e) {
+	    e.printStackTrace();
 	}
 	eventoCerrarFrame = new EventoCerrarFrame(this);
 
@@ -97,16 +107,16 @@ public class VentanaPrincipal extends JFrame {
 	    menuPrincipal.vistaPanelVenta();
 	    menuPrincipal.activarPanelCatalogo();
 	    if (gestionTienda.isAdminLogin()) {
-		menuPrincipal.usuarioIniciaSesion();
+		menuPrincipal.usuarioIniciaSesion(gestionTienda.getUserLogin());
 		menuPrincipal.anadirFuncionesAdmin();
 		menuPrincipal.getPanelCatalogo().crearTablaLibros(gestionTienda.listarLibros());
 	    } else {
-		menuPrincipal.usuarioIniciaSesion();
+		menuPrincipal.usuarioIniciaSesion(gestionTienda.getUserLogin());
 		menuPrincipal.quitarFuncionesAdmin();
 		menuPrincipal.getPanelCatalogo().crearPanelesLibros(gestionTienda.listarLibros());
 	    }
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelInicioSesion(), "Inicio de sesión exitoso. Bienvenido(a) al sistema.", "Inicio Sesión", JOptionPane.INFORMATION_MESSAGE);
-	    menuPrincipal.setLabelNombreUsuario(gestionTienda.getUserLogin().getNombre());
+	    menuPrincipal.setLabelNombreUsuario(gestionTienda.getUserLogin());
 	} catch (SQLException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelInicioSesion(), e.getMessage(), "Error",
 		    JOptionPane.ERROR_MESSAGE);
@@ -137,7 +147,7 @@ public class VentanaPrincipal extends JFrame {
 		    .setLabelDireccionEnvio("Dirección de envío: " + gestionTienda.getUserLogin().getDireccionEnvio());
 	    menuPrincipal.getPanelPerfil().setLabelTelefono("Teléfono: " + gestionTienda.getUserLogin().getTelefono());
 	    menuPrincipal.getPanelPerfil().setLabelTipoUsuario("Tipo de usuario: " + gestionTienda.getUserLogin().getTipoCliente());
-	    menuPrincipal.setLabelNombreUsuario(gestionTienda.getUserLogin().getNombre()); 	
+	    menuPrincipal.setLabelNombreUsuario(gestionTienda.getUserLogin()); 	
 	    menuPrincipal.activarPanelPerfil();
 	} catch (SQLException e) {
 	    JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error",
@@ -552,4 +562,27 @@ public class VentanaPrincipal extends JFrame {
 		    JOptionPane.WARNING_MESSAGE);
 	}
     }
+
+    public void  activarValidarPremium() {
+	String codigo = menuPrincipal.getPanelPremium().obtenerCodigo();
+	try {
+	    gestionTienda.usarCodigo(codigo);
+	    menuPrincipal.getPanelPremium().mostrarResultado("Ahora eres Premium", TipoResultado.EXITO);
+	    JOptionPane.showMessageDialog(menuPrincipal.getPanelPremium(), "¡¡¡Felicidades, ahora eres un usuario Premium!!!\nRecibiras descuentos especiales.", "Felicidades", JOptionPane.INFORMATION_MESSAGE);
+	    menuPrincipal.getPanelPremium().setVisible(false);
+	    menuPrincipal.getBotonPremium().setVisible(false);
+	} catch (SQLException e) {
+	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje",
+		    JOptionPane.ERROR_MESSAGE);
+	} catch (RuntimeException e) {
+	    menuPrincipal.getPanelPremium().mostrarResultado(e.getMessage(), TipoResultado.ERROR);
+	    /*JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje",
+		    JOptionPane.WARNING_MESSAGE);*/
+	}
+    }
+
+    public void activarPanelValidPremium() {
+	menuPrincipal.activarPanelPremium();
+    }
+
 }

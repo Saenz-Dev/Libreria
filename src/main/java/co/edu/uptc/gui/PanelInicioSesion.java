@@ -121,10 +121,10 @@ public class PanelInicioSesion extends JPanel {
     }
 
     private void personalizarPanel() {
-        Dimension dimensiontxt = new Dimension(500, 25);
+        Dimension dimensiontxt = new Dimension(500, 28);
         Font letra = new Font("Arial", Font.BOLD, 40);
-        txtCorreo.setPreferredSize(dimensiontxt);
-        txtContrasena.setPreferredSize(dimensiontxt);
+        /*txtCorreo.setPreferredSize(dimensiontxt);
+        txtContrasena.setPreferredSize(dimensiontxt);*/
         txtContrasena.selectAll();
         txtCorreo.selectAll();
         labelTitulo.setForeground(Color.BLACK);
@@ -146,7 +146,9 @@ public class PanelInicioSesion extends JPanel {
         labelContrasena = new JLabel("Contraseña: ");
         labelCorreo = new JLabel("Correo: ");
         txtCorreo = new JTextField( 25);
+        txtCorreo.putClientProperty("JTextField.placeholderText", "Correo Electrónico");
         txtContrasena = new JPasswordField(25);
+        txtCorreo.putClientProperty("JTextField.placeholderText", "Contraseña");
         imagenFondo = new ImageIcon(ClassLoader.getSystemResource("libreria.jpg")).getImage();
     }
     

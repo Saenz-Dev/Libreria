@@ -8,15 +8,15 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+
+import co.edu.uptc.modelo.TipoUsuario;
+import co.edu.uptc.modelo.Usuario;
 
 /**
  * Clase que representa el menú principal de la aplicación. Contiene los botones
@@ -73,6 +73,8 @@ public class MenuPrincipal extends JPanel {
      * Boton para iniciar ir a la ventana Iniciar Sesión
      */
     private JButton botonIniciarSesion;
+    
+    private JButton botonPremium;
 
     /**
      * Panel que muestra el catálogo de libros.
@@ -163,9 +165,6 @@ public class MenuPrincipal extends JPanel {
 
     private PanelInicioSesion panelInicioSesion;
 
-    /**
-     * Panel para confirmar la compra
-     */
     private PanelConfirmCompra panelConfirmCompra;
 
     private PanelComentario panelComentario;
@@ -174,9 +173,17 @@ public class MenuPrincipal extends JPanel {
 
     private VentanaPrincipal ventanaPrincipal;
 
-    private Color colorVerdeClaro;
+    private final Color COLOR_ACTIVO = new Color(25, 118, 210);
 
-    private Color colorVerdeOscuro;
+    private final Color COLOR_INACTIVO = new Color(187, 222, 251);
+    
+    private final Color COLOR_CERRAR_SESION = new Color(229, 115, 115);
+    
+    private final Color COLOR_IZQUIERDA = new Color(227, 242, 253);
+    
+    private final Color COLOR_LETRA = new Color(64, 64, 64);
+    
+    private PanelPremium panelPremium;
 
     /**
      * Obtiene el panel de compras del usuario.
@@ -276,8 +283,8 @@ public class MenuPrincipal extends JPanel {
      *
      * @param nombreUsuario Nombre del usuario a mostrar en la interfaz.
      */
-    public void setLabelNombreUsuario(String nombreUsuario) {
-	labelNombreUsuario.setText("<html><div align: 'center'>" + nombreUsuario + "</div></html>");
+    public void setLabelNombreUsuario(Usuario usuario) {
+	labelNombreUsuario.setText("<html><div align: 'center'>" + usuario.getNombre() + " - " + usuario.getTipoCliente() + "</div></html>");
     }
 
     /**
@@ -307,6 +314,14 @@ public class MenuPrincipal extends JPanel {
 
     public PanelCalificar getPanelCalificar() {
 	return panelCalificar;
+    }
+    
+    public PanelPremium getPanelPremium() {
+	return panelPremium;
+    }
+    
+    public JButton getBotonPremium() {
+	return botonPremium;
     }
 
     public void setPanelCalificar(PanelCalificar panelCalificar) {
@@ -344,6 +359,7 @@ public class MenuPrincipal extends JPanel {
 	panelComentario = new PanelComentario();
 	panelCalificar = new PanelCalificar(evento);
 	panelRecibo = new PanelRecibo(ventanaPrincipal);
+	panelPremium = new PanelPremium(evento);
 	clPrincipal = new CardLayout();
 	panelClPrincipal = new JPanel(clPrincipal);
 
@@ -397,7 +413,7 @@ public class MenuPrincipal extends JPanel {
 	initAtributos();
 	personalizarBotones();
 	asignarAccionBotones(evento);
-	labelNombreUsuario.setForeground(new Color(255, 0, 0));
+	labelNombreUsuario.setForeground(COLOR_LETRA);
 
 	gbc.anchor = GridBagConstraints.NORTH;
 	gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -413,16 +429,20 @@ public class MenuPrincipal extends JPanel {
 	panelIzquierda.add(botonCompras, gbc);
 	gbc.gridy = 4;
 	panelIzquierda.add(botonPerfil, gbc);
+	gbc.gridy = 5;
+	panelIzquierda.add(botonPremium, gbc);
 	gbc.weighty = 1.0;
-	gbc.gridy = 7;
+	gbc.gridy = 8;
 	panelIzquierda.add(new JLabel(), gbc);
 	gbc.weighty = 0;
-	gbc.gridy = 8;
+	gbc.gridy = 9;
 	gbc.anchor = GridBagConstraints.SOUTH;
 	panelIzquierda.add(labelNombreUsuario, gbc);
-	gbc.gridy = 9;
+	gbc.gridy = 10;
 	panelIzquierda.add(botonCerrarSesion, gbc);
 	panelIzquierda.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
+	panelIzquierda.setBackground(COLOR_IZQUIERDA);
+	panelIzquierda.setPreferredSize(new Dimension(150, 500));
 	return panelIzquierda;
     }
 
@@ -443,14 +463,14 @@ public class MenuPrincipal extends JPanel {
 	botonRegistrarUsuario.setActionCommand(evento.VENTANA_REGISTRAR_USUARIO);
 	botonIniciarSesion.addActionListener(evento);
 	botonIniciarSesion.setActionCommand(evento.ACTIVAR_INICIAR_SESION);
+	botonPremium.addActionListener(evento);
+	botonPremium.setActionCommand(evento.ACTIVAR_PANEL_PREMIUM);
     }
 
     private void initAtributos() {
-	colorVerdeOscuro = new Color(34, 139, 34);
-	colorVerdeClaro = new Color(144, 238, 144);
 	labelTituloMenu = new JLabel("Libreria Virtual", SwingUtilities.CENTER);
 	labelNombreUsuario = new JLabel("", SwingUtilities.CENTER);
-	labelNombreUsuario.setPreferredSize(new Dimension(20, 35));
+	labelNombreUsuario.setPreferredSize(new Dimension(20, 50));
 	botonCatalogo = new JButton("Catalogo");
 	botonCarrito = new JButton("Mi carrito");
 	botonCompras = new JButton("Mis compras");
@@ -459,17 +479,28 @@ public class MenuPrincipal extends JPanel {
 	botonCerrarSesion = new JButton("Cerrar Sesión");
 	botonGestionarLibros = new JButton("Gestionar Libros");
 	botonRegistrarUsuario = new JButton("Registrar Usuario");
+	botonPremium = new JButton("✨");
     }
 
     private void personalizarBotones() {
-	botonCatalogo.setBackground(colorVerdeClaro);
-	botonCarrito.setBackground(colorVerdeClaro);
-	botonCompras.setBackground(colorVerdeClaro);
-	botonPerfil.setBackground(colorVerdeClaro);
-	botonIniciarSesion.setBackground(colorVerdeClaro);
-	botonCerrarSesion.setBackground(colorVerdeClaro);
-	botonGestionarLibros.setBackground(colorVerdeClaro);
-	botonRegistrarUsuario.setBackground(colorVerdeClaro);
+	botonCatalogo.setBackground(COLOR_INACTIVO);
+	botonCatalogo.setForeground(COLOR_LETRA);
+	botonCarrito.setBackground(COLOR_INACTIVO);
+	botonCarrito.setForeground(COLOR_LETRA);
+	botonCompras.setBackground(COLOR_INACTIVO);
+	botonCompras.setForeground(COLOR_LETRA);
+	botonPerfil.setBackground(COLOR_INACTIVO);
+	botonPerfil.setForeground(COLOR_LETRA);
+	botonIniciarSesion.setBackground(COLOR_INACTIVO);
+	botonIniciarSesion.setForeground(COLOR_LETRA);
+	botonCerrarSesion.setBackground(COLOR_CERRAR_SESION);
+	botonCerrarSesion.setForeground(Color.WHITE);
+	botonGestionarLibros.setBackground(COLOR_INACTIVO);
+	botonGestionarLibros.setForeground(COLOR_LETRA);
+	botonRegistrarUsuario.setBackground(COLOR_INACTIVO);
+	botonRegistrarUsuario.setForeground(COLOR_LETRA);
+	botonPremium.setBackground(COLOR_INACTIVO);
+	botonPremium.setForeground(COLOR_LETRA);
     }
 
     public void usuarioNull() {
@@ -482,6 +513,7 @@ public class MenuPrincipal extends JPanel {
 	botonRegistrarUsuario.setVisible(false);
 	botonCatalogo.setVisible(true);
 	botonCarrito.setVisible(true);
+	botonPremium.setVisible(false);
 	gbc.anchor = GridBagConstraints.SOUTH;
 	gbc.gridy = 9;
 	panelIzquierda.add(botonIniciarSesion, gbc);
@@ -489,13 +521,13 @@ public class MenuPrincipal extends JPanel {
 	panelIzquierda.repaint();
     }
 
-    public void usuarioIniciaSesion() {
-
+    public void usuarioIniciaSesion(Usuario usuario) {
 	botonCompras.setVisible(true);
 	botonPerfil.setVisible(true);
 	botonCerrarSesion.setVisible(true);
 	labelNombreUsuario.setVisible(true);
 	botonIniciarSesion.setVisible(false);
+	botonPremium.setVisible(usuario.getTipoCliente() == TipoUsuario.Regular);
 	panelIzquierda.revalidate();
 	panelIzquierda.repaint();
     }
@@ -510,6 +542,7 @@ public class MenuPrincipal extends JPanel {
 	botonCatalogo.setVisible(true);
 	botonCarrito.setVisible(false);
 	botonPerfil.setVisible(false);
+	botonPremium.setVisible(false);
 
 	gbc.weighty = 0;
 	gbc.gridy = 5;
@@ -535,7 +568,7 @@ public class MenuPrincipal extends JPanel {
      */
     public void activarPanelCatalogo() {
 	personalizarBotones();
-	botonCatalogo.setBackground(colorVerdeOscuro);
+	botonCatalogo.setBackground(COLOR_ACTIVO);
 	cardLayout.show(panelCL, "Catalogo");
     }
 
@@ -544,7 +577,7 @@ public class MenuPrincipal extends JPanel {
      */
     public void activarPanelPerfil() {
 	personalizarBotones();
-	botonPerfil.setBackground(colorVerdeOscuro);
+	botonPerfil.setBackground(COLOR_ACTIVO);
 	cardLayout.show(panelCL, "Perfil");
     }
 
@@ -553,7 +586,7 @@ public class MenuPrincipal extends JPanel {
      */
     public void activarPanelCarrito() {
 	personalizarBotones();
-	botonCarrito.setBackground(colorVerdeOscuro);
+	botonCarrito.setBackground(COLOR_ACTIVO);
 	cardLayout.show(panelCL, "Carrito");
     }
 
@@ -562,7 +595,7 @@ public class MenuPrincipal extends JPanel {
      */
     public void activarPanelCompras() {
 	personalizarBotones();
-	botonCompras.setBackground(colorVerdeOscuro);
+	botonCompras.setBackground(COLOR_ACTIVO);
 	cardLayout.show(panelCL, "Compras");
     }
 
@@ -571,7 +604,7 @@ public class MenuPrincipal extends JPanel {
      */
     public void activarPanelGestionLibro() {
 	personalizarBotones();
-	botonGestionarLibros.setBackground(colorVerdeOscuro);
+	botonGestionarLibros.setBackground(COLOR_ACTIVO);
 	cardLayout.show(panelCL, "Gestion Libros");
     }
 
@@ -671,7 +704,8 @@ public class MenuPrincipal extends JPanel {
 	panelCalificar.setVisible(false);
     }
 
-    public String getIsbn() {
-	return "";
+    public void activarPanelPremium() {
+	panelPremium.setLocationRelativeTo(ventanaPrincipal);
+	panelPremium.setVisible(true);
     }
 }

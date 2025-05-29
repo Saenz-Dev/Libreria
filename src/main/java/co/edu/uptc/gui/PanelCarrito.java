@@ -187,12 +187,13 @@ public class PanelCarrito extends JPanel {
      */
     private void validarExistenciaProductos() {
         if (!listPanelesProductos.isEmpty()) return;
-        panelProductos.repaint();
         gbcPanelProductos.weighty = 1.0;
         gbcPanelProductos.fill = GridBagConstraints.CENTER;
         gbcPanelProductos.anchor = GridBagConstraints.CENTER;
         JLabel label = new JLabel("No hay productos seleccionados");
+        panelProductos.removeAll();
         panelProductos.add(label, gbcPanelProductos);
+        panelProductos.repaint();
         revalidate();
         repaint();
     }

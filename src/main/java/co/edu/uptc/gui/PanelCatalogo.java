@@ -1,16 +1,28 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.Libro;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-import java.awt.*;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Map;
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
+import co.edu.uptc.modelo.Libro;
 
 /**
  * Clase que representa el panel del catalogo en la interfaz gráfica. Permite
@@ -51,6 +63,10 @@ public class PanelCatalogo extends JPanel {
     private VentanaPrincipal ventanaPrincipal;
     
     private JLabel labelSinLibros;
+    
+    private final Color COLOR_FONDO = new Color(244, 246, 248);
+    
+    private final Color BORDE_TARJETA = new Color(144, 164, 174);
 
     /**
      * Constructor del panel del catalogo.
@@ -61,6 +77,7 @@ public class PanelCatalogo extends JPanel {
 	initAtributos(ventanaPrincipal);
 	gbc = new GridBagConstraints();
 	personalizarFont();
+	setupPanel();
 
 	gbc.weightx = 1.0;
 	gbc.insets = new Insets(5, 30, 5, 5);
@@ -85,6 +102,10 @@ public class PanelCatalogo extends JPanel {
 	repaint();
     }
 
+    private void setupPanel() {
+	setBackground(COLOR_FONDO);
+    }
+
     /**
      * Personaliza el formato de los textos del panel.
      */
@@ -106,6 +127,7 @@ public class PanelCatalogo extends JPanel {
 	gbcPanelLibros = new GridBagConstraints();
 	gbPanelLibros = new GridBagLayout();
 	panelLibros = new JPanel(gbPanelLibros);
+	panelLibros.setOpaque(false);
 	this.ventanaPrincipal = ventanaPrincipal;
 	conteoFilas = 0;
 	conteoColumnas = 0;
@@ -195,7 +217,7 @@ public class PanelCatalogo extends JPanel {
     private void anadirPanelLibro(Libro libro) {
 	PanelLibro panelLibro = new PanelLibro(ventanaPrincipal, libro);
 	panelLibro.setPreferredSize(new Dimension(270, 180));
-	panelLibro.setBorder(new LineBorder(Color.BLACK));
+	panelLibro.setBorder(new LineBorder(BORDE_TARJETA, 2, true));
 	anadirLibrosPanel(panelLibro);
     }
 

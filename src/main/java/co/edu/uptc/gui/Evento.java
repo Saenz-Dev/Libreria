@@ -94,7 +94,13 @@ public class Evento implements ActionListener {
 
     /**Accion para mostrar los comentarios*/
     public final static String MOSTRAR_COMENTARIOS = "Mostrar Comentarios";
-
+    
+    /**Accion para validar usuario premium*/
+    public final static String VALIDAR_PREMIUM = "Validar Premium";
+    
+    /**Accion para activar el panel usuario premium*/
+    public final static String ACTIVAR_PANEL_PREMIUM = "Activar Panel Premium";
+    
     /** Referencia a la VentanaPrincipal. */
     private VentanaPrincipal ventana;
 
@@ -143,6 +149,8 @@ public class Evento implements ActionListener {
             case ACEPTAR_CONFIRMAR_COMPRA -> ventana.aceptarConfirmarCompra();
             case CANCELAR_CONFIRMAR_COMPRA -> ventana.cancelarConfirmarCompra();
             case REGISTRAR_COMENTARIO -> ventana.registrarComentario();
+            case VALIDAR_PREMIUM -> ventana.activarValidarPremium();
+            case ACTIVAR_PANEL_PREMIUM -> ventana.activarPanelValidPremium();
         }
     }
 }

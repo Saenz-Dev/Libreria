@@ -138,10 +138,11 @@ public class GestionUsuario {
 	usuarioDAO.insertarDatos(usuarioGuardar);
     }
 
-    private Usuario convertirUsuario(Usuario usuario) {
+    public Usuario convertirUsuario(Usuario usuario) {
 	Usuario usuarioGuardar;
 	if (usuario.getTipoCliente().equals(TipoUsuario.Premium)) {
 	    usuarioGuardar = new UsuarioPremium(usuario);
+	    usuarioGuardar.setTipoCliente(TipoUsuario.Premium);
 	} else {
 	    usuarioGuardar = new UsuarioRegular(usuario);
 	}
@@ -273,6 +274,7 @@ public class GestionUsuario {
     }
 
     public void cerrarSesionUsuario(boolean cerrarAplicacion) throws RuntimeException, IOException, SQLException {
+	usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
 	usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));
 	usuarioLog.getCuenta().setLog(false);
 	RegistroLog.registrarInfo(usuarioLog.getCuenta().getCorreo() + " cerró la sesión.");

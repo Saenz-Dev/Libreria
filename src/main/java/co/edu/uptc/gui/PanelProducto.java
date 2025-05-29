@@ -1,6 +1,7 @@
 package co.edu.uptc.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.ProductoCompra;
 
 /**
@@ -91,9 +91,11 @@ public class PanelProducto extends JPanel {
         add(botonAumentar, gbc);
         gbc.gridx = 6;
         gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.WEST;
         add(labelPrecio, gbc);
         gbc.gridx = 7;
         gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.EAST;
         add(botonEliminar, gbc);
         botonDisminuir.setVisible(productoCompra.getNumeroLibros() > 1);
         repaint();
@@ -104,8 +106,10 @@ public class PanelProducto extends JPanel {
         botonAumentar = new JButton("+");
         botonDisminuir = new JButton("-");
         labelCantidad = new JLabel(String.valueOf(productoCompra.getNumeroLibros()));
+        labelCantidad.setPreferredSize(new Dimension(15, 20));
         botonEliminar = new JButton("Eliminar");
         labelPrecio = new JLabel(format.format(productoCompra.getPrecioTotal()));
+        labelPrecio.setPreferredSize(new Dimension(75, 20));
     }
 
     private void asignarAccionBoton() {

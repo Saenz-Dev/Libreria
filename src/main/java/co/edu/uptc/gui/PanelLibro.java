@@ -38,6 +38,20 @@ public class PanelLibro extends JPanel {
 
     /** Restricciones para la colocación de los componentes en el diseño de la interfaz gráfica. */
     private GridBagConstraints gbc;
+    
+    private final Color COLOR_AGREGAR = new Color(102, 187, 106);
+    
+    private final Color COLOR_COMENTARIO  = new Color(144, 202, 249);
+    
+    private final Color TEXTO_COMENTARIO = new Color(38, 50, 56);
+    
+    private final Color TEXTO_AGREGAR = new Color(38, 50, 56);
+    
+    private final Color TITULO_LIBRO = new Color(38, 50, 56);
+    
+    private final Color CONTENIDO = new Color(66, 66, 66);
+    
+    private final Color PRECIO = new Color(56, 142, 60);
 
     public JButton getBotonAgregar() {
 	return botonAgregar;
@@ -79,9 +93,7 @@ public class PanelLibro extends JPanel {
         gbc.insets = new Insets(2, 0, 2, 0);
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-        //labelTitulo.setPreferredSize(new Dimension(200, 30));
-        //labelTitulo.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10)); 
+        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER); 
         add(labelTitulo, gbc);
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.CENTER;
@@ -117,9 +129,17 @@ public class PanelLibro extends JPanel {
      */
     public void personalizar() {
         labelTitulo.setFont(new Font("Sunglasses", Font.BOLD, 20));
+        labelTitulo.setForeground(TITULO_LIBRO);
         labelPrecio.setFont(new Font("Sunglasses", Font.BOLD, 20));
-        botonAgregar.setBorderPainted(false); 	
-        botonAgregar.setBackground(new Color(98, 218, 93, 199));
+        labelPrecio.setForeground(PRECIO);
+        labelAutorEditorial.setForeground(CONTENIDO);
+        labelCategoriaPaginas.setForeground(CONTENIDO);
+        botonAgregar.setBackground(COLOR_AGREGAR);
+        botonAgregar.setFocusPainted(false);
+        botonAgregar.setForeground(TEXTO_AGREGAR);
+        botonComentario.setBackground(COLOR_COMENTARIO);
+        botonComentario.setFocusPainted(false);
+        botonComentario.setForeground(TEXTO_COMENTARIO);
     }
 
     /**
@@ -128,10 +148,14 @@ public class PanelLibro extends JPanel {
      */
     public void habilitacionBoton(boolean valor) {
         if (!valor) {
+            gbc.gridy = 4;
             botonAgregar.setVisible(false);
             add(new JLabel("Unidades no disponibles"), gbc);
+            revalidate();
         } else {
+            gbc.gridy = 4;
             add(botonAgregar, gbc);
+            revalidate();
         }
         repaint();
     }

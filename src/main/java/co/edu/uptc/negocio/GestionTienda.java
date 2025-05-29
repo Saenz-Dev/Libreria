@@ -17,9 +17,12 @@ import co.edu.uptc.modelo.Recibo;
 import co.edu.uptc.modelo.ResumenProductoDTO;
 import co.edu.uptc.modelo.Tienda;
 import co.edu.uptc.modelo.TipoPago;
+import co.edu.uptc.modelo.TipoUsuario;
 import co.edu.uptc.modelo.Usuario;
+import co.edu.uptc.modelo.UsuarioPremium;
 import co.edu.uptc.modelo.ValorCompra;
 import co.edu.uptc.persistencia.CarritoDAO;
+import co.edu.uptc.persistencia.CodigoDAO;
 import co.edu.uptc.persistencia.ComentarioDAO;
 import co.edu.uptc.persistencia.CompraDAO;
 import co.edu.uptc.persistencia.CuentaDAO;
@@ -36,6 +39,7 @@ public class GestionTienda {
     private GestionCarrito gestionCarrito;
     private GestionCompra gestionCompra;
     private GestionComentario gestionComentario;
+    private GestionCodigo gestionCodigo;
     private CarritoDAO carritoDAO;
     private UsuarioDAO usuarioDAO;
     private CuentaDAO cuentaDAO;
@@ -43,7 +47,8 @@ public class GestionTienda {
     private ReciboDAO reciboDAO;
     private ComentarioDAO comentarioDAO;
     private CompraDAO compraDAO;
-
+    private CodigoDAO codigoDAO;
+    
     public GestionTienda() throws SQLException {
 	tienda = new Tienda();
 	carritoDAO = new CarritoDAO();
@@ -53,16 +58,17 @@ public class GestionTienda {
 	reciboDAO = new ReciboDAO();
 	compraDAO = new CompraDAO();
 	comentarioDAO = new ComentarioDAO();
+	codigoDAO = new CodigoDAO();
 	gestionUsuario = new GestionUsuario(tienda, usuarioDAO, cuentaDAO, carritoDAO);
 	gestionLibro = new GestionLibro(tienda, libroDAO);
 	gestionCatalogo = new GestionCatalogo(tienda, libroDAO);
 	gestionCarrito = new GestionCarrito(gestionUsuario.getManejoUsuarioJSON(), tienda, carritoDAO, usuarioDAO, cuentaDAO, libroDAO, gestionUsuario);
 	gestionCompra = new GestionCompra(tienda, reciboDAO, carritoDAO, compraDAO);
 	gestionComentario = new GestionComentario(tienda, comentarioDAO);
+	gestionCodigo = new GestionCodigo(codigoDAO);
     }
 
-    // -----------------------------------Métodos
-    // GestionUsuario-----------------------------------
+    // -----------------------------------Métodos GestionUsuario-----------------------------------
 
     public Usuario getUserLogin() throws SQLException, RuntimeException {
 	return gestionUsuario.userLog();
@@ -334,4 +340,15 @@ public class GestionTienda {
 	return reciboFinal;
 	
     }
+    
+    public void registrarCodigo(String codigo) throws SQLException, RuntimeException {
+	gestionCodigo.registrarCodigo(codigo);
+    }
+    
+    public void usarCodigo(String codigo) throws SQLException, RuntimeException {
+	gestionCodigo.usarCodigo(codigo);
+	Usuario usuario = new UsuarioPremium(getUserLogin());
+	usuario.setTipoCliente(TipoUsuario.Premium);
+	usuarioDAO.actualizarDatos(usuario);
+    }	
 }
