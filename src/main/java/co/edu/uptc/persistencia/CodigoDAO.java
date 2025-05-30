@@ -21,7 +21,7 @@ public class CodigoDAO extends ConexionBD<CodigoPremium> {
 	    preparedStatement.setBoolean(2, codigo.getUsado());
 	    preparedStatement.executeUpdate();
 	} catch (SQLException e) {
-	    throw new SQLException("❌ Ocurrio un problema al agregar un codigo a la Base de Datos.");
+	    throw new SQLException("Este codigo ya esta registrado.");
 	}
 
     }
@@ -61,8 +61,20 @@ public class CodigoDAO extends ConexionBD<CodigoPremium> {
 
     @Override
     public ArrayList<CodigoPremium> seleccionarRegistros() throws SQLException, RuntimeException {
-	// TODO Auto-generated method stub
-	return null;
+	String sql = "SELECT * FROM cod_premium";
+	try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        	ArrayList<CodigoPremium> codigos = new ArrayList<>();
+                while (resultSet.next()) {
+                    CodigoPremium codPremium = new CodigoPremium();
+                    codPremium.setCodigo(resultSet.getString(1));
+                    codPremium.setUsado(resultSet.getBoolean(2));
+                    codigos.add(codPremium);
+                }      
+                return codigos;
+            }
+        } catch (SQLException e) {
+            throw new SQLException("❌ Ocurrio un error al buscar el código, intentalo más tarde.");
+        }
     }
-
 }

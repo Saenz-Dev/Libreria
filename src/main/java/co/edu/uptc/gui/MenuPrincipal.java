@@ -75,6 +75,8 @@ public class MenuPrincipal extends JPanel {
     private JButton botonIniciarSesion;
     
     private JButton botonPremium;
+    
+    private JButton botonGuardarCodigos;
 
     /**
      * Panel que muestra el catálogo de libros.
@@ -170,6 +172,8 @@ public class MenuPrincipal extends JPanel {
     private PanelComentario panelComentario;
 
     private PanelCalificar panelCalificar;
+    
+    private PanelAggCodigo panelAggCodigo;
 
     private VentanaPrincipal ventanaPrincipal;
 
@@ -320,6 +324,10 @@ public class MenuPrincipal extends JPanel {
 	return panelPremium;
     }
     
+    public PanelAggCodigo getPanelAggCodigo() {
+	return panelAggCodigo;
+    }
+    
     public JButton getBotonPremium() {
 	return botonPremium;
     }
@@ -360,6 +368,7 @@ public class MenuPrincipal extends JPanel {
 	panelCalificar = new PanelCalificar(evento);
 	panelRecibo = new PanelRecibo(ventanaPrincipal);
 	panelPremium = new PanelPremium(evento);
+	panelAggCodigo = new PanelAggCodigo(evento);
 	clPrincipal = new CardLayout();
 	panelClPrincipal = new JPanel(clPrincipal);
 
@@ -371,6 +380,7 @@ public class MenuPrincipal extends JPanel {
 	panelCL.add(scrollTabla, "Compras");
 	panelCL.add(panelGestionLibro, "Gestion Libros");
 	panelCL.add(panelEliminarLibro, "Eliminar Libros");
+	panelCL.add(panelAggCodigo, "Agregar Codigos");
 
 	add(panelIzquierda(evento), BorderLayout.WEST);
 	add(panelCL, BorderLayout.CENTER);
@@ -465,6 +475,8 @@ public class MenuPrincipal extends JPanel {
 	botonIniciarSesion.setActionCommand(evento.ACTIVAR_INICIAR_SESION);
 	botonPremium.addActionListener(evento);
 	botonPremium.setActionCommand(evento.ACTIVAR_PANEL_PREMIUM);
+	botonGuardarCodigos.addActionListener(evento);
+	botonGuardarCodigos.setActionCommand(evento.ACTIVAR_GUARDAR_CODIGO);
     }
 
     private void initAtributos() {
@@ -479,6 +491,7 @@ public class MenuPrincipal extends JPanel {
 	botonCerrarSesion = new JButton("Cerrar Sesión");
 	botonGestionarLibros = new JButton("Gestionar Libros");
 	botonRegistrarUsuario = new JButton("Registrar Usuario");
+	botonGuardarCodigos = new JButton("Guardar Codigos");
 	botonPremium = new JButton("✨");
     }
 
@@ -501,6 +514,8 @@ public class MenuPrincipal extends JPanel {
 	botonRegistrarUsuario.setForeground(COLOR_LETRA);
 	botonPremium.setBackground(COLOR_INACTIVO);
 	botonPremium.setForeground(COLOR_LETRA);
+	botonGuardarCodigos.setBackground(COLOR_INACTIVO);
+	botonGuardarCodigos.setForeground(COLOR_LETRA);
     }
 
     public void usuarioNull() {
@@ -514,6 +529,7 @@ public class MenuPrincipal extends JPanel {
 	botonCatalogo.setVisible(true);
 	botonCarrito.setVisible(true);
 	botonPremium.setVisible(false);
+	botonGuardarCodigos.setVisible(false);
 	gbc.anchor = GridBagConstraints.SOUTH;
 	gbc.gridy = 9;
 	panelIzquierda.add(botonIniciarSesion, gbc);
@@ -527,6 +543,7 @@ public class MenuPrincipal extends JPanel {
 	botonCerrarSesion.setVisible(true);
 	labelNombreUsuario.setVisible(true);
 	botonIniciarSesion.setVisible(false);
+	botonGuardarCodigos.setVisible(false);
 	botonPremium.setVisible(usuario.getTipoCliente() == TipoUsuario.Regular);
 	panelIzquierda.revalidate();
 	panelIzquierda.repaint();
@@ -543,12 +560,15 @@ public class MenuPrincipal extends JPanel {
 	botonCarrito.setVisible(false);
 	botonPerfil.setVisible(false);
 	botonPremium.setVisible(false);
-
+	botonGuardarCodigos.setVisible(true);
+	
 	gbc.weighty = 0;
 	gbc.gridy = 5;
 	panelIzquierda.add(botonGestionarLibros, gbc);
 	gbc.gridy = 6;
 	panelIzquierda.add(botonRegistrarUsuario, gbc);
+	gbc.gridy = 7;
+	panelIzquierda.add(botonGuardarCodigos, gbc);
 	panelIzquierda.revalidate();
 	panelIzquierda.repaint();
     }
@@ -606,6 +626,12 @@ public class MenuPrincipal extends JPanel {
 	personalizarBotones();
 	botonGestionarLibros.setBackground(COLOR_ACTIVO);
 	cardLayout.show(panelCL, "Gestion Libros");
+    }
+    
+    public void activarPanelGuardarCodigos() {
+	personalizarBotones();
+	botonGuardarCodigos.setBackground(COLOR_ACTIVO);
+	cardLayout.show(panelCL, "Agregar Codigos");
     }
 
     /**

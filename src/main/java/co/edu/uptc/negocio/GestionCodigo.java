@@ -1,6 +1,7 @@
 package co.edu.uptc.negocio;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import co.edu.uptc.modelo.CodigoPremium;
 import co.edu.uptc.persistencia.CodigoDAO;
@@ -19,6 +20,10 @@ public class GestionCodigo {
 	cod.setCodigo(codigo);
 	cod.setUsado(false);
 	codigoDao.insertarDatos(cod);
+    }
+    
+    public ArrayList<CodigoPremium> consultarCodigo() throws SQLException, RuntimeException {
+	return codigoDao.seleccionarRegistros();
     }
 
     private void validarCodigo(String codigo) throws RuntimeException{

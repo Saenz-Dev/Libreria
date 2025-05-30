@@ -585,4 +585,30 @@ public class VentanaPrincipal extends JFrame {
 	menuPrincipal.activarPanelPremium();
     }
 
+    public void GuardarCodigo() {
+	try {
+	    gestionTienda.registrarCodigo(menuPrincipal.getPanelAggCodigo().obtenerCodigo());
+	    menuPrincipal.getPanelAggCodigo().mostrarMensajeExito("Codigo registrado.");
+	    menuPrincipal.getPanelAggCodigo().construirTabla(gestionTienda.consultaCodigos());
+	    
+	} catch (SQLException e) {
+	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje",
+		    JOptionPane.ERROR_MESSAGE);
+	} catch (RuntimeException e) {
+	    menuPrincipal.getPanelAggCodigo().mostrarMensaje(e.getMessage());
+	}
+    }
+
+    public void activarGuardarCodigo() {
+	try {
+	    menuPrincipal.getPanelAggCodigo().construirTabla(gestionTienda.consultaCodigos());
+	    menuPrincipal.activarPanelGuardarCodigos();
+	} catch (SQLException e) {
+	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje",
+		    JOptionPane.ERROR_MESSAGE);
+	} catch (RuntimeException e) {
+	    JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje",
+		    JOptionPane.WARNING_MESSAGE);
+	}
+    }
 }

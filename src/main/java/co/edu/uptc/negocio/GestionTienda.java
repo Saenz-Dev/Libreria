@@ -9,6 +9,7 @@ import java.util.Stack;
 
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Carrito;
+import co.edu.uptc.modelo.CodigoPremium;
 import co.edu.uptc.modelo.Comentario;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.LibroCarrito;
@@ -351,4 +352,8 @@ public class GestionTienda {
 	usuario.setTipoCliente(TipoUsuario.Premium);
 	usuarioDAO.actualizarDatos(usuario);
     }	
+    
+    public ArrayList<CodigoPremium> consultaCodigos() throws SQLException, RuntimeException {
+	return gestionCodigo.consultarCodigo();
+    }
 }

@@ -100,6 +100,10 @@ public class Evento implements ActionListener {
     
     /**Accion para activar el panel usuario premium*/
     public final static String ACTIVAR_PANEL_PREMIUM = "Activar Panel Premium";
+
+    public static final String GUARDAR_CODIGO = "Guardar Codigo";
+
+    public static final String ACTIVAR_GUARDAR_CODIGO = "Activar Guardar Codigo";
     
     /** Referencia a la VentanaPrincipal. */
     private VentanaPrincipal ventana;
@@ -151,6 +155,8 @@ public class Evento implements ActionListener {
             case REGISTRAR_COMENTARIO -> ventana.registrarComentario();
             case VALIDAR_PREMIUM -> ventana.activarValidarPremium();
             case ACTIVAR_PANEL_PREMIUM -> ventana.activarPanelValidPremium();
+            case GUARDAR_CODIGO -> ventana.GuardarCodigo();
+            case ACTIVAR_GUARDAR_CODIGO -> ventana.activarGuardarCodigo();
         }
     }
 }
