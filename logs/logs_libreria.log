@@ -1243,3 +1243,1389 @@ INFO: ✔ Cuenta actualizada correctamente con correo: administrador
 may 29, 2025 7:50:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
 INFO: ✅ Usuario encontrado: user_default
 
+may 30, 2025 7:57:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 7:57:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 7:59:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se encontraron 1 comentarios.
+
+may 30, 2025 7:59:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: saenzm@gmail.com
+
+may 30, 2025 7:59:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+may 30, 2025 7:59:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 7:59:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 7:59:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: user_default
+
+may 30, 2025 7:59:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 7:59:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 7:59:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+may 30, 2025 7:59:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 7:59:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 7:59:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 7:59:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 7:59:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 7:59:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 7:59:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 7:59:32 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 7:59:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 7:59:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 7:59:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:19:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:19:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:19:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 8:19:09 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 8:19:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 8:19:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:19:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:19:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:19:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:19:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:19:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:19:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:19:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:22:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:22:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 8:22:08 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 8:22:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:22:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:22:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:22:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:22:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:22:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:22:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:22:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:22:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:22:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:22:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 8:22:35 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 8:22:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:22:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:22:38 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:22:38 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:22:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:22:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:22:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:22:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:22:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:32:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:32:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 8:32:41 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 8:32:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:32:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:32:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:32:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:33:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:33:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:33:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:33:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:33:03 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:36:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:37:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:38:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:38:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 8:38:13 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 8:38:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:38:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:38:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:38:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:38:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:38:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:38:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:38:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:38:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:38:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:40:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:40:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 8:40:15 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 8:40:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:40:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:40:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:40:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:40:33 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:40:33 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:40:33 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:40:33 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:40:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:40:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:42:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:42:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 8:42:41 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 8:42:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:42:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:42:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:43:33 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:43:33 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:43:33 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:43:33 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:43:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:43:49 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:43:49 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 8:43:49 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 8:43:49 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:43:49 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:43:49 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:45:13 P. M. co.edu.uptc.log.RegistroLog registrarAdvertencia
+WARNING: ❌ Contraseña incorrecta para el correo: administrador
+
+may 30, 2025 8:45:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:45:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:45:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:45:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:45:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:45:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:45:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Cien años de soledad 
+
+may 30, 2025 8:46:03 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9786453645342
+
+may 30, 2025 8:46:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:46:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Cien años de soledad 
+
+may 30, 2025 8:46:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Libro
+
+may 30, 2025 8:46:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:46:39 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:50:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:50:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 8:50:29 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 8:50:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:50:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:50:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:50:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:51:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:51:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:51:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:51:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:51:03 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:51:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:51:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Cien años de soledad 
+
+may 30, 2025 8:52:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:52:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 8:52:05 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 8:52:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:52:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:59:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 8:59:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:59:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:59:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 8:59:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 8:59:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 8:59:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:01:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:01:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:01:17 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:01:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:01:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:02:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:02:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:02:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:02:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:02:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:02:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:02:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:02:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:02:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:02:43 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:02:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:02:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:02:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:02:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:02:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:02:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:02:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:02:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:03:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:03:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:03:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:03:43 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:03:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:03:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:03:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:03:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:04:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:04:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:04:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:04:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:04:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:05:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:05:24 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Cien años de soledad 
+
+may 30, 2025 9:05:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:05:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:05:31 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:05:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:05:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:05:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:05:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:05:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:05:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:05:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:05:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:05:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:08:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:08:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:08:57 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:08:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:08:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:08:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:08:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:09:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:09:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:09:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:09:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:09:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:11:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:11:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:11:19 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:11:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:11:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:12:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:12:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:12:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:12:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:12:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:12:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:12:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:13:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:13:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:13:07 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:13:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:13:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:13:49 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:13:49 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:13:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:13:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:13:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:13:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:13:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:14:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:14:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:14:44 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:14:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:14:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:14:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:14:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:14:54 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:14:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:14:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:14:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:14:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:14:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:14:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Cien años de soledad 
+
+may 30, 2025 9:15:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:15:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Cien años de soledad 
+
+may 30, 2025 9:16:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:16:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:16:17 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:16:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:16:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:16:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:16:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:16:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:16:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:16:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:16:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:16:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:17:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:17:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:17:28 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:17:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:17:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:17:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:17:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:17:36 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:17:36 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:17:36 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:17:36 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:17:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:18:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:18:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:18:08 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:18:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:18:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:18:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:18:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:18:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:18:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:18:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:18:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:18:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:21:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:21:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:21:07 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:21:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:21:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:21:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:21:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:21:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:21:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:21:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:21:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:21:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:22:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:22:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:22:55 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:22:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:22:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:23:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:23:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:23:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:23:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:23:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:23:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:23:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:28:27 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:28:27 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:28:27 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:28:27 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:28:27 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:28:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:28:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:28:36 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:28:36 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:28:36 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:28:36 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:28:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:29:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:29:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:29:13 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:29:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:29:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:29:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:29:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:29:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:29:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:29:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:29:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:29:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:36:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:36:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:36:11 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:36:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:36:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:38:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:38:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:39:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:39:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:39:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:39:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 9:39:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:39:39 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+may 30, 2025 9:39:39 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+may 30, 2025 9:39:39 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+may 30, 2025 9:39:39 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+may 30, 2025 9:39:39 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 9:39:39 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:07:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:07:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:07:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:07:30 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:07:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:07:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:07:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:07:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:07:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:07:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:07:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:07:46 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:07:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:07:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:09:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:09:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:10:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:10:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:10:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:10:12 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:10:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:10:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:11:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:11:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:16:54 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:16:54 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:16:54 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:16:54 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:16:54 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:16:54 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:16:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:16:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:17:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:17:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:17:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:17:20 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:17:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:17:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:17:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:17:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:18:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:18:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:18:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:18:28 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:18:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:18:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:18:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:18:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:21:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:21:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:21:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:21:37 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:21:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:21:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:21:38 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:21:38 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:22:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:22:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:22:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:22:52 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:22:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:22:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:22:54 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:22:54 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:23:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:23:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:23:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:23:29 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:23:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:23:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:23:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:23:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:27:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:27:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:27:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:27:50 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:27:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:27:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:27:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:27:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:30:51 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:30:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:30:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:30:52 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:30:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:30:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:30:53 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:30:53 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:30:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:30:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:30:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:30:59 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:30:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:30:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:31:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:31:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 5 libros de la base de datos
+
+may 30, 2025 10:31:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:31:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+may 30, 2025 10:32:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+may 30, 2025 10:32:00 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+may 30, 2025 10:32:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+may 30, 2025 10:32:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+

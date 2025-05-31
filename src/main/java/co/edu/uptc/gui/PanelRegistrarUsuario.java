@@ -202,7 +202,7 @@ public class PanelRegistrarUsuario extends JDialog {
 
 	setResizable(false);
 	setModal(true);
-	setSize(400, 300);
+	setSize(400, 350);
 	setLocationRelativeTo(null);
     }
 

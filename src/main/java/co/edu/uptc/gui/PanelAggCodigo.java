@@ -3,6 +3,7 @@ package co.edu.uptc.gui;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import co.edu.uptc.modelo.CodigoPremium;
 
@@ -109,7 +110,7 @@ public class PanelAggCodigo extends JPanel {
             }
         });
     }
-
+    
     public String obtenerCodigo() {
         return campoCodigo.getText().trim();
     }

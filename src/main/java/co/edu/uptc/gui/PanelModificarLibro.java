@@ -361,7 +361,7 @@ public class PanelModificarLibro extends JDialog {
 
         setResizable(false);
         setModal(true);
-        setSize(450, 500);
+        setSize(450, 600);
         setLocationRelativeTo(null);
     }
 
@@ -390,7 +390,7 @@ public class PanelModificarLibro extends JDialog {
 
     private void initCb() {
         cbLibros = new JComboBox<>();//Lo agregue para el que se elija, los JTextField se llenen con la informacion de cada libro.
-        cbLibros.setPreferredSize(new Dimension(20, 20));
+        cbLibros.setPreferredSize(new Dimension(15, 30));
         txtCategoria = new JComboBox<>(CategoriaLibro.values());
         txtFormato = new JComboBox<>(TipoLibro.values());
     }
@@ -412,24 +412,25 @@ public class PanelModificarLibro extends JDialog {
     }
 
     private void initTxt() {
+	Dimension dimension = new Dimension(15, 30);
         txtISBN = new JTextField(20);
-        txtISBN.setPreferredSize(new Dimension(20, 20));
+        txtISBN.setPreferredSize(dimension);
         txtISBN.setEditable(false);
         txtISBN.setBackground(Color.WHITE);
         txtNombre = new JTextField(20);
-        txtNombre.setPreferredSize(new Dimension(20, 20));
+        txtNombre.setPreferredSize(dimension);
         txtAutor = new JTextField(20);
-        txtAutor.setPreferredSize(new Dimension(20, 20));
+        txtAutor.setPreferredSize(dimension);
         txtAnoPublicacion = new JTextField(4);
-        txtAnoPublicacion.setPreferredSize(new Dimension(20, 20));
+        txtAnoPublicacion.setPreferredSize(dimension);
         txtEditorial = new JTextField(20);
-        txtEditorial.setPreferredSize(new Dimension(20, 20));
+        txtEditorial.setPreferredSize(dimension);
         txtNumeroPaginas = new JTextField(5);
-        txtNumeroPaginas.setPreferredSize(new Dimension(20, 20));
+        txtNumeroPaginas.setPreferredSize(dimension);
         txtPrecio = new JTextField(10);
-        txtPrecio.setPreferredSize(new Dimension(20, 20));
+        txtPrecio.setPreferredSize(dimension);
         txtCantidad = new JTextField(5);
-        txtCantidad.setPreferredSize(new Dimension(20, 20));
+        txtCantidad.setPreferredSize(dimension);
         //cbLibros.setPreferredSize(new Dimension(80, 30));
     }
 

@@ -18,6 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
@@ -147,13 +148,14 @@ public class PanelCatalogo extends JPanel {
 	NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
 	numberFormat.setMinimumFractionDigits(0);
 	tableModel.setColumnIdentifiers(new Object[]{"ISBN", "Titulo", "Autor", "Año", "Categoria", "Editorial", "#Paginas", "Precio", "Disponible", "Reservado", "Tipo"});
-	
 	for (Libro libro : catalogo) {
 	    tableModel.addRow(new Object[]{libro.getIsbn(), libro.getTitulo(), libro.getAutor(), libro.getAnioPublicacion(), libro.getCategoria(), libro.getEditorial(), libro.getNumeroPaginas(), numberFormat.format(libro.getPrecioVenta()),  libro.getStockDisponible(), libro.getStockReservado(), libro.getTipoLibro()});
 	}
 	
 	JTable tabla = new JTable(tableModel);
 	tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+	dimensionarTabla(tabla);
+	
 	JTableHeader tableHeader = tabla.getTableHeader();
 	tableHeader.setBackground(new Color(0x24242C));
 	tableHeader.setForeground(Color.WHITE);
@@ -175,6 +177,20 @@ public class PanelCatalogo extends JPanel {
 	
     }
     
+    public void dimensionarTabla(JTable table) {
+	table.getColumnModel().getColumn(0).setPreferredWidth(120);
+	table.getColumnModel().getColumn(1).setPreferredWidth(120);
+	table.getColumnModel().getColumn(2).setPreferredWidth(100);
+	table.getColumnModel().getColumn(3).setPreferredWidth(40);
+	table.getColumnModel().getColumn(4).setPreferredWidth(90);
+	table.getColumnModel().getColumn(5).setPreferredWidth(90);
+	table.getColumnModel().getColumn(6).setPreferredWidth(50);
+	table.getColumnModel().getColumn(7).setPreferredWidth(90);
+	table.getColumnModel().getColumn(8).setPreferredWidth(90);
+	table.getColumnModel().getColumn(9).setPreferredWidth(90);
+	table.getColumnModel().getColumn(10).setPreferredWidth(90);
+    }
+    
     /**
      * Crea paneles de libros a partir de un mapa de libros que son los libros
      * disponibles en el catálogo.
@@ -193,6 +209,7 @@ public class PanelCatalogo extends JPanel {
 	scrollPanelLibros = new JScrollPane(panelLibros);
 	scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
 	scrollPanelLibros.setBorder(null);
+	
 	add(scrollPanelLibros, gbc);
 	conteoColumnas = 0;
 	conteoFilas = 0;

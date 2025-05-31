@@ -2,6 +2,9 @@ package co.edu.uptc.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * Clase que representa el panel de Inicio de Sesión en la interfaz gráfica.
@@ -82,10 +85,11 @@ public class PanelInicioSesion extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 1, 60, 1);
-
+        setBackground(Color.GRAY);
+        
         initAtributos();
-        personalizarPanel();
         asignarAccionBoton(evento);
+        personalizarBotones();
 
         add(labelTitulo, gbc);
         gbc.gridy = 1;
@@ -118,20 +122,56 @@ public class PanelInicioSesion extends JPanel {
         botonCancelar.setActionCommand(evento.SALIR);
         botonCrearCuenta.addActionListener(evento);
         botonCrearCuenta.setActionCommand(evento.VENTANA_REGISTRAR_USUARIO);
+        mouseListenersBtn();
     }
 
-    private void personalizarPanel() {
-        Dimension dimensiontxt = new Dimension(500, 28);
-        Font letra = new Font("Arial", Font.BOLD, 40);
-        txtContrasena.selectAll();
-        txtCorreo.selectAll();
-        labelTitulo.setForeground(Color.BLACK);
-        labelIniciarSesion.setForeground(Color.WHITE);
-        labelTexto.setForeground(Color.WHITE);        
+    
+    public void personalizarBotones() {
+	
+	labelTitulo.setFont(new Font("Montserrat", Font.BOLD, 28));
+        labelTitulo.setForeground(Color.WHITE);
+        labelTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+	
+        labelCorreo.setFont(new Font("Segoe UI", Font.BOLD, 13));
         labelCorreo.setForeground(Color.WHITE);
+        labelContrasena.setFont(new Font("Segoe UI", Font.BOLD, 13));
         labelContrasena.setForeground(Color.WHITE);
-        labelTitulo.setFont(letra);
-        labelIniciarSesion.setFont(new Font("Arial", Font.BOLD, 25));
+        
+        labelIniciarSesion.setFont(new Font("Montserrat", Font.BOLD, 21));
+        labelIniciarSesion.setForeground(new Color(255, 224, 130));
+        labelIniciarSesion.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+	txtCorreo.setMaximumSize(new Dimension(220, 30));
+        txtCorreo.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        txtCorreo.select(1, 1);
+        
+	txtContrasena.setMaximumSize(new Dimension(220, 30));
+        txtContrasena.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+	
+	botonContinuar.setBackground(new Color(33, 150, 243));
+	botonContinuar.setForeground(Color.WHITE);
+	botonContinuar.setFocusPainted(false);
+	botonContinuar.setFont(new Font("Segoe UI", Font.BOLD, 15));
+	botonContinuar.setAlignmentX(Component.CENTER_ALIGNMENT);
+	botonContinuar.setMaximumSize(new Dimension(220, 35));
+	
+	botonCancelar.setBackground(new Color(189, 189, 189));
+	botonCancelar.setForeground(Color.BLACK);
+	botonCancelar.setFocusPainted(false);
+	botonCancelar.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+	botonCancelar.setAlignmentX(Component.CENTER_ALIGNMENT);
+	botonCancelar.setMaximumSize(new Dimension(220, 35));
+        
+	labelTexto.setForeground(Color.WHITE);
+        labelTexto.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+	botonCrearCuenta.setBackground(new Color(33, 150, 243));
+	botonCrearCuenta.setForeground(Color.WHITE);
+	botonCrearCuenta.setFocusPainted(false);
+	botonCrearCuenta.setFont(new Font("Segoe UI", Font.BOLD, 15));
+	botonCrearCuenta.setAlignmentX(Component.CENTER_ALIGNMENT);
+	botonCrearCuenta.setMaximumSize(new Dimension(220, 35));
+
     }
 
     private void initAtributos() {
@@ -147,11 +187,30 @@ public class PanelInicioSesion extends JPanel {
         txtCorreo.putClientProperty("JTextField.placeholderText", "Correo Electrónico");
         txtContrasena = new JPasswordField(25);
         txtContrasena.putClientProperty("JTextField.placeholderText", "Contraseña");
-        imagenFondo = new ImageIcon(ClassLoader.getSystemResource("libreria.jpg")).getImage();
     }
     
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
+        g.setColor(Color.BLACK);
+    }
+    
+    public void mouseListenersBtn() {
+	botonContinuar.addMouseListener(new MouseAdapter() {
+	    public void mouseEntered(MouseEvent event) {
+		botonContinuar.setBackground(new Color(25, 118, 210));
+	    }
+	    public void mouseExited(MouseEvent event) {
+		botonContinuar.setBackground(new Color(33, 150, 243));
+	    }
+	});
+	
+	botonCrearCuenta.addMouseListener(new MouseAdapter() {
+	    public void mouseEntered(MouseEvent event) {
+		botonCrearCuenta.setBackground(new Color(25, 118, 210));
+	    }
+	    public void mouseExited(MouseEvent event) {
+		botonCrearCuenta.setBackground(new Color(33, 150, 243));
+	    }
+	});
     }
 }

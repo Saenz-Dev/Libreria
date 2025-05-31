@@ -1,5 +1,6 @@
 package co.edu.uptc.gui;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -325,10 +326,12 @@ public class PanelRegistrarLibro extends JDialog {
 
 	gbc.insets = new Insets(5, 10, 5, 10);
 	inicializarAtributos();
+	//dimensionarComponentes();<>
 	labelTitulo.setFont(new Font("Arial", Font.BOLD, 30));
 
 	asignarEventoBoton(evento);
-
+	
+	
 	gbc.gridwidth = 2;
 	gbc.anchor = GridBagConstraints.CENTER;
 	gbc.fill = GridBagConstraints.NONE;
@@ -397,6 +400,34 @@ public class PanelRegistrarLibro extends JDialog {
 	setLocationRelativeTo(null);
     }
 
+    private void dimensionarComponentes() {
+	Dimension dimension = new Dimension(40, 40);
+	//labelTitulo.setPreferredSize(dimension);
+	labelISBN.setPreferredSize(dimension);
+	labelNombre.setPreferredSize(dimension);
+	labelAutor.setPreferredSize(dimension);
+	labelAnoPublicacion.setPreferredSize(dimension);
+	labelCategoria.setPreferredSize(dimension);
+	labelEditorial.setPreferredSize(dimension);
+	labelNumeroPaginas.setPreferredSize(dimension);
+	labelPrecio.setPreferredSize(dimension);
+	labelCantidad.setPreferredSize(dimension);
+	labelFormato.setPreferredSize(dimension);
+	
+	txtISBN.setPreferredSize(dimension);
+	txtNombre.setPreferredSize(dimension);
+	txtAutor.setPreferredSize(dimension);
+	txtAnoPublicacion.setPreferredSize(dimension);
+	txtEditorial.setPreferredSize(dimension);
+	txtNumeroPaginas.setPreferredSize(dimension);
+	txtPrecio.setPreferredSize(dimension);
+	txtCantidad.setPreferredSize(dimension);
+	txtCategoria.setPreferredSize(dimension);
+	txtFormato.setPreferredSize(dimension);
+	
+	
+    }
+
     private void asignarEventoBoton(Evento evento) {
 	botonAgregar.addActionListener(evento);
 	botonAgregar.setActionCommand(evento.REGISTRAR_LIBRO);
@@ -421,7 +452,7 @@ public class PanelRegistrarLibro extends JDialog {
 	labelCantidad = new JLabel("Cantidad*:");
 	labelFormato = new JLabel("Formato*:");
 
-	txtISBN = new JTextField(20);
+	txtISBN = new JTextField();
 	txtNombre = new JTextField(20);
 	txtAutor = new JTextField(20);
 	txtAnoPublicacion = new JTextField(4);
