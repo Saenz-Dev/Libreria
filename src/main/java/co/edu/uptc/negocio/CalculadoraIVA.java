@@ -30,18 +30,18 @@ public class CalculadoraIVA {
      *
      * @param carrito carrito a calcular
      * @return subtotal total del carrito
-     * @throws RuntimeException 
-     * @throws SQLException 
+     * @throws RuntimeException
+     * @throws SQLException
      */
     public double subtotal(ArrayList<LibroCarrito> librosCarrito, LibroDAO libroDAO) throws SQLException, RuntimeException {
         double subtotal = 0;
         if (librosCarrito == null || librosCarrito.isEmpty()) return subtotal;
-        
+
         for (LibroCarrito libroCarrito : librosCarrito) {
             Libro libro = new Libro();
             libro.setIsbn(String.valueOf(libroCarrito.getIsbn_libro()));
             libro = libroDAO.seleccionarRegistro(libro);
-            subtotal += libroCarrito.getCantidad()* libro.getPrecioVenta();
+            subtotal += libroCarrito.getCantidad() * libro.getPrecioVenta();
         }
         return subtotal;
     }
@@ -51,8 +51,8 @@ public class CalculadoraIVA {
      *
      * @param carrito carrito a calcular
      * @return impuesto total del carrito
-     * @throws RuntimeException 
-     * @throws SQLException 
+     * @throws RuntimeException
+     * @throws SQLException
      */
     public double impuestos(ArrayList<LibroCarrito> librosCarrito, LibroDAO libroDAO) throws SQLException, RuntimeException {
         double impuestos = 0;
@@ -61,7 +61,7 @@ public class CalculadoraIVA {
             Libro libro = new Libro();
             libro.setIsbn(String.valueOf(libroCarrito.getIsbn_libro()));
             libro = libroDAO.seleccionarRegistro(libro);
-	    if (libro.getTipoLibro() == TipoLibro.FISICO) {
+            if (libro.getTipoLibro() == TipoLibro.FISICO) {
                 impuestos += libroCarrito.getCantidad() * 0.19 * libro.getPrecioVenta();
             } else {
                 impuestos += libroCarrito.getCantidad() * 0.05 * libro.getPrecioVenta();
@@ -88,18 +88,20 @@ public class CalculadoraIVA {
      * @param catalogo       catalogo de libros
      * @return impuesto del producto
      */
-    public double impuestoProducto(Libro libroParametro, ArrayList<Libro> librosCarrito) {
-        for (Libro libro : librosCarrito) {
-            if (libro.getTitulo().equals(libroParametro.getTitulo())) {
-                if (libroParametro.getTipoLibro() == TipoLibro.FISICO) {
-                    return libroParametro.getStockReservado() * libro.getPrecioVenta() * 0.19;
-                } else {
-                    return libroParametro.getStockReservado() * libro.getPrecioVenta() * 0.05;
-                }
-            }
+    public double impuestoProductos(LibroCarrito libroCarrito, Libro libroParametro) {
+        if (libroParametro.getTipoLibro() == TipoLibro.FISICO) {
+            return libroCarrito.getCantidad() * libroParametro.getPrecioVenta() * 0.19;
+        } else {
+            return libroCarrito.getCantidad() * libroParametro.getPrecioVenta() * 0.05;
         }
+    }
 
-        return 0;
+    public double impuestoProducto(Libro libroParametro) {
+        if (libroParametro.getTipoLibro() == TipoLibro.FISICO) {
+            return libroParametro.getPrecioVenta() * 0.19;
+        } else {
+            return libroParametro.getPrecioVenta() * 0.05;
+        }
     }
 
     /**
@@ -110,7 +112,7 @@ public class CalculadoraIVA {
      * @return subtotal del producto
      */
     public double subtotalProducto(LibroCarrito libroCarrito, Libro libroCatalogo) {
-	return libroCarrito.getCantidad() * libroCatalogo.getPrecioVenta();
+        return libroCarrito.getCantidad() * libroCatalogo.getPrecioVenta();
         /*for (Libro libro : librosCarrito) { //Busca el libro en el carrito del usuario 
             if (libro.getIsbn().equals(libroParametro.getIsbn())) {//Si el isbn del libroParametro es igual a algun libro del carrito
                 return libro.getStockReservado() * libro.getPrecioVenta();//Retorna el precio del libro 
@@ -123,7 +125,7 @@ public class CalculadoraIVA {
         return total * usuario.getDescuentoTipoUsuario();
     }
 
-    
+
     public double descuentoFrecuencia(ArrayList<Recibo> listaRecibos, double total) throws IOException {
         if (listaRecibos == null || listaRecibos.isEmpty()) return 0;
         if (listaRecibos.size() == 10) return total * descFrecuencia.getDESCUENTO_DIEZ_COMPRAS();

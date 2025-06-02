@@ -19,7 +19,7 @@ public class EventoRecibo implements CellEditorListener{
 	int row = tablaComentarios.getSelectedRow();
 	String isbn = (String) tablaComentarios.getValueAt(row, 0);
         String nombreLibro = (String) tablaComentarios.getValueAt(row, 1);
-        Boolean valor = (Boolean) tablaComentarios.getValueAt(row, 5);
+        Boolean valor = (Boolean) tablaComentarios.getValueAt(row, 7);
         if (valor) {
             ventanaPrincipal.activarRegistrarComentario(isbn, nombreLibro);
         }

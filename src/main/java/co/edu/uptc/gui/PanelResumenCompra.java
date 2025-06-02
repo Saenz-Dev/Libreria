@@ -101,6 +101,7 @@ public class PanelResumenCompra extends JPanel {
         labelDescuentoValor = new JLabel(format.format(0));
         labelDescuentoFrecuenteValor = new JLabel(format.format(0));
         botonComprar = new JButton("Comprar");
+        botonComprar.setPreferredSize(new Dimension(150, 40));
         gbc = new GridBagConstraints();
     }
 
@@ -121,6 +122,7 @@ public class PanelResumenCompra extends JPanel {
         gbc.weighty = 1.0;
         gbc.weightx = 1.0;
 
+        gbc.insets = new Insets(4, 10, 4, 10);
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -153,7 +155,7 @@ public class PanelResumenCompra extends JPanel {
         gbc.gridy = 6;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.SOUTH;
         add(botonComprar, gbc);
 

@@ -28,15 +28,11 @@ public class GestionUsuario {
 
     private CarritoDAO carritoDAO;
 
+
     private Usuario usuarioLog;
 
     /**
-     * Instancia de Manejo de usuarios con JSON
-     */
-    private ManejoUsuarioJSON manejoUsuarioJSON;
-
-    /**
-     * Instancia de Expresión regular
+     * Instancia de Expresión
      */
     private Expresion expresion;
 
@@ -46,76 +42,23 @@ public class GestionUsuario {
     private Administrador administrador;
 
     public Usuario userLog() throws SQLException, RuntimeException {
-	usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
-	usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));
-	return usuarioLog;
-    }
-
-    public Cuenta crearCuentaUsuarioDefault() {
-	Cuenta cuenta = new Cuenta();
-	cuenta.setCorreo("user_default");
-	cuenta.setContrasena("NN");
-	cuenta.setLog(false);
-	return cuenta;
-    }
-
-    public Usuario crearUsuarioDefault() {
-	Usuario usuario = new Usuario();
-	Cuenta cuenta = new Cuenta();
-	cuenta.setCorreo("user_default");
-	usuario.setNombre("Default");
-	usuario.setDireccionEnvio("NN");
-	usuario.setTelefono(0);
-	usuario.setTipoCliente(TipoUsuario.Regular);
-	usuario.setDescuentoTipoUsuario(0);
-	usuario.setCuenta(cuenta);
-	return usuario;
-    }
-
-    public Cuenta crearCuentaAdmin() {
-	Cuenta cuenta = new Cuenta();
-	cuenta.setCorreo("administrador");
-	cuenta.setContrasena("");
-	cuenta.setLog(false);
-	return cuenta;
-    }
-
-    public Usuario crearUsuarioAdmin() {
-	Usuario usuario = new Usuario();
-	Cuenta cuenta = new Cuenta();
-	cuenta.setCorreo("administrador");
-	usuario.setNombre("administrador");
-	usuario.setDireccionEnvio("");
-	usuario.setTelefono(0);
-	usuario.setTipoCliente(TipoUsuario.Regular);
-	usuario.setDescuentoTipoUsuario(0);
-	usuario.setCuenta(cuenta);
-	return usuario;
-    }
-
-    /**
-     * Metodo que devuelve la instancia de ManejoUsuarioJSON
-     *
-     * @return instancia de ManejoUsuarioJSON
-     */
-    public ManejoUsuarioJSON getManejoUsuarioJSON() {
-	return manejoUsuarioJSON;
+        usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
+        usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));
+        return usuarioLog;
     }
 
     /**
      * Constructor de la clase
-     * 
+     *
      * @throws SQLException
      */
-    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, CuentaDAO cuentaDAO, CarritoDAO carritoDAO)
-	    throws SQLException {
-	usuarioLog = new Usuario();
-	this.cuentaDAO = cuentaDAO;
-	this.usuarioDAO = usuarioDAO;
-	this.carritoDAO = carritoDAO;
-	manejoUsuarioJSON = new ManejoUsuarioJSON(tienda);
-	expresion = new Expresion();
-	administrador = new Administrador();
+    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, CuentaDAO cuentaDAO, CarritoDAO carritoDAO) throws SQLException {
+        usuarioLog = new Usuario();
+        this.cuentaDAO = cuentaDAO;
+        this.usuarioDAO = usuarioDAO;
+        this.carritoDAO = carritoDAO;
+        expresion = new Expresion();
+        administrador = new Administrador();
     }
 
 
@@ -126,27 +69,27 @@ public class GestionUsuario {
      *                                  con las reglas
      */
     public void registrarUsuario(Usuario usuario) throws RuntimeException, SQLException {
-	if (cuentaDAO.seleccionarRegistro(usuario.getCuenta()) != null) {
-	    RegistroLog.registrarAdvertencia("Intento de registrar un correo ya existente: " + usuario.getCuenta().getCorreo());
-	    throw new IllegalArgumentException("El correo '" + usuario.getCuenta().getCorreo() + "' ya está vinculado a otra cuenta");
-	}
-	expresion.validarDatosObligatoriosUser(usuario);
-	expresion.validarDatosUsuario(usuario);
-	Usuario usuarioGuardar = convertirUsuario(usuario);
-	usuarioGuardar.getCuenta().setLog(false);
-	cuentaDAO.insertarDatos(usuarioGuardar.getCuenta());
-	usuarioDAO.insertarDatos(usuarioGuardar);
+        if (cuentaDAO.seleccionarRegistro(usuario.getCuenta()) != null) {
+            RegistroLog.registrarAdvertencia("Intento de registrar un correo ya existente: " + usuario.getCuenta().getCorreo());
+            throw new IllegalArgumentException("El correo '" + usuario.getCuenta().getCorreo() + "' ya está vinculado a otra cuenta");
+        }
+        expresion.validarDatosObligatoriosUser(usuario);
+        expresion.validarDatosUsuario(usuario);
+        Usuario usuarioGuardar = convertirUsuario(usuario);
+        usuarioGuardar.getCuenta().setLog(false);
+        cuentaDAO.insertarDatos(usuarioGuardar.getCuenta());
+        usuarioDAO.insertarDatos(usuarioGuardar);
     }
 
     public Usuario convertirUsuario(Usuario usuario) {
-	Usuario usuarioGuardar;
-	if (usuario.getTipoCliente().equals(TipoUsuario.Premium)) {
-	    usuarioGuardar = new UsuarioPremium(usuario);
-	    usuarioGuardar.setTipoCliente(TipoUsuario.Premium);
-	} else {
-	    usuarioGuardar = new UsuarioRegular(usuario);
-	}
-	return usuarioGuardar;
+        Usuario usuarioGuardar;
+        if (usuario.getTipoCliente().equals(TipoUsuario.Premium)) {
+            usuarioGuardar = new UsuarioPremium(usuario);
+            usuarioGuardar.setTipoCliente(TipoUsuario.Premium);
+        } else {
+            usuarioGuardar = new UsuarioRegular(usuario);
+        }
+        return usuarioGuardar;
     }
 
     /**
@@ -158,14 +101,14 @@ public class GestionUsuario {
      *                                  con las reglas
      */
     public void iniciarSesion(String correo, String contrasena) throws IllegalArgumentException, SQLException {
-	Cuenta cuenta = new Cuenta();
-	cuenta.setCorreo(correo);
-	cuenta.setContrasena(contrasena);
-	validarCamposVaciosLogin(correo, contrasena);
-	Usuario usuario = new Usuario();
-	usuario.getCuenta().setCorreo(correo);
-	usuario.getCuenta().setContrasena(contrasena);
-	validarDatosLogin(cuenta);
+        Cuenta cuenta = new Cuenta();
+        cuenta.setCorreo(correo);
+        cuenta.setContrasena(contrasena);
+        validarCamposVaciosLogin(correo, contrasena);
+        Usuario usuario = new Usuario();
+        usuario.getCuenta().setCorreo(correo);
+        usuario.getCuenta().setContrasena(contrasena);
+        validarDatosLogin(cuenta);
     }
 
     /**
@@ -175,42 +118,49 @@ public class GestionUsuario {
      * @throws IllegalArgumentException si el usuario no existe
      */
     public boolean validarDatosLogin(Cuenta cuenta) throws SQLException {
-	Cuenta cuentaEncontrada = cuentaDAO.seleccionarRegistro(cuenta);
-	Usuario usuarioLog = new Usuario();
-	usuarioLog.setCuenta(cuentaEncontrada);// Creo y asigno la cuenta al usuario para seleccionar el registro
-					       // despues para asignar a una variable de Usuario el usuario logueado
-	validarCuentaBuscada(cuenta, cuentaEncontrada);
+        Cuenta cuentaEncontrada = cuentaDAO.seleccionarRegistro(cuenta); //Consulta la cuenta en la base de datos
+        Usuario usuarioLog = new Usuario(); // Creo un usuario para signar la cuenta encontrada
+        usuarioLog.setCuenta(cuentaEncontrada);// Asigno la cuenta al usuario para seleccionar el registro despues para asignar a una variable de Usuario el usuario logueado
+        validarCuentaBuscada(cuenta, cuentaEncontrada); // Valido que la cuenta no sea nula
 
-	cuentaEncontrada.setLog(true);
-	this.usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
-	LibroCarrito libroCarrito = new LibroCarrito();
-	libroCarrito.setCorreo_usuario("user_default");
-	if (libroCarrito == null || libroCarrito.getCorreo_usuario() == null || libroCarrito.getCorreo_usuario().isBlank()) {
-	    RegistroLog.registrarAdvertencia("❗ Se intentó seleccionar registros con un correo de usuario nulo o vacío.");
-	    throw new RuntimeException("⚠️ No se proporcionó un usuario válido para consultar su carrito.");
-	}
-	ArrayList<LibroCarrito> librosCarritoDefault = carritoDAO.seleccionarRegistros(libroCarrito);
-	for (LibroCarrito libroCarritoDefault : librosCarritoDefault) {
-	    libroCarritoDefault.setCorreo_usuario(usuarioLog.getCuenta().getCorreo());
-	    libroCarrito.setIsbn_libro(libroCarritoDefault.getIsbn_libro());
-	    carritoDAO.insertarDatos(libroCarritoDefault);
-	    carritoDAO.eliminarRegistro(libroCarrito);
-	}
+        cuentaEncontrada.setLog(true); // Actualizo el estado de la cuenta logueada
+        this.usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog); // Selecciono el usuario logueado en la BD con la cuenta encontrada
+        if (usuarioLog.getCuenta().getCorreo().equals(Administrador.CORREO)) {
+            return false;
+        }
+        LibroCarrito libroCarrito = new LibroCarrito(); // Creo un libroCarrito para seleccionar los registros del carrito del usuario default
+        libroCarrito.setCorreo_usuario("user_default"); //
+        if (libroCarrito == null || libroCarrito.getCorreo_usuario() == null || libroCarrito.getCorreo_usuario().isBlank()) {
+            RegistroLog.registrarAdvertencia("❗ Se intentó seleccionar registros con un correo de usuario nulo o vacío.");
+            throw new RuntimeException("⚠️ No se proporcionó un usuario válido para consultar su carrito.");
+        }
+        ArrayList<LibroCarrito> librosCarritoDefault = carritoDAO.seleccionarRegistros(libroCarrito); // Selecciono los libros del carrito del usuario default
+        for (LibroCarrito libroCarritoDefault : librosCarritoDefault) {
+            libroCarritoDefault.setCorreo_usuario(usuarioLog.getCuenta().getCorreo()); // Seteo el correo del usuario logueado
+            libroCarrito.setIsbn_libro(libroCarritoDefault.getIsbn_libro()); // Seteo el isbn del libro del carrito
+            carritoDAO.insertarDatos(libroCarritoDefault); // Inserto el libro del carrito de usuario default en el carrito del usuario logueado
+            carritoDAO.eliminarRegistro(libroCarrito); // Elimino el libro del carrito del usuario default
+        }
 
-	cuentaDAO.actualizarDatos(cuentaEncontrada);
-	return true;
+        cuentaDAO.actualizarDatos(cuentaEncontrada); // Actualizo la cuenta logueada en la base de datos
+        return true;
     }
 
     private void validarCuentaBuscada(Cuenta cuenta, Cuenta cuentaEncontrada) {
-	if (cuentaEncontrada == null) {
-	    RegistroLog.registrarAdvertencia("❌ Intento de inicio de sesión con correo no registrado: " + cuenta.getCorreo());
-	    throw new IllegalArgumentException("El usuario ingresado no está registrado.");
-	}
+        if (cuentaEncontrada == null) {
+            RegistroLog.registrarAdvertencia("❌ Intento de inicio de sesión con correo no registrado: " + cuenta.getCorreo());
+            throw new IllegalArgumentException("El usuario ingresado no está registrado.");
+        }
 
-	if (!cuentaEncontrada.getContrasena().equals(cuenta.getContrasena())) {
-	    RegistroLog.registrarAdvertencia("❌ Contraseña incorrecta para el correo: " + cuenta.getCorreo());
-	    throw new IllegalArgumentException("La contraseña es incorrecta. Inténtalo de nuevo.");
-	}
+        if (!cuentaEncontrada.getContrasena().equals(cuenta.getContrasena())) {
+            RegistroLog.registrarAdvertencia("❌ Contraseña incorrecta para el correo: " + cuenta.getCorreo());
+            throw new IllegalArgumentException("El correo o la contraseña es incorrecta.");
+        }
+
+        if (cuentaEncontrada.getCorreo().equals(Administrador.CORREO) && !cuentaEncontrada.getContrasena().equals(cuenta.getContrasena())) {
+            RegistroLog.registrarAdvertencia("❌ Contraseña incorrecta para el administrador: " + cuenta.getCorreo());
+            throw new IllegalArgumentException("El correo o la contraseña es incorrecta.");
+        }
     }
 
     /**
@@ -218,29 +168,28 @@ public class GestionUsuario {
      *
      * @param correo     correo del usuario
      * @param contrasena contraseña del usuario
-     * @throws IllegalArgumentException si alguno de los datos del inicio de sesión
-     *                                  no cumple con las reglas
+     * @throws IllegalArgumentException si alguno de los datos del inicio de sesión no cumple con las reglas
      */
     public void validarCamposVaciosLogin(String correo, String contrasena) throws IllegalArgumentException {
-	if (!correo.equals(Administrador.CORREO)) {
-	    if (correo.isBlank() && contrasena.isBlank()) {
-		throw new IllegalArgumentException("Complete los campos de texto.");
-	    } else if (correo.isBlank()) {
-		throw new IllegalArgumentException("Ingrese un correo.");
-	    } else if (contrasena.isBlank()) {
-		throw new IllegalArgumentException("Ingrese una contraseña.");
-	    }
-	}
+        if (!correo.equals(Administrador.CORREO)) {
+            if (correo.isBlank() && contrasena.isBlank()) {
+                throw new IllegalArgumentException("Complete los campos de texto.");
+            } else if (correo.isBlank()) {
+                throw new IllegalArgumentException("Ingrese un correo.");
+            } else if (contrasena.isBlank()) {
+                throw new IllegalArgumentException("Ingrese una contraseña.");
+            }
+        }
     }
 
     /**
      * Valida si el correo del administrador es el del usuario logueado
      *
      * @return retorna true si el correo del administrador es el del usuario
-     *         logueado
+     * logueado
      */
     public boolean isAdminLogin() {
-	return usuarioLog.getCuenta().getCorreo().equals(administrador.getCORREO());
+        return usuarioLog.getCuenta().getCorreo().equals(administrador.getCORREO());
     }
 
     /**
@@ -249,7 +198,7 @@ public class GestionUsuario {
      * @return retorna true si el usuario logueado es el default
      */
     public boolean isDefaultUserLogin() {
-	return this.usuarioLog.getCuenta().getCorreo().equals("user_default");
+        return this.usuarioLog.getCuenta().getCorreo().equals("user_default");
     }
 
     /**
@@ -262,34 +211,34 @@ public class GestionUsuario {
      *                                  con las reglas
      */
     public void modificarUsuario(Usuario usuario) throws IllegalArgumentException, SQLException {
-	expresion.validarDatosUsuario(usuario);
-	if (usuario.getTipoCliente().equals(TipoUsuario.Premium)) {
-	    UsuarioPremium usuarioPremium = new UsuarioPremium(usuario);
-	    usuarioDAO.actualizarDatos(usuarioPremium);
-	    cuentaDAO.actualizarDatos(usuarioPremium.getCuenta());
-	    return;
-	}
-	usuarioDAO.actualizarDatos(usuario);
-	cuentaDAO.actualizarDatos(usuario.getCuenta());
+        expresion.validarDatosUsuario(usuario);
+        if (usuario.getTipoCliente().equals(TipoUsuario.Premium)) {
+            UsuarioPremium usuarioPremium = new UsuarioPremium(usuario);
+            usuarioDAO.actualizarDatos(usuarioPremium);
+            cuentaDAO.actualizarDatos(usuarioPremium.getCuenta());
+            return;
+        }
+        usuarioDAO.actualizarDatos(usuario);
+        cuentaDAO.actualizarDatos(usuario.getCuenta());
     }
 
     public void cerrarSesionUsuario(boolean cerrarAplicacion) throws RuntimeException, IOException, SQLException {
-	usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
-	usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));
-	usuarioLog.getCuenta().setLog(false);
-	RegistroLog.registrarInfo(usuarioLog.getCuenta().getCorreo() + " cerró la sesión.");
-	usuarioDAO.actualizarDatos(this.usuarioLog);
-	cuentaDAO.actualizarDatos(this.usuarioLog.getCuenta());
-	asignarUsuarioGenerico();
-	if (cerrarAplicacion) {
-	    RegistroLog.fileHandler.close();
-	}
+        usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
+        usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));
+        usuarioLog.getCuenta().setLog(false);
+        RegistroLog.registrarInfo(usuarioLog.getCuenta().getCorreo() + " cerró la sesión.");
+        usuarioDAO.actualizarDatos(this.usuarioLog);
+        cuentaDAO.actualizarDatos(this.usuarioLog.getCuenta());
+        asignarUsuarioGenerico();
+        if (cerrarAplicacion) {
+            RegistroLog.fileHandler.close();
+        }
     }
 
     public void asignarUsuarioGenerico() throws SQLException {
-	Usuario usuario = new Usuario();
-	usuario.setCuenta(new Cuenta());
-	usuario.getCuenta().setCorreo("user_default");
-	this.usuarioLog = usuarioDAO.seleccionarRegistro(usuario);
+        Usuario usuario = new Usuario();
+        usuario.setCuenta(new Cuenta());
+        usuario.getCuenta().setCorreo("user_default");
+        this.usuarioLog = usuarioDAO.seleccionarRegistro(usuario);
     }
 }

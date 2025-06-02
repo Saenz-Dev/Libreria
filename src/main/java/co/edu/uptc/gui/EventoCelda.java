@@ -19,7 +19,7 @@ public class EventoCelda implements CellEditorListener {
     public void editingStopped(ChangeEvent e) {
         int fila = tablaCompras.getSelectedRow();
         String isbn = (String) tablaCompras.getValueAt(fila, 0);
-        Boolean valor = (Boolean) tablaCompras.getValueAt(fila, 4);
+        Boolean valor = (Boolean) tablaCompras.getValueAt(fila, 7);
         if (valor) {
             ventanaPrincipal.eliminarProductoTabla(isbn);
             ((DefaultTableModel) tablaCompras.getModel()).removeRow(fila);

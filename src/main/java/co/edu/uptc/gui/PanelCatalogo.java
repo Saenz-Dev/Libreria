@@ -1,21 +1,12 @@
 package co.edu.uptc.gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.Insets;
+import java.awt.*;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
@@ -32,16 +23,24 @@ import co.edu.uptc.modelo.Libro;
  */
 public class PanelCatalogo extends JPanel {
 
-    /** Etiqueta que muestra el título del panel. */
+    /**
+     * Etiqueta que muestra el título del panel.
+     */
     private JLabel labelTitulo;
 
-    /** Panel que contiene la lista de libros. */
+    /**
+     * Panel que contiene la lista de libros.
+     */
     private JPanel panelLibros;
 
-    /** Número de columnas en la disposición del panel de libros. */
+    /**
+     * Número de columnas en la disposición del panel de libros.
+     */
     private int conteoColumnas;
 
-    /** Número de filas en la disposición del panel de libros. */
+    /**
+     * Número de filas en la disposición del panel de libros.
+     */
     private int conteoFilas;
 
     /**
@@ -49,229 +48,255 @@ public class PanelCatalogo extends JPanel {
      */
     private GridBagLayout gbPanelLibros;
 
-    /** Restricciones para la disposición de los libros dentro del panel. */
+    /**
+     * Restricciones para la disposición de los libros dentro del panel.
+     */
     private GridBagConstraints gbcPanelLibros;
-    
+
     private GridBagConstraints gbc;
 
-    /** Panel con barra de desplazamiento que contiene el panel de libros. */
+    /**
+     * Panel con barra de desplazamiento que contiene el panel de libros.
+     */
     private JScrollPane scrollPanelLibros;
 
-    /** Formateador de números para mostrar precios u otros valores numéricos. */
+    /**
+     * Formateador de números para mostrar precios u otros valores numéricos.
+     */
     private NumberFormat numberFormat;
 
-    /** Referencia a la ventana principal de la aplicación. */
+    /**
+     * Referencia a la ventana principal de la aplicación.
+     */
     private VentanaPrincipal ventanaPrincipal;
-    
+
     private JLabel labelSinLibros;
-    
+
     private final Color COLOR_FONDO = new Color(244, 246, 248);
-    
+
     private final Color BORDE_TARJETA = new Color(144, 164, 174);
 
     /**
      * Constructor del panel del catalogo.
-     * 
+     *
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.
      */
     public PanelCatalogo(VentanaPrincipal ventanaPrincipal) {
-	initAtributos(ventanaPrincipal);
-	gbc = new GridBagConstraints();
-	personalizarFont();
-	setupPanel();
+        initAtributos(ventanaPrincipal);
+        gbc = new GridBagConstraints();
+        personalizarFont();
+        setupPanel();
 
-	gbc.weightx = 1.0;
-	gbc.insets = new Insets(5, 30, 5, 5);
-	gbc.fill = GridBagConstraints.HORIZONTAL;
-	gbc.anchor = GridBagConstraints.WEST;
-	gbc.gridy = 0;
-	gbc.gridx = 0;
-	gbc.gridwidth = 3;
-	add(labelTitulo, gbc);
+        gbc.weightx = 1.0;
+        gbc.insets = new Insets(5, 30, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridwidth = 3;
+        add(labelTitulo, gbc);
 
-	gbc.gridwidth = 1;
-	gbc.weighty = 0.9;
-	gbc.insets = new Insets(10, 10, 10, 10);
-	gbc.fill = GridBagConstraints.BOTH;
-	gbc.gridy = 1;
-	panelLibros.setBorder(null);
-	scrollPanelLibros = new JScrollPane(panelLibros);
-	scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
-	scrollPanelLibros.setBorder(null);
+        gbc.gridwidth = 1;
+        gbc.weighty = 0.9;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridy = 1;
+        panelLibros.setBorder(new LineBorder(BORDE_TARJETA, 2, true));
+        scrollPanelLibros = new JScrollPane(panelLibros);
+        scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
+        scrollPanelLibros.setPreferredSize(new Dimension(800, 600));
+        scrollPanelLibros.setOpaque(false);
+        scrollPanelLibros.getViewport().setOpaque(false);
+        scrollPanelLibros.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPanelLibros.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+        scrollPanelLibros.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPanelLibros.setViewportBorder(null);
+        scrollPanelLibros.setViewportView(panelLibros);
 
-	add(scrollPanelLibros, gbc);
-	repaint();
+        scrollPanelLibros.setBorder(null);
+
+        add(scrollPanelLibros, gbc);
+        repaint();
     }
 
     private void setupPanel() {
-	setBackground(COLOR_FONDO);
+        setBackground(COLOR_FONDO);
     }
 
     /**
      * Personaliza el formato de los textos del panel.
      */
     private void personalizarFont() {
-	Font font = new Font("Arial", Font.BOLD, 30);
-	labelTitulo = new JLabel("Catálogo de Libros");
-	labelTitulo.setFont(font);
+        Font font = new Font("Arial", Font.BOLD, 30);
+        labelTitulo = new JLabel("Catálogo de Libros");
+        labelTitulo.setFont(font);
     }
-
-    Image imagen;
 
     /**
      * Inicializa los atributos del panel del catalogo.
-     * 
+     *
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.
      */
     private void initAtributos(VentanaPrincipal ventanaPrincipal) {
-	setLayout(new GridBagLayout());
-	gbcPanelLibros = new GridBagConstraints();
-	gbPanelLibros = new GridBagLayout();
-	panelLibros = new JPanel(gbPanelLibros);
-	panelLibros.setOpaque(false);
-	this.ventanaPrincipal = ventanaPrincipal;
-	conteoFilas = 0;
-	conteoColumnas = 0;
-	numberFormat = NumberFormat.getCurrencyInstance();
-	numberFormat.setMinimumFractionDigits(0);
-	labelSinLibros = new JLabel("No hay libros registrados");
+        setLayout(new GridBagLayout());
+        gbcPanelLibros = new GridBagConstraints();
+        gbPanelLibros = new GridBagLayout();
+        panelLibros = new JPanel(gbPanelLibros);
+        panelLibros.setPreferredSize(new Dimension(100, 100));
+        panelLibros.setOpaque(false);
+        panelLibros.setOpaque(false);
+        this.ventanaPrincipal = ventanaPrincipal;
+        conteoFilas = 0;
+        conteoColumnas = 0;
+        numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat.setMinimumFractionDigits(0);
+        labelSinLibros = new JLabel("No hay libros registrados");
     }
 
-    
+
     public void crearTablaLibros(ArrayList<Libro> catalogo) {
-	if (catalogo == null || catalogo.isEmpty()) {
-	    repintarPanelLibros();
-	    return;
-	}
-	labelSinLibros.setVisible(false);
-	DefaultTableModel tableModel = new DefaultTableModel();
-	NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
-	numberFormat.setMinimumFractionDigits(0);
-	tableModel.setColumnIdentifiers(new Object[]{"ISBN", "Titulo", "Autor", "Año", "Categoria", "Editorial", "#Paginas", "Precio", "Disponible", "Reservado", "Tipo"});
-	for (Libro libro : catalogo) {
-	    tableModel.addRow(new Object[]{libro.getIsbn(), libro.getTitulo(), libro.getAutor(), libro.getAnioPublicacion(), libro.getCategoria(), libro.getEditorial(), libro.getNumeroPaginas(), numberFormat.format(libro.getPrecioVenta()),  libro.getStockDisponible(), libro.getStockReservado(), libro.getTipoLibro()});
-	}
-	
-	JTable tabla = new JTable(tableModel);
-	tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-	dimensionarTabla(tabla);
-	
-	JTableHeader tableHeader = tabla.getTableHeader();
-	tableHeader.setBackground(new Color(0x24242C));
-	tableHeader.setForeground(Color.WHITE);
-	tableHeader.setFont(new Font("Arial", Font.BOLD, 12));
-	remove(scrollPanelLibros);
-	gbc.gridwidth = 1;
-	gbc.weighty = 0.9;
-	gbc.insets = new Insets(10, 10, 10, 10);
-	gbc.fill = GridBagConstraints.BOTH;
-	gbc.gridy = 1;
-	scrollPanelLibros = new JScrollPane(tabla);
-	scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
-	scrollPanelLibros.setBorder(null);
-	add(scrollPanelLibros, gbc);
-	
-	revalidate();
-	repaint();
-	//tabla.getColumnModel().getColumn(0).setPreferredWidth();
-	
+        if (catalogo == null || catalogo.isEmpty()) {
+            repintarPanelLibros();
+            return;
+        }
+        labelSinLibros.setVisible(false);
+        DefaultTableModel tableModel = new DefaultTableModel();
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat.setMinimumFractionDigits(0);
+        tableModel.setColumnIdentifiers(new Object[]{"ISBN", "Titulo", "Autor", "Año", "Categoria", "Editorial", "#Paginas", "Precio", "Disponible", "Reservado", "Tipo"});
+        for (Libro libro : catalogo) {
+            tableModel.addRow(new Object[]{libro.getIsbn(), libro.getTitulo(), libro.getAutor(), libro.getAnioPublicacion(), libro.getCategoria(), libro.getEditorial(), libro.getNumeroPaginas(), numberFormat.format(libro.getPrecioVenta()), libro.getStockDisponible(), libro.getStockReservado(), libro.getTipoLibro()});
+        }
+
+        JTable tabla = new JTable(tableModel);
+        tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        personalizarTabla(tabla);
+        JTableHeader tableHeader = tabla.getTableHeader();
+        tableHeader.setBackground(new Color(0x24242C));
+        tableHeader.setForeground(Color.WHITE);
+        tableHeader.setFont(new Font("Arial", Font.BOLD, 12));
+        remove(scrollPanelLibros);
+        gbc.gridwidth = 1;
+        gbc.weighty = 0.9;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridy = 1;
+        scrollPanelLibros = new JScrollPane(tabla);
+        scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
+        scrollPanelLibros.setBorder(null);
+        add(scrollPanelLibros, gbc);
+
+        revalidate();
+        repaint();
     }
-    
-    public void dimensionarTabla(JTable table) {
-	table.getColumnModel().getColumn(0).setPreferredWidth(120);
-	table.getColumnModel().getColumn(1).setPreferredWidth(120);
-	table.getColumnModel().getColumn(2).setPreferredWidth(100);
-	table.getColumnModel().getColumn(3).setPreferredWidth(40);
-	table.getColumnModel().getColumn(4).setPreferredWidth(90);
-	table.getColumnModel().getColumn(5).setPreferredWidth(90);
-	table.getColumnModel().getColumn(6).setPreferredWidth(50);
-	table.getColumnModel().getColumn(7).setPreferredWidth(90);
-	table.getColumnModel().getColumn(8).setPreferredWidth(90);
-	table.getColumnModel().getColumn(9).setPreferredWidth(90);
-	table.getColumnModel().getColumn(10).setPreferredWidth(90);
+
+    public void personalizarTabla(JTable tabla) {
+        tabla.setRowHeight(30);
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabla.setFont(new Font("Arial", Font.PLAIN, 14));
+        tabla.setSelectionBackground(new Color(0xE0E0E0));
+        tabla.setSelectionForeground(Color.BLACK);
+        tabla.setGridColor(Color.LIGHT_GRAY);
+        tabla.setShowGrid(true);
+        tabla.setIntercellSpacing(new Dimension(1, 1));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        centerRenderer.setPreferredSize(new Dimension(200, 30));
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            TableColumn column = tabla.getColumnModel().getColumn(i);
+            column.setPreferredWidth(150);
+        }
     }
-    
+
     /**
      * Crea paneles de libros a partir de un mapa de libros que son los libros
      * disponibles en el catálogo.
-     * 
+     *
      * @param mapLibros Libros en el catalogo.
      */
     public void crearPanelesLibros(ArrayList<Libro> catalogo) {
-	
-	remove(scrollPanelLibros);
-	panelLibros.removeAll();
-	gbc.gridwidth = 1;
-	gbc.weighty = 0.9;
-	gbc.insets = new Insets(10, 10, 10, 10);
-	gbc.fill = GridBagConstraints.BOTH;
-	gbc.gridy = 1;
-	scrollPanelLibros = new JScrollPane(panelLibros);
-	scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
-	scrollPanelLibros.setBorder(null);
-	
-	add(scrollPanelLibros, gbc);
-	conteoColumnas = 0;
-	conteoFilas = 0;
 
-	gbcPanelLibros.weighty = 1;
-	gbcPanelLibros.weightx = 1;
-	gbcPanelLibros.anchor = GridBagConstraints.NORTHWEST;
+        remove(scrollPanelLibros);
+        panelLibros.removeAll();
+        gbc.gridwidth = 1;
+        gbc.weighty = 0.9;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridy = 1;
+        scrollPanelLibros = new JScrollPane(panelLibros);
+        scrollPanelLibros.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPanelLibros.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
+        scrollPanelLibros.setPreferredSize(panelLibros.getSize());
 
-	for (Libro libro : catalogo) {
-	    anadirPanelLibro(libro);
-	}
+        scrollPanelLibros.setBorder(null);
 
-	if (panelLibros.getComponentCount() == 0) {
-	    repintarPanelLibros();
-	    panelLibros.revalidate();
-	    panelLibros.repaint();
-	}
-	revalidate();
-	repaint();
+        add(scrollPanelLibros, gbc);
+        conteoColumnas = 0;
+        conteoFilas = 0;
+
+        gbcPanelLibros.weighty = 1;
+        gbcPanelLibros.weightx = 1;
+        gbcPanelLibros.anchor = GridBagConstraints.NORTHWEST;
+
+        for (Libro libro : catalogo) {
+            anadirPanelLibro(libro);
+        }
+
+        if (panelLibros.getComponentCount() == 0) {
+            repintarPanelLibros();
+            panelLibros.revalidate();
+            panelLibros.repaint();
+        }
+        gbcPanelLibros.gridy++;
+        gbcPanelLibros.weighty = 10;
+        panelLibros.add(new JLabel(), gbcPanelLibros);
+        revalidate();
+        repaint();
     }
 
     private void anadirPanelLibro(Libro libro) {
-	PanelLibro panelLibro = new PanelLibro(ventanaPrincipal, libro);
-	panelLibro.setPreferredSize(new Dimension(270, 180));
-	panelLibro.setBorder(new LineBorder(BORDE_TARJETA, 2, true));
-	anadirLibrosPanel(panelLibro);
+        PanelLibro panelLibro = new PanelLibro(ventanaPrincipal, libro);
+        panelLibro.setPreferredSize(new Dimension(270, 180));
+        panelLibro.setBorder(new LineBorder(BORDE_TARJETA, 2, true));
+        anadirLibrosPanel(panelLibro);
     }
 
     /**
      * Repinta el panel de libros.
      */
     public void repintarPanelLibros() {
-	gbcPanelLibros.gridy = 0;
-	gbcPanelLibros.gridx = 0;
-	gbcPanelLibros.weightx = 1;
-	gbcPanelLibros.weighty = 1;
-	gbcPanelLibros.fill = GridBagConstraints.CENTER;
-	conteoFilas = 0;
-	labelSinLibros.setVisible(true);
-	panelLibros.add(labelSinLibros, gbcPanelLibros);
+        gbcPanelLibros.gridy = 0;
+        gbcPanelLibros.gridx = 0;
+        gbcPanelLibros.weightx = 1;
+        gbcPanelLibros.weighty = 1;
+        gbcPanelLibros.fill = GridBagConstraints.CENTER;
+        conteoFilas = 0;
+        labelSinLibros.setVisible(true);
+        panelLibros.add(labelSinLibros, gbcPanelLibros);
     }
 
     /**
      * Agrega un panel al panel del Catalogo que representa un libro al panel del
      * catalogo.
-     * 
+     *
      * @param panelLibro Panel del libro a agregar.
      */
     public void anadirLibrosPanel(PanelLibro panelLibro) {
-	gbcPanelLibros.weightx = 1.0;
-	gbcPanelLibros.insets = new Insets(10, 10, 10, 10);
-	gbcPanelLibros.fill = GridBagConstraints.NONE;
-	gbcPanelLibros.gridwidth = 1;
-	
-	gbcPanelLibros.gridx = conteoColumnas;
-	gbcPanelLibros.gridy = conteoFilas;
-	panelLibros.add(panelLibro, gbcPanelLibros);
+        gbcPanelLibros.weightx = 1.0;
+        gbcPanelLibros.insets = new Insets(10, 10, 10, 10);
+        gbcPanelLibros.fill = GridBagConstraints.NONE;
+        gbcPanelLibros.gridwidth = 1;
 
-	conteoColumnas++;
-	if (conteoColumnas == 2) {
-	    conteoColumnas = 0;
-	    conteoFilas++;
-	}
+        gbcPanelLibros.gridx = conteoColumnas;
+        gbcPanelLibros.gridy = conteoFilas;
+        panelLibros.add(panelLibro, gbcPanelLibros);
+
+        conteoColumnas++;
+        if (conteoColumnas == 4) {
+            conteoColumnas = 0;
+            conteoFilas++;
+        }
     }
 }

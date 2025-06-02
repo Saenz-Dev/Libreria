@@ -7,9 +7,6 @@ import java.io.Serializable;
  */
 public class ValorCompra implements Serializable{
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 7831877015225731172L;
 
     /**

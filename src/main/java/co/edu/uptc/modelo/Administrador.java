@@ -16,6 +16,8 @@ public class Administrador implements Serializable {
      */
     public static final String CORREO = "administrador";
 
+    public static final String CONTRASENA = "rA!92gT@xQ#7lVeM";
+
     /**
      * Constructor de la clase
      */
@@ -28,5 +30,9 @@ public class Administrador implements Serializable {
      */
     public String getCORREO() {
         return CORREO;
+    }
+
+    public String getCONTRASENA() {
+        return CONTRASENA;
     }
 }

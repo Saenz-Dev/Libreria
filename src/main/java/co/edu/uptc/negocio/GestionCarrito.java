@@ -60,10 +60,9 @@ public class GestionCarrito {
     /**
      * Constructor de la clase
      *
-     * @param manejoUsuarioJSON Instancia deManejo de usuarios con JSON
      * @throws SQLException
      */
-    public GestionCarrito(ManejoUsuarioJSON manejoUsuarioJSON, Tienda tienda, CarritoDAO carritoDAO,
+    public GestionCarrito(Tienda tienda, CarritoDAO carritoDAO,
 	    UsuarioDAO usuarioDAO, CuentaDAO cuentaDAO, LibroDAO libroDAO, GestionUsuario gestionUsuario)
 	    throws SQLException {
 	carrito = new Carrito();

@@ -22,10 +22,11 @@ public class Expresion {
     public static final String EXPRESION_NUMERO_PAGINAS = "^[0-9]{1,4}$";
     public static final String EXPRESION_DIRECCION = "^([\\w\\s#.-]+),\\s*[\\p{L}\\s]+,\\s*[\\p{L}\\s]+$";
     public static final String EXPRESION_CORREO = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}+$";
-    public static final String EXPRESION_CONTRASENA = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*()\\-+\\.])[a-zA-Z\\d!@#$%^&*()\\-+\\.]{8,}$";;
+    public static final String EXPRESION_CONTRASENA = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*()\\-+\\.])[a-zA-Z\\d!@#$%^&*()\\-+\\.]{8,}$";
     public static final String EXPRESION_ISBN = "^(978|979)(-?[0-9]){10}$";
     public static final String EXPRESION_ANO_PUBLICACION = "^[0-9]{4}$";
-    public static final String EXPRESION_CONTRASENA_ADMIN = "^(?=.*[a-zA-Z])[a-zA-Z\\d]{8,}$";
+    public static final String EXPRESION_CONTRASENA_ADMIN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+=\\-{}\\[\\]:;\"'<>.,?/\\\\])[a-zA-Z\\d!@#$%^&*()_+=\\-{}\\[\\]:;\"'<>.,?/\\\\]{16,}$";
+
 
     /**
      * Metodo que valida los datos del usuario en el formulario
@@ -35,29 +36,35 @@ public class Expresion {
      *                                  reglas
      */
     public void validarDatosUsuario(Usuario usuario) throws IllegalArgumentException {
-	StringBuilder sb = new StringBuilder();
-	if (!usuario.getCuenta().getCorreo().equals(Administrador.CORREO)) {
-	    if (!usuario.getCuenta().getCorreo().matches(EXPRESION_CORREO)) {
-		sb.append("El correo debe tener la estructura usuario@dominio.extension\n");
-	    }
-	    if (!usuario.getCuenta().getContrasena().matches(EXPRESION_CONTRASENA)) {
-		sb.append("La contraseña debe tener al menos ocho letras, un número y un caracter especial.\n");
-	    }
-	    
-	    if (!String.valueOf(usuario.getTelefono()).matches(EXPRESION_NUMERICA_TELEFONO)) {
-		sb.append("El telefono debe comenzar con 3 y tener diez digitos sin espacios\n");
-	    }
-	    if (!usuario.getDireccionEnvio().matches(EXPRESION_DIRECCION)) {
-		sb.append("Estructura de la dirección ej: Calle 123 #45-67, Bogotá, Colombia\n");
-	    }
-	    if (!usuario.getNombre().matches(EXPRESION_ALFABETICA)) {
-		sb.append("El nombre solo puede llevar letras\n");
-	    }
-	    if (!sb.isEmpty()) {
-		RegistroLog.registrarAdvertencia(sb.toString());
-		throw new IllegalArgumentException(sb.toString());
-	    }
-	}
+        StringBuilder sb = new StringBuilder();
+        if (usuario.getCuenta().getCorreo().equals(Administrador.CORREO)) {
+            if (!usuario.getCuenta().getContrasena().matches(EXPRESION_CONTRASENA_ADMIN)) {
+                throw new IllegalArgumentException("La contraseña del administrador debe tener al menos ocho letras.\n");
+            }
+            return;
+        }
+        if (!usuario.getCuenta().getCorreo().matches(EXPRESION_CORREO)) {
+            sb.append("Formato de correo incorrecto, ejemplo: usuario@dominio.extension\n");
+        }
+        if (!usuario.getCuenta().getContrasena().matches(EXPRESION_CONTRASENA)) {
+            sb.append("La contraseña debe tener al menos ocho letras, un número y un caracter especial.\n");
+        }
+        if (usuario.getTelefono() == -1) {
+            sb.append("El formato del teléfono es incorrecto.\n");
+        }
+        if (!String.valueOf(usuario.getTelefono()).matches(EXPRESION_NUMERICA_TELEFONO)) {
+            sb.append("Ej formato teléfono: 3 seguido de nueve números.\n");
+        }
+        if (!usuario.getDireccionEnvio().matches(EXPRESION_DIRECCION)) {
+            sb.append("Formato de dirección ej: Calle 123 #45-67, Bogotá, Colombia\n");
+        }
+        if (!usuario.getNombre().matches(EXPRESION_ALFABETICA)) {
+            sb.append("El nombre solo puede llevar letras\n");
+        }
+        if (!sb.isEmpty()) {
+            RegistroLog.registrarAdvertencia(sb.toString());
+            throw new IllegalArgumentException(sb.toString());
+        }
     }
 
     /**
@@ -68,74 +75,79 @@ public class Expresion {
      *                                  reglas
      */
     public void validarFormatoDatosLibro(Libro libro) throws IllegalArgumentException {
-	StringBuilder sb = new StringBuilder();
-	if (!libro.getIsbn().matches(EXPRESION_ISBN)) {
-	    sb.append("El ISBN debe tener al menos 13 numeros y debe comenzar con 979 0 978\n");
-	}
-	if (!libro.getAutor().matches(EXPRESION_ALFABETICA)) {
-	    sb.append("El nombre del autor solo puede tener letras\n");
-	}
-	if (String.valueOf(libro.getAnioPublicacion()).isBlank() || libro.getAnioPublicacion() != 0) {
-	    if (!String.valueOf(libro.getAnioPublicacion()).matches(EXPRESION_ANO_PUBLICACION)
-		    || libro.getAnioPublicacion() > LocalDate.now().getYear()) {
-		sb.append("El año de publicación debe tener cuatro digitos y debe ser igual o menor al actual.\n");
-	    }
-	}
-	if (!String.valueOf(libro.getNumeroPaginas()).isBlank() || libro.getNumeroPaginas() == -1) {
-	    if (!String.valueOf(libro.getNumeroPaginas()).matches(EXPRESION_NUMERO_PAGINAS)) {
-		sb.append("Numero de páginas invalido\n");
-	    }
-	}
-	if (!String.valueOf((int) libro.getPrecioVenta()).matches(EXPRESION_NUMERICA_PRECIO)) {
-	    sb.append("Precio Unitario del libro invalido.\n");
-	}
-	if (!String.valueOf(libro.getStockDisponible()).matches(EXPRESION_NUMERICA_PRECIO)) {
-	    sb.append("Cantidad ingresada invalida\n");
-	}
-	if (!sb.isEmpty()) {
-	    RegistroLog.registrarAdvertencia(sb.toString());
-	    throw new IllegalArgumentException(sb.toString());
-	}
+        StringBuilder sb = new StringBuilder();
+        if (!libro.getIsbn().matches(EXPRESION_ISBN)) {
+            sb.append("El ISBN debe con 979 o 978 seguido de 10 números.\n");
+        }
+        if (!libro.getAutor().matches(EXPRESION_ALFABETICA)) {
+            sb.append("El nombre del autor solo puede tener letras\n");
+        }
+        if (String.valueOf(libro.getAnioPublicacion()).isBlank() || libro.getAnioPublicacion() != 0) {
+            if (libro.getAnioPublicacion() == -1) {
+                sb.append("El año de publicación no es válido.\n");
+            } else if (libro.getAnioPublicacion() < -1) {
+                sb.append("El año de publicación debe ser positivo.\n");
+            }
+            if (!String.valueOf(libro.getAnioPublicacion()).matches(EXPRESION_ANO_PUBLICACION) || libro.getAnioPublicacion() > LocalDate.now().getYear()) {
+                sb.append("El año de publicación debe tener cuatro digitos y debe ser igual o menor al actual.\n");
+            }
+        }
+        if (!String.valueOf(libro.getNumeroPaginas()).isBlank() || libro.getNumeroPaginas() == -1) {
+            if (!String.valueOf(libro.getNumeroPaginas()).matches(EXPRESION_NUMERO_PAGINAS)) {
+                sb.append("Numero de páginas invalido\n");
+            } else if (libro.getNumeroPaginas() < -1) {
+                sb.append("El número de páginas debe ser positivo.\n");
+            }
+        }
+        if (!String.valueOf((int) libro.getPrecioVenta()).matches(EXPRESION_NUMERICA_PRECIO) || libro.getPrecioVenta() == -1) {
+            sb.append("Precio Unitario del libro invalido.\n");
+        } else if (libro.getPrecioVenta() < -1) {
+            sb.append("El precio debe ser positivo.\n");
+        }
+
+        if (!String.valueOf(libro.getStockDisponible()).matches(EXPRESION_NUMERICA_PRECIO) || libro.getStockDisponible() == -1) {
+            sb.append("Cantidad ingresada invalida\n");
+        } else if (libro.getStockDisponible() < -1) {
+            sb.append("El stock disponible debe ser positivo.\n");
+        }
+
+        if (!sb.isEmpty()) {
+            RegistroLog.registrarAdvertencia(sb.toString());
+            throw new IllegalArgumentException(sb.toString());
+        }
     }
 
     /**
-     * Metodo que valida los datos del usuario en el formulario
+     * Metodo que valida los datos del libro en el formulario
      *
      * @param libro libro a validar
      * @throws IllegalArgumentException si alguno de los campos no cumple con las
      *                                  reglas
      */
     public void validarDatosObligatorios(Libro libro) throws IllegalArgumentException {
-	if (libro.getIsbn() == null || libro.getIsbn().isBlank() || 
-	        libro.getTitulo() == null || libro.getTitulo().isBlank() || 
-	        libro.getAutor() == null || libro.getAutor().isBlank()) {
-	    	RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
-	        throw new IllegalArgumentException("Los campos con * con obligatorios.");
-	    }
-	
-	if (libro.getPrecioVenta() < 0 || libro.getStockDisponible() < 0 || libro.getNumeroPaginas() < 0) {
-	    RegistroLog.registrarAdvertencia("Precio, Stock y Páginas deben ser positivos");
-	    throw new IllegalArgumentException("Precio, Stock y Páginas deben ser positivos.");
-	    }
-	if (libro.getPrecioVenta() == 0 || libro.getNumeroPaginas() == 0) {
-	    RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
-	    throw new IllegalArgumentException("Los campos con * con obligatorios.");
-	}
-    } 	
+        if (libro.getIsbn() == null || libro.getIsbn().isBlank() || libro.getTitulo() == null || libro.getTitulo().isBlank() || libro.getAutor() == null || libro.getAutor().isBlank() || libro.getNumeroPaginas() == 0 || libro.getPrecioVenta() == 0 || libro.getStockDisponible() == 0 || libro.getCategoria() == null || libro.getTipoLibro() == null || libro.getEditorial() == null) {
+            RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
+            throw new IllegalArgumentException("Los campos con * con obligatorios.");
+        }
+    }
 
     /**
      * Valida los datos obligatorios del usuario.
-     * 
+     *
      * @param usuario usuario para validar los datos.
      * @throws RuntimeException si algún campo de texto que es obligatorio está
      *                          vacío.
      */
     public void validarDatosObligatoriosUser(Usuario usuario) throws RuntimeException {
-	if (usuario.getNombre().isBlank() || String.valueOf(usuario.getTelefono()).isBlank()
-		|| usuario.getDireccionEnvio().isBlank() || usuario.getCuenta().getCorreo().isBlank()
-		|| usuario.getCuenta().getContrasena().isBlank()) {
-	    RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
-	    throw new IllegalArgumentException("Los campos con * son obligatorios.\n");
-	}
+        if (usuario.getCuenta().getCorreo() == Administrador.CORREO) {
+            if (usuario.getCuenta().getContrasena() == null || usuario.getCuenta().getContrasena().isBlank()) {
+                RegistroLog.registrarAdvertencia("La contraseña del administrador es obligatoria.");
+                throw new RuntimeException("La contraseña del administrador es obligatoria.");
+            }
+        }
+        if (usuario.getNombre().isBlank() || String.valueOf(usuario.getTelefono()).isBlank() || usuario.getTelefono() == 0 || usuario.getDireccionEnvio().isBlank() || usuario.getCuenta().getCorreo().isBlank() || usuario.getCuenta().getContrasena().isBlank()) {
+            RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
+            throw new IllegalArgumentException("Los campos con * son obligatorios.\n");
+        }
     }
 }

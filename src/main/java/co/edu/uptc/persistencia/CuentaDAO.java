@@ -37,7 +37,7 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
             preparedStatement.setBoolean(2, cuenta.isLog());
             preparedStatement.setString(3, cuenta.getCorreo());
             int filasActualizadas = preparedStatement.executeUpdate();
-           if (filasActualizadas > 0) {
+            if (filasActualizadas > 0) {
                 RegistroLog.registrarInfo("✔ Cuenta actualizada correctamente con correo: " + cuenta.getCorreo());
             } else {
                 RegistroLog.registrarAdvertencia("⚠ No se encontró ninguna cuenta con el correo: " + cuenta.getCorreo());
@@ -51,10 +51,7 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
 
     @Override
     public Cuenta seleccionarRegistro(Cuenta cuenta) throws SQLException, RuntimeException {
-	 if (cuenta == null || cuenta.getCorreo() == null || cuenta.getCorreo().isBlank()) {
-	        RegistroLog.registrarAdvertencia("Intento de búsqueda de cuenta con correo nulo o vacío.");
-	        throw new RuntimeException("⚠ El correo proporcionado no es válido.");
-	    }
+
         String sentencia = "SELECT * FROM cuentas WHERE correo = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.setString(1, cuenta.getCorreo());

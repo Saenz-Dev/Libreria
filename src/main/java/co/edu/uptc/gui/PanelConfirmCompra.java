@@ -3,8 +3,10 @@ package co.edu.uptc.gui;
 import co.edu.uptc.modelo.*;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -84,7 +86,7 @@ public class PanelConfirmCompra extends JDialog {
     private void preferenciasPanel() {
         setLayout(new GridBagLayout());
         initAtributos();
-        setSize(600, 400);
+        setSize(800, 600);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -123,37 +125,37 @@ public class PanelConfirmCompra extends JDialog {
 
         DefaultTableModel tableModel = getDefaultTableModel();
 
-
         for (ProductoCompra productoCompra : listaCarrito) {
             String isbn = productoCompra.getIsbn();
             String tituloLibro = productoCompra.getTitulo();
             int cantidad = productoCompra.getNumeroLibros();
+            double valorUnitario = productoCompra.getPrecioUnitario();
+            double impuestoTotalProducto = productoCompra.getImpuestoTotal();
+            double impuesto = productoCompra.getImpuestoUnitario();
             double valor = productoCompra.getPrecioTotal();
-            tableModel.addRow(new Object[]{isbn, tituloLibro, cantidad, format.format(valor), false});
+            tableModel.addRow(new Object[]{isbn, tituloLibro, format.format(valorUnitario), format.format(impuesto), cantidad, format.format(impuestoTotalProducto), format.format(valor), false});
         }
 
-        tableModel.addRow(new Object[]{"", "", "Subtotal", format.format(valorCompra.getSubtotal())});
-        tableModel.addRow(new Object[]{"", "", "Impuestos", "+ " +  format.format(valorCompra.getImpuestos())});
-        tableModel.addRow(new Object[]{"", "", "Desc. Premium", "- " +  format.format(valorCompra.getDescuentoPremium())});
-        tableModel.addRow(new Object[]{"", "", "Des. Frecuencia", "- " +  format.format(valorCompra.getDescuentoFrecuencia())});
-        tableModel.addRow(new Object[]{"", "", "Total", format.format(valorCompra.getTotal())});
+        tableModel.addRow(new Object[]{"", "", "", "", "", "Subtotal", format.format(valorCompra.getSubtotal())});
+        tableModel.addRow(new Object[]{"", "", "", "", "", "Impuestos", "+ " +  format.format(valorCompra.getImpuestos())});
+        tableModel.addRow(new Object[]{"", "", "", "", "", "Desc. Premium", "- " +  format.format(valorCompra.getDescuentoPremium())});
+        tableModel.addRow(new Object[]{"", "", "", "", "", "Des. Frecuencia", "- " +  format.format(valorCompra.getDescuentoFrecuencia())});
+        tableModel.addRow(new Object[]{"", "", "", "", "", "Total", format.format(valorCompra.getTotal())});
 
         tablaCompras = new JTable(tableModel);
-
-        tablaCompras.getColumnModel().getColumn(4).setCellRenderer(new EventoRenderTable());
+        personalizarTabla(tablaCompras);
+        tablaCompras.getColumnModel().getColumn(7).setCellRenderer(new EventoRenderTable());
 
         tablaCompras.getDefaultEditor(Boolean.class).addCellEditorListener(new EventoCelda(tablaCompras, ventanaPrincipal));
         tablaCompras.revalidate();
         tablaCompras.repaint();
-        tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        //tablaCompras.setSize(300, 100);
 
         JTableHeader tableHeader = tablaCompras.getTableHeader();
         tableHeader.setBackground(new Color(0x24242C));
         tableHeader.setForeground(Color.WHITE);
         tableHeader.setFont(new Font("Arial", Font.BOLD, 12));
         scroll = new JScrollPane(tablaCompras);
-        scroll.setPreferredSize(new Dimension(380, 100));
+        scroll.setPreferredSize(new Dimension(500, 300));
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         add(scroll, gbc);
@@ -161,15 +163,35 @@ public class PanelConfirmCompra extends JDialog {
         repaint();
     }
 
+    public void personalizarTabla(JTable tabla) {
+        tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabla.setRowHeight(30);
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabla.setFont(new Font("Arial", Font.PLAIN, 14));
+        tabla.setSelectionBackground(new Color(0xE0E0E0));
+        tabla.setSelectionForeground(Color.BLACK);
+        tabla.setGridColor(Color.LIGHT_GRAY);
+        tabla.setShowGrid(true);
+        tabla.setIntercellSpacing(new Dimension(1, 1));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        centerRenderer.setPreferredSize(new Dimension(200, 30));
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            TableColumn column = tabla.getColumnModel().getColumn(i);
+            column.setPreferredWidth(150);
+        }
+    }
+
     private static DefaultTableModel getDefaultTableModel() {
-        String[] cabecera = {"ISBN", "Producto", "Cantidad", "Valor", "Eliminar"};
+        String[] cabecera = {"ISBN", "Producto", "V.Unitario", "V.Impuesto", "Cantidad","T.Impuesto", "V.Total", "Eliminar"};
         DefaultTableModel tableModel = new DefaultTableModel() {
             public Class<?> getColumnClass(int indexColumna) {
-                return indexColumna == 4 ?  Boolean.class : String.class;
+                return indexColumna == 7 ?  Boolean.class : String.class;
             }
 
             public boolean isCellEditable(int row, int column) {
-                return column == 4 && tieneCheckBox(row);
+                return column == 7 && tieneCheckBox(row);
             }
 
             public boolean tieneCheckBox(int fila) {

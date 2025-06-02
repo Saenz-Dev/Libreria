@@ -14,11 +14,12 @@ public class PanelComentario extends JDialog {
     private JLabel labelComentario;
     private JScrollPane scrollPane;
     private GridBagConstraints gbc;
+    private JButton botonCerrar;
 
     public PanelComentario() {
         setLayout(new GridBagLayout());
         setTitle("Calificaciones y comentarios");
-        setSize(500, 450);
+        setSize(500, 550);
         setModal(true);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -32,7 +33,9 @@ public class PanelComentario extends JDialog {
 
         scrollPane = new JScrollPane();
         scrollPane.setPreferredSize(new Dimension(400, 300));
-
+        botonCerrar = new JButton("Cerrar");
+        botonCerrar.setPreferredSize(new Dimension(100, 30));
+        botonCerrar.addActionListener(e -> dispose());
         gbc = new GridBagConstraints();
         gbc.gridy = 0;
         gbc.gridx = 0;
@@ -40,7 +43,8 @@ public class PanelComentario extends JDialog {
         gbc.insets = new Insets(10, 10, 10, 10);
         add(labelComentario, gbc);
 
-
+        gbc.gridy = 2;
+        add(botonCerrar, gbc);
     }
 
     public void repintarComentarios(Stack<Comentario> stackComentarios) {
@@ -98,8 +102,12 @@ public class PanelComentario extends JDialog {
         if (scrollPane != null) {
             remove(scrollPane);
         }
+        reubicarScroll(gbcComentarios, panelComentarios);
+    }
+
+    private void reubicarScroll(GridBagConstraints gbcComentarios, JPanel panelComentarios) {
         gbcComentarios.gridy++;
-        gbcComentarios.weighty = 4;
+        gbcComentarios.weighty = 1;
         panelComentarios.add(new JLabel(), gbcComentarios);
         scrollPane = new JScrollPane(panelComentarios);
         scrollPane.setPreferredSize(new Dimension(400, 300));

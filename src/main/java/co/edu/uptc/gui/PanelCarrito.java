@@ -1,16 +1,13 @@
 package co.edu.uptc.gui;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.LineBorder;
 
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.ProductoCompra;
@@ -106,7 +103,7 @@ public class PanelCarrito extends JPanel {
         gbcGeneral.weightx = 1.0;
         gbcGeneral.fill = GridBagConstraints.HORIZONTAL;
         gbcGeneral.anchor = GridBagConstraints.NORTHWEST;
-        gbcGeneral.insets = new Insets(5, 5, 5, 5);
+        gbcGeneral.insets = new Insets(10, 10, 10, 10);
 
         labelTitulo = new JLabel("Mi carrito");
         Font fontTitulo = new Font("Arial", Font.BOLD, 30);
@@ -128,6 +125,7 @@ public class PanelCarrito extends JPanel {
         }
 
         panelProductos = new JPanel(new GridBagLayout());
+        panelProductos.setBorder(new LineBorder(Color.DARK_GRAY));
         gbcPanelProductos = new GridBagConstraints();
         gbcPanelProductos.insets = new Insets(5, 5, 5, 5);
         gbcPanelProductos.gridy = 0;
@@ -138,28 +136,32 @@ public class PanelCarrito extends JPanel {
         gbcGeneral.gridheight = 1;
         gbcGeneral.weighty = 1;
         gbcGeneral.fill = GridBagConstraints.BOTH;
+        gbcGeneral.insets.bottom = 0;
 
         agregarJScroll();
 
         gbcGeneral.weighty = 0.1;
         gbcGeneral.gridy = 2;
         gbcGeneral.gridx = 0;
-        gbcGeneral.insets = new Insets(0, 10, 0, 10);
-        gbcGeneral.anchor = GridBagConstraints.SOUTH;
+        gbcGeneral.insets = new Insets(0, 200, 10, 10);
+        gbcGeneral.anchor = GridBagConstraints.CENTER;
         gbcGeneral.fill = GridBagConstraints.HORIZONTAL;
         add(panelResumenCompra, gbcGeneral);
-        revalidate();
-        repaint();
+        panelProductos.revalidate();
+        panelProductos.repaint();
+        panelResumenCompra.revalidate();
+        panelResumenCompra.repaint();
+
     }
 
     private void agregarJScroll() {
         if (scrollPane != null) {
+            gbcGeneral.insets.left = 5;
             remove(scrollPane);
         }
 
         scrollPane = new JScrollPane(panelProductos);
         scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-        scrollPane.setPreferredSize(new Dimension(200, 300));
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         add(scrollPane, gbcGeneral);
     }
@@ -219,7 +221,7 @@ public class PanelCarrito extends JPanel {
      */
     public void modificarValores(ValorCompra valorCompra) {
         panelResumenCompra.modificarValor(valorCompra);
-        repaint();
+        panelResumenCompra.repaint();
     }
 
 

@@ -37,7 +37,7 @@ public class PanelModificarUsuario extends JDialog {
     private JTextField txtCorreo;
 
     /** Campo de texto para ingresar la contraseña del usuario. */
-    private JTextField txtContrasena;
+    private JPasswordField txtContrasena;
 
     /** Campo de texto para ingresar la dirección del usuario. */
     private JTextField txtDireccion;
@@ -234,7 +234,7 @@ public class PanelModificarUsuario extends JDialog {
         txtNombre = new JTextField(20);
         txtCorreo = new JTextField(20);
         txtCorreo.setEditable(false);
-        txtContrasena = new JTextField(20);
+        txtContrasena = new JPasswordField(20);
         txtDireccion = new JTextField(20);
         txtTelefono = new JTextField(20);
         String[] tiposCliente = {"Regular", "Premium"};
@@ -247,17 +247,23 @@ public class PanelModificarUsuario extends JDialog {
 
     public Usuario obtenerDatos() {
         Usuario usuario = new Usuario();
-        try {
-            usuario.setNombre(getTxtNombre());
-            usuario.setDireccionEnvio(getTxtDireccion());
-            usuario.setTelefono(Long.parseLong(getTxtTelefono()));
-            usuario.setTipoCliente(TipoUsuario.Regular);
-            usuario.getCuenta().setCorreo(getTxtCorreo());
-            usuario.getCuenta().setContrasena(getTxtContrasena());
-            return usuario;
-        } catch (RuntimeException e) {
-            throw new RuntimeException("Verifica que el teléfono no contenga:\n-Caracteres especiales\n-Espacios\n-Signos de puntación");
+        usuario.setNombre(getTxtNombre());
+        usuario.setDireccionEnvio(getTxtDireccion());
+        usuario.setTipoCliente(getCbTipoCliente());
+        usuario.getCuenta().setCorreo(getTxtCorreo());
+        usuario.getCuenta().setContrasena(getTxtContrasena());
+        if (getTxtTelefono() == null || getTxtTelefono().isBlank() || getTxtTelefono().isEmpty()) {
+            usuario.setTelefono(0);
+        } else if (!getTxtTelefono().matches("^[0-9]+$")) {
+            usuario.setTelefono(-1);
+        } else {
+            try {
+                usuario.setTelefono(Long.parseLong(getTxtTelefono()));
+            } catch (NumberFormatException e) {
+                throw new RuntimeException("El teléfono debe ser un número válido.");
+            }
         }
+        return usuario;
     }
 
     public void llenarCampos(Usuario usuario) {

@@ -6,11 +6,12 @@ import java.util.*;
 
 public class Tienda implements Serializable {
 
-    /**
-    * 
-    */
     private static final long serialVersionUID = 4563764538288413272L;
-    private Map<String, ArrayList<Libro>> mapLibros;
+    
+    /**
+     * 
+     */
+    private Map<String, ArrayList<Libro>> mapLibros; 
     private ArrayList<Usuario> usuarios;
     private TreeMap<String, ArrayList<Recibo>> productoCompras;
     private TreeMap<String, Stack<Comentario>> mapComentarios;

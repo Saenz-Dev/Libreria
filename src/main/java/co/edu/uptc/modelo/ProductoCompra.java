@@ -17,8 +17,26 @@ public class ProductoCompra implements Serializable {
     private double precioTotal;
     private double descuentoPremium;
     private double descuentoFrecuencia;
+    private double impuestoUnitario;
+    private double impuestoTotal;
 
     public ProductoCompra() {}
+
+    public double getImpuestoUnitario() {
+        return impuestoUnitario;
+    }
+
+    public void setImpuestoUnitario(double impuestoUnitario) {
+        this.impuestoUnitario = impuestoUnitario;
+    }
+
+    public double getImpuestoTotal() {
+        return impuestoTotal;
+    }
+
+    public void setImpuestoTotal(double impuestoTotal) {
+        this.impuestoTotal = impuestoTotal;
+    }
 
     public String getIsbn() {
         return isbn;
