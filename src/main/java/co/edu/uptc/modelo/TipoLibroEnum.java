@@ -3,7 +3,7 @@ package co.edu.uptc.modelo;
 /**
  * Representa los diferentes formatos en los que un libro puede estar disponible.
  */
-public enum TipoLibro {
+public enum TipoLibroEnum {
 
     /** Libro en formato físico (impreso en papel). */
     FISICO,

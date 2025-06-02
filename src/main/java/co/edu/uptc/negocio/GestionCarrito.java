@@ -5,18 +5,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.TreeMap;
 
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Carrito;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.LibroCarrito;
-import co.edu.uptc.modelo.ProductoCompra;
 import co.edu.uptc.modelo.Recibo;
 import co.edu.uptc.modelo.ResumenProductoDTO;
 import co.edu.uptc.modelo.Tienda;
 import co.edu.uptc.modelo.Usuario;
-import co.edu.uptc.modelo.ValorCompra;
+import co.edu.uptc.modelo.ResumenCompra;
 import co.edu.uptc.persistencia.CarritoDAO;
 import co.edu.uptc.persistencia.CuentaDAO;
 import co.edu.uptc.persistencia.LibroDAO;
@@ -453,8 +451,8 @@ public class GestionCarrito {
      * @throws RuntimeException 
      * @throws SQLException 
      */
-    public ValorCompra calculoResumenCompra(ReciboDAO reciboDAO) throws IOException, SQLException, RuntimeException {
-	ValorCompra valorCompra = new ValorCompra();
+    public ResumenCompra calculoResumenCompra(ReciboDAO reciboDAO) throws IOException, SQLException, RuntimeException {
+	ResumenCompra resumenCompra = new ResumenCompra();
 	LibroCarrito libroCarrito = new LibroCarrito();
 	libroCarrito.setCorreo_usuario(gestionUsuario.userLog().getCuenta().getCorreo());
 	if (libroCarrito == null || libroCarrito.getCorreo_usuario() == null || libroCarrito.getCorreo_usuario().isBlank()) {
@@ -463,25 +461,25 @@ public class GestionCarrito {
 	}
 	ArrayList<LibroCarrito> librosCarritoUsuario = carritoDAO.seleccionarRegistros(libroCarrito);
 	RegistroLog.registrarInfo("📦 Se encontraron " + librosCarritoUsuario.size() + " libros en el carrito del usuario: " + libroCarrito.getCorreo_usuario());
-	setValorCompra(valorCompra, librosCarritoUsuario);
+	setValorCompra(resumenCompra, librosCarritoUsuario);
 	Recibo recibo = new Recibo();
 	recibo.setCorreo(gestionUsuario.userLog().getCuenta().getCorreo());
-	setTotal(reciboDAO, valorCompra, recibo);
-	return valorCompra;
+	setTotal(reciboDAO, resumenCompra, recibo);
+	return resumenCompra;
     }
 
-    private void setTotal(ReciboDAO reciboDAO, ValorCompra valorCompra, Recibo recibo)
+    private void setTotal(ReciboDAO reciboDAO, ResumenCompra resumenCompra, Recibo recibo)
 	    throws IOException, SQLException {
-	valorCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(recibo), valorCompra.getTotal()));
-	valorCompra.setTotal(valorCompra.getTotal() - valorCompra.getDescuentoPremium());
+	resumenCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(recibo), resumenCompra.getTotal()));
+	resumenCompra.setTotal(resumenCompra.getTotal() - resumenCompra.getDescuentoPremium());
     }
 
-    private void setValorCompra(ValorCompra valorCompra, ArrayList<LibroCarrito> librosCarritoUsuario)
+    private void setValorCompra(ResumenCompra resumenCompra, ArrayList<LibroCarrito> librosCarritoUsuario)
 	    throws SQLException {
-	valorCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUsuario, libroDAO));
-	valorCompra.setSubtotal(calculadoraIVA.subtotal(librosCarritoUsuario, libroDAO));
-	valorCompra.setTotal(calculadoraIVA.total(valorCompra.getSubtotal(), valorCompra.getImpuestos()));
-	valorCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(valorCompra.getTotal(), gestionUsuario.userLog()));
+	resumenCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUsuario, libroDAO));
+	resumenCompra.setSubtotal(calculadoraIVA.subtotal(librosCarritoUsuario, libroDAO));
+	resumenCompra.setTotal(calculadoraIVA.total(resumenCompra.getSubtotal(), resumenCompra.getImpuestos()));
+	resumenCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(resumenCompra.getTotal(), gestionUsuario.userLog()));
     }
 
     

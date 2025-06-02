@@ -1,5 +1,5 @@
 package co.edu.uptc.modelo;
 
-public enum TipoResultado {
+public enum TipoResultadoEnum {
     EXITO, ERROR;
 }

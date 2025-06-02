@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 import co.edu.uptc.modelo.CategoriaLibro;
 import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.modelo.TipoLibro;
+import co.edu.uptc.modelo.TipoLibroEnum;
 
 public class PanelRegistrarLibro extends JDialog {
 
@@ -211,7 +211,7 @@ public class PanelRegistrarLibro extends JDialog {
             try {
                 return Integer.parseInt(txtNumeroPaginas.getText());
             } catch (NumberFormatException e) {
-                throw new RuntimeException("El número de páginas debe ser un número válido.");
+                throw new RuntimeException("El número de páginas debe ser un número válido menor a 5000.");
             }
         }
     }
@@ -225,12 +225,12 @@ public class PanelRegistrarLibro extends JDialog {
         if (txtPrecio == null || txtPrecio.getText().isBlank() || txtPrecio.getText().isEmpty()) {
             return 0;
         } else if (!txtPrecio.getText().matches("^[0-9]+$")) {
-            return -1; // Indica un error en el formato del número de páginas
+            return -0.1; // Indica un error en el formato del número de páginas
         } else {
             try {
                 return Integer.parseInt(txtPrecio.getText());
             } catch (NumberFormatException e) {
-                throw new RuntimeException("El precio debe ser un número válido.");
+                throw new RuntimeException("El precio debe ser un número válido menor a $10.000.000");
             }
         }
     }
@@ -242,14 +242,14 @@ public class PanelRegistrarLibro extends JDialog {
      */
     public int getTxtCantidad() {
         if (txtCantidad == null || txtCantidad.getText().isBlank() || txtCantidad.getText().isEmpty()) {
-            return 0;
+            return -999;
         } else if (!txtCantidad.getText().matches("^[0-9]+$")) {
             return -1; // Indica un error en el formato del número de páginas
         } else {
             try {
                 return Integer.parseInt(txtCantidad.getText());
             } catch (NumberFormatException e) {
-                throw new RuntimeException("La cantidad debe ser un número válido.");
+                throw new RuntimeException("La cantidad debe ser un número válido, menor a 5000");
             }
         }
 
@@ -260,8 +260,8 @@ public class PanelRegistrarLibro extends JDialog {
      *
      * @return Formato del libro como un objeto TipoLibro.
      */
-    public TipoLibro getTxtFormato() {
-        return txtFormato.getSelectedItem().toString().equals(String.valueOf(TipoLibro.FISICO)) ? TipoLibro.FISICO : TipoLibro.DIGITAL;
+    public TipoLibroEnum getTxtFormato() {
+        return txtFormato.getSelectedItem().toString().equals(String.valueOf(TipoLibroEnum.FISICO)) ? TipoLibroEnum.FISICO : TipoLibroEnum.DIGITAL;
     }
 
     /**
@@ -502,7 +502,7 @@ public class PanelRegistrarLibro extends JDialog {
         txtCantidad = new JTextField(5);
 
         txtCategoria = new JComboBox<>(CategoriaLibro.values());
-        txtFormato = new JComboBox<>(TipoLibro.values());
+        txtFormato = new JComboBox<>(TipoLibroEnum.values());
 
         botonAgregar = new JButton("Agregar");
         botonCancelar = new JButton("Cancelar");

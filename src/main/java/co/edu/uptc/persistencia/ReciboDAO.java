@@ -3,16 +3,12 @@ package co.edu.uptc.persistencia;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.ProductoCompra;
 import co.edu.uptc.modelo.Recibo;
-import co.edu.uptc.modelo.TipoPago;
-import co.edu.uptc.modelo.ValorCompra;
+import co.edu.uptc.modelo.TipoPagoEnum;
 
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
-import java.rmi.registry.Registry;
 import java.sql.*;
 import java.util.ArrayList;
-
-import com.mysql.cj.jdbc.exceptions.SQLError;
 
 public class ReciboDAO extends ConexionBD<Recibo> {
 
@@ -91,7 +87,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     reciboQuery.setNumeroRecibo(resultSet.getInt(2));
                     reciboQuery.setCorreo(resultSet.getString(3));
                     reciboQuery.setFecha(resultSet.getTimestamp(4).toLocalDateTime());
-                    reciboQuery.setTipoPago(TipoPago.valueOf(resultSet.getString(5)));
+                    reciboQuery.setTipoPago(TipoPagoEnum.valueOf(resultSet.getString(5)));
                     reciboQuery.setDireccion(resultSet.getString(6));
 
                     ProductoCompra productoCompra = new ProductoCompra();
@@ -136,7 +132,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     reciboQuery.setNumeroRecibo(resultSet.getInt(2));
                     reciboQuery.setCorreo(resultSet.getString(3));
                     reciboQuery.setFecha(resultSet.getTimestamp(4).toLocalDateTime());
-                    reciboQuery.setTipoPago(TipoPago.valueOf(resultSet.getString(5)));
+                    reciboQuery.setTipoPago(TipoPagoEnum.valueOf(resultSet.getString(5)));
                     reciboQuery.setDireccion(resultSet.getString(6));
 
                     ProductoCompra productoCompra = new ProductoCompra();
@@ -172,7 +168,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     reciboQuery.setNumeroRecibo(resultSet.getInt(2));
                     reciboQuery.setCorreo(resultSet.getString(3));
                     reciboQuery.setFecha(resultSet.getTimestamp(4).toLocalDateTime());
-                    reciboQuery.setTipoPago(TipoPago.valueOf(resultSet.getString(5)));
+                    reciboQuery.setTipoPago(TipoPagoEnum.valueOf(resultSet.getString(5)));
                     reciboQuery.setDireccion(resultSet.getString(6));
 
                     ProductoCompra productoCompra = new ProductoCompra();
@@ -217,7 +213,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                 recibo.setCorreo(resultSet.getString(2));
                 recibo.setNombreUser(resultSet.getString(3));
                 recibo.setFecha(resultSet.getTimestamp(4).toLocalDateTime());
-                recibo.setTipoPago(TipoPago.valueOf(resultSet.getString(5)));
+                recibo.setTipoPago(TipoPagoEnum.valueOf(resultSet.getString(5)));
                 recibo.setDireccion(resultSet.getString(6));
                 recibos.add(recibo);
             }

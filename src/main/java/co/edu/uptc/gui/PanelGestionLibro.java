@@ -22,6 +22,7 @@ public class PanelGestionLibro extends JPanel {
 
         initBotones();
         asignarAccionBoton(evento);
+        personalizarBotones();
 
         add(botonRegistrar, gbc);
         gbc.gridy = 1;
@@ -43,6 +44,22 @@ public class PanelGestionLibro extends JPanel {
         botonModificar.setActionCommand(evento.VENTANA_MODIFICAR_LIBRO);
         botonEliminar.addActionListener(evento);
         botonEliminar.setActionCommand(evento.ELIMINAR_LIBRO);
+    }
+
+    private void personalizarBotones() {
+        botonRegistrar.setPreferredSize(new Dimension(200, 40));
+        botonModificar.setPreferredSize(new Dimension(200, 40));
+        botonEliminar.setPreferredSize(new Dimension(200, 40));
+        botonRegistrar.setFont(new Font("Arial", Font.BOLD, 16));
+        botonModificar.setFont(new Font("Arial", Font.BOLD, 16));
+        botonEliminar.setFont(new Font("Arial", Font.BOLD, 16));
+
+        botonRegistrar.setBackground(new Color(76, 175, 80)); // Verde
+        botonRegistrar.setForeground(Color.WHITE);
+        botonModificar.setBackground(new Color(255, 193, 7)); // Amarillo
+        botonModificar.setForeground(Color.BLACK);
+        botonEliminar.setBackground(new Color(244, 67, 54)); // Rojo
+        botonEliminar.setForeground(Color.WHITE);
     }
 
 }

@@ -16,7 +16,7 @@ public class Expresion {
     /**
      * Expresiones regulares
      */
-    public static final String EXPRESION_ALFABETICA = "^[a-zA-Z{L}\\s]+$";
+    public static final String EXPRESION_ALFABETICA = "^[a-zA-Z\\p{L}\\s]+$";
     public static final String EXPRESION_NUMERICA_TELEFONO = "^3[0-9]{9}$";
     public static final String EXPRESION_NUMERICA_PRECIO = "^[0-9]+$";
     public static final String EXPRESION_NUMERO_PAGINAS = "^[0-9]{1,4}$";
@@ -36,6 +36,7 @@ public class Expresion {
      *                                  reglas
      */
     public void validarDatosUsuario(Usuario usuario) throws IllegalArgumentException {
+        validarLongitudDatos(usuario);
         StringBuilder sb = new StringBuilder();
         if (usuario.getCuenta().getCorreo().equals(Administrador.CORREO)) {
             if (!usuario.getCuenta().getContrasena().matches(EXPRESION_CONTRASENA_ADMIN)) {
@@ -77,7 +78,7 @@ public class Expresion {
     public void validarFormatoDatosLibro(Libro libro) throws IllegalArgumentException {
         StringBuilder sb = new StringBuilder();
         if (!libro.getIsbn().matches(EXPRESION_ISBN)) {
-            sb.append("El ISBN debe con 979 o 978 seguido de 10 números.\n");
+            sb.append("El ISBN debe tener 979 o 978 seguido de 10 números.\n");
         }
         if (!libro.getAutor().matches(EXPRESION_ALFABETICA)) {
             sb.append("El nombre del autor solo puede tener letras\n");
@@ -99,7 +100,7 @@ public class Expresion {
                 sb.append("El número de páginas debe ser positivo.\n");
             }
         }
-        if (!String.valueOf((int) libro.getPrecioVenta()).matches(EXPRESION_NUMERICA_PRECIO) || libro.getPrecioVenta() == -1) {
+        if (!String.valueOf((int) libro.getPrecioVenta()).matches(EXPRESION_NUMERICA_PRECIO) || libro.getPrecioVenta() == -0.1) {
             sb.append("Precio Unitario del libro invalido.\n");
         } else if (libro.getPrecioVenta() < -1) {
             sb.append("El precio debe ser positivo.\n");
@@ -110,7 +111,7 @@ public class Expresion {
         } else if (libro.getStockDisponible() < -1) {
             sb.append("El stock disponible debe ser positivo.\n");
         }
-
+        validarLongitudDatos(libro);
         if (!sb.isEmpty()) {
             RegistroLog.registrarAdvertencia(sb.toString());
             throw new IllegalArgumentException(sb.toString());
@@ -125,7 +126,7 @@ public class Expresion {
      *                                  reglas
      */
     public void validarDatosObligatorios(Libro libro) throws IllegalArgumentException {
-        if (libro.getIsbn() == null || libro.getIsbn().isBlank() || libro.getTitulo() == null || libro.getTitulo().isBlank() || libro.getAutor() == null || libro.getAutor().isBlank() || libro.getNumeroPaginas() == 0 || libro.getPrecioVenta() == 0 || libro.getStockDisponible() == 0 || libro.getCategoria() == null || libro.getTipoLibro() == null || libro.getEditorial() == null) {
+        if (libro.getIsbn() == null || libro.getIsbn().isBlank() || libro.getTitulo() == null || libro.getTitulo().isBlank() || libro.getAutor() == null || libro.getAutor().isBlank() || libro.getNumeroPaginas() == 0 || libro.getPrecioVenta() == 0 || libro.getStockDisponible() == -999 || libro.getCategoria() == null || libro.getTipoLibro() == null || libro.getEditorial() == null) {
             RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
             throw new IllegalArgumentException("Los campos con * con obligatorios.");
         }
@@ -148,6 +149,55 @@ public class Expresion {
         if (usuario.getNombre().isBlank() || String.valueOf(usuario.getTelefono()).isBlank() || usuario.getTelefono() == 0 || usuario.getDireccionEnvio().isBlank() || usuario.getCuenta().getCorreo().isBlank() || usuario.getCuenta().getContrasena().isBlank()) {
             RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
             throw new IllegalArgumentException("Los campos con * son obligatorios.\n");
+        }
+
+    }
+
+    public void validarLongitudDatos(Usuario usuario) throws IllegalArgumentException {
+        //Por cada dato ingresado de usuario, en un StringBuilder guardar los errores que salgan de los datos que excedan los 50 caracteres
+        StringBuilder sb = new StringBuilder();
+        if (usuario.getNombre() != null && usuario.getNombre().length() > 50) {
+            sb.append("El nombre no puede exceder los 50 caracteres.\n");
+        }
+        if (usuario.getDireccionEnvio() != null && usuario.getDireccionEnvio().length() > 100) {
+            sb.append("La dirección de envío no puede exceder los 100 caracteres.\n");
+        }
+        if (usuario.getCuenta().getCorreo() != null && usuario.getCuenta().getCorreo().length() > 50) {
+            sb.append("El correo no puede exceder los 50 caracteres.\n");
+        }
+        if (usuario.getCuenta().getContrasena() != null && usuario.getCuenta().getContrasena().length() > 50) {
+            sb.append("La contraseña no puede exceder los 50 caracteres.\n");
+        }
+        if (sb.length() > 0) {
+            RegistroLog.registrarAdvertencia(sb.toString());
+            throw new IllegalArgumentException(sb.toString());
+        }
+    }
+
+    //Ahora hacer el anterior metodo pero para los datos del libro
+    public void validarLongitudDatos(Libro libro) throws IllegalArgumentException {
+        StringBuilder sb = new StringBuilder();
+        if (libro.getTitulo() != null && libro.getTitulo().length() > 100) {
+            sb.append("El título no puede exceder los 100 caracteres.\n");
+        }
+        if (libro.getAutor() != null && libro.getAutor().length() > 60) {
+            sb.append("El autor no puede exceder los 50 caracteres.\n");
+        }
+        if (libro.getCategoria() != null && libro.getCategoria().length() > 30) {
+            sb.append("La categoría no puede exceder los 30 caracteres.\n");
+        }
+        if (libro.getTipoLibro() != null && libro.getTipoLibro().toString().length() > 30) {
+            sb.append("El tipo de libro no puede exceder los 30 caracteres.\n");
+        }
+        if (libro.getEditorial() != null && libro.getEditorial().length() > 50) {
+            sb.append("La editorial no puede exceder los 50 caracteres.\n");
+        }
+        if (libro.getIsbn() != null && libro.getIsbn().length() > 13) {
+            sb.append("El ISBN no puede exceder los 13 caracteres.\n");
+        }
+        if (sb.length() > 0) {
+            RegistroLog.registrarAdvertencia(sb.toString());
+            throw new IllegalArgumentException(sb.toString());
         }
     }
 }

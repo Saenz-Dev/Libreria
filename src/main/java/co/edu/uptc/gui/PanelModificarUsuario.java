@@ -1,6 +1,6 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.TipoUsuario;
+import co.edu.uptc.modelo.TipoUsuarioEnum;
 import co.edu.uptc.modelo.Usuario;
 
 import javax.swing.*;
@@ -101,8 +101,8 @@ public class PanelModificarUsuario extends JDialog {
      * Obtiene el tipo de cliente seleccionado en el JComboBox.
      * @return el tipo de cliente como una cadena de texto.
      */
-    public TipoUsuario getCbTipoCliente() {
-        return (TipoUsuario) cbTipoCliente.getItemAt(0);
+    public TipoUsuarioEnum getCbTipoCliente() {
+        return (TipoUsuarioEnum) cbTipoCliente.getItemAt(0);
     }
 
     /**
@@ -149,7 +149,7 @@ public class PanelModificarUsuario extends JDialog {
      * Establece un nuevo tipo de cliente en el JComboBox.
      * @param tipoCliente el nuevo tipo de cliente a asignar.
      */
-    public void setCbTipoCliente(TipoUsuario tipoCliente) {
+    public void setCbTipoCliente(TipoUsuarioEnum tipoCliente) {
         cbTipoCliente.setSelectedItem(tipoCliente);
     }
 

@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -15,9 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 
-import co.edu.uptc.modelo.TipoResultado;
+import co.edu.uptc.modelo.TipoResultadoEnum;
 
 public class PanelPremium extends JDialog {
 
@@ -136,7 +134,7 @@ public class PanelPremium extends JDialog {
 	botonValidar.setActionCommand(Evento.VALIDAR_PREMIUM);
     }
 
-    public void mostrarResultado(String mensaje, TipoResultado esPremium) {
+    public void mostrarResultado(String mensaje, TipoResultadoEnum esPremium) {
 	labelProgreso.setText(mensaje);
 	labelProgreso.setVisible(true);
 

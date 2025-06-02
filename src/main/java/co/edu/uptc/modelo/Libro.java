@@ -66,7 +66,7 @@ public class Libro implements Serializable {
     /**
      * Tipo de libro
      */
-    private TipoLibro tipoLibro;
+    private TipoLibroEnum tipoLibroEnum;
 
     private boolean isComprado;
 
@@ -88,9 +88,9 @@ public class Libro implements Serializable {
      * @param numeroPaginas Número de páginas del libro
      * @param precioVenta Precio de venta del libro
      * @param stockDisponible Stock disponible del libro
-     * @param tipoLibro Tipo de libro
+     * @param tipoLibroEnum Tipo de libro
      */
-    public Libro(String isbn, String titulo, String autor, int anioPublicacion, String categoria, String editorial, int numeroPaginas, double precioVenta, int stockDisponible, TipoLibro tipoLibro) {
+    public Libro(String isbn, String titulo, String autor, int anioPublicacion, String categoria, String editorial, int numeroPaginas, double precioVenta, int stockDisponible, TipoLibroEnum tipoLibroEnum) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
@@ -100,7 +100,7 @@ public class Libro implements Serializable {
         this.numeroPaginas = numeroPaginas;
         this.precioVenta = precioVenta;
         this.stockDisponible = stockDisponible;
-        this.tipoLibro = tipoLibro;
+        this.tipoLibroEnum = tipoLibroEnum;
     }
 
     public boolean getIsComprado() {
@@ -275,16 +275,16 @@ public class Libro implements Serializable {
      * Método que devuelve el tipo de libro
      * @return tipo de libro
      */
-    public TipoLibro getTipoLibro() {
-        return tipoLibro;
+    public TipoLibroEnum getTipoLibro() {
+        return tipoLibroEnum;
     }
 
     /**
      * Método que actualiza el tipo de libro
-     * @param tipoLibro tipo de libro
+     * @param tipoLibroEnum tipo de libro
      */
-    public void setTipoLibro(TipoLibro tipoLibro) {
-        this.tipoLibro = tipoLibro;
+    public void setTipoLibro(TipoLibroEnum tipoLibroEnum) {
+        this.tipoLibroEnum = tipoLibroEnum;
     }
 
     /**

@@ -11,23 +11,20 @@ public class PanelCalificar extends JDialog {
     private JLabel labelLibro;
     private JButton botonAgregarCC;
     private JLabel labelComentario;
-    private JPanel panelCalificacion;
-    private JPanel panelComentarios;
     private GridBagConstraints gbc;
     private JTextArea textArea;
     private JSlider slider;
     private JLabel labelCalificacion;
     private String isbn;
-    private Evento evento;
+    private JButton botonCerrar;
 
     public PanelCalificar(Evento evento) {
-
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLayout(new GridBagLayout());
         setTitle("Calificación y Comentarios");
         setSize(500, 450);
         setModal(true);
         setResizable(false);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         initAtributos();
         asignarAccionBotones(evento);
@@ -53,40 +50,53 @@ public class PanelCalificar extends JDialog {
         gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.fill = GridBagConstraints.NONE;
-        personalizacionSlider();
+        personalizarComponentes();
         add(slider, gbc);
 
         gbc.gridy = 4;
-        gbc.weightx = 1;
+        gbc.weightx = 2;
         gbc.anchor = GridBagConstraints.WEST;
         add(labelComentario, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 0;
         gbc.gridy = 5;
         textArea.setPreferredSize(new Dimension(400, 100));
         add(textArea, gbc);
 
+        gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.fill = GridBagConstraints.NONE;
-        add(botonAgregarCC, gbc);
+        gbc.anchor = GridBagConstraints.EAST;
+        JPanel panelBotones = crearPanelBotones();
+        add(panelBotones, gbc);
+
         getContentPane().setBackground(new Color(0xF17431));
+    }
+
+    private JPanel crearPanelBotones() {
+        JPanel panelBotones = new JPanel();
+        panelBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        panelBotones.add(botonAgregarCC);
+        panelBotones.add(botonCerrar);
+        panelBotones.setBackground(new Color(0xF17431));
+        return panelBotones;
     }
 
     public void initAtributos() {
         labelTitulo = new JLabel("Calificaciones y comentarios ");
         labelLibro = new JLabel("9874563746543 - LIBRO");
         botonAgregarCC = new JButton("Agregar");
-        panelCalificacion = new JPanel();
-        panelComentarios = new JPanel();
         textArea = new JTextArea();
         slider = new JSlider(JSlider.HORIZONTAL, 0, 5, 0);
         gbc = new GridBagConstraints();
         labelCalificacion = new JLabel("Califica el libro: ");
         labelComentario = new JLabel("Escribe los comentarios del libro: ");
+        botonCerrar = new JButton("Cerrar");
     }
 
-    public void personalizacionSlider() {
+    public void personalizarComponentes() {
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
         slider.setMinorTickSpacing(2);
         slider.setMajorTickSpacing(1);
         slider.setPaintTicks(true);
@@ -98,6 +108,8 @@ public class PanelCalificar extends JDialog {
     public void asignarAccionBotones(Evento evento) {
         botonAgregarCC.addActionListener(evento);
         botonAgregarCC.setActionCommand(evento.REGISTRAR_COMENTARIO);
+        botonCerrar.addActionListener(evento);
+        botonCerrar.setActionCommand(evento.CERRAR_CALIFICAR);
     }
 
     public void setLabelLibro(String isbn, String nombreLibro) {
@@ -116,14 +128,6 @@ public class PanelCalificar extends JDialog {
         comentario.setComentario(textArea.getText());
         comentario.setCalificacion(slider.getValue());
         return comentario;
-    }
-
-    public String getTextoArea() {
-        return textArea.getText();
-    }
-
-    public int getCalificacion() {
-        return slider.getValue();
     }
 
     public String getIsbn() {

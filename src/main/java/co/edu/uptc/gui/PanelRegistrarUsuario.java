@@ -1,6 +1,6 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.TipoUsuario;
+import co.edu.uptc.modelo.TipoUsuarioEnum;
 import co.edu.uptc.modelo.Usuario;
 
 import javax.swing.*;
@@ -138,8 +138,8 @@ public class PanelRegistrarUsuario extends JDialog {
      *
      * @return Tipo de cliente como una cadena de texto.
      */
-    public TipoUsuario getCbTipoCliente() {
-        return (TipoUsuario) cbTipoCliente.getSelectedItem();
+    public TipoUsuarioEnum getCbTipoCliente() {
+        return (TipoUsuarioEnum) cbTipoCliente.getSelectedItem();
     }
 
     /**
@@ -230,7 +230,7 @@ public class PanelRegistrarUsuario extends JDialog {
 
         txtDireccion = new JTextField(20);
         txtTelefono = new JTextField(20);
-        cbTipoCliente = new JComboBox<>(TipoUsuario.values());
+        cbTipoCliente = new JComboBox<>(TipoUsuarioEnum.values());
         labelTitulo = new JLabel("Registrar Usuario");
         botonRegistrar = new JButton("Registrar");
         botonCancelar = new JButton("Cancelar");

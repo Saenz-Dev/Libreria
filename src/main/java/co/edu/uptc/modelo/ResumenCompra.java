@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Representa el valor de una compra, incluyendo subtotal, impuestos y total.
  */
-public class ValorCompra implements Serializable{
+public class ResumenCompra implements Serializable{
 
     private static final long serialVersionUID = 7831877015225731172L;
 
@@ -35,7 +35,7 @@ public class ValorCompra implements Serializable{
      * @param impuestos El monto de los impuestos aplicados a la compra.
      * @param total     El total a pagar después de aplicar impuestos.
      */
-    public ValorCompra(double subtotal, double impuestos, double total, double descuentoPremium, double descuentoFrecuencia) {
+    public ResumenCompra(double subtotal, double impuestos, double total, double descuentoPremium, double descuentoFrecuencia) {
         this.subtotal = subtotal;
         this.impuestos = impuestos;
         this.total = total;
@@ -46,7 +46,7 @@ public class ValorCompra implements Serializable{
     /**
      * Constructor vacío que inicializa la compra con valores por defecto.
      */
-    public ValorCompra() {}
+    public ResumenCompra() {}
 
     /**
      * Obtiene el subtotal de la compra.

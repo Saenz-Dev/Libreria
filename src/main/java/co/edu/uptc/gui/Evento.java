@@ -104,6 +104,8 @@ public class Evento implements ActionListener {
     public static final String GUARDAR_CODIGO = "Guardar Codigo";
 
     public static final String ACTIVAR_GUARDAR_CODIGO = "Activar Guardar Codigo";
+
+    public static final String CERRAR_CALIFICAR = "Cerrar Calificar";
     
     /** Referencia a la VentanaPrincipal. */
     private VentanaPrincipal ventana;
@@ -157,6 +159,7 @@ public class Evento implements ActionListener {
             case ACTIVAR_PANEL_PREMIUM -> ventana.activarPanelValidPremium();
             case GUARDAR_CODIGO -> ventana.GuardarCodigo();
             case ACTIVAR_GUARDAR_CODIGO -> ventana.activarGuardarCodigo();
+            case CERRAR_CALIFICAR -> ventana.cerrarCalificar();
         }
     }
 }

@@ -1,6 +1,6 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.ValorCompra;
+import co.edu.uptc.modelo.ResumenCompra;
 
 import javax.swing.*;
 import java.awt.*;
@@ -168,14 +168,14 @@ public class PanelResumenCompra extends JPanel {
 
     /**
      * Modifica los valores del resumen de compra.
-     * @param valorCompra Información del valor de la compra.
+     * @param resumenCompra Información del valor de la compra.
      */
-    public void modificarValor(ValorCompra valorCompra) {
-        labelImpuestosValor.setText( "+ " + format.format(valorCompra.getImpuestos()));
-        labelSubtotalValor.setText(format.format(valorCompra.getSubtotal()));
-        labelTotalValor.setText(format.format(valorCompra.getTotal()));
-        labelDescuentoValor.setText( "- " + format.format(valorCompra.getDescuentoPremium()));
-        labelDescuentoFrecuenteValor.setText( "- " + format.format(valorCompra.getDescuentoFrecuencia()));
+    public void modificarValor(ResumenCompra resumenCompra) {
+        labelImpuestosValor.setText( "+ " + format.format(resumenCompra.getImpuestos()));
+        labelSubtotalValor.setText(format.format(resumenCompra.getSubtotal()));
+        labelTotalValor.setText(format.format(resumenCompra.getTotal()));
+        labelDescuentoValor.setText( "- " + format.format(resumenCompra.getDescuentoPremium()));
+        labelDescuentoFrecuenteValor.setText( "- " + format.format(resumenCompra.getDescuentoFrecuencia()));
         repaint();
     }
 }

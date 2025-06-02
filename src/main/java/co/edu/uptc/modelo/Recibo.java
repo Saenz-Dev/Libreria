@@ -1,24 +1,23 @@
 package co.edu.uptc.modelo;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Recibo {
 
     private String correo;
     private String nombreUser;
-    private ValorCompra valorCompra;
+    private ResumenCompra resumenCompra;
     private int numeroRecibo;
     private LocalDateTime fecha;
-    private TipoPago tipoPago;
+    private TipoPagoEnum tipoPagoEnum;
     private String direccion;
     private ArrayList<ProductoCompra> listaProductosComprados;
     //private Descuento descuento;
 
     public Recibo() {
         listaProductosComprados = new ArrayList<>();
-        valorCompra = new ValorCompra();
+        resumenCompra = new ResumenCompra();
     }
 
     public String getCorreo() {
@@ -29,12 +28,12 @@ public class Recibo {
         this.correo = correo;
     }
 
-    public ValorCompra getValorCompra() {
-        return valorCompra;
+    public ResumenCompra getValorCompra() {
+        return resumenCompra;
     }
 
-    public void setValorCompra(ValorCompra valorCompra) {
-        this.valorCompra = valorCompra;
+    public void setValorCompra(ResumenCompra resumenCompra) {
+        this.resumenCompra = resumenCompra;
     }
 
     public int getNumeroRecibo() {
@@ -57,12 +56,12 @@ public class Recibo {
 	return LocalDateTime.now();
     }
 
-    public TipoPago getTipoPago() {
-        return tipoPago;
+    public TipoPagoEnum getTipoPago() {
+        return tipoPagoEnum;
     }
 
-    public void setTipoPago(TipoPago tipoPago) {
-        this.tipoPago = tipoPago;
+    public void setTipoPago(TipoPagoEnum tipoPagoEnum) {
+        this.tipoPagoEnum = tipoPagoEnum;
     }
 
     public String getDireccion() {

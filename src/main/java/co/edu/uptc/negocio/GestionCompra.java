@@ -3,8 +3,6 @@ package co.edu.uptc.negocio;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import co.edu.uptc.log.RegistroLog;
@@ -13,9 +11,8 @@ import co.edu.uptc.modelo.LibroCarrito;
 import co.edu.uptc.modelo.ProductoCompra;
 import co.edu.uptc.modelo.Recibo;
 import co.edu.uptc.modelo.Tienda;
-import co.edu.uptc.modelo.TipoPago;
+import co.edu.uptc.modelo.TipoPagoEnum;
 import co.edu.uptc.modelo.Usuario;
-import co.edu.uptc.modelo.ValorCompra;
 import co.edu.uptc.persistencia.CarritoDAO;
 import co.edu.uptc.persistencia.CompraDAO;
 import co.edu.uptc.persistencia.LibroDAO;
@@ -52,7 +49,7 @@ public class GestionCompra {
         this.productoCompra = productoCompra;
     }
 
-    public void aggListaCompra(Usuario usuarioLog, TipoPago tipoPago, UsuarioDAO usuarioDAO, LibroDAO libroDAO) throws IOException, SQLException {
+    public void aggListaCompra(Usuario usuarioLog, TipoPagoEnum tipoPagoEnum, UsuarioDAO usuarioDAO, LibroDAO libroDAO) throws IOException, SQLException {
         CalculadoraIVA calculadoraIVA = new CalculadoraIVA();
         LibroCarrito libroCarrito = new LibroCarrito();
         libroCarrito.setCorreo_usuario(usuarioLog.getCuenta().getCorreo());
@@ -75,7 +72,7 @@ public class GestionCompra {
             registradoCompra = validarCompraRegistrada(registradoCompra, recibo);
 
             setProductoCompra(calculadoraIVA, libroCarritoUser, recibo, productoCompra, libro);
-            setValorCompra(usuarioLog, tipoPago, libroDAO, calculadoraIVA, listaCarritoUser, recibo);
+            setValorCompra(usuarioLog, tipoPagoEnum, libroDAO, calculadoraIVA, listaCarritoUser, recibo);
             reciboDAO.insertarDatos(recibo);
         }
     }
@@ -95,14 +92,14 @@ public class GestionCompra {
         return registradoCompra;
     }
 
-    private void setValorCompra(Usuario usuarioLog, TipoPago tipoPago, LibroDAO libroDAO, CalculadoraIVA calculadoraIVA, ArrayList<LibroCarrito> listaCarritoUser, Recibo recibo) throws SQLException, IOException {
+    private void setValorCompra(Usuario usuarioLog, TipoPagoEnum tipoPagoEnum, LibroDAO libroDAO, CalculadoraIVA calculadoraIVA, ArrayList<LibroCarrito> listaCarritoUser, Recibo recibo) throws SQLException, IOException {
         recibo.getValorCompra().setImpuestos(calculadoraIVA.impuestos(listaCarritoUser, libroDAO));
         recibo.getValorCompra().setSubtotal(calculadoraIVA.subtotal(listaCarritoUser, libroDAO));
         recibo.getValorCompra().setTotal(calculadoraIVA.total(recibo.getValorCompra().getSubtotal(), recibo.getValorCompra().getImpuestos()));
         recibo.getValorCompra().setDescuentoPremium(calculadoraIVA.descuentoPremium(recibo.getValorCompra().getTotal(), usuarioLog));
         recibo.getValorCompra().setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(recibo), recibo.getValorCompra().getTotal()));
         recibo.getValorCompra().setTotal(recibo.getValorCompra().getTotal() - recibo.getValorCompra().getDescuentoPremium() - recibo.getValorCompra().getDescuentoFrecuencia());
-        recibo.setTipoPago(tipoPago);
+        recibo.setTipoPago(tipoPagoEnum);
     }
 
     private void setProductoCompra(CalculadoraIVA calculadoraIVA, LibroCarrito libroCarritoUser, Recibo recibo, ProductoCompra productoCompra, Libro libro) {

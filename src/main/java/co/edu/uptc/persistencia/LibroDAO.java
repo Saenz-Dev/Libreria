@@ -1,9 +1,8 @@
 package co.edu.uptc.persistencia;
 
 import co.edu.uptc.log.RegistroLog;
-import co.edu.uptc.modelo.Cuenta;
 import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.modelo.TipoLibro;
+import co.edu.uptc.modelo.TipoLibroEnum;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -85,7 +84,7 @@ public class LibroDAO extends ConexionBD<Libro> {
                     libroResult.setPrecioVenta(resultSet.getDouble("precio"));
                     libroResult.setStockDisponible(resultSet.getInt("stockDisponible"));
                     libroResult.setStockReservado(resultSet.getInt("stockReservado"));
-                    libroResult.setTipoLibro(TipoLibro.valueOf(resultSet.getString("tipo")));
+                    libroResult.setTipoLibro(TipoLibroEnum.valueOf(resultSet.getString("tipo")));
                     libroResult.setIsComprado(resultSet.getBoolean("comprado"));
                     RegistroLog.registrarInfo("✅ Libro encontrado: " + libro.getIsbn());
                     return libroResult;
@@ -117,7 +116,7 @@ public class LibroDAO extends ConexionBD<Libro> {
                     libroResult.setPrecioVenta(resultSet.getDouble("precio"));
                     libroResult.setStockDisponible(resultSet.getInt("stockDisponible"));
                     libroResult.setStockReservado(resultSet.getInt(	"stockReservado"));
-                    libroResult.setTipoLibro(TipoLibro.valueOf(resultSet.getString("tipo")));
+                    libroResult.setTipoLibro(TipoLibroEnum.valueOf(resultSet.getString("tipo")));
                     libroResult.setIsComprado(resultSet.getBoolean("comprado"));
                     RegistroLog.registrarInfo("✅ Libro encontrado con título: " + titulo);
                     return libroResult;
@@ -168,7 +167,7 @@ public class LibroDAO extends ConexionBD<Libro> {
                 libroResult.setPrecioVenta(resultSet.getDouble("precio"));
                 libroResult.setStockDisponible(resultSet.getInt("stockDisponible"));
                 libroResult.setStockReservado(resultSet.getInt("stockReservado"));
-                libroResult.setTipoLibro(TipoLibro.valueOf(resultSet.getString("tipo")));
+                libroResult.setTipoLibro(TipoLibroEnum.valueOf(resultSet.getString("tipo")));
                 libroResult.setIsComprado(resultSet.getBoolean("comprado"));
                 libros.add(libroResult);
             }

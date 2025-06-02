@@ -9,9 +9,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
-import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.ProductoCompra;
-import co.edu.uptc.modelo.ValorCompra;
+import co.edu.uptc.modelo.ResumenCompra;
 
 /**
  * Clase que representa el panel del carrito de compras en la interfaz gráfica.
@@ -203,10 +202,10 @@ public class PanelCarrito extends JPanel {
     /**
      * Actualiza la vista del panel del carrito.
      *
-     * @param valorCompra Información actualizada del valor de la compra.
+     * @param resumenCompra Información actualizada del valor de la compra.
      */
-    public void repaintPanel(ValorCompra valorCompra) {
-        modificarValores(valorCompra);
+    public void repaintPanel(ResumenCompra resumenCompra) {
+        modificarValores(resumenCompra);
         validarExistenciaProductos();
         panelResumenCompra.revalidate();
         panelResumenCompra.repaint();
@@ -217,10 +216,10 @@ public class PanelCarrito extends JPanel {
     /**
      * Modifica los valores del resumen de compra.
      *
-     * @param valorCompra Información del valor de la compra.
+     * @param resumenCompra Información del valor de la compra.
      */
-    public void modificarValores(ValorCompra valorCompra) {
-        panelResumenCompra.modificarValor(valorCompra);
+    public void modificarValores(ResumenCompra resumenCompra) {
+        panelResumenCompra.modificarValor(resumenCompra);
         panelResumenCompra.repaint();
     }
 

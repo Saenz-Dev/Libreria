@@ -1,5 +1,5 @@
 package co.edu.uptc.modelo;
 
-public enum TipoUsuario {
+public enum TipoUsuarioEnum {
     Regular, Premium;
 }

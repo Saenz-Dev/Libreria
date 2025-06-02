@@ -31,7 +31,7 @@ public class Usuario implements Serializable{
     /**
      * Tipo de cliente (por ejemplo, "regular", "VIP", etc.).
      */
-    private TipoUsuario tipoCliente;
+    private TipoUsuarioEnum tipoCliente;
 
     /**
      * Cuenta asociada al usuario, que contiene información de inicio de sesión.
@@ -140,7 +140,7 @@ public class Usuario implements Serializable{
      *
      * @return El tipo de cliente.
      */
-    public TipoUsuario getTipoCliente() {
+    public TipoUsuarioEnum getTipoCliente() {
         return tipoCliente;
     }
 
@@ -149,7 +149,7 @@ public class Usuario implements Serializable{
      *
      * @param tipoCliente El tipo de cliente a asignar.
      */
-    public void setTipoCliente(TipoUsuario tipoCliente) {
+    public void setTipoCliente(TipoUsuarioEnum tipoCliente) {
         this.tipoCliente = tipoCliente;
     }
 

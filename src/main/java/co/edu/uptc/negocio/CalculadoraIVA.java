@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import co.edu.uptc.modelo.Carrito;
 import co.edu.uptc.modelo.DescFrecuencia;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.LibroCarrito;
 import co.edu.uptc.modelo.Recibo;
-import co.edu.uptc.modelo.Tienda;
-import co.edu.uptc.modelo.TipoLibro;
+import co.edu.uptc.modelo.TipoLibroEnum;
 import co.edu.uptc.modelo.Usuario;
 import co.edu.uptc.persistencia.LibroDAO;
 
@@ -61,7 +59,7 @@ public class CalculadoraIVA {
             Libro libro = new Libro();
             libro.setIsbn(String.valueOf(libroCarrito.getIsbn_libro()));
             libro = libroDAO.seleccionarRegistro(libro);
-            if (libro.getTipoLibro() == TipoLibro.FISICO) {
+            if (libro.getTipoLibro() == TipoLibroEnum.FISICO) {
                 impuestos += libroCarrito.getCantidad() * 0.19 * libro.getPrecioVenta();
             } else {
                 impuestos += libroCarrito.getCantidad() * 0.05 * libro.getPrecioVenta();
@@ -89,7 +87,7 @@ public class CalculadoraIVA {
      * @return impuesto del producto
      */
     public double impuestoProductos(LibroCarrito libroCarrito, Libro libroParametro) {
-        if (libroParametro.getTipoLibro() == TipoLibro.FISICO) {
+        if (libroParametro.getTipoLibro() == TipoLibroEnum.FISICO) {
             return libroCarrito.getCantidad() * libroParametro.getPrecioVenta() * 0.19;
         } else {
             return libroCarrito.getCantidad() * libroParametro.getPrecioVenta() * 0.05;
@@ -97,7 +95,7 @@ public class CalculadoraIVA {
     }
 
     public double impuestoProducto(Libro libroParametro) {
-        if (libroParametro.getTipoLibro() == TipoLibro.FISICO) {
+        if (libroParametro.getTipoLibro() == TipoLibroEnum.FISICO) {
             return libroParametro.getPrecioVenta() * 0.19;
         } else {
             return libroParametro.getPrecioVenta() * 0.05;

@@ -116,8 +116,8 @@ public class PanelLibro extends JPanel {
     private void modificarAtributos(Libro libro) {
         format = NumberFormat.getCurrencyInstance();
         format.setMinimumFractionDigits(0);
-        labelTitulo = new JLabel("<html><div align='left'>" + libro.getTitulo() + "</div></html>" );
-        labelAutorEditorial = new JLabel("<html><div align='center'>" +( libro.getAutor() + (!libro.getEditorial().isBlank() ? " - " + libro.getEditorial() : "")) + "</div></html>" );
+        labelTitulo = new JLabel(libro.getTitulo());
+        labelAutorEditorial = new JLabel(libro.getAutor() + (!libro.getEditorial().isBlank() ? " - " + libro.getEditorial() : ""));
         labelCategoriaPaginas = new JLabel(libro.getCategoria() + ((libro.getNumeroPaginas() != 0 ? " - " + libro.getNumeroPaginas()+ " pags." : "")));
         labelPrecio = new JLabel(String.valueOf(format.format(libro.getPrecioVenta())));
         botonAgregar = new JButton("Agregar al carrito");

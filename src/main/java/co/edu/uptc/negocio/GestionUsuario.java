@@ -9,7 +9,7 @@ import co.edu.uptc.modelo.Administrador;
 import co.edu.uptc.modelo.Cuenta;
 import co.edu.uptc.modelo.LibroCarrito;
 import co.edu.uptc.modelo.Tienda;
-import co.edu.uptc.modelo.TipoUsuario;
+import co.edu.uptc.modelo.TipoUsuarioEnum;
 import co.edu.uptc.modelo.Usuario;
 import co.edu.uptc.modelo.UsuarioPremium;
 import co.edu.uptc.modelo.UsuarioRegular;
@@ -83,9 +83,9 @@ public class GestionUsuario {
 
     public Usuario convertirUsuario(Usuario usuario) {
         Usuario usuarioGuardar;
-        if (usuario.getTipoCliente().equals(TipoUsuario.Premium)) {
+        if (usuario.getTipoCliente().equals(TipoUsuarioEnum.Premium)) {
             usuarioGuardar = new UsuarioPremium(usuario);
-            usuarioGuardar.setTipoCliente(TipoUsuario.Premium);
+            usuarioGuardar.setTipoCliente(TipoUsuarioEnum.Premium);
         } else {
             usuarioGuardar = new UsuarioRegular(usuario);
         }
@@ -173,11 +173,11 @@ public class GestionUsuario {
     public void validarCamposVaciosLogin(String correo, String contrasena) throws IllegalArgumentException {
         if (!correo.equals(Administrador.CORREO)) {
             if (correo.isBlank() && contrasena.isBlank()) {
-                throw new IllegalArgumentException("Complete los campos de texto.");
+                throw new IllegalArgumentException("Digite el correo y la contraseña.");
             } else if (correo.isBlank()) {
-                throw new IllegalArgumentException("Ingrese un correo.");
+                throw new IllegalArgumentException("Digite el correo.");
             } else if (contrasena.isBlank()) {
-                throw new IllegalArgumentException("Ingrese una contraseña.");
+                throw new IllegalArgumentException("Digite la contraseña.");
             }
         }
     }
@@ -212,7 +212,7 @@ public class GestionUsuario {
      */
     public void modificarUsuario(Usuario usuario) throws IllegalArgumentException, SQLException {
         expresion.validarDatosUsuario(usuario);
-        if (usuario.getTipoCliente().equals(TipoUsuario.Premium)) {
+        if (usuario.getTipoCliente().equals(TipoUsuarioEnum.Premium)) {
             UsuarioPremium usuarioPremium = new UsuarioPremium(usuario);
             usuarioDAO.actualizarDatos(usuarioPremium);
             cuentaDAO.actualizarDatos(usuarioPremium.getCuenta());

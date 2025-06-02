@@ -1,5 +1,5 @@
 package co.edu.uptc.modelo;
 
-public enum TipoPago {
+public enum TipoPagoEnum {
     EFECTIVO, TARJETA;
 }

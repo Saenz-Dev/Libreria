@@ -1,8 +1,7 @@
 package co.edu.uptc.persistencia;
 
 import co.edu.uptc.log.RegistroLog;
-import co.edu.uptc.modelo.Cuenta;
-import co.edu.uptc.modelo.TipoUsuario;
+import co.edu.uptc.modelo.TipoUsuarioEnum;
 import co.edu.uptc.modelo.Usuario;
 
 import java.sql.Connection;
@@ -77,7 +76,7 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
                     usuarioEncontrado.setNombre(resultSet.getString("nombre"));
                     usuarioEncontrado.setDireccionEnvio(resultSet.getString("dirección"));
                     usuarioEncontrado.setTelefono(resultSet.getLong("telefono"));
-                    usuarioEncontrado.setTipoCliente(TipoUsuario.valueOf(resultSet.getString("cliente")));
+                    usuarioEncontrado.setTipoCliente(TipoUsuarioEnum.valueOf(resultSet.getString("cliente")));
                     usuarioEncontrado.setDescuentoTipoUsuario(resultSet.getDouble("descuento"));
                     usuarioEncontrado.getCuenta().setCorreo(resultSet.getString("correo"));
                     RegistroLog.registrarInfo("✅ Usuario encontrado: " + usuarioEncontrado.getCuenta().getCorreo());
@@ -104,7 +103,7 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
                 usuario.setNombre(resultSet.getString("nombre"));
                 usuario.setDireccionEnvio(resultSet.getString("dirección"));
                 usuario.setTelefono(resultSet.getLong("telefono"));
-                usuario.setTipoCliente(TipoUsuario.valueOf(resultSet.getString("cliente")));
+                usuario.setTipoCliente(TipoUsuarioEnum.valueOf(resultSet.getString("cliente")));
                 usuario.setDescuentoTipoUsuario(resultSet.getDouble("descuento"));
                 usuario.getCuenta().setCorreo(resultSet.getString("correo"));
                 usuarios.add(usuario);
