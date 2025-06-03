@@ -40,7 +40,7 @@ public class LibroDAO extends ConexionBD<Libro> {
     @Override
     public void actualizarDatos(Libro libro) throws SQLException, RuntimeException {
         if (libro == null) throw new RuntimeException("No se puede actualizar un libro nulo.");
-        String sentencia = "UPDATE libros SET titulo = ?, autor = ?, año_publicación = ?, categoria = ?, editorial = ?, páginas = ?, precio = ?, stockDisponible = ?, tipo = ?, stockReservado = ? WHERE isbn = ?";
+        String sentencia = "UPDATE libros SET titulo = ?, autor = ?, año_publicación = ?, categoria = ?, editorial = ?, páginas = ?, precio = ?, stockDisponible = ?, tipo = ?, stockReservado = ?, comprado = ? WHERE isbn = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.setString(1, libro.getTitulo());
             preparedStatement.setString(2, libro.getAutor());
@@ -52,7 +52,9 @@ public class LibroDAO extends ConexionBD<Libro> {
             preparedStatement.setInt(8, libro.getStockDisponible());
             preparedStatement.setString(9, String.valueOf(libro.getTipoLibro()));
             preparedStatement.setInt(10, libro.getStockReservado());
-            preparedStatement.setString(11, libro.getIsbn()); 
+            preparedStatement.setBoolean(11, libro.getIsComprado());
+            preparedStatement.setString(12, libro.getIsbn());
+
             int filasActualizadas = preparedStatement.executeUpdate();
 
             if (filasActualizadas > 0) {
@@ -98,7 +100,7 @@ public class LibroDAO extends ConexionBD<Libro> {
         }
         return null;
     }
-    
+
     public Libro seleccionarRegistro(String titulo) throws SQLException, RuntimeException {
         String sentencia = "SELECT * FROM libros WHERE titulo = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
@@ -115,7 +117,7 @@ public class LibroDAO extends ConexionBD<Libro> {
                     libroResult.setNumeroPaginas(resultSet.getInt("páginas"));
                     libroResult.setPrecioVenta(resultSet.getDouble("precio"));
                     libroResult.setStockDisponible(resultSet.getInt("stockDisponible"));
-                    libroResult.setStockReservado(resultSet.getInt(	"stockReservado"));
+                    libroResult.setStockReservado(resultSet.getInt("stockReservado"));
                     libroResult.setTipoLibro(TipoLibroEnum.valueOf(resultSet.getString("tipo")));
                     libroResult.setIsComprado(resultSet.getBoolean("comprado"));
                     RegistroLog.registrarInfo("✅ Libro encontrado con título: " + titulo);
@@ -130,23 +132,23 @@ public class LibroDAO extends ConexionBD<Libro> {
         }
         return null;
     }
-    
-    public boolean eliminarRegistro(Libro libro) throws SQLException {
-	String sql = "DELETE FROM libros WHERE isbn = ?";
-	try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-	    preparedStatement.setString(1, libro.getIsbn());
-	    int filasAfectadas = preparedStatement.executeUpdate();
 
-	    if (filasAfectadas > 0) {
-	        RegistroLog.registrarInfo("✅ Libro eliminado: " + libro.getTitulo() + " (ISBN: " + libro.getIsbn() + ")");
-	        return true;
-	    } else {
-	        RegistroLog.registrarInfo("⚠️ No se encontró el libro para eliminar: " + libro.getTitulo() + " (ISBN: " + libro.getIsbn() + ")");
-	        return false;
-	    }
-	} catch (SQLException e) {
-	    RegistroLog.registrarError("❌ Error al intentar borrar el libro '" + libro.getTitulo() + "': " + e.getMessage(), e);
-	    throw new SQLException("❌ No se pudo eliminar el libro. Intenta nuevamente más tarde.");
+    public boolean eliminarRegistro(Libro libro) throws SQLException {
+        String sql = "DELETE FROM libros WHERE isbn = ?";
+        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, libro.getIsbn());
+            int filasAfectadas = preparedStatement.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                RegistroLog.registrarInfo("✅ Libro eliminado: " + libro.getTitulo() + " (ISBN: " + libro.getIsbn() + ")");
+                return true;
+            } else {
+                RegistroLog.registrarInfo("⚠️ No se encontró el libro para eliminar: " + libro.getTitulo() + " (ISBN: " + libro.getIsbn() + ")");
+                return false;
+            }
+        } catch (SQLException e) {
+            RegistroLog.registrarError("❌ Error al intentar borrar el libro '" + libro.getTitulo() + "': " + e.getMessage(), e);
+            throw new SQLException("❌ No se pudo eliminar el libro. Intenta nuevamente más tarde.");
         }
     }
 

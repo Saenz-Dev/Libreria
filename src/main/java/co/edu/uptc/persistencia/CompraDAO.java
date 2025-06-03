@@ -20,7 +20,7 @@ public class CompraDAO extends ConexionBD<Recibo> {
 
 	    preparedStatement.setInt(1, recibo.getNumeroRecibo());
 	    preparedStatement.setString(2, recibo.getCorreo());
-	    preparedStatement.setTimestamp(3, Timestamp.valueOf(recibo.getFecha()));
+	    preparedStatement.setTimestamp(3, Timestamp.valueOf(recibo.getFechaCompra()));
 	    preparedStatement.executeUpdate();
 	    RegistroLog.registrarInfo("Compra " + recibo.getNumeroRecibo()+ " registrada correctamente para el correo: " + recibo.getCorreo());
 	} catch (SQLException e) {
@@ -37,14 +37,14 @@ public class CompraDAO extends ConexionBD<Recibo> {
 	String sql = "SELECT * FROM compras WHERE fecha = ? AND numero_compra = ?";
 	try (Connection connection = crearConexion();
 		PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-	    preparedStatement.setTimestamp(1, Timestamp.valueOf(recibo.getFecha()));
+	    preparedStatement.setTimestamp(1, Timestamp.valueOf(recibo.getFechaCompra()));
 	    preparedStatement.setInt(2, recibo.getNumeroRecibo());
 	    try (ResultSet resultSet = preparedStatement.executeQuery()) {
 		
 		while (resultSet.next()) {
 		    recibo.setNumeroRecibo(resultSet.getInt("numero_compra"));
 		    recibo.setCorreo(resultSet.getString("correo"));
-		    recibo.setFecha(resultSet.getTimestamp("fecha").toLocalDateTime());
+		    recibo.setFechaCompra(resultSet.getTimestamp("fecha").toLocalDateTime());
 		}
 		RegistroLog.registrarInfo("✅ Registro de compra consultado correctamente. Número: " + recibo.getNumeroRecibo());
 		return recibo;
@@ -69,7 +69,7 @@ public class CompraDAO extends ConexionBD<Recibo> {
 		    Recibo recibo = new Recibo();
 		    recibo.setNumeroRecibo(resultSet.getInt("numero_compra"));
 		    recibo.setCorreo(resultSet.getString("correo"));
-		    recibo.setFecha(resultSet.getTimestamp("fecha").toLocalDateTime());
+		    recibo.setFechaCompra(resultSet.getTimestamp("fecha").toLocalDateTime());
 		    listaRecibos.add(recibo);
 		}
 		return listaRecibos;
@@ -90,7 +90,7 @@ public class CompraDAO extends ConexionBD<Recibo> {
 		    Recibo recibo = new Recibo();
 		    recibo.setNumeroRecibo(resultSet.getInt("numero_compra"));
 		    recibo.setCorreo(resultSet.getString("correo"));
-		    recibo.setFecha(resultSet.getTimestamp("fecha").toLocalDateTime());
+		    recibo.setFechaCompra(resultSet.getTimestamp("fecha").toLocalDateTime());
 		    listaRecibos.add(recibo);
 		}
 		 if (listaRecibos.isEmpty()) {

@@ -82,7 +82,6 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
                     RegistroLog.registrarInfo("✅ Usuario encontrado: " + usuarioEncontrado.getCuenta().getCorreo());
                     return usuarioEncontrado;
                 } else {
-                    String msg = "No se encontró usuario con correo: " + usuario.getCuenta().getCorreo();
                     RegistroLog.registrarInfo("No se encontró usuario con correo: " + usuario.getCuenta().getCorreo());
                     return null;
                 }

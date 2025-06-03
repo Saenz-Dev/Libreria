@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.LibroCarrito;
-import co.edu.uptc.modelo.ProductoCompra;
+import co.edu.uptc.modelo.LibroComprado;
 import co.edu.uptc.modelo.Recibo;
 import co.edu.uptc.modelo.Tienda;
 import co.edu.uptc.modelo.TipoPagoEnum;
@@ -21,7 +21,7 @@ import co.edu.uptc.persistencia.UsuarioDAO;
 
 public class GestionCompra {
 
-    private ProductoCompra productoCompra;
+    private LibroComprado libroComprado;
     private ManejoCompraJSON manejoCompraJSON;
     private ReciboDAO reciboDAO;
     private CarritoDAO carritoDAO;
@@ -35,18 +35,18 @@ public class GestionCompra {
     public GestionCompra(Tienda tienda, ReciboDAO reciboDAO, CarritoDAO carritoDAO, CompraDAO compraDAO) throws SQLException {
         numeroRecibo = 0;
         manejoCompraJSON = new ManejoCompraJSON(tienda);
-        productoCompra = new ProductoCompra();
+        libroComprado = new LibroComprado();
         this.compraDAO = compraDAO;
         this.reciboDAO = reciboDAO;
         this.carritoDAO = carritoDAO;
     }
 
-    public ProductoCompra getProductoCompra() {
-        return productoCompra;
+    public LibroComprado getProductoCompra() {
+        return libroComprado;
     }
 
-    public void setProductoCompra(ProductoCompra productoCompra) {
-        this.productoCompra = productoCompra;
+    public void setProductoCompra(LibroComprado libroComprado) {
+        this.libroComprado = libroComprado;
     }
 
     public void aggListaCompra(Usuario usuarioLog, TipoPagoEnum tipoPagoEnum, UsuarioDAO usuarioDAO, LibroDAO libroDAO) throws IOException, SQLException {
@@ -63,15 +63,15 @@ public class GestionCompra {
         boolean registradoCompra = false;
         for (LibroCarrito libroCarritoUser : listaCarritoUser) {//Itera el carrito del usuario
             Recibo recibo = new Recibo();
-            ProductoCompra productoCompra = new ProductoCompra();
+            LibroComprado libroComprado = new LibroComprado();
             Libro libro = consultaCatalogo(libroDAO, libroCarritoUser);
-            productoCompra.setIsbn(libro.getIsbn());
-            productoCompra.setTitulo(libro.getTitulo());
+            libroComprado.setIsbn(libro.getIsbn());
+            libroComprado.setTitulo(libro.getTitulo());
 
             setInfoRecibo(usuarioLog, fecha, recibo);
             registradoCompra = validarCompraRegistrada(registradoCompra, recibo);
 
-            setProductoCompra(calculadoraIVA, libroCarritoUser, recibo, productoCompra, libro);
+            setProductoCompra(calculadoraIVA, libroCarritoUser, recibo, libroComprado, libro);
             setValorCompra(usuarioLog, tipoPagoEnum, libroDAO, calculadoraIVA, listaCarritoUser, recibo);
             reciboDAO.insertarDatos(recibo);
         }
@@ -102,21 +102,21 @@ public class GestionCompra {
         recibo.setTipoPago(tipoPagoEnum);
     }
 
-    private void setProductoCompra(CalculadoraIVA calculadoraIVA, LibroCarrito libroCarritoUser, Recibo recibo, ProductoCompra productoCompra, Libro libro) {
-        productoCompra.setNumeroLibros(libroCarritoUser.getCantidad());
-        productoCompra.setPrecioUnitario(libro.getPrecioVenta());
-        productoCompra.setImpuestoUnitario(calculadoraIVA.impuestoProducto(libro));
-        productoCompra.setImpuestoTotal(calculadoraIVA.impuestoProductos(libroCarritoUser, libro));
-        productoCompra.setPrecioTotal(calculadoraIVA.subtotalProducto(libroCarritoUser, libro));
-        recibo.getListaProductosComprados().add(productoCompra);
+    private void setProductoCompra(CalculadoraIVA calculadoraIVA, LibroCarrito libroCarritoUser, Recibo recibo, LibroComprado libroComprado, Libro libro) {
+        libroComprado.setNumeroLibros(libroCarritoUser.getCantidad());
+        libroComprado.setPrecioUnitario(libro.getPrecioVenta());
+        libroComprado.setImpuestoUnitario(calculadoraIVA.impuestoProducto(libro));
+        libroComprado.setImpuestoTotal(calculadoraIVA.impuestoProductos(libroCarritoUser, libro));
+        libroComprado.setPrecioTotal(calculadoraIVA.subtotalProducto(libroCarritoUser, libro));
+        recibo.getListaProductosComprados().add(libroComprado);
     }
 
     private void setInfoRecibo(Usuario usuarioLog, LocalDateTime fecha, Recibo recibo) {
         recibo.setCorreo(usuarioLog.getCuenta().getCorreo());
-        recibo.setNombreUser(usuarioLog.getNombre());
+        recibo.setNombreUsuario(usuarioLog.getNombre());
         recibo.setDireccion(usuarioLog.getDireccionEnvio());
         recibo.setNumeroRecibo(numeroRecibo);
-        recibo.setFecha(fecha);
+        recibo.setFechaCompra(fecha);
     }
 
     public Libro libroCarrito(String isbn, Usuario usuario) {

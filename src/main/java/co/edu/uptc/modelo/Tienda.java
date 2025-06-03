@@ -9,32 +9,54 @@ public class Tienda implements Serializable {
     private static final long serialVersionUID = 4563764538288413272L;
 
     /**
-     *
+     * Catalogo de productos de la tienda.
      */
-    private Map<String, ArrayList<Libro>> mapLibros;
+    private Catalogo catalogo;
+
+    /**
+     * Lista de usuarios registrados en la tienda.
+     */
     private ArrayList<Usuario> usuarios;
-    private TreeMap<String, ArrayList<Recibo>> productoCompras;
+
+    /**
+     * Mapa que almacena los recibos de compras por usuario.
+     * La clave es el correo del usuario y el valor es una lista de recibos.
+     */
+    private TreeMap<String, ArrayList<Recibo>> recibos;
+
+    /**
+     * Mapa que almacena los comentarios de cada libro.
+     * La clave es el ISBN del libro y el valor es una lista de comentarios.
+     */
     private TreeMap<String, Stack<Comentario>> mapComentarios;
 
+    /**
+     * Usuario actual que está interactuando con la tienda.
+     */
+    private Usuario usuarioActual;
+
+
     public Tienda() {
-        mapLibros = new HashMap<>();
+        catalogo = new Catalogo();
         usuarios = new ArrayList<>();
-        productoCompras = new TreeMap<>();
+        recibos = new TreeMap<>();
         mapComentarios = new TreeMap<>();
     }
 
-    public Tienda(Map<String, ArrayList<Libro>> mapLibros, ArrayList<Usuario> usuarios, TreeMap<String, ArrayList<Recibo>> productoCompras) {
-        this.mapLibros = mapLibros;
-        this.usuarios = usuarios;
-        this.productoCompras = productoCompras;
+    public Usuario getUsuarioActual() {
+        return usuarioActual;
     }
 
-    public Map<String, ArrayList<Libro>> getMapLibros() {
-        return mapLibros;
+    public void setUsuarioActual(Usuario usuarioActual) {
+        this.usuarioActual = usuarioActual;
     }
 
-    public void setMapLibros(Map<String, ArrayList<Libro>> mapLibros) {
-        this.mapLibros = mapLibros;
+    public Catalogo getCatalogo() {
+        return catalogo;
+    }
+
+    public void setCatalogo(Catalogo catalogo) {
+        this.catalogo = catalogo;
     }
 
     public ArrayList<Usuario> getUsuarios() {
@@ -46,19 +68,11 @@ public class Tienda implements Serializable {
     }
 
     public TreeMap<String, ArrayList<Recibo>> getRecibos() {
-        return productoCompras;
+        return recibos;
     }
 
-    public void setRecibos(TreeMap<String, ArrayList<Recibo>> productoCompras) {
-        this.productoCompras = productoCompras;
-    }
-
-    public TreeMap<String, ArrayList<Recibo>> getProductoCompras() {
-        return productoCompras;
-    }
-
-    public void setProductoCompras(TreeMap<String, ArrayList<Recibo>> productoCompras) {
-        this.productoCompras = productoCompras;
+    public void setRecibos(TreeMap<String, ArrayList<Recibo>> recibos) {
+        this.recibos = recibos;
     }
 
     public TreeMap<String, Stack<Comentario>> getMapComentarios() {

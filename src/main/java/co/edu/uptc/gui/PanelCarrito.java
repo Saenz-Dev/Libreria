@@ -9,8 +9,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
-import co.edu.uptc.modelo.ProductoCompra;
-import co.edu.uptc.modelo.ResumenCompra;
+import co.edu.uptc.modelo.LibroComprado;
+import co.edu.uptc.modelo.TotalesCompra;
 
 /**
  * Clase que representa el panel del carrito de compras en la interfaz gráfica.
@@ -115,7 +115,7 @@ public class PanelCarrito extends JPanel {
      *
      * @param librosCarrito Lista de libros que están en el carrito.
      */
-    public void anadirProductosPanel(ArrayList<ProductoCompra> librosCarrito) {
+    public void anadirProductosPanel(ArrayList<LibroComprado> librosCarrito) {
         listPanelesProductos = new ArrayList<>();
 
         if (panelProductos != null) {
@@ -165,14 +165,14 @@ public class PanelCarrito extends JPanel {
         add(scrollPane, gbcGeneral);
     }
 
-    private void agregarLibroPanel(ArrayList<ProductoCompra> librosCarrito) {
+    private void agregarLibroPanel(ArrayList<LibroComprado> librosCarrito) {
         if (librosCarrito.isEmpty()) {
             validarExistenciaProductos();
         } else {
             gbcPanelProductos.fill = GridBagConstraints.HORIZONTAL;
             gbcPanelProductos.weightx = 1.0;
-            for (ProductoCompra productoCompra : librosCarrito) {
-                PanelProducto panelProducto = new PanelProducto(ventanaPrincipal, productoCompra);
+            for (LibroComprado libroComprado : librosCarrito) {
+                PanelProducto panelProducto = new PanelProducto(ventanaPrincipal, libroComprado);
                 gbcPanelProductos.gridy++;
                 panelProductos.add(panelProducto, gbcPanelProductos);
                 listPanelesProductos.add(panelProducto);
@@ -202,10 +202,10 @@ public class PanelCarrito extends JPanel {
     /**
      * Actualiza la vista del panel del carrito.
      *
-     * @param resumenCompra Información actualizada del valor de la compra.
+     * @param totalesCompra Información actualizada del valor de la compra.
      */
-    public void repaintPanel(ResumenCompra resumenCompra) {
-        modificarValores(resumenCompra);
+    public void repaintPanel(TotalesCompra totalesCompra) {
+        modificarValores(totalesCompra);
         validarExistenciaProductos();
         panelResumenCompra.revalidate();
         panelResumenCompra.repaint();
@@ -216,10 +216,10 @@ public class PanelCarrito extends JPanel {
     /**
      * Modifica los valores del resumen de compra.
      *
-     * @param resumenCompra Información del valor de la compra.
+     * @param totalesCompra Información del valor de la compra.
      */
-    public void modificarValores(ResumenCompra resumenCompra) {
-        panelResumenCompra.modificarValor(resumenCompra);
+    public void modificarValores(TotalesCompra totalesCompra) {
+        panelResumenCompra.modificarValor(totalesCompra);
         panelResumenCompra.repaint();
     }
 

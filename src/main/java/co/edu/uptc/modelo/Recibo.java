@@ -1,23 +1,30 @@
 package co.edu.uptc.modelo;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Recibo {
+public class Recibo implements Serializable {
+
+    /**
+     * Serialización de la clase para persistencia
+     */
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private String correo;
-    private String nombreUser;
-    private ResumenCompra resumenCompra;
+    private String nombreUsuario;
+    private TotalesCompra totalesCompra;
     private int numeroRecibo;
-    private LocalDateTime fecha;
+    private LocalDateTime fechaCompra;
     private TipoPagoEnum tipoPagoEnum;
     private String direccion;
-    private ArrayList<ProductoCompra> listaProductosComprados;
-    //private Descuento descuento;
+    private ArrayList<LibroComprado> listaProductosComprados;
 
     public Recibo() {
         listaProductosComprados = new ArrayList<>();
-        resumenCompra = new ResumenCompra();
+        totalesCompra = new TotalesCompra();
     }
 
     public String getCorreo() {
@@ -28,12 +35,12 @@ public class Recibo {
         this.correo = correo;
     }
 
-    public ResumenCompra getValorCompra() {
-        return resumenCompra;
+    public TotalesCompra getValorCompra() {
+        return totalesCompra;
     }
 
-    public void setValorCompra(ResumenCompra resumenCompra) {
-        this.resumenCompra = resumenCompra;
+    public void setValorCompra(TotalesCompra totalesCompra) {
+        this.totalesCompra = totalesCompra;
     }
 
     public int getNumeroRecibo() {
@@ -44,12 +51,12 @@ public class Recibo {
         this.numeroRecibo = numeroRecibo;
     }
 
-    public LocalDateTime getFecha() {
-        return fecha;
+    public LocalDateTime getFechaCompra() {
+        return fechaCompra;
     }
 
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
+    public void setFechaCompra(LocalDateTime fechaCompra) {
+        this.fechaCompra = fechaCompra;
     }
 
     public LocalDateTime obtenerFechaActual() {
@@ -72,19 +79,19 @@ public class Recibo {
         this.direccion = direccion;
     }
 
-    public ArrayList<ProductoCompra> getListaProductosComprados() {
+    public ArrayList<LibroComprado> getListaProductosComprados() {
         return listaProductosComprados;
     }
 
-    public void setListaProductosComprados(ArrayList<ProductoCompra> listaProductosComprados) {
+    public void setListaProductosComprados(ArrayList<LibroComprado> listaProductosComprados) {
         this.listaProductosComprados = listaProductosComprados;
     }
 
-    public String getNombreUser() {
-        return nombreUser;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setNombreUser(String nombreUser) {
-        this.nombreUser = nombreUser;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 }

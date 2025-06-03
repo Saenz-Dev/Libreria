@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
-import co.edu.uptc.modelo.ProductoCompra;
+import co.edu.uptc.modelo.LibroComprado;
 import co.edu.uptc.modelo.Recibo;
 
 public class PanelRecibo extends JDialog {
@@ -86,9 +86,9 @@ public class PanelRecibo extends JDialog {
             modificarRecibo();
         }
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
-        labelNombreCliente.setText("Nombre: " + recibo.getNombreUser());
+        labelNombreCliente.setText("Nombre: " + recibo.getNombreUsuario());
         labelCorreoElectronico.setText("Correo: " + recibo.getCorreo());
-        labelFechaHora.setText("Fecha y hora: " + recibo.getFecha().format(dateTimeFormatter));
+        labelFechaHora.setText("Fecha y hora: " + recibo.getFechaCompra().format(dateTimeFormatter));
         labelMetodoPago.setText("M.Pago: " + recibo.getTipoPago());
         labelNumeroRecibo.setText("Recibo Nº: " + recibo.getNumeroRecibo());
         labelNombreLibreria.setText("Libreria Virtual");
@@ -136,14 +136,14 @@ public class PanelRecibo extends JDialog {
 
         // Quede aqui, modificar de aqui para abajo que datos van y cuales no van
         // gracias :)
-        for (ProductoCompra productoCompra : recibo.getListaProductosComprados()) {
-            String isbn = productoCompra.getIsbn();
-            String producto = productoCompra.getTitulo();
-            int cantidad = productoCompra.getNumeroLibros();
-            double precioUnitario = productoCompra.getPrecioUnitario();
-            double subtotal = productoCompra.getPrecioTotal();
-            double impuestoUnitario = productoCompra.getImpuestoUnitario();
-            double impuestoTotal = productoCompra.getImpuestoTotal();
+        for (LibroComprado libroComprado : recibo.getListaProductosComprados()) {
+            String isbn = libroComprado.getIsbn();
+            String producto = libroComprado.getTitulo();
+            int cantidad = libroComprado.getNumeroLibros();
+            double precioUnitario = libroComprado.getPrecioUnitario();
+            double subtotal = libroComprado.getPrecioTotal();
+            double impuestoUnitario = libroComprado.getImpuestoUnitario();
+            double impuestoTotal = libroComprado.getImpuestoTotal();
 
             tableModel.addRow(new Object[]{isbn, producto, format.format(precioUnitario), format.format(impuestoUnitario), cantidad, format.format(impuestoTotal), format.format(subtotal)});
         }

@@ -200,4 +200,23 @@ public class Expresion {
             throw new IllegalArgumentException(sb.toString());
         }
     }
+
+    /**
+     * Valida si los datos del usuario están vacios
+     *
+     * @param correo     correo del usuario
+     * @param contrasena contraseña del usuario
+     * @throws IllegalArgumentException si alguno de los datos del inicio de sesión no cumple con las reglas
+     */
+    public void validarCamposVaciosLogin(String correo, String contrasena) throws IllegalArgumentException {
+        if (!correo.equals(Administrador.CORREO)) {
+            if (correo.isBlank() && contrasena.isBlank()) {
+                throw new IllegalArgumentException("Digite el correo y la contraseña.");
+            } else if (correo.isBlank()) {
+                throw new IllegalArgumentException("Digite el correo.");
+            } else if (contrasena.isBlank()) {
+                throw new IllegalArgumentException("Digite la contraseña.");
+            }
+        }
+    }
 }

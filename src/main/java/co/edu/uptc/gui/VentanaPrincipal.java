@@ -18,7 +18,7 @@ import co.edu.uptc.modelo.ResumenProductoDTO;
 import co.edu.uptc.modelo.TipoPagoEnum;
 import co.edu.uptc.modelo.TipoResultadoEnum;
 import co.edu.uptc.modelo.Usuario;
-import co.edu.uptc.modelo.ResumenCompra;
+import co.edu.uptc.modelo.TotalesCompra;
 import co.edu.uptc.negocio.GestionTienda;
 
 public class VentanaPrincipal extends JFrame {
@@ -150,8 +150,8 @@ public class VentanaPrincipal extends JFrame {
         try {
             menuPrincipal.activarPanelCarrito();
             menuPrincipal.getPanelCarrito().anadirProductosPanel(gestionTienda.listaCarrito());
-            ResumenCompra resumenCompra = gestionTienda.resumenCompra();
-            menuPrincipal.getPanelCarrito().modificarValores(resumenCompra);
+            TotalesCompra totalesCompra = gestionTienda.resumenCompra();
+            menuPrincipal.getPanelCarrito().modificarValores(totalesCompra);
         } catch (SQLException | IOException e) {
             JOptionPane.showMessageDialog(menuPrincipal, e.getMessage(), "Cerrar Sesión", JOptionPane.ERROR_MESSAGE);
         }
@@ -351,8 +351,8 @@ public class VentanaPrincipal extends JFrame {
             ResumenProductoDTO resumenProductoDTO = gestionTienda.sumarProductos(isbnProducto);
             panelProducto.actualizarPrecio(resumenProductoDTO.getSubtotal());
             panelProducto.actualizarCantidad(resumenProductoDTO.getCantidadReservada());
-            ResumenCompra resumenCompra = gestionTienda.resumenCompra();
-            menuPrincipal.getPanelCarrito().repaintPanel(resumenCompra);
+            TotalesCompra totalesCompra = gestionTienda.resumenCompra();
+            menuPrincipal.getPanelCarrito().repaintPanel(totalesCompra);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -363,8 +363,8 @@ public class VentanaPrincipal extends JFrame {
             ResumenProductoDTO resumenProductoDTO = gestionTienda.disminuirProductoCarrito(isbnProducto);
             panelProducto.actualizarPrecio(resumenProductoDTO.getSubtotal());
             panelProducto.actualizarCantidad(resumenProductoDTO.getCantidadReservada());
-            ResumenCompra resumenCompra = gestionTienda.resumenCompra();
-            menuPrincipal.getPanelCarrito().repaintPanel(resumenCompra);
+            TotalesCompra totalesCompra = gestionTienda.resumenCompra();
+            menuPrincipal.getPanelCarrito().repaintPanel(totalesCompra);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -375,8 +375,8 @@ public class VentanaPrincipal extends JFrame {
             gestionTienda.eliminarProductoCarrito(isbnProducto);
             menuPrincipal.getPanelCarrito().getListPanelesProductos().remove(panelProducto);
             menuPrincipal.getPanelCarrito().eliminarPanelProducto(panelProducto);
-            ResumenCompra resumenCompra = gestionTienda.resumenCompra();
-            menuPrincipal.getPanelCarrito().repaintPanel(resumenCompra);
+            TotalesCompra totalesCompra = gestionTienda.resumenCompra();
+            menuPrincipal.getPanelCarrito().repaintPanel(totalesCompra);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IOException | IllegalArgumentException e) {
@@ -437,7 +437,7 @@ public class VentanaPrincipal extends JFrame {
             menuPrincipal.getPanelRecibo().modificarLabels(gestionTienda.reciboUsuario(), false);
             menuPrincipal.activarPanelRecibo();
 
-            menuPrincipal.getPanelCarrito().repaintPanel(new ResumenCompra(0, 0, 0, 0, 0));
+            menuPrincipal.getPanelCarrito().repaintPanel(new TotalesCompra(0, 0, 0, 0, 0));
             menuPrincipal.getPanelCarrito().vaciarCarrito();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

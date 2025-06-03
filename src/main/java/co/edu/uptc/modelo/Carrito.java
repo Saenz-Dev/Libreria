@@ -11,13 +11,11 @@ import java.util.ArrayList;
 public class Carrito implements Serializable {
 
     /**
-     * 
+     * Serialización de la clase para persistencia
      */
+    @Serial
     private static final long serialVersionUID = -2108683978684726974L;
 
-    private String correo_usuario;
-
-    private Long isbn_libro;
     /**
      * ArrayList de libros del carrito
      */
@@ -36,22 +34,6 @@ public class Carrito implements Serializable {
      */
     public ArrayList<Libro> getLibros() {
         return libros;
-    }
-
-    public String getCorreo_usuario() {
-        return correo_usuario;
-    }
-
-    public void setCorreo_usuario(String correo_usuario) {
-        this.correo_usuario = correo_usuario;
-    }
-
-    public Long getIsbn_libro() {
-        return isbn_libro;
-    }
-
-    public void setIsbn_libro(Long isbn_libro) {
-        this.isbn_libro = isbn_libro;
     }
 
     /**

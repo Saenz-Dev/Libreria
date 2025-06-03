@@ -1,7 +1,7 @@
 package co.edu.uptc.persistencia;
 
 import co.edu.uptc.log.RegistroLog;
-import co.edu.uptc.modelo.ProductoCompra;
+import co.edu.uptc.modelo.LibroComprado;
 import co.edu.uptc.modelo.Recibo;
 import co.edu.uptc.modelo.TipoPagoEnum;
 
@@ -17,10 +17,10 @@ public class ReciboDAO extends ConexionBD<Recibo> {
         String sql = "INSERT INTO recibos (numero_recibo, correo, fecha, tipo_pago, direccion, descuento_Premium, descuento_Frecuencia, isbn, cantidad, precio_Unitario, precio_Total, subtotal, impuestos, total, impuesto_unitario, impuesto_total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            recibo.getFecha().format(dateFormat);
+            recibo.getFechaCompra().format(dateFormat);
             preparedStatement.setInt(1, recibo.getNumeroRecibo());
             preparedStatement.setString(2, recibo.getCorreo());
-            preparedStatement.setTimestamp(3, Timestamp.valueOf(recibo.getFecha()));
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(recibo.getFechaCompra()));
             preparedStatement.setString(4, String.valueOf(recibo.getTipoPago()));
             preparedStatement.setString(5, recibo.getDireccion());
             preparedStatement.setDouble(6, recibo.getValorCompra().getDescuentoPremium());
@@ -48,9 +48,9 @@ public class ReciboDAO extends ConexionBD<Recibo> {
         String sql = "UPDATE recibos SET correo = ?, fecha = ?, tipo_pago = ?, direccion = ?, descuento_Premium = ?, descuento_Frecuencia = ?, cantidad = ?, precio_Unitario = ?, precio_Total = ? , subtotal = ?, impuestos = ?, total = ?, impuesto_unitario = ?, impuesto_total = ?WHERE numero_recibo = ? AND isbn = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
-            recibo.getFecha().format(dateFormat);
+            recibo.getFechaCompra().format(dateFormat);
             preparedStatement.setString(1, recibo.getCorreo());
-            preparedStatement.setTimestamp(2, Timestamp.valueOf(recibo.getFecha()));
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(recibo.getFechaCompra()));
             preparedStatement.setString(3, String.valueOf(recibo.getTipoPago()));
             preparedStatement.setString(4, recibo.getDireccion());
             preparedStatement.setDouble(5, recibo.getListaProductosComprados().get(0).getDescuentoPremium());
@@ -76,7 +76,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
     public Recibo seleccionarRegistro(Recibo recibo) throws SQLException, RuntimeException {
         String sql = "SELECT * FROM recibos WHERE fecha = ? AND numero_recibo= ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setTimestamp(1, Timestamp.valueOf(recibo.getFecha()));
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(recibo.getFechaCompra()));
             preparedStatement.setInt(2, recibo.getNumeroRecibo());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 Recibo reciboQuery = new Recibo();
@@ -86,20 +86,20 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     encontrado = true;
                     reciboQuery.setNumeroRecibo(resultSet.getInt(2));
                     reciboQuery.setCorreo(resultSet.getString(3));
-                    reciboQuery.setFecha(resultSet.getTimestamp(4).toLocalDateTime());
+                    reciboQuery.setFechaCompra(resultSet.getTimestamp(4).toLocalDateTime());
                     reciboQuery.setTipoPago(TipoPagoEnum.valueOf(resultSet.getString(5)));
                     reciboQuery.setDireccion(resultSet.getString(6));
 
-                    ProductoCompra productoCompra = new ProductoCompra();
+                    LibroComprado libroComprado = new LibroComprado();
                     reciboQuery.getValorCompra().setDescuentoPremium(resultSet.getDouble(7));
                     reciboQuery.getValorCompra().setDescuentoFrecuencia(resultSet.getDouble(8));
-                    productoCompra.setIsbn(String.valueOf(resultSet.getLong(9)));
-                    productoCompra.setNumeroLibros(resultSet.getInt(10));
-                    productoCompra.setPrecioUnitario(resultSet.getDouble(11));
-                    productoCompra.setPrecioTotal(resultSet.getDouble(12));
-                    productoCompra.setImpuestoUnitario(resultSet.getDouble(16));
-                    productoCompra.setImpuestoTotal(resultSet.getDouble(17));
-                    reciboQuery.getListaProductosComprados().add(productoCompra);
+                    libroComprado.setIsbn(String.valueOf(resultSet.getLong(9)));
+                    libroComprado.setNumeroLibros(resultSet.getInt(10));
+                    libroComprado.setPrecioUnitario(resultSet.getDouble(11));
+                    libroComprado.setPrecioTotal(resultSet.getDouble(12));
+                    libroComprado.setImpuestoUnitario(resultSet.getDouble(16));
+                    libroComprado.setImpuestoTotal(resultSet.getDouble(17));
+                    reciboQuery.getListaProductosComprados().add(libroComprado);
 
                     reciboQuery.getValorCompra().setSubtotal(resultSet.getDouble(13));
                     reciboQuery.getValorCompra().setImpuestos(resultSet.getDouble(14));
@@ -131,20 +131,20 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                 while (resultSet.next()) {
                     reciboQuery.setNumeroRecibo(resultSet.getInt(2));
                     reciboQuery.setCorreo(resultSet.getString(3));
-                    reciboQuery.setFecha(resultSet.getTimestamp(4).toLocalDateTime());
+                    reciboQuery.setFechaCompra(resultSet.getTimestamp(4).toLocalDateTime());
                     reciboQuery.setTipoPago(TipoPagoEnum.valueOf(resultSet.getString(5)));
                     reciboQuery.setDireccion(resultSet.getString(6));
 
-                    ProductoCompra productoCompra = new ProductoCompra();
+                    LibroComprado libroComprado = new LibroComprado();
                     reciboQuery.getValorCompra().setDescuentoPremium(resultSet.getDouble(7));
                     reciboQuery.getValorCompra().setDescuentoFrecuencia(resultSet.getDouble(8));
-                    productoCompra.setIsbn(String.valueOf(resultSet.getLong(9)));
-                    productoCompra.setNumeroLibros(resultSet.getInt(10));
-                    productoCompra.setPrecioUnitario(resultSet.getDouble(11));
-                    productoCompra.setPrecioTotal(resultSet.getDouble(12));
-                    productoCompra.setImpuestoUnitario(resultSet.getDouble(16));
-                    productoCompra.setImpuestoTotal(resultSet.getDouble(17));
-                    reciboQuery.getListaProductosComprados().add(productoCompra);
+                    libroComprado.setIsbn(String.valueOf(resultSet.getLong(9)));
+                    libroComprado.setNumeroLibros(resultSet.getInt(10));
+                    libroComprado.setPrecioUnitario(resultSet.getDouble(11));
+                    libroComprado.setPrecioTotal(resultSet.getDouble(12));
+                    libroComprado.setImpuestoUnitario(resultSet.getDouble(16));
+                    libroComprado.setImpuestoTotal(resultSet.getDouble(17));
+                    reciboQuery.getListaProductosComprados().add(libroComprado);
 
                     reciboQuery.getValorCompra().setSubtotal(resultSet.getDouble(13));
                     reciboQuery.getValorCompra().setImpuestos(resultSet.getDouble(14));
@@ -167,20 +167,20 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     Recibo reciboQuery = new Recibo();
                     reciboQuery.setNumeroRecibo(resultSet.getInt(2));
                     reciboQuery.setCorreo(resultSet.getString(3));
-                    reciboQuery.setFecha(resultSet.getTimestamp(4).toLocalDateTime());
+                    reciboQuery.setFechaCompra(resultSet.getTimestamp(4).toLocalDateTime());
                     reciboQuery.setTipoPago(TipoPagoEnum.valueOf(resultSet.getString(5)));
                     reciboQuery.setDireccion(resultSet.getString(6));
 
-                    ProductoCompra productoCompra = new ProductoCompra();
+                    LibroComprado libroComprado = new LibroComprado();
                     reciboQuery.getValorCompra().setDescuentoPremium(resultSet.getDouble(7));
                     reciboQuery.getValorCompra().setDescuentoFrecuencia(resultSet.getDouble(8));
-                    productoCompra.setIsbn(String.valueOf(resultSet.getLong(9)));
-                    productoCompra.setNumeroLibros(resultSet.getInt(10));
-                    productoCompra.setPrecioUnitario(resultSet.getDouble(11));
-                    productoCompra.setPrecioTotal(resultSet.getDouble(12));
-                    productoCompra.setImpuestoUnitario(resultSet.getDouble(16));
-                    productoCompra.setImpuestoTotal(resultSet.getDouble(17));
-                    reciboQuery.getListaProductosComprados().add(productoCompra);
+                    libroComprado.setIsbn(String.valueOf(resultSet.getLong(9)));
+                    libroComprado.setNumeroLibros(resultSet.getInt(10));
+                    libroComprado.setPrecioUnitario(resultSet.getDouble(11));
+                    libroComprado.setPrecioTotal(resultSet.getDouble(12));
+                    libroComprado.setImpuestoUnitario(resultSet.getDouble(16));
+                    libroComprado.setImpuestoTotal(resultSet.getDouble(17));
+                    reciboQuery.getListaProductosComprados().add(libroComprado);
 
                     reciboQuery.getValorCompra().setSubtotal(resultSet.getDouble(13));
                     reciboQuery.getValorCompra().setImpuestos(resultSet.getDouble(14));
@@ -211,8 +211,8 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                 Recibo recibo = new Recibo();
                 recibo.setNumeroRecibo(resultSet.getInt(1));
                 recibo.setCorreo(resultSet.getString(2));
-                recibo.setNombreUser(resultSet.getString(3));
-                recibo.setFecha(resultSet.getTimestamp(4).toLocalDateTime());
+                recibo.setNombreUsuario(resultSet.getString(3));
+                recibo.setFechaCompra(resultSet.getTimestamp(4).toLocalDateTime());
                 recibo.setTipoPago(TipoPagoEnum.valueOf(resultSet.getString(5)));
                 recibo.setDireccion(resultSet.getString(6));
                 recibos.add(recibo);

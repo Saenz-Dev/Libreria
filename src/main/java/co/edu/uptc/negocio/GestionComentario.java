@@ -15,7 +15,6 @@ public class GestionComentario {
     private ComentarioDAO comentarioDAO;
 
     public GestionComentario(Tienda tienda, ComentarioDAO comentarioDAO) throws SQLException {
-        //manejoComentarioJSON = new ManejoComentarioJSON(tienda);
         this.comentarioDAO = comentarioDAO;
     }
 
@@ -38,8 +37,8 @@ public class GestionComentario {
     }
 
     private static void validarComentario(Comentario comentario) throws RuntimeException {
-        if (comentario.getComentario().isBlank() || comentario.getComentario().length() > 200) {
-            throw new RuntimeException("El comentario no puede estar vacío o exceder los 200 caracteres.");
+        if (comentario.getComentario().isBlank() || comentario.getComentario().length() > 400) {
+            throw new RuntimeException("El comentario no puede estar vacío o exceder los 400 caracteres.");
         }
         if (comentario.getCalificacion() < 1 || comentario.getCalificacion() > 5) {
             throw new RuntimeException("La calificación debe estar entre 1 y 5.");

@@ -1,0 +1,1762 @@
+jun 02, 2025 4:19:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:19:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:19:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:19:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:19:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:19:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780463334563,  usuario: user_default.
+
+jun 02, 2025 4:19:53 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:19:53 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780463334563
+
+jun 02, 2025 4:19:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780463334563,  usuario: garcese@gmail.com.
+
+jun 02, 2025 4:20:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780463334563, Usuario: user_default).
+
+jun 02, 2025 4:20:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 02, 2025 4:20:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:20:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 2 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 2 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:20:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:26 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:20:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780463334563
+
+jun 02, 2025 4:20:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780463334563, usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 2 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:31 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Compra 4 registrada correctamente para el correo: garcese@gmail.com
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se insertó correctamente el recibo num: 4 del usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 3 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se insertó correctamente el recibo num: 4 del usuario: garcese@gmail.com
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780463334563, Usuario: garcese@gmail.com).
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780463334563
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9785654345434, Usuario: garcese@gmail.com).
+
+jun 02, 2025 4:20:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9785654345434
+
+jun 02, 2025 4:20:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:20:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:20:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:22:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:22:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:23:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 02, 2025 4:23:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:23:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:23:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 4 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:23:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:23:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780463334563,  usuario: garcese@gmail.com.
+
+jun 02, 2025 4:23:06 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:23:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780463334563
+
+jun 02, 2025 4:23:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9785654345434,  usuario: garcese@gmail.com.
+
+jun 02, 2025 4:23:08 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:23:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9785654345434
+
+jun 02, 2025 4:23:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 2 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 4 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 4 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Compra 5 registrada correctamente para el correo: garcese@gmail.com
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 4 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se insertó correctamente el recibo num: 5 del usuario: garcese@gmail.com
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 5 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se insertó correctamente el recibo num: 5 del usuario: garcese@gmail.com
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780463334563, Usuario: garcese@gmail.com).
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780463334563
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9785654345434, Usuario: garcese@gmail.com).
+
+jun 02, 2025 4:23:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9785654345434
+
+jun 02, 2025 4:23:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:23:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:23:33 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:23:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:23:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9786574657465,  usuario: garcese@gmail.com.
+
+jun 02, 2025 4:23:57 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:23:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9786574657465
+
+jun 02, 2025 4:23:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:23:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:23:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:23:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:23:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:23:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:23:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 6 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:24:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:24:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:24:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 6 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:24:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:24:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:24:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Compra 6 registrada correctamente para el correo: garcese@gmail.com
+
+jun 02, 2025 4:24:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:24:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:24:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 6 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:24:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se insertó correctamente el recibo num: 6 del usuario: garcese@gmail.com
+
+jun 02, 2025 4:24:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:24:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9786574657465, Usuario: garcese@gmail.com).
+
+jun 02, 2025 4:24:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9786574657465
+
+jun 02, 2025 4:24:03 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:03 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786574657465
+
+jun 02, 2025 4:24:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:24:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9798576647564,  usuario: garcese@gmail.com.
+
+jun 02, 2025 4:24:13 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:24:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9798576647564
+
+jun 02, 2025 4:24:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:24:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 7 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:24:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 7 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:24:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Compra 7 registrada correctamente para el correo: garcese@gmail.com
+
+jun 02, 2025 4:24:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 7 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:24:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se insertó correctamente el recibo num: 7 del usuario: garcese@gmail.com
+
+jun 02, 2025 4:24:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9798576647564, Usuario: garcese@gmail.com).
+
+jun 02, 2025 4:24:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9798576647564
+
+jun 02, 2025 4:24:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:24:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:24:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: garcese@gmail.com cerró la sesión.
+
+jun 02, 2025 4:24:34 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:24:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 02, 2025 4:24:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:24:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:24:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:24:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:24:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:24:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:24:48 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:24:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:24:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Asesinato en el Orient Express
+
+jun 02, 2025 4:25:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: La metamorfósis
+
+jun 02, 2025 4:25:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9785847573837
+
+jun 02, 2025 4:25:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:25:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Asesinato en el Orient Express
+
+jun 02, 2025 4:25:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: EL nombre del viento
+
+jun 02, 2025 4:25:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9798576647564
+
+jun 02, 2025 4:25:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:25:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Asesinato en el Orient Express
+
+jun 02, 2025 4:25:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Cien años de soledad 
+
+jun 02, 2025 4:26:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9786453645342
+
+jun 02, 2025 4:26:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:26:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Asesinato en el Orient Express
+
+jun 02, 2025 4:29:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:29:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:29:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 02, 2025 4:29:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:29:38 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:29:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9785847573837,  usuario: garcese@gmail.com.
+
+jun 02, 2025 4:29:41 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:29:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9785847573837
+
+jun 02, 2025 4:29:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:29:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:29:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9786453645342,  usuario: garcese@gmail.com.
+
+jun 02, 2025 4:29:44 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:29:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9786453645342
+
+jun 02, 2025 4:29:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 2 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:29:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 8 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 8 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:30:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Compra 8 registrada correctamente para el correo: garcese@gmail.com
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 8 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se insertó correctamente el recibo num: 8 del usuario: garcese@gmail.com
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 9 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se insertó correctamente el recibo num: 8 del usuario: garcese@gmail.com
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9785847573837, Usuario: garcese@gmail.com).
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9785847573837
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:30:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9786453645342, Usuario: garcese@gmail.com).
+
+jun 02, 2025 4:30:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9786453645342
+
+jun 02, 2025 4:30:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:30:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785847573837
+
+jun 02, 2025 4:30:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9786453645342
+
+jun 02, 2025 4:30:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:30:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: garcese@gmail.com cerró la sesión.
+
+jun 02, 2025 4:30:30 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:30:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 02, 2025 4:30:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:30:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:30:38 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:30:38 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:30:38 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:30:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:30:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:30:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:30:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:30:47 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: ❌ Error al intentar borrar el libro 'EL nombre del viento': Cannot delete or update a parent row: a foreign key constraint fails (`db_libreria`.`recibos`, CONSTRAINT `recibos_ibfk_3` FOREIGN KEY (`isbn`) REFERENCES `libros` (`isbn`))
+
+java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`db_libreria`.`recibos`, CONSTRAINT `recibos_ibfk_3` FOREIGN KEY (`isbn`) REFERENCES `libros` (`isbn`))
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:109)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:990)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1168)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1103)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1450)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1086)
+	at co.edu.uptc.persistencia.LibroDAO.eliminarRegistro(LibroDAO.java:140)
+	at co.edu.uptc.negocio.GestionLibro.eliminarLibro(GestionLibro.java:108)
+	at co.edu.uptc.negocio.GestionTienda.eliminarLibro(GestionTienda.java:120)
+	at co.edu.uptc.gui.VentanaPrincipal.activarFuncionEliminarLibros(VentanaPrincipal.java:270)
+	at co.edu.uptc.gui.Evento.actionPerformed(Evento.java:152)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6621)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3398)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6386)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4996)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4575)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:98)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+jun 02, 2025 4:30:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:30:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+jun 02, 2025 4:30:58 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:30:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+jun 02, 2025 4:30:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:30:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:31:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 02, 2025 4:31:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:31:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:31:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 10 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:31:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 10 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:31:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:31:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 10 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:31:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:31:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9798576647564,  usuario: garcese@gmail.com.
+
+jun 02, 2025 4:31:18 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:31:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9798576647564
+
+jun 02, 2025 4:31:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:31:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 10 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:31:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 10 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:31:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Compra 9 registrada correctamente para el correo: garcese@gmail.com
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 10 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se insertó correctamente el recibo num: 9 del usuario: garcese@gmail.com
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9798576647564, Usuario: garcese@gmail.com).
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9798576647564
+
+jun 02, 2025 4:31:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9798576647564
+
+jun 02, 2025 4:31:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:31:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: garcese@gmail.com cerró la sesión.
+
+jun 02, 2025 4:31:26 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:31:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 02, 2025 4:31:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:31:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:31:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:31:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:31:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:31:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:31:49 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:31:51 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:32:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:32:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Asesinato en el Orient Express
+
+jun 02, 2025 4:32:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:32:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780463334563
+
+jun 02, 2025 4:32:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:32:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Asesinato en el Orient Express
+
+jun 02, 2025 4:32:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Los Crímenes de la Calle Morgue
+
+jun 02, 2025 4:32:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9785654345434
+
+jun 02, 2025 4:32:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9785654345434
+
+jun 02, 2025 4:32:48 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+
+jun 02, 2025 4:32:48 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Asesinato en el Orient Express
+
+jun 02, 2025 4:33:24 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro insertado correctamente con ISBN: 9784657465647
+
+jun 02, 2025 4:33:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:33:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:33:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+jun 02, 2025 4:33:37 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:33:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+jun 02, 2025 4:33:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:33:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:33:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:33:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 02, 2025 4:33:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:33:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:33:48 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:33:51 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:33:51 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9784657465647
+
+jun 02, 2025 4:33:51 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:33:51 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9784657465647,  usuario: garcese@gmail.com.
+
+jun 02, 2025 4:33:51 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:33:51 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9784657465647
+
+jun 02, 2025 4:33:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9784657465647
+
+jun 02, 2025 4:33:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:33:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9784657465647
+
+jun 02, 2025 4:33:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:33:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:33:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:33:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9784657465647
+
+jun 02, 2025 4:33:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9784657465647
+
+jun 02, 2025 4:33:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:33:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:33:52 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 11 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:33:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:33:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: garcese@gmail.com cerró la sesión.
+
+jun 02, 2025 4:33:56 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:33:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 02, 2025 4:33:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:33:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:34:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:34:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:34:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:34:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:34:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:34:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Asesinato en el Orient Express
+
+jun 02, 2025 4:34:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780463334563
+
+jun 02, 2025 4:34:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780463334563
+
+jun 02, 2025 4:34:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:34:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado con título: Asesinato en el Orient Express
+
+jun 02, 2025 4:34:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:34:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:34:51 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:35:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:35:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+jun 02, 2025 4:35:02 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:35:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+jun 02, 2025 4:35:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:35:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:35:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 02, 2025 4:35:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:35:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9784657465647
+
+jun 02, 2025 4:35:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:35:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9784657465647
+
+jun 02, 2025 4:35:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9784657465647
+
+jun 02, 2025 4:35:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 11 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:35:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🔍 No se encontró el libro en el carrito: ISBN 9784657465647, usuario garcese@gmail.com
+
+jun 02, 2025 4:35:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9784657465647
+
+jun 02, 2025 4:35:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se consultaron 2 libros del carrito.
+
+jun 02, 2025 4:35:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9784657465647, Usuario: garcese@gmail.com).
+
+jun 02, 2025 4:35:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9784657465647
+
+jun 02, 2025 4:35:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: garcese@gmail.com
+
+jun 02, 2025 4:35:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 11 recibos del usuario: garcese@gmail.com
+
+jun 02, 2025 4:35:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 02, 2025 4:35:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: garcese@gmail.com cerró la sesión.
+
+jun 02, 2025 4:35:15 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 02, 2025 4:35:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 02, 2025 4:35:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 02, 2025 4:35:15 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:35:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:35:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:35:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:35:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 02, 2025 4:35:27 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:35:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 9 libros de la base de datos
+
+jun 02, 2025 4:35:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9784657465647
+
+jun 02, 2025 4:35:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro eliminado: libor2 (ISBN: 9784657465647)
+
+jun 02, 2025 4:35:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 8 libros de la base de datos
+

@@ -28,35 +28,27 @@ public class GestionUsuario {
 
     private CarritoDAO carritoDAO;
 
-
-    private Usuario usuarioLog;
-
-    /**
-     * Instancia de Expresión
-     */
     private Expresion expresion;
 
-    /**
-     * Instancia de Administrador
-     */
     private Administrador administrador;
 
-    public Usuario userLog() throws SQLException, RuntimeException {
-        usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
+    private Tienda tienda;
+
+
+    public Usuario usuarioLogueado() throws SQLException, RuntimeException {
+        return tienda.getUsuarioActual();
+        /*usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
         usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));
-        return usuarioLog;
+        return usuarioLog;*/
     }
 
-    /**
-     * Constructor de la clase
-     *
-     * @throws SQLException
-     */
     public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, CuentaDAO cuentaDAO, CarritoDAO carritoDAO) throws SQLException {
-        usuarioLog = new Usuario();
+        this.tienda = tienda;
         this.cuentaDAO = cuentaDAO;
         this.usuarioDAO = usuarioDAO;
         this.carritoDAO = carritoDAO;
+        tienda.getUsuarioActual().getCuenta().setCorreo("user_default");// TODO cambiar esto y mejor dejar usuario default en un JSON
+        tienda.setUsuarioActual(usuarioDAO.seleccionarRegistro(tienda.getUsuarioActual()));
         expresion = new Expresion();
         administrador = new Administrador();
     }
@@ -65,8 +57,7 @@ public class GestionUsuario {
     /**
      * Registra un usuario en la base de datos
      *
-     * @throws IllegalArgumentException si alguno de los datos del usuario no cumple
-     *                                  con las reglas
+     * @throws IllegalArgumentException si alguno de los datos del usuario no cumple con las reglas
      */
     public void registrarUsuario(Usuario usuario) throws RuntimeException, SQLException {
         if (cuentaDAO.seleccionarRegistro(usuario.getCuenta()) != null) {
@@ -104,7 +95,7 @@ public class GestionUsuario {
         Cuenta cuenta = new Cuenta();
         cuenta.setCorreo(correo);
         cuenta.setContrasena(contrasena);
-        validarCamposVaciosLogin(correo, contrasena);
+        expresion.validarCamposVaciosLogin(correo, contrasena);
         Usuario usuario = new Usuario();
         usuario.getCuenta().setCorreo(correo);
         usuario.getCuenta().setContrasena(contrasena);
@@ -124,7 +115,7 @@ public class GestionUsuario {
         validarCuentaBuscada(cuenta, cuentaEncontrada); // Valido que la cuenta no sea nula
 
         cuentaEncontrada.setLog(true); // Actualizo el estado de la cuenta logueada
-        this.usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog); // Selecciono el usuario logueado en la BD con la cuenta encontrada
+        tienda.setUsuarioActual(usuarioDAO.seleccionarRegistro(usuarioLog)); // Selecciono el usuario logueado en la BD con la cuenta encontrada
         if (usuarioLog.getCuenta().getCorreo().equals(Administrador.CORREO)) {
             return false;
         }
@@ -141,11 +132,18 @@ public class GestionUsuario {
             carritoDAO.insertarDatos(libroCarritoDefault); // Inserto el libro del carrito de usuario default en el carrito del usuario logueado
             carritoDAO.eliminarRegistro(libroCarrito); // Elimino el libro del carrito del usuario default
         }
-
         cuentaDAO.actualizarDatos(cuentaEncontrada); // Actualizo la cuenta logueada en la base de datos
+        tienda.getUsuarioActual().setCuenta(cuentaEncontrada); // Asigno la cuenta logueada al usuario actual de la tienda
         return true;
     }
 
+    /**
+     * Valida si la cuenta buscada es nula o si la contraseña es incorrecta
+     *
+     * @param cuenta           cuenta del usuario
+     * @param cuentaEncontrada cuenta encontrada en la base de datos
+     * @throws IllegalArgumentException si la cuenta no está registrada o si la contraseña es incorrecta
+     */
     private void validarCuentaBuscada(Cuenta cuenta, Cuenta cuentaEncontrada) {
         if (cuentaEncontrada == null) {
             RegistroLog.registrarAdvertencia("❌ Intento de inicio de sesión con correo no registrado: " + cuenta.getCorreo());
@@ -164,32 +162,13 @@ public class GestionUsuario {
     }
 
     /**
-     * Valida si los datos del usuario están vacios
-     *
-     * @param correo     correo del usuario
-     * @param contrasena contraseña del usuario
-     * @throws IllegalArgumentException si alguno de los datos del inicio de sesión no cumple con las reglas
-     */
-    public void validarCamposVaciosLogin(String correo, String contrasena) throws IllegalArgumentException {
-        if (!correo.equals(Administrador.CORREO)) {
-            if (correo.isBlank() && contrasena.isBlank()) {
-                throw new IllegalArgumentException("Digite el correo y la contraseña.");
-            } else if (correo.isBlank()) {
-                throw new IllegalArgumentException("Digite el correo.");
-            } else if (contrasena.isBlank()) {
-                throw new IllegalArgumentException("Digite la contraseña.");
-            }
-        }
-    }
-
-    /**
      * Valida si el correo del administrador es el del usuario logueado
      *
      * @return retorna true si el correo del administrador es el del usuario
      * logueado
      */
     public boolean isAdminLogin() {
-        return usuarioLog.getCuenta().getCorreo().equals(administrador.getCORREO());
+        return tienda.getUsuarioActual().getCuenta().getCorreo().equals(administrador.getCORREO());
     }
 
     /**
@@ -198,7 +177,7 @@ public class GestionUsuario {
      * @return retorna true si el usuario logueado es el default
      */
     public boolean isDefaultUserLogin() {
-        return this.usuarioLog.getCuenta().getCorreo().equals("user_default");
+        return tienda.getUsuarioActual().getCuenta().getCorreo().equals("user_default");
     }
 
     /**
@@ -222,13 +201,20 @@ public class GestionUsuario {
         cuentaDAO.actualizarDatos(usuario.getCuenta());
     }
 
-    public void cerrarSesionUsuario(boolean cerrarAplicacion) throws RuntimeException, IOException, SQLException {
-        usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
-        usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));
-        usuarioLog.getCuenta().setLog(false);
-        RegistroLog.registrarInfo(usuarioLog.getCuenta().getCorreo() + " cerró la sesión.");
-        usuarioDAO.actualizarDatos(this.usuarioLog);
-        cuentaDAO.actualizarDatos(this.usuarioLog.getCuenta());
+    /**
+     * Cierra la sesión del usuario logueado y asigna el usuario genérico.
+     *
+     * @param cerrarAplicacion si se debe cerrar la aplicación
+     * @throws RuntimeException si ocurre un error al cerrar la sesión
+     * @throws SQLException     si ocurre un error al acceder a la base de datos
+     */
+    public void cerrarSesionUsuario(boolean cerrarAplicacion) throws RuntimeException, SQLException {
+        tienda.setUsuarioActual(usuarioDAO.seleccionarRegistro(tienda.getUsuarioActual()));
+        tienda.getUsuarioActual().setCuenta(cuentaDAO.seleccionarRegistro(tienda.getUsuarioActual().getCuenta()));
+        tienda.getUsuarioActual().getCuenta().setLog(false);
+        RegistroLog.registrarInfo(tienda.getUsuarioActual().getCuenta().getCorreo() + " cerró la sesión.");
+        usuarioDAO.actualizarDatos(tienda.getUsuarioActual());
+        cuentaDAO.actualizarDatos(tienda.getUsuarioActual().getCuenta());
         asignarUsuarioGenerico();
         if (cerrarAplicacion) {
             RegistroLog.fileHandler.close();
@@ -237,8 +223,7 @@ public class GestionUsuario {
 
     public void asignarUsuarioGenerico() throws SQLException {
         Usuario usuario = new Usuario();
-        usuario.setCuenta(new Cuenta());
         usuario.getCuenta().setCorreo("user_default");
-        this.usuarioLog = usuarioDAO.seleccionarRegistro(usuario);
+        tienda.setUsuarioActual(usuarioDAO.seleccionarRegistro(usuario));
     }
 }

@@ -13,7 +13,7 @@ import co.edu.uptc.modelo.CodigoPremium;
 import co.edu.uptc.modelo.Comentario;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.LibroCarrito;
-import co.edu.uptc.modelo.ProductoCompra;
+import co.edu.uptc.modelo.LibroComprado;
 import co.edu.uptc.modelo.Recibo;
 import co.edu.uptc.modelo.ResumenProductoDTO;
 import co.edu.uptc.modelo.Tienda;
@@ -21,7 +21,7 @@ import co.edu.uptc.modelo.TipoPagoEnum;
 import co.edu.uptc.modelo.TipoUsuarioEnum;
 import co.edu.uptc.modelo.Usuario;
 import co.edu.uptc.modelo.UsuarioPremium;
-import co.edu.uptc.modelo.ResumenCompra;
+import co.edu.uptc.modelo.TotalesCompra;
 import co.edu.uptc.persistencia.CarritoDAO;
 import co.edu.uptc.persistencia.CodigoDAO;
 import co.edu.uptc.persistencia.ComentarioDAO;
@@ -72,7 +72,7 @@ public class GestionTienda {
     // -----------------------------------Métodos GestionUsuario-----------------------------------
 
     public Usuario getUserLogin() throws SQLException, RuntimeException {
-        return gestionUsuario.userLog();
+        return gestionUsuario.usuarioLogueado();
     }
 
     public void asignarUsuarioGenerico() throws IOException, SQLException {
@@ -132,18 +132,11 @@ public class GestionTienda {
         return gestionLibro.validarExistencia(isbnLibro);
     }
 
-    // ---------------------------------------------Métodos de
-    // GestionCatalogo--------------------------------------------
-
     public ArrayList<Libro> listarLibros() throws SQLException {
         return gestionCatalogo.listarLibros();
     }
 
-    // ---------------------------------------------Métodos de
-    // GesionCarrito----------------------------------------------------------------------
-
-    public ResumenCompra resumenCompra() throws IOException, SQLException, RuntimeException {
-        // gestionCompra.getManejoCompraJSON().leerCompras();
+    public TotalesCompra resumenCompra() throws IOException, SQLException, RuntimeException {
         return gestionCarrito.calculoResumenCompra(reciboDAO);
     }
 
@@ -188,7 +181,7 @@ public class GestionTienda {
 
     public void registrarCompra(ArrayList<String> listaIsbn, TipoPagoEnum tipoPagoEnum) throws IOException, SQLException, RuntimeException {
         LibroCarrito libroCarrito = new LibroCarrito();
-        libroCarrito.setCorreo_usuario(gestionUsuario.userLog().getCuenta().getCorreo());
+        libroCarrito.setCorreo_usuario(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
         if (libroCarrito == null || libroCarrito.getCorreo_usuario() == null || libroCarrito.getCorreo_usuario().isBlank()) {
             RegistroLog.registrarAdvertencia("❗ Se intentó seleccionar registros con un correo de usuario nulo o vacío.");
             throw new RuntimeException("⚠️ No se proporcionó un usuario válido para consultar su carrito.");
@@ -204,7 +197,7 @@ public class GestionTienda {
     //TODO modificar metodo para que envie compras y no recibos
     public ArrayList<Recibo> getComprasUserLogin() throws IOException, SQLException, RuntimeException {
         Recibo recibo = new Recibo();
-        recibo.setCorreo(gestionUsuario.userLog().getCuenta().getCorreo());
+        recibo.setCorreo(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
         return reciboDAO.seleccionarRegistrosCompras(recibo);
 	/*gestionCompra.getManejoCompraJSON().leerCompras();
 	return tienda.getRecibos().get(gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin().getCuenta().getCorreo());*/
@@ -212,11 +205,11 @@ public class GestionTienda {
 
     public Recibo reciboUsuario() throws IOException, SQLException, RuntimeException {
         Recibo recibo = new Recibo();
-        Usuario usuarioLog = gestionUsuario.userLog(); //Se utiliza el metodo que devuelve el usuario logueado
+        Usuario usuarioLog = gestionUsuario.usuarioLogueado(); //Se utiliza el metodo que devuelve el usuario logueado
         recibo.setCorreo(usuarioLog.getCuenta().getCorreo()); //Y tambien el correo del usuario
         recibo.setNumeroRecibo(compraDAO.seleccionarRegistros().size()); //En la BD compras se busca el numero de compra
         recibo = reciboDAO.seleccionarRegistroNumero(recibo);
-        recibo.setNombreUser(usuarioLog.getNombre()); //Se asigna el nombre del usuario logueado// Y con este dato se manda por parametro a recibo para buscar cuales fueron los productos comprados
+        recibo.setNombreUsuario(usuarioLog.getNombre()); //Se asigna el nombre del usuario logueado// Y con este dato se manda por parametro a recibo para buscar cuales fueron los productos comprados
         buscarNombresLibros(recibo); //Se busca los nombres de los libros y se asignan al recibo
         return recibo; // Y se retorna el recibo
 	/*gestionCompra.getManejoCompraJSON().leerCompras();
@@ -224,11 +217,11 @@ public class GestionTienda {
     }
 
     public void buscarNombresLibros(Recibo recibo) throws SQLException, RuntimeException {
-        for (ProductoCompra productoCompra : recibo.getListaProductosComprados()) {
+        for (LibroComprado libroComprado : recibo.getListaProductosComprados()) {
             Libro libroCatalogo = new Libro();
-            libroCatalogo.setIsbn(productoCompra.getIsbn());
+            libroCatalogo.setIsbn(libroComprado.getIsbn());
             libroCatalogo = libroDAO.seleccionarRegistro(libroCatalogo);
-            productoCompra.setTitulo(libroCatalogo.getTitulo());
+            libroComprado.setTitulo(libroCatalogo.getTitulo());
         }
     }
 
@@ -236,11 +229,11 @@ public class GestionTienda {
         return gestionCarrito.getManejoUsuarioJSON().getUsuarioLogin().getCarrito();
     }
 
-    public ArrayList<ProductoCompra> listaCarrito() throws SQLException, RuntimeException {
-        ArrayList<ProductoCompra> listaCarrito = new ArrayList<>();
+    public ArrayList<LibroComprado> listaCarrito() throws SQLException, RuntimeException {
+        ArrayList<LibroComprado> listaCarrito = new ArrayList<>();
         CalculadoraIVA calculadoraIVA = new CalculadoraIVA();
         LibroCarrito libroCarrito = new LibroCarrito();
-        libroCarrito.setCorreo_usuario(gestionUsuario.userLog().getCuenta().getCorreo());
+        libroCarrito.setCorreo_usuario(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
         if (libroCarrito == null || libroCarrito.getCorreo_usuario() == null || libroCarrito.getCorreo_usuario().isBlank()) {
             RegistroLog.registrarAdvertencia("❗ Se intentó seleccionar registros con un correo de usuario nulo o vacío.");
             throw new RuntimeException("⚠️ No se proporcionó un usuario válido para consultar su carrito.");
@@ -250,61 +243,61 @@ public class GestionTienda {
             throw new IllegalArgumentException("No se encuentran libros en el carrito,");
         }
         for (LibroCarrito libroCarritoUser : librosCarrito) {
-            ProductoCompra productoCompra = aggInfoProductoCompra(calculadoraIVA, libroCarrito, libroCarritoUser);
-            listaCarrito.add(productoCompra);
+            LibroComprado libroComprado = aggInfoProductoCompra(calculadoraIVA, libroCarrito, libroCarritoUser);
+            listaCarrito.add(libroComprado);
         }
         return listaCarrito;
     }
 
-    private ProductoCompra aggInfoProductoCompra(CalculadoraIVA calculadoraIVA, LibroCarrito libroCarrito, LibroCarrito libroCarritoUser) throws SQLException {
+    private LibroComprado aggInfoProductoCompra(CalculadoraIVA calculadoraIVA, LibroCarrito libroCarrito, LibroCarrito libroCarritoUser) throws SQLException {
         Libro libro = new Libro();
         libro.setIsbn(String.valueOf(libroCarritoUser.getIsbn_libro()));
         libro = libroDAO.seleccionarRegistro(libro);
-        ProductoCompra productoCompra = setProductoCompra(libroCarritoUser, libro);
-        productoCompra.setImpuestoUnitario(calculadoraIVA.impuestoProducto(libro));
-        libroCarrito.setCorreo_usuario(gestionUsuario.userLog().getCuenta().getCorreo());
+        LibroComprado libroComprado = setProductoCompra(libroCarritoUser, libro);
+        libroComprado.setImpuestoUnitario(calculadoraIVA.impuestoProducto(libro));
+        libroCarrito.setCorreo_usuario(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
         libroCarrito.setIsbn_libro(Long.parseLong(libro.getIsbn()));
-        productoCompra.setPrecioTotal(calculadoraIVA.subtotalProducto(libroCarritoUser, libro));
-        productoCompra.setImpuestoTotal(calculadoraIVA.impuestoProductos(libroCarritoUser, libro));
-        return productoCompra;
+        libroComprado.setPrecioTotal(calculadoraIVA.subtotalProducto(libroCarritoUser, libro));
+        libroComprado.setImpuestoTotal(calculadoraIVA.impuestoProductos(libroCarritoUser, libro));
+        return libroComprado;
     }
 
-    private ProductoCompra setProductoCompra(LibroCarrito libroCarritoUser, Libro libro) {
-        ProductoCompra productoCompra = new ProductoCompra();
-        productoCompra.setTitulo(libro.getTitulo());
-        productoCompra.setIsbn(libro.getIsbn());
-        productoCompra.setNumeroLibros(libroCarritoUser.getCantidad());
-        productoCompra.setPrecioUnitario(libro.getPrecioVenta());
-        return productoCompra;
+    private LibroComprado setProductoCompra(LibroCarrito libroCarritoUser, Libro libro) {
+        LibroComprado libroComprado = new LibroComprado();
+        libroComprado.setTitulo(libro.getTitulo());
+        libroComprado.setIsbn(libro.getIsbn());
+        libroComprado.setNumeroLibros(libroCarritoUser.getCantidad());
+        libroComprado.setPrecioUnitario(libro.getPrecioVenta());
+        return libroComprado;
     }
 
-    public ResumenCompra valorCompra() throws IOException, SQLException, RuntimeException {
-        ResumenCompra resumenCompra = new ResumenCompra();
+    public TotalesCompra valorCompra() throws IOException, SQLException, RuntimeException {
+        TotalesCompra totalesCompra = new TotalesCompra();
         CalculadoraIVA calculadoraIVA = new CalculadoraIVA();
         LibroCarrito libroCarrito = new LibroCarrito();
-        libroCarrito.setCorreo_usuario(gestionUsuario.userLog().getCuenta().getCorreo());
+        libroCarrito.setCorreo_usuario(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
         if (libroCarrito == null || libroCarrito.getCorreo_usuario() == null || libroCarrito.getCorreo_usuario().isBlank()) {
             RegistroLog.registrarAdvertencia("❗ Se intentó seleccionar registros con un correo de usuario nulo o vacío.");
             throw new RuntimeException("⚠️ No se proporcionó un usuario válido para consultar su carrito.");
         }
-        setValorCompra(resumenCompra, calculadoraIVA, libroCarrito);
-        return resumenCompra;
+        setValorCompra(totalesCompra, calculadoraIVA, libroCarrito);
+        return totalesCompra;
     }
 
-    private void setValorCompra(ResumenCompra resumenCompra, CalculadoraIVA calculadoraIVA, LibroCarrito libroCarrito) throws SQLException, IOException {
+    private void setValorCompra(TotalesCompra totalesCompra, CalculadoraIVA calculadoraIVA, LibroCarrito libroCarrito) throws SQLException, IOException {
         ArrayList<LibroCarrito> librosCarritoUsuario = carritoDAO.seleccionarRegistros(libroCarrito);
-        resumenCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUsuario, libroDAO));
-        resumenCompra.setSubtotal(calculadoraIVA.subtotal(librosCarritoUsuario, libroDAO));
-        resumenCompra.setTotal(calculadoraIVA.total(resumenCompra.getSubtotal(), resumenCompra.getImpuestos()));
-        resumenCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(resumenCompra.getTotal(), gestionUsuario.userLog()));
+        totalesCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUsuario, libroDAO));
+        totalesCompra.setSubtotal(calculadoraIVA.subtotal(librosCarritoUsuario, libroDAO));
+        totalesCompra.setTotal(calculadoraIVA.total(totalesCompra.getSubtotal(), totalesCompra.getImpuestos()));
+        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(totalesCompra.getTotal(), gestionUsuario.usuarioLogueado()));
         Recibo recibo = new Recibo();
-        recibo.setCorreo(gestionUsuario.userLog().getCuenta().getCorreo());
-        resumenCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(recibo), resumenCompra.getTotal()));
-        resumenCompra.setTotal(resumenCompra.getTotal() - resumenCompra.getDescuentoPremium());
+        recibo.setCorreo(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
+        totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(recibo), totalesCompra.getTotal()));
+        totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoPremium());
     }
 
     public void guardarComentario(Comentario comentario) throws IOException, RuntimeException, SQLException {
-        Usuario userLog = gestionUsuario.userLog();
+        Usuario userLog = gestionUsuario.usuarioLogueado();
         comentario.setCorreo(userLog.getCuenta().getCorreo());
         comentario.setUsuario(userLog.getNombre());
         comentario.setFecha(LocalDateTime.now());
@@ -328,7 +321,7 @@ public class GestionTienda {
         Recibo recibo = new Recibo();
         recibo.setNumeroRecibo(numeroCompra);
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
-        recibo.setFecha(LocalDateTime.parse(fecha, formater));
+        recibo.setFechaCompra(LocalDateTime.parse(fecha, formater));
         Recibo compraRecibo = compraDAO.seleccionarRegistro(recibo);
         if (compraRecibo == null) {
             throw new RuntimeException("Compra no encontrada");
@@ -338,7 +331,7 @@ public class GestionTienda {
         if (reciboFinal == null) {
             throw new RuntimeException("Recibo no encontrado");
         }
-        reciboFinal.setNombreUser(gestionUsuario.userLog().getNombre());
+        reciboFinal.setNombreUsuario(gestionUsuario.usuarioLogueado().getNombre());
         buscarNombresLibros(reciboFinal);
         return reciboFinal;
 

@@ -3,7 +3,6 @@ package co.edu.uptc.negocio;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
 
 import co.edu.uptc.modelo.*;
@@ -70,7 +69,7 @@ public class ManejoCompraJSON {
         int numero = 0;
         for (ArrayList<Recibo> listaRecibos: getTienda().getRecibos().values()) {
             for (Recibo p : listaRecibos) {
-                for (ProductoCompra compra : p.getListaProductosComprados()) {
+                for (LibroComprado compra : p.getListaProductosComprados()) {
                     numero++;
                 }
             }

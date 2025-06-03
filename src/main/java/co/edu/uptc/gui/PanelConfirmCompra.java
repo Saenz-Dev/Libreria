@@ -104,7 +104,7 @@ public class PanelConfirmCompra extends JDialog {
         buttonGroup.add(botonTarjeta);
     }
 
-    public void llenarTabla(ResumenCompra resumenCompra, ArrayList<ProductoCompra> listaCarrito) {
+    public void llenarTabla(TotalesCompra totalesCompra, ArrayList<LibroComprado> listaCarrito) {
 
         if (scroll != null) {
             remove(scroll);
@@ -125,22 +125,22 @@ public class PanelConfirmCompra extends JDialog {
 
         DefaultTableModel tableModel = getDefaultTableModel();
 
-        for (ProductoCompra productoCompra : listaCarrito) {
-            String isbn = productoCompra.getIsbn();
-            String tituloLibro = productoCompra.getTitulo();
-            int cantidad = productoCompra.getNumeroLibros();
-            double valorUnitario = productoCompra.getPrecioUnitario();
-            double impuestoTotalProducto = productoCompra.getImpuestoTotal();
-            double impuesto = productoCompra.getImpuestoUnitario();
-            double valor = productoCompra.getPrecioTotal();
+        for (LibroComprado libroComprado : listaCarrito) {
+            String isbn = libroComprado.getIsbn();
+            String tituloLibro = libroComprado.getTitulo();
+            int cantidad = libroComprado.getNumeroLibros();
+            double valorUnitario = libroComprado.getPrecioUnitario();
+            double impuestoTotalProducto = libroComprado.getImpuestoTotal();
+            double impuesto = libroComprado.getImpuestoUnitario();
+            double valor = libroComprado.getPrecioTotal();
             tableModel.addRow(new Object[]{isbn, tituloLibro, format.format(valorUnitario), format.format(impuesto), cantidad, format.format(impuestoTotalProducto), format.format(valor), false});
         }
 
-        tableModel.addRow(new Object[]{"", "", "", "", "", "Subtotal", format.format(resumenCompra.getSubtotal())});
-        tableModel.addRow(new Object[]{"", "", "", "", "", "Impuestos", "+ " +  format.format(resumenCompra.getImpuestos())});
-        tableModel.addRow(new Object[]{"", "", "", "", "", "Desc. Premium", "- " +  format.format(resumenCompra.getDescuentoPremium())});
-        tableModel.addRow(new Object[]{"", "", "", "", "", "Des. Frecuencia", "- " +  format.format(resumenCompra.getDescuentoFrecuencia())});
-        tableModel.addRow(new Object[]{"", "", "", "", "", "Total", format.format(resumenCompra.getTotal())});
+        tableModel.addRow(new Object[]{"", "", "", "", "", "Subtotal", format.format(totalesCompra.getSubtotal())});
+        tableModel.addRow(new Object[]{"", "", "", "", "", "Impuestos", "+ " +  format.format(totalesCompra.getImpuestos())});
+        tableModel.addRow(new Object[]{"", "", "", "", "", "Desc. Premium", "- " +  format.format(totalesCompra.getDescuentoPremium())});
+        tableModel.addRow(new Object[]{"", "", "", "", "", "Des. Frecuencia", "- " +  format.format(totalesCompra.getDescuentoFrecuencia())});
+        tableModel.addRow(new Object[]{"", "", "", "", "", "Total", format.format(totalesCompra.getTotal())});
 
         tablaCompras = new JTable(tableModel);
         personalizarTabla(tablaCompras);

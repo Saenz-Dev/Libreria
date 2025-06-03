@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Libro implements Serializable {
 
     /**
-     * 
+     * Serialización de la clase para persistencia
      */
     private static final long serialVersionUID = 7932726996518039079L;
 
@@ -76,33 +76,6 @@ public class Libro implements Serializable {
     public Libro() {
         isComprado = false;
     }
-
-    /**
-     * Constructor de la clase Libro
-     * @param isbn ISBN del libro
-     * @param titulo Título del libro
-     * @param autor Autor del libro
-     * @param anioPublicacion Año de publicación
-     * @param categoria Categoría del libro
-     * @param editorial Editorial del libro
-     * @param numeroPaginas Número de páginas del libro
-     * @param precioVenta Precio de venta del libro
-     * @param stockDisponible Stock disponible del libro
-     * @param tipoLibroEnum Tipo de libro
-     */
-    public Libro(String isbn, String titulo, String autor, int anioPublicacion, String categoria, String editorial, int numeroPaginas, double precioVenta, int stockDisponible, TipoLibroEnum tipoLibroEnum) {
-        this.isbn = isbn;
-        this.titulo = titulo;
-        this.autor = autor;
-        this.anioPublicacion = anioPublicacion;
-        this.categoria = categoria;
-        this.editorial = editorial;
-        this.numeroPaginas = numeroPaginas;
-        this.precioVenta = precioVenta;
-        this.stockDisponible = stockDisponible;
-        this.tipoLibroEnum = tipoLibroEnum;
-    }
-
     public boolean getIsComprado() {
         return isComprado;
     }

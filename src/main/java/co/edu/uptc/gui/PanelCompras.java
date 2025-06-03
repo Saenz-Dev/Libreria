@@ -1,6 +1,5 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.ProductoCompra;
 import co.edu.uptc.modelo.Recibo;
 
 import javax.swing.*;
@@ -93,7 +92,7 @@ public class PanelCompras extends JPanel {
             if (numCompra != recibo.getNumeroRecibo()) {
 
                 numCompra = recibo.getNumeroRecibo();
-                String fecha = formater.format(recibo.getFecha());
+                String fecha = formater.format(recibo.getFechaCompra());
                 int numeroRecibo = recibo.getNumeroRecibo();
                 tableModel.addRow(new Object[]{fecha, numeroRecibo});
             }

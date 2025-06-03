@@ -38,6 +38,10 @@ public class Usuario implements Serializable{
      */
     private Cuenta cuenta;
 
+    /**
+     * Descuento aplicado según el tipo de usuario.
+     * Este valor puede ser utilizado para calcular descuentos en compras.
+     */
     private double descuentoTipoUsuario;
 
     /**
