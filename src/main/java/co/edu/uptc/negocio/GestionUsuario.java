@@ -5,14 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import co.edu.uptc.log.RegistroLog;
-import co.edu.uptc.modelo.Administrador;
-import co.edu.uptc.modelo.Cuenta;
-import co.edu.uptc.modelo.LibroCarrito;
-import co.edu.uptc.modelo.Tienda;
-import co.edu.uptc.modelo.TipoUsuarioEnum;
-import co.edu.uptc.modelo.Usuario;
-import co.edu.uptc.modelo.UsuarioPremium;
-import co.edu.uptc.modelo.UsuarioRegular;
+import co.edu.uptc.modelo.*;
 import co.edu.uptc.persistencia.CarritoDAO;
 import co.edu.uptc.persistencia.CuentaDAO;
 import co.edu.uptc.persistencia.UsuarioDAO;
@@ -119,17 +112,12 @@ public class GestionUsuario {
         if (usuarioLog.getCuenta().getCorreo().equals(Administrador.CORREO)) {
             return false;
         }
-        LibroCarrito libroCarrito = new LibroCarrito(); // Creo un libroCarrito para seleccionar los registros del carrito del usuario default
-        libroCarrito.setCorreo_usuario("user_default"); //
-        if (libroCarrito == null || libroCarrito.getCorreo_usuario() == null || libroCarrito.getCorreo_usuario().isBlank()) {
-            RegistroLog.registrarAdvertencia("❗ Se intentó seleccionar registros con un correo de usuario nulo o vacío.");
-            throw new RuntimeException("⚠️ No se proporcionó un usuario válido para consultar su carrito.");
-        }
-        ArrayList<LibroCarrito> librosCarritoDefault = carritoDAO.seleccionarRegistros(libroCarrito); // Selecciono los libros del carrito del usuario default
-        for (LibroCarrito libroCarritoDefault : librosCarritoDefault) {
-            libroCarritoDefault.setCorreo_usuario(usuarioLog.getCuenta().getCorreo()); // Seteo el correo del usuario logueado
-            libroCarrito.setIsbn_libro(libroCarritoDefault.getIsbn_libro()); // Seteo el isbn del libro del carrito
-            carritoDAO.insertarDatos(libroCarritoDefault); // Inserto el libro del carrito de usuario default en el carrito del usuario logueado
+
+        ArrayList<Libro> librosCarritoDefault = carritoDAO.seleccionarRegistros("user_default"); // Selecciono los libros del carrito del usuario default
+        for (Libro libroCarritoDefault : librosCarritoDefault) {
+            Libro libroCarrito = new Libro();
+            libroCarrito.setIsbn(libroCarritoDefault.getIsbn()); // Seteo el isbn del libro del carrito
+            carritoDAO.insertarDatos(libroCarritoDefault, tienda.getUsuarioActual().getCuenta().getCorreo()); // Inserto el libro del carrito de usuario default en el carrito del usuario logueado
             carritoDAO.eliminarRegistro(libroCarrito); // Elimino el libro del carrito del usuario default
         }
         cuentaDAO.actualizarDatos(cuentaEncontrada); // Actualizo la cuenta logueada en la base de datos

@@ -31,15 +31,15 @@ public class CalculadoraIVA {
      * @throws RuntimeException
      * @throws SQLException
      */
-    public double subtotal(ArrayList<LibroCarrito> librosCarrito, LibroDAO libroDAO) throws SQLException, RuntimeException {
+    public double subtotal(ArrayList<Libro> librosCarrito, LibroDAO libroDAO) throws SQLException, RuntimeException {
         double subtotal = 0;
         if (librosCarrito == null || librosCarrito.isEmpty()) return subtotal;
 
-        for (LibroCarrito libroCarrito : librosCarrito) {
+        for (Libro libroCarrito : librosCarrito) {
             Libro libro = new Libro();
-            libro.setIsbn(String.valueOf(libroCarrito.getIsbn_libro()));
+            libro.setIsbn(String.valueOf(libroCarrito.getIsbn()));
             libro = libroDAO.seleccionarRegistro(libro);
-            subtotal += libroCarrito.getCantidad() * libro.getPrecioVenta();
+            subtotal += libroCarrito.getStockReservado() * libro.getPrecioVenta();
         }
         return subtotal;
     }
@@ -52,17 +52,17 @@ public class CalculadoraIVA {
      * @throws RuntimeException
      * @throws SQLException
      */
-    public double impuestos(ArrayList<LibroCarrito> librosCarrito, LibroDAO libroDAO) throws SQLException, RuntimeException {
+    public double impuestos(ArrayList<Libro> librosCarrito, LibroDAO libroDAO) throws SQLException, RuntimeException {
         double impuestos = 0;
         if (librosCarrito == null || librosCarrito.isEmpty()) return impuestos;
-        for (LibroCarrito libroCarrito : librosCarrito) {
+        for (Libro libroCarrito : librosCarrito) {
             Libro libro = new Libro();
-            libro.setIsbn(String.valueOf(libroCarrito.getIsbn_libro()));
+            libro.setIsbn(String.valueOf(libroCarrito.getIsbn()));
             libro = libroDAO.seleccionarRegistro(libro);
             if (libro.getTipoLibro() == TipoLibroEnum.FISICO) {
-                impuestos += libroCarrito.getCantidad() * 0.19 * libro.getPrecioVenta();
+                impuestos += libroCarrito.getStockReservado() * 0.19 * libro.getPrecioVenta();
             } else {
-                impuestos += libroCarrito.getCantidad() * 0.05 * libro.getPrecioVenta();
+                impuestos += libroCarrito.getStockReservado() * 0.05 * libro.getPrecioVenta();
             }
         }
         return impuestos;
@@ -109,8 +109,8 @@ public class CalculadoraIVA {
      * @param librosCarrito  libros del carrito de libros en el stock
      * @return subtotal del producto
      */
-    public double subtotalProducto(LibroCarrito libroCarrito, Libro libroCatalogo) {
-        return libroCarrito.getCantidad() * libroCatalogo.getPrecioVenta();
+    public double subtotalProducto(Libro libroCarrito, Libro libroCatalogo) {
+        return libroCarrito.getStockReservado() * libroCatalogo.getPrecioVenta();
         /*for (Libro libro : librosCarrito) { //Busca el libro en el carrito del usuario 
             if (libro.getIsbn().equals(libroParametro.getIsbn())) {//Si el isbn del libroParametro es igual a algun libro del carrito
                 return libro.getStockReservado() * libro.getPrecioVenta();//Retorna el precio del libro 

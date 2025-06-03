@@ -113,11 +113,10 @@ public class GestionCarrito {
      * @throws SQLException
      */
     public void agregarLibroCarrito(Libro libro, Usuario usuarioLog) throws SQLException, RuntimeException {
-        LibroCarrito libroCarrito = new LibroCarrito();
-        libroCarrito.setIsbn_libro(Long.parseLong(libro.getIsbn()));
-        libroCarrito.setCorreo_usuario(usuarioLog.getCuenta().getCorreo());
-        libroCarrito.setCantidad(1);
-        carritoDAO.insertarDatos(libroCarrito);
+        Libro libroCarrito = new Libro();
+        libroCarrito.setIsbn(libro.getIsbn());
+        libroCarrito.setStockReservado(1);
+        carritoDAO.insertarDatos(libroCarrito, tienda.getUsuarioActual().getCuenta().getCorreo());
     }
 
     /**
@@ -242,7 +241,7 @@ public class GestionCarrito {
      * @throws RuntimeException
      * @throws SQLException
      */
-    public ArrayList<LibroCarrito> listarLibros() throws SQLException, RuntimeException {
+    public ArrayList<Libro> listarLibros() throws SQLException, RuntimeException {
         return carritoDAO.seleccionarRegistros();
     }
 
@@ -257,7 +256,7 @@ public class GestionCarrito {
      * @throws SQLException
      */
     public ResumenProductoDTO sumarProducto(String isbnProducto) throws IOException, SQLException, RuntimeException {
-        LibroCarrito libroCarrito = consultaLibroCarrito(isbnProducto);
+        Libro libroCarrito = consultaLibroCarrito(isbnProducto);
         Libro libroCatalogo = consultaLibroCatalogo(isbnProducto);
 
         validarDisponibilidad(isbnProducto, libroCarrito, libroCatalogo);
@@ -271,7 +270,7 @@ public class GestionCarrito {
         return actualizarProductoCarrito(isbnProducto);
     }
 
-    private void validarDisponibilidad(String isbnProducto, LibroCarrito libroCarrito, Libro libroCatalogo) {
+    private void validarDisponibilidad(String isbnProducto, Libro libroCarrito, Libro libroCatalogo) {
         if (libroCarrito == null || libroCatalogo == null) {
             throw new IllegalArgumentException("No se pudo sumar el producto con ISBN:" + isbnProducto);
         }
@@ -284,34 +283,22 @@ public class GestionCarrito {
     /**
      * Retorna el subtotal y la cantidad reservada de un producto en el carrito.
      *
-     * @param productoCarrito producto actualizar.
-     * @param librosCarrito   lista de libros del carrito del usuario.
-     * @param catalogo        catalogo disponible en la tienda.
-     * @param index           posición en la que se encuentra el producto en el
-     *                        carrito del usuario.
+     * @param isbn isbn del producto a actualizar en el carrito.
      * @return El resumen del producto.
-     * @throws IOException      si al serializar los datos ocurre algún error.
+     *
      * @throws RuntimeException
      * @throws SQLException
      */
-    public ResumenProductoDTO actualizarProductoCarrito(String isbn) throws IOException, SQLException, RuntimeException {
+    public ResumenProductoDTO actualizarProductoCarrito(String isbn) throws SQLException, RuntimeException {
 
         ResumenProductoDTO resumenProductoDTO = new ResumenProductoDTO();
-        LibroCarrito libroCarrito = consultaLibroCarrito(isbn);
+        Libro libroCarrito = consultaLibroCarrito(isbn);
         Libro libroCatalogo = consultaLibroCatalogo(isbn);
 
         resumenProductoDTO.setSubtotal(calculadoraIVA.subtotalProducto(libroCarrito, libroCatalogo));
-        resumenProductoDTO.setCantidadReservada(libroCarrito.getCantidad());
+        resumenProductoDTO.setCantidadReservada(libroCarrito.getStockReservado());
 
         return resumenProductoDTO;
-    }
-
-    private void validarConsulta(Libro libroCarrito, String correoUsuario) {
-        if (correoUsuario.isEmpty()) {
-            RegistroLog.registrarInfo("✅ Libro encontrado en el carrito: ISBN " + libroCarrito.getIsbn());
-        } else {
-            RegistroLog.registrarInfo("🔍 No se encontró el libro en el carrito: ISBN " + libroCarrito.getIsbn() + ", usuario " + libroCarrito.getIsbn());
-        }
     }
 
     private void validarLibroCarritoNull(Libro libroCarrito) {
@@ -332,11 +319,11 @@ public class GestionCarrito {
      * @throws SQLException
      */
     public ResumenProductoDTO disminuirProducto(String isbnProducto) throws IOException, SQLException, RuntimeException {
-        LibroCarrito libroCarrito = consultaLibroCarrito(isbnProducto);
+        Libro libroCarrito = consultaLibroCarrito(isbnProducto);
         Libro libroCatalogo = consultaLibroCatalogo(isbnProducto);
 
         libroCatalogo.cancelarReserva();
-        libroCarrito.disminuirCantidad(1);
+        libroCarrito.disminuirCantidadUnidad();
 
         validarLibroCarrito(libroCarrito);
         carritoDAO.actualizarDatos(libroCarrito);
@@ -356,18 +343,19 @@ public class GestionCarrito {
      * @throws SQLException
      */
     public void eliminarProducto(String isbnProducto) throws SQLException, RuntimeException {
-        LibroCarrito libroCarrito = consultaLibroCarrito(isbnProducto);
+        Libro libroCarrito = consultaLibroCarrito(isbnProducto);
         Libro libroCatalogo = consultaLibroCatalogo(isbnProducto);
 
         if (libroCarrito == null || libroCatalogo == null) {
             throw new IllegalArgumentException("No se pudo sumar el producto con ISBN:" + isbnProducto);
         }
 
-        ArrayList<LibroCarrito> librosCarrito = listarLibros();
-        libroCatalogo.setIsComprado(validarComprado(librosCarrito, isbnProducto));
-        libroCatalogo.eliminarReserva(libroCarrito.getCantidad());
+        ArrayList<Libro> librosCarrito = listarLibros(); //Selecciona todos los libros que estan en todos los carritos
 
-        carritoDAO.eliminarRegistro(libroCarrito);
+        libroCatalogo.setIsComprado(validarComprado(librosCarrito, isbnProducto));
+        libroCatalogo.eliminarReserva(libroCarrito.getStockReservado());
+
+        carritoDAO.eliminarRegistro(libroCarrito, tienda.getUsuarioActual().getCuenta().getCorreo());
         libroDAO.actualizarDatos(libroCatalogo);
     }
 
@@ -378,60 +366,34 @@ public class GestionCarrito {
         return libroCatalogo;
     }
 
-    private Libro consultaLibroCarrito(String isbnProducto) throws SQLException {
+    private Libro consultaLibroCarrito(String isbnProducto) {
         for (Libro libro : tienda.getUsuarioActual().getCarrito().getLibros()) {
             if (libro.getIsbn().equals(isbnProducto)) {
                 validarLibroCarritoNull(libro);
                 return libro;
             }
         }
-        Libro libroCarrito = new Libro();
-        libroCarrito.setIsbn(isbnProducto);
-        validarLibroCarritoNull(libroCarrito);
-        libroCarrito = carritoDAO.seleccionarRegistro(libroCarrito, tienda.getUsuarioActual().getCuenta().getCorreo());
-        validarConsulta(libroCarrito, tienda.getUsuarioActual().getCuenta().getCorreo());
-        return libroCarrito;
+        return null;
     }
 
 
-    public boolean validarComprado(ArrayList<LibroCarrito> librosCarrito, String isbn) {
+    public boolean validarComprado(ArrayList<Libro> librosCarrito, String isbn) {
         int numeroCompras = 0;//Variable de control para validar si el producto lo tienen dos usuarios
-        String correoUsuario = "";
         if (librosCarrito.isEmpty()) return false; //Si la lista de libros de la tabla carrito esta vacia devuelve null
-        for (LibroCarrito libroCarrito : librosCarrito) { //Por cada libroCarrito que hay en la lista de libros en el carrito
-
-            if (libroCarrito.getIsbn_libro().equals(Long.parseLong(isbn))) { //Compara el isbn del libro del carrito con el isbn del libro a buscar y si es igual entra al if
+        for (Libro libroCarrito : librosCarrito) { //Por cada libroCarrito que hay en la lista de libros en el carrito
+            if (libroCarrito.getIsbn().equals(isbn)) { //Compara el isbn del libro del carrito con el isbn del libro a buscar y si es igual entra al if
                 numeroCompras++; //Aumenta el numero de compras
-                if (!libroCarrito.getCorreo_usuario().equals(correoUsuario) && numeroCompras > 1) { //Si el correo del usuario asignado al libro en el carrito no es igual al correo
+                if (numeroCompras > 1) {
                     //guardado en la variable local correoUsuario y el numero de compras es mayor a 2 devuelve true
                     return true;
                 }
-                correoUsuario = libroCarrito.getCorreo_usuario(); // En este caso la primera vez no devuelve true, asigna el correo a la variable local y despues si lo valida.
             }
         }
         return false; //En el caso de que no este comprado o apartado en otro carrito de otro usuario devuelve false.
     }
 
     /**
-     * Método que busca un libro en el catálogo
-     *
-     * @param isbnProducto libro a buscar
-     * @param catalogo     catálogo de libros para buscar
-     * @return libro encontrado
-     */
-    public Libro encontrarLibro(String isbnProducto, Map<String, ArrayList<Libro>> catalogo) {
-        for (ArrayList<Libro> libros : catalogo.values()) {
-            for (Libro libroCatalogo : libros) {
-                if (libroCatalogo.getIsbn().equals(isbnProducto)) {
-                    return libroCatalogo;
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Método que calcula el valor total del carrito
+     * Metodo que calcula el valor total del carrito
      *
      * @return valor total del carrito
      * @throws RuntimeException
@@ -439,52 +401,40 @@ public class GestionCarrito {
      */
     public TotalesCompra calculoResumenCompra(ReciboDAO reciboDAO) throws IOException, SQLException, RuntimeException {
         TotalesCompra totalesCompra = new TotalesCompra();
-        LibroCarrito libroCarrito = new LibroCarrito();
-        libroCarrito.setCorreo_usuario(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
-        if (libroCarrito == null || libroCarrito.getCorreo_usuario() == null || libroCarrito.getCorreo_usuario().isBlank()) {
-            RegistroLog.registrarAdvertencia("❗ Se intentó seleccionar registros con un correo de usuario nulo o vacío.");
-            throw new RuntimeException("⚠️ No se proporcionó un usuario válido para consultar su carrito.");
-        }
-        ArrayList<LibroCarrito> librosCarritoUsuario = carritoDAO.seleccionarRegistros(libroCarrito);
-        RegistroLog.registrarInfo("📦 Se encontraron " + librosCarritoUsuario.size() + " libros en el carrito del usuario: " + libroCarrito.getCorreo_usuario());
+        ArrayList<Libro> librosCarritoUsuario = tienda.getUsuarioActual().getCarrito().getLibros();
+        RegistroLog.registrarInfo("📦 Se encontraron " + librosCarritoUsuario.size() + " libros en el carrito del usuario: " + tienda.getUsuarioActual().getCuenta().getCorreo());
         setValorCompra(totalesCompra, librosCarritoUsuario);
         Recibo recibo = new Recibo();
         recibo.setCorreo(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
-        setTotal(reciboDAO, totalesCompra, recibo);
+        setTotal(totalesCompra);
         return totalesCompra;
     }
 
-    private void setTotal(ReciboDAO reciboDAO, TotalesCompra totalesCompra, Recibo recibo) throws IOException, SQLException {
-        totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(recibo), totalesCompra.getTotal()));
+    private void setTotal(TotalesCompra totalesCompra) throws IOException {
+        totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(tienda.getRecibos().get(tienda.getUsuarioActual().getCuenta().getCorreo()), totalesCompra.getTotal()));
         totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoPremium());
     }
 
-    private void setValorCompra(TotalesCompra totalesCompra, ArrayList<LibroCarrito> librosCarritoUsuario) throws SQLException {
+    private void setValorCompra(TotalesCompra totalesCompra, ArrayList<Libro> librosCarritoUsuario) throws SQLException {
         totalesCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUsuario, libroDAO));
         totalesCompra.setSubtotal(calculadoraIVA.subtotal(librosCarritoUsuario, libroDAO));
         totalesCompra.setTotal(calculadoraIVA.total(totalesCompra.getSubtotal(), totalesCompra.getImpuestos()));
         totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(totalesCompra.getTotal(), gestionUsuario.usuarioLogueado()));
     }
 
-
-    public void disminuirStock() throws IOException, SQLException, RuntimeException {
-        LibroCarrito libroCarrito = new LibroCarrito();
-        libroCarrito.setCorreo_usuario(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
-        if (libroCarrito == null || libroCarrito.getCorreo_usuario() == null || libroCarrito.getCorreo_usuario().isBlank()) {
-            RegistroLog.registrarAdvertencia("❗ Se intentó seleccionar registros con un correo de usuario nulo o vacío.");
-            throw new RuntimeException("⚠️ No se proporcionó un usuario válido para consultar su carrito.");
-        }
-        ArrayList<LibroCarrito> librosCarritoUser = carritoDAO.seleccionarRegistros(libroCarrito);
-        Iterator<LibroCarrito> iteratorCarritoUser = librosCarritoUser.iterator();
+    public void disminuirStock() throws SQLException, RuntimeException {
+        ArrayList<Libro> librosCarritoUser = tienda.getUsuarioActual().getCarrito().getLibros();
+        Iterator<Libro> iteratorCarritoUser = librosCarritoUser.iterator();
         while (iteratorCarritoUser.hasNext()) {
-            libroCarrito = iteratorCarritoUser.next();
+            Libro libroCarrito = iteratorCarritoUser.next();
             Libro libroCatalogo = new Libro();
-            libroCatalogo.setIsbn(String.valueOf(libroCarrito.getIsbn_libro()));
+            libroCatalogo.setIsbn(String.valueOf(libroCarrito.getIsbn()));
             libroCatalogo = libroDAO.seleccionarRegistro(libroCatalogo);
-            libroCatalogo.confirmarCompra(libroCarrito.getCantidad());
-            carritoDAO.eliminarRegistro(libroCarrito);
+            libroCatalogo.confirmarCompra(libroCarrito.getStockReservado());
+            carritoDAO.eliminarRegistro(libroCarrito, tienda.getUsuarioActual().getCuenta().getCorreo());
             libroDAO.actualizarDatos(libroCatalogo);
             iteratorCarritoUser.remove();
         }
+        tienda.getCatalogo().setListaLibros(libroDAO.seleccionarRegistros());
     }
 }
