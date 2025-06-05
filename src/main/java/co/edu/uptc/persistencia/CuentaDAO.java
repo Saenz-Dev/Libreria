@@ -90,4 +90,19 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
             throw new SQLException("❌ Error al seleccionar los datos en la tabla 'cuentas': " + e.getMessage());
         }
     }
+
+    public void eliminarRegistro(String correo) {
+        String sentencia = "DELETE FROM cuentas WHERE correo = ?";
+        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
+            preparedStatement.setString(1, correo);
+            int filasEliminadas = preparedStatement.executeUpdate();
+            if (filasEliminadas > 0) {
+                RegistroLog.registrarInfo("✔ Cuenta eliminada correctamente con correo: " + correo);
+            } else {
+                RegistroLog.registrarAdvertencia("⚠ No se encontró ninguna cuenta con el correo: " + correo);
+            }
+        } catch (SQLException e) {
+            RegistroLog.registrarError("❌ Error al eliminar la cuenta con correo " + correo + ": " + e.getMessage(), e);
+        }
+    }
 }

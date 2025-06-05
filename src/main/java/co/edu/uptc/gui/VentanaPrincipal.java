@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import co.edu.uptc.negocio.CategoriaException;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 import co.edu.uptc.modelo.Comentario;
@@ -226,12 +227,12 @@ public class VentanaPrincipal extends JFrame {
         try {
             if (!gestionTienda.isAdminLogin()) {
                 Usuario usuario = gestionTienda.getUserLogin();
-                menuPrincipal.getPanelModificarUsuario().llenarCampos(usuario);
+                menuPrincipal.getPanelModificarUsuario().llenarCampos(usuario, false);
                 menuPrincipal.activarActualizarDatosUsuario();
                 return;
             }
             menuPrincipal.getPanelModificarUsuario().llenarComboBoxUsuarios(gestionTienda.listarUsuarios());
-            menuPrincipal.getPanelModificarUsuario().llenarCampos(gestionTienda.getTienda().getUsuarios().getFirst());
+            menuPrincipal.getPanelModificarUsuario().llenarCampos(gestionTienda.getTienda().getUsuarios().getFirst(), true);
             menuPrincipal.activarActualizarDatosUsuario();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -297,9 +298,15 @@ public class VentanaPrincipal extends JFrame {
             Usuario usuario = menuPrincipal.getPanelModificarUsuario().obtenerDatos();
             gestionTienda.modificarUsuario(usuario);
             JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), "Usuario Modificado Exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-            menuPrincipal.getPanelModificarUsuario().limpiarTxt();
-            activarPanelPerfil();
-            menuPrincipal.getPanelModificarUsuario().setVisible(false);
+            if (gestionTienda.isAdminLogin()) {
+                menuPrincipal.getPanelModificarUsuario().llenarComboBoxUsuarios(gestionTienda.listarUsuarios());
+                menuPrincipal.getPanelModificarUsuario().llenarCampos(gestionTienda.getTienda().getUsuarios().getFirst(), true);
+            } else {
+                menuPrincipal.getPanelModificarUsuario().getCbUsuario().setVisible(false);
+                menuPrincipal.getPanelModificarUsuario().llenarCampos(gestionTienda.getUserLogin(), false);
+            }
+            menuPrincipal.getPanelModificarUsuario().setVisible(true);
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -591,7 +598,6 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void eliminarUsuario() {
-        // TODO implementar la lógica para eliminar el usuario, solo puede eliminarlo el administrador, y se puede eliminar un usuario si no tiene compras registradas.
         try {
             String correo = menuPrincipal.getPanelModificarUsuario().getTxtCorreo();
             gestionTienda.eliminarUsuario(correo);
@@ -607,10 +613,52 @@ public class VentanaPrincipal extends JFrame {
     public void cambiarInfoUsuario() {
         try {
             String usuario = (String) menuPrincipal.getPanelModificarUsuario().getCbUsuario().getSelectedItem();
-            menuPrincipal.getPanelModificarUsuario().llenarCampos(gestionTienda.buscarUsuario(usuario));
+            menuPrincipal.getPanelModificarUsuario().llenarCampos(gestionTienda.buscarUsuario(usuario), true);
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-        // TODO cambiar info pero en el panel que se actualizan los datos
+    }
+
+    public void activarAgregarCategoriaAg() {
+        menuPrincipal.activarDialogoAgregarCategoria(menuPrincipal.getPanelRegistrarLibro());
+    }
+
+    public void activarAgregarCategoria() {
+        menuPrincipal.activarDialogoAgregarCategoria(menuPrincipal.getPanelModificarLibro());
+    }
+
+    public void agregarCategoria() {
+        String categoria = menuPrincipal.getDialogAgregarCategoria().getCampoCategoria();
+        try {
+            gestionTienda.agregarCategoria(categoria);
+            JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), "Categoria registrada", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            menuPrincipal.getPanelModificarLibro().llenarCbCategoria(gestionTienda.listarCategorias());
+        } catch (CategoriaException e) {
+            confirmar(e, categoria);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void confirmar(CategoriaException e, String categoria) {
+        switch (e.getTipoConflicto()) {
+            case DUPLICADO:
+                JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+                break;
+            case PARECIDA:
+                int opcion = JOptionPane.showOptionDialog(menuPrincipal.getDialogAgregarCategoria(), e.getMessage() + "\n¿Deseas agregarla de todas formas?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sí", "No"}, JOptionPane.QUESTION_MESSAGE);
+                if (opcion == 1) {
+                    return;
+                }
+                try {
+                    gestionTienda.insertarCategoria(categoria);
+                    JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), "Categoria registrada", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+        }
     }
 }

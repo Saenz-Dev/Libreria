@@ -76,6 +76,21 @@ public class LibroDAO extends ConexionBD<Libro> {
         }
     }
 
+    public void insertarCategoria(String categoria) throws SQLException, RuntimeException {
+        if (categoria == null || categoria.isEmpty()) {
+            throw new RuntimeException("No se puede insertar una categoría nula o sin nombre.");
+        }
+        String sqlInsert = "INSERT INTO categoria (nombre) VALUES (?)";
+        try (Connection connection = crearConexion(); PreparedStatement psCat = connection.prepareStatement(sqlInsert)) {
+            psCat.setString(1, categoria);
+            psCat.executeUpdate();
+            RegistroLog.registrarInfo("✅ Categoría insertada correctamente: " + categoria);
+        } catch (SQLException e) {
+            RegistroLog.registrarError("❌ Error al insertar la categoría: " + categoria + ". Detalles: " + e.getMessage(), e);
+            throw new SQLException("❌ No se pudo insertar la categoría. Verifica el nombre o intenta más tarde.");
+        }
+    }
+
     public Categoria seleccionarCateoriaId(int idCategoria) throws SQLException {
         String sqlCategoria = "SELECT * FROM categoria WHERE id_categoria = ?";
         try (Connection connection = crearConexion(); PreparedStatement psCat = connection.prepareStatement(sqlCategoria)) {

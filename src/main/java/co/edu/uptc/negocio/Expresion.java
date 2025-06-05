@@ -26,6 +26,7 @@ public class Expresion {
     public static final String EXPRESION_ISBN = "^(978|979)(-?[0-9]){10}$";
     public static final String EXPRESION_ANO_PUBLICACION = "^[0-9]{4}$";
     public static final String EXPRESION_CONTRASENA_ADMIN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+=\\-{}\\[\\]:;\"'<>.,?/\\\\])[a-zA-Z\\d!@#$%^&*()_+=\\-{}\\[\\]:;\"'<>.,?/\\\\]{16,}$";
+    public static final String EXPRESION_CATEGORIA = "^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,25}$";
 
 
     /**
@@ -215,6 +216,13 @@ public class Expresion {
             } else if (contrasena.isBlank()) {
                 throw new IllegalArgumentException("Digite la contraseña.");
             }
+        }
+    }
+
+    public void validarCategoria(String categoria) {
+        if (!categoria.matches(EXPRESION_CATEGORIA)) {
+            RegistroLog.registrarAdvertencia("La categoría solo puede contener letras y debe tener entre 3 y 25 caracteres.");
+            throw new IllegalArgumentException("La categoría solo puede contener letras y debe tener entre 3 y 25 caracteres.");
         }
     }
 }

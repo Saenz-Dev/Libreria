@@ -93,6 +93,12 @@ public class PanelModificarUsuario extends JDialog {
 
     private JComboBox cbUsuario;
 
+    private JButton botonRegistrarUsuario;
+
+    private JLabel labelUsuario;
+
+    private Font fontBotones = new Font("Arial", Font.BOLD, 12);
+
     /**
      * Obtiene el nombre ingresado por el usuario.
      *
@@ -223,13 +229,14 @@ public class PanelModificarUsuario extends JDialog {
      * @param evento Manejador de eventos de la aplicación.
      */
     public PanelModificarUsuario(Evento evento, EventoGestionUsuario eventoGestionUsuario) {
-        setTitle("Actualizar Datos Usuario");
+        setTitle("Actualizar Datos del Usuario");
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.insets = new Insets(5, 10, 5, 10);
         inicializarAtributos();
         asignarAccionBoton(evento, eventoGestionUsuario);
+        personalizarComponentes();
 
         // Limitar el ancho de los JTextField
         Dimension campoDimension = new Dimension(200, 25);
@@ -239,7 +246,6 @@ public class PanelModificarUsuario extends JDialog {
         txtCorreo.setPreferredSize(campoDimension);
         txtContrasena.setPreferredSize(campoDimension);
 
-        // Título centrado
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
@@ -247,8 +253,20 @@ public class PanelModificarUsuario extends JDialog {
         gbc.fill = GridBagConstraints.NONE;
         add(labelTitulo, gbc);
 
-        // ComboBox de usuario
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 1;
+        gbc.weighty = 0;
+        botonRegistrarUsuario.setToolTipText("Registrar nuevo usuario");
+        add(botonRegistrarUsuario, gbc);
+
+        gbc.anchor = GridBagConstraints.WEST;
         gbc.gridy = 1;
+        gbc.gridx = 0;
+        add(labelUsuario, gbc);
+
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.gridx = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(cbUsuario, gbc);
@@ -318,9 +336,9 @@ public class PanelModificarUsuario extends JDialog {
 
     private JPanel ajustarPanelBotones() {
         JPanel panelBotones = new JPanel();
-        panelBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        panelBotones.add(botonEliminar);
+        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
         panelBotones.add(botonActualizar);
+        panelBotones.add(botonEliminar);
         panelBotones.add(botonCancelar);
         return panelBotones;
     }
@@ -333,12 +351,15 @@ public class PanelModificarUsuario extends JDialog {
         botonEliminar.addActionListener(evento);
         botonEliminar.setActionCommand(Evento.ELIMINAR_USUARIO);
         cbUsuario.addItemListener(eventoGestionUsuario);
+        botonRegistrarUsuario.addActionListener(evento);
+        botonRegistrarUsuario.setActionCommand(Evento.VENTANA_REGISTRAR_USUARIO);
     }
 
     /**
      * Inicializa los atributos del panel de actualización de datos del usuario.
      */
     public void inicializarAtributos() {
+        labelUsuario = new JLabel("Usuario:");
         labelNombre = new JLabel("Nombre*:");
         labelCorreo = new JLabel("Correo Electrónico*:");
         labelContrasena = new JLabel("Contraseña*: ");
@@ -352,14 +373,29 @@ public class PanelModificarUsuario extends JDialog {
         txtDireccion = new JTextField(20);
         txtTelefono = new JTextField(20);
         cbTipoCliente = new JComboBox<>(TipoUsuarioEnum.values());
-        labelTitulo = new JLabel("Actualizar Información Usuario");
-        botonActualizar = new JButton("Actualizar");
-        botonCancelar = new JButton("Cancelar");
-        labelTitulo.setFont(new Font("Arial", Font.BOLD, 20));
+        labelTitulo = new JLabel("Gestionar Usuario");
+        botonActualizar = new JButton("Actualizar Usuario");
+        botonCancelar = new JButton("Salir");
         botonEliminar = new JButton("Eliminar Usuario");
+        botonRegistrarUsuario = new JButton();
+        ImageIcon iconoBoton = new ImageIcon("src/main/resources/registro.png");
+        Image imagenEscalada = iconoBoton.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        botonRegistrarUsuario.setIcon(new ImageIcon(imagenEscalada));
+        botonRegistrarUsuario.setPreferredSize(new Dimension(30, 30));
+        cbUsuario = new JComboBox();
+    }
+
+    private void personalizarComponentes() {
+        botonActualizar.setBackground(Color.GREEN);
+        botonActualizar.setForeground(Color.WHITE);
+        botonActualizar.setFont(fontBotones);
+        botonCancelar.setBackground(Color.GRAY);
+        botonCancelar.setForeground(Color.WHITE);
+        botonCancelar.setFont(fontBotones);
+        labelTitulo.setFont(new Font("Arial", Font.BOLD, 20));
         botonEliminar.setBackground(Color.RED);
         botonEliminar.setForeground(Color.WHITE);
-        cbUsuario = new JComboBox();
+        botonEliminar.setFont(fontBotones);
     }
 
     public Usuario obtenerDatos() {
@@ -383,14 +419,18 @@ public class PanelModificarUsuario extends JDialog {
         return usuario;
     }
 
-    public void llenarCampos(Usuario usuario) {
+    public void llenarCampos(Usuario usuario, boolean esAdmin) {
         setTxtNombre(usuario.getNombre());
         setTxtCorreo(usuario.getCuenta().getCorreo());
         setTxtContrasena(usuario.getCuenta().getContrasena());
         setTxtDireccion(usuario.getDireccionEnvio());
         setTxtTelefono(String.valueOf(usuario.getTelefono()));
-        cbTipoCliente.setVisible(false);
-        labelTipoCliente.setVisible(false);
+        labelUsuario.setVisible(esAdmin);
+        botonRegistrarUsuario.setVisible(esAdmin);
+        cbUsuario.setVisible(esAdmin);
+        cbTipoCliente.setVisible(esAdmin);
+        labelTipoCliente.setVisible(esAdmin);
+        botonEliminar.setVisible(esAdmin);
         setCbTipoCliente(usuario.getTipoCliente());
         revalidate();
         repaint();

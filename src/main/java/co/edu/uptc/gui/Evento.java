@@ -108,7 +108,11 @@ public class Evento implements ActionListener {
     public static final String CERRAR_CALIFICAR = "Cerrar Calificar";
 
     public static final String ELIMINAR_USUARIO = "Eliminar Usuario";
-    
+
+    public static final String AGREGAR_CATEGORIA = "Agregar Categoria";
+
+    public static final String ACTIVAR_AGREGAR_CATEGORIA = "Activar Agregar Categoria";
+
     /** Referencia a la VentanaPrincipal. */
     private VentanaPrincipal ventana;
 
@@ -163,6 +167,8 @@ public class Evento implements ActionListener {
             case ACTIVAR_GUARDAR_CODIGO -> ventana.activarGuardarCodigo();
             case CERRAR_CALIFICAR -> ventana.cerrarCalificar();
             case ELIMINAR_USUARIO -> ventana.eliminarUsuario();
+            case ACTIVAR_AGREGAR_CATEGORIA -> ventana.activarAgregarCategoria();
+            case AGREGAR_CATEGORIA -> ventana.agregarCategoria();
         }
     }
 }

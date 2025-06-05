@@ -1,18 +1,8 @@
 package co.edu.uptc.gui;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 import co.edu.uptc.modelo.TipoUsuarioEnum;
@@ -63,11 +53,6 @@ public class MenuPrincipal extends JPanel {
      * Botón para acceder a la gestión de libros (solo para administradores).
      */
     private JButton botonGestionarLibros;
-
-    /**
-     * Botón para registrar un nuevo usuario (solo para administradores).
-     */
-    private JButton botonRegistrarUsuario;
 
     /**
      * Boton para iniciar ir a la ventana Iniciar Sesión
@@ -181,6 +166,8 @@ public class MenuPrincipal extends JPanel {
 
     private EventoGestionUsuario eventoGestionUsuario;
 
+    private DialogAgregarCategoria dialogAgregarCategoria;
+
     private VentanaPrincipal ventanaPrincipal;
 
     private final Color COLOR_ACTIVO = new Color(25, 118, 210);
@@ -221,6 +208,10 @@ public class MenuPrincipal extends JPanel {
      */
     public PanelRegistrarLibro getPanelRegistrarLibro() {
         return panelRegistrarLibro;
+    }
+
+    public DialogAgregarCategoria getDialogAgregarCategoria() {
+        return dialogAgregarCategoria;
     }
 
     /**
@@ -291,7 +282,7 @@ public class MenuPrincipal extends JPanel {
     /**
      * Establece el nombre del usuario en la etiqueta correspondiente.
      *
-     * @param nombreUsuario Nombre del usuario a mostrar en la interfaz.
+     * @param usuario Nombre del usuario a mostrar en la interfaz.
      */
     public void setLabelNombreUsuario(Usuario usuario) {
         labelNombreUsuario.setText("<html><div align: 'center'>" + usuario.getNombre() + " - " + usuario.getTipoCliente() + "</div></html>");
@@ -376,6 +367,7 @@ public class MenuPrincipal extends JPanel {
         panelAggCodigo = new PanelAggCodigo(evento);
         clPrincipal = new CardLayout();
         panelClPrincipal = new JPanel(clPrincipal);
+        dialogAgregarCategoria = new DialogAgregarCategoria(evento);
 
         cardLayout = new CardLayout();
         panelCL = new JPanel(cardLayout);
@@ -444,8 +436,10 @@ public class MenuPrincipal extends JPanel {
         panelIzquierda.add(botonCompras, gbc);
         gbc.gridy = 4;
         panelIzquierda.add(botonPerfil, gbc);
+        gbc.fill = GridBagConstraints.NONE;
         gbc.gridy = 5;
         panelIzquierda.add(botonPremium, gbc);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridy = 6;
         panelIzquierda.add(botonGuardarCodigos, gbc);
         gbc.gridy = 7;
@@ -478,8 +472,6 @@ public class MenuPrincipal extends JPanel {
         botonCompras.setActionCommand(Evento.COMPRAS);
         botonGestionarLibros.addActionListener(evento);
         botonGestionarLibros.setActionCommand(Evento.GESTIONAR_LIBROS);
-        botonRegistrarUsuario.addActionListener(evento);
-        botonRegistrarUsuario.setActionCommand(Evento.VENTANA_REGISTRAR_USUARIO);
         botonIniciarSesion.addActionListener(evento);
         botonIniciarSesion.setActionCommand(Evento.ACTIVAR_INICIAR_SESION);
         botonPremium.addActionListener(evento);
@@ -501,10 +493,13 @@ public class MenuPrincipal extends JPanel {
         botonIniciarSesion = new JButton("Iniciar Sesión");
         botonCerrarSesion = new JButton("Cerrar Sesión");
         botonGestionarLibros = new JButton("Gestionar Libros");
-        botonRegistrarUsuario = new JButton("Registrar Usuario");
         botonGuardarCodigos = new JButton("Guardar Codigos");
-        botonGestionarUsuario = new JButton("Gestionar");
-        botonPremium = new JButton("✨");
+        botonGestionarUsuario = new JButton("Gestionar Usuario");
+        botonPremium = new JButton();
+        ImageIcon iconoPremium = new ImageIcon("src/main/resources/premium.png");
+        Image imagen = iconoPremium.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        botonPremium.setIcon(new ImageIcon(imagen));
+        botonPremium.setPreferredSize(new Dimension(35, 35));
     }
 
     private void personalizarBotones() {
@@ -522,8 +517,6 @@ public class MenuPrincipal extends JPanel {
         botonCerrarSesion.setForeground(Color.WHITE);
         botonGestionarLibros.setBackground(COLOR_INACTIVO);
         botonGestionarLibros.setForeground(COLOR_LETRA);
-        botonRegistrarUsuario.setBackground(COLOR_INACTIVO);
-        botonRegistrarUsuario.setForeground(COLOR_LETRA);
         botonPremium.setBackground(COLOR_INACTIVO);
         botonPremium.setForeground(COLOR_LETRA);
         botonGuardarCodigos.setBackground(COLOR_INACTIVO);
@@ -540,7 +533,6 @@ public class MenuPrincipal extends JPanel {
         labelNombreUsuario.setVisible(false);
         botonIniciarSesion.setVisible(true);
         botonGestionarLibros.setVisible(false);
-        botonRegistrarUsuario.setVisible(false);
         botonCatalogo.setVisible(true);
         botonCarrito.setVisible(true);
         botonPremium.setVisible(false);
@@ -571,7 +563,6 @@ public class MenuPrincipal extends JPanel {
      */
     public void anadirFuncionesAdmin() {
         botonGestionarLibros.setVisible(true);
-        botonRegistrarUsuario.setVisible(true);
         botonCompras.setVisible(false);
         botonCatalogo.setVisible(true);
         botonCarrito.setVisible(false);
@@ -583,8 +574,6 @@ public class MenuPrincipal extends JPanel {
         gbc.weighty = 0;
         gbc.gridy = 4;
         panelIzquierda.add(botonGestionarLibros, gbc);
-        gbc.gridy = 5;
-        panelIzquierda.add(botonRegistrarUsuario, gbc);
         gbc.gridy = 6;
         panelIzquierda.add(botonGuardarCodigos, gbc);
         gbc.gridy = 7;
@@ -598,7 +587,6 @@ public class MenuPrincipal extends JPanel {
      */
     public void quitarFuncionesAdmin() {
         panelIzquierda.remove(botonGestionarLibros);
-        panelIzquierda.remove(botonRegistrarUsuario);
         panelIzquierda.revalidate();
         panelIzquierda.repaint();
     }
@@ -761,5 +749,10 @@ public class MenuPrincipal extends JPanel {
         botonGestionarUsuario.setBackground(COLOR_ACTIVO);
         panelModificarUsuario.setLocationRelativeTo(ventanaPrincipal);
         panelModificarUsuario.setVisible(true);
+    }
+
+    public void activarDialogoAgregarCategoria(JDialog dialog) {
+        dialogAgregarCategoria.setLocationRelativeTo(dialog);
+        dialogAgregarCategoria.setVisible(true);
     }
 }

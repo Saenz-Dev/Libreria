@@ -1,10 +1,12 @@
 package co.edu.uptc.negocio;
 
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Stack;
 
 import co.edu.uptc.log.RegistroLog;
@@ -17,6 +19,10 @@ import co.edu.uptc.persistencia.CuentaDAO;
 import co.edu.uptc.persistencia.LibroDAO;
 import co.edu.uptc.persistencia.ReciboDAO;
 import co.edu.uptc.persistencia.UsuarioDAO;
+import org.apache.commons.text.similarity.JaroWinklerDistance;
+import org.apache.commons.text.similarity.JaroWinklerSimilarity;
+
+import javax.management.RuntimeErrorException;
 
 public class GestionTienda {
 
@@ -113,9 +119,6 @@ public class GestionTienda {
     public boolean isGenericoLogin() {
         return gestionUsuario.isDefaultUserLogin();
     }
-
-    // ----------------------------------------Métodos de
-    // GestionLibro---------------------------------------------
 
     public String[] obtenerTitulosLibros() throws SQLException, RuntimeException {
         return gestionLibro.obtenerLibros();
@@ -374,7 +377,7 @@ public class GestionTienda {
         return librosFiltrados;
     }
 
-    public ArrayList<Libro> filtrarLibrosFormato(String formato) throws SQLException, RuntimeException {
+    public ArrayList<Libro> filtrarLibrosFormato(String formato) throws RuntimeException {
         ArrayList<Libro> librosFiltrados = new ArrayList<>();
         for (Libro libro : tienda.getCatalogo().getCatalogoLibros()) {
             if (libro.getTipoLibro().equals(TipoLibroEnum.valueOf(formato))) {
@@ -386,7 +389,12 @@ public class GestionTienda {
 
     public ArrayList<Usuario> listarUsuarios() throws SQLException {
         tienda.setUsuarios(usuarioDAO.seleccionarRegistros());
-        for (Usuario usuario : tienda.getUsuarios()) {
+        Iterator<Usuario> iteratorUsuarios = tienda.getUsuarios().iterator();
+        while (iteratorUsuarios.hasNext()) {
+            Usuario usuario = iteratorUsuarios.next();
+            if (usuario.getCuenta().getCorreo().equals("user_default") || usuario.getCuenta().getCorreo().equals(Administrador.CORREO)) {
+                iteratorUsuarios.remove();
+            }
             usuario.setCuenta(cuentaDAO.seleccionarRegistro(usuario.getCuenta()));
         }
         return tienda.getUsuarios();
@@ -402,13 +410,43 @@ public class GestionTienda {
     }
 
     public void eliminarUsuario(String correo) throws SQLException, RuntimeException {
-        if (reciboDAO.seleccionarRegistrosCompras(correo) != null || !reciboDAO.seleccionarRegistrosCompras(correo).isEmpty()) {
-            throw new RuntimeException("El usuario no se puede eliminar, tiene compras asociadas.");
-        }
-        if (carritoDAO.seleccionarRegistros(correo) != null && !carritoDAO.seleccionarRegistros(correo).isEmpty()) {
+        ArrayList<Recibo> listaRecibos = reciboDAO.seleccionarRegistrosCompras(correo);
+        ArrayList<Libro> listaCarrito = carritoDAO.seleccionarRegistros(correo);
+        if (!listaCarrito.isEmpty()) {
+            RegistroLog.registrarAdvertencia("El usuario no se puede eliminar, tiene productos en el carrito.");
             throw new RuntimeException("El usuario no se puede eliminar, tiene productos en el carrito.");
         }
+        if (listaRecibos == null || listaRecibos.isEmpty()) {
+            RegistroLog.registrarAdvertencia("El usuario no se puede eliminar, tiene compras asociadas.");
+            throw new RuntimeException("El usuario no se puede eliminar, tiene compras asociadas.");
+        }
         usuarioDAO.eliminarRegistro(correo);
+        cuentaDAO.eliminarRegistro(correo);
         tienda.setUsuarios(usuarioDAO.seleccionarRegistros());
+    }
+
+    public void agregarCategoria(String categoria) throws SQLException, CategoriaException {
+        if (categoria == null || categoria.isBlank()) {
+            throw new RuntimeException("La categoría no puede ser nula o vacía.");
+        }
+        categoria = categoria.trim();
+        ArrayList<Categoria> categorias = libroDAO.seleccionarCateorias();
+        JaroWinklerSimilarity jaroWinklerSimilarity = new JaroWinklerSimilarity();
+        for (Categoria existente : categorias) {
+            double similitud = jaroWinklerSimilarity.apply(existente.getNombre().toLowerCase(), categoria.toLowerCase());
+            if (similitud >= 1.0) {
+                throw new CategoriaException("La categoría ya existe: " + existente.getNombre(), CategoriaException.TipoConflicto.DUPLICADO);
+            }
+            if (similitud >= 0.8) {
+                throw new CategoriaException(("Categoría similar encontrada: " + existente.getNombre() + ". Por favor, elige un nombre diferente."), CategoriaException.TipoConflicto.PARECIDA);
+            }
+        }
+        insertarCategoria(categoria);
+    }
+
+    public void insertarCategoria(String categoria) throws SQLException, CategoriaException {
+        Expresion expresion = new Expresion();
+        expresion.validarCategoria(categoria);
+        libroDAO.insertarCategoria(categoria.toUpperCase());
     }
 }

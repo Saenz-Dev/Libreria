@@ -103,6 +103,7 @@ public class PanelModificarLibro extends JDialog {
      * ComboBox para seleccionar la categoría del libro.
      */
     private JComboBox txtCategoria;
+    private JButton btnAgregarCategoria;
 
     /**
      * Campo de texto para ingresar la editorial del libro.
@@ -443,7 +444,10 @@ public class PanelModificarLibro extends JDialog {
         gbc.gridx = 0;
         add(labelCategoria, gbc);
         gbc.gridx = 1;
-        add(txtCategoria, gbc);
+        JPanel panelCategoria = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panelCategoria.add(txtCategoria);
+        panelCategoria.add(btnAgregarCategoria);
+        add(panelCategoria, gbc);
         gbc.gridy = 7;
         gbc.gridx = 0;
         add(labelEditorial, gbc);
@@ -487,6 +491,8 @@ public class PanelModificarLibro extends JDialog {
         botonCancelar.addActionListener(evento);
         botonCancelar.setActionCommand(evento.CANCELAR_MODIFICACION_LIBRO);
         cbLibros.addItemListener(eventoLista);
+        btnAgregarCategoria.addActionListener(evento);
+        btnAgregarCategoria.setActionCommand(evento.ACTIVAR_AGREGAR_CATEGORIA);
     }
 
     /**
@@ -502,6 +508,7 @@ public class PanelModificarLibro extends JDialog {
     private void initBotones() {
         botonModificar = new JButton("Modificar");
         botonCancelar = new JButton("Salir");
+        btnAgregarCategoria = new JButton("Ag. Categoria");
     }
 
     private void initCb() {
