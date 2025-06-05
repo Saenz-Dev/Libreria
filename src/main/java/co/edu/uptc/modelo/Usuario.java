@@ -1,6 +1,7 @@
 package co.edu.uptc.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Clase que representa a un usuario en el sistema.
@@ -44,6 +45,8 @@ public class Usuario implements Serializable{
      */
     private double descuentoTipoUsuario;
 
+    private ArrayList<Recibo> recibosCompras;
+
     /**
      * Carrito de compras del usuario, donde se almacenan los libros seleccionados.
      */
@@ -52,6 +55,7 @@ public class Usuario implements Serializable{
     public Usuario() {
         cuenta = new Cuenta();
         carrito = new Carrito();
+        recibosCompras = new ArrayList<>();
     }
 
     public Usuario(Usuario usuario) {
@@ -64,7 +68,8 @@ public class Usuario implements Serializable{
         cuenta.setCorreo(usuario.getCuenta().getCorreo());
         cuenta.setContrasena(usuario.getCuenta().getContrasena());
         descuentoTipoUsuario = 0;
-        cuenta.setLog(false);
+        cuenta.setLog(usuario.getCuenta().isLog());
+        recibosCompras = new ArrayList<>();
     }
 
     /**
@@ -185,5 +190,13 @@ public class Usuario implements Serializable{
 
     public void setDescuentoTipoUsuario(double descuentoTipoUsuario) {
         this.descuentoTipoUsuario = descuentoTipoUsuario;
+    }
+
+    public ArrayList<Recibo> getRecibosCompras() {
+        return recibosCompras;
+    }
+
+    public void setRecibosCompras(ArrayList<Recibo> recibosCompras) {
+        this.recibosCompras = recibosCompras;
     }
 }

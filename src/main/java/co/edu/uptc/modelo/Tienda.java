@@ -22,7 +22,7 @@ public class Tienda implements Serializable {
      * Mapa que almacena los recibos de compras por usuario.
      * La clave es el correo del usuario y el valor es una lista de recibos.
      */
-    private TreeMap<String, ArrayList<Recibo>> recibos;
+    private TreeMap<String, ArrayList<Recibo>> recibosTienda;
 
     /**
      * Mapa que almacena los comentarios de cada libro.
@@ -39,8 +39,9 @@ public class Tienda implements Serializable {
     public Tienda() {
         catalogo = new Catalogo();
         usuarios = new ArrayList<>();
-        recibos = new TreeMap<>();
+        recibosTienda = new TreeMap<>();
         mapComentarios = new TreeMap<>();
+        usuarioActual = new Usuario();
     }
 
     public Usuario getUsuarioActual() {
@@ -67,12 +68,12 @@ public class Tienda implements Serializable {
         this.usuarios = usuarios;
     }
 
-    public TreeMap<String, ArrayList<Recibo>> getRecibos() {
-        return recibos;
+    public TreeMap<String, ArrayList<Recibo>> getRecibosTienda() {
+        return recibosTienda;
     }
 
-    public void setRecibos(TreeMap<String, ArrayList<Recibo>> recibos) {
-        this.recibos = recibos;
+    public void setRecibosTienda(TreeMap<String, ArrayList<Recibo>> recibosTienda) {
+        this.recibosTienda = recibosTienda;
     }
 
     public TreeMap<String, Stack<Comentario>> getMapComentarios() {

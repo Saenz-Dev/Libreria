@@ -42,7 +42,7 @@ public class EventoCatalogo implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String evento = e.getActionCommand();
         switch (evento){
-            case AGREGAR_LIBRO -> ventanaPrincipal.anadirProductosCarrito(isbnLibro, 1, panelLibro);
+            case AGREGAR_LIBRO -> ventanaPrincipal.anadirProductosCarrito(isbnLibro, panelLibro);
             case VER_COMENTARIOS -> ventanaPrincipal.activarMostrarComentario(isbnLibro);
         }
     }

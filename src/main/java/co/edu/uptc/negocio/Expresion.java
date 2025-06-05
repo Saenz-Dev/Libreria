@@ -140,7 +140,7 @@ public class Expresion {
      *                          vacío.
      */
     public void validarDatosObligatoriosUser(Usuario usuario) throws RuntimeException {
-        if (usuario.getCuenta().getCorreo() == Administrador.CORREO) {
+        if (usuario.getCuenta().getCorreo().equals(Administrador.CORREO)) {
             if (usuario.getCuenta().getContrasena() == null || usuario.getCuenta().getContrasena().isBlank()) {
                 RegistroLog.registrarAdvertencia("La contraseña del administrador es obligatoria.");
                 throw new RuntimeException("La contraseña del administrador es obligatoria.");
@@ -150,11 +150,9 @@ public class Expresion {
             RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
             throw new IllegalArgumentException("Los campos con * son obligatorios.\n");
         }
-
     }
 
     public void validarLongitudDatos(Usuario usuario) throws IllegalArgumentException {
-        //Por cada dato ingresado de usuario, en un StringBuilder guardar los errores que salgan de los datos que excedan los 50 caracteres
         StringBuilder sb = new StringBuilder();
         if (usuario.getNombre() != null && usuario.getNombre().length() > 50) {
             sb.append("El nombre no puede exceder los 50 caracteres.\n");
@@ -168,7 +166,7 @@ public class Expresion {
         if (usuario.getCuenta().getContrasena() != null && usuario.getCuenta().getContrasena().length() > 50) {
             sb.append("La contraseña no puede exceder los 50 caracteres.\n");
         }
-        if (sb.length() > 0) {
+        if (!sb.isEmpty()) {
             RegistroLog.registrarAdvertencia(sb.toString());
             throw new IllegalArgumentException(sb.toString());
         }
@@ -183,7 +181,7 @@ public class Expresion {
         if (libro.getAutor() != null && libro.getAutor().length() > 60) {
             sb.append("El autor no puede exceder los 50 caracteres.\n");
         }
-        if (libro.getCategoria() != null && libro.getCategoria().length() > 30) {
+        if (libro.getCategoria().getNombre() != null && libro.getCategoria().getNombre().length() > 30) {
             sb.append("La categoría no puede exceder los 30 caracteres.\n");
         }
         if (libro.getTipoLibro() != null && libro.getTipoLibro().toString().length() > 30) {
@@ -195,7 +193,7 @@ public class Expresion {
         if (libro.getIsbn() != null && libro.getIsbn().length() > 13) {
             sb.append("El ISBN no puede exceder los 13 caracteres.\n");
         }
-        if (sb.length() > 0) {
+        if (!sb.isEmpty()) {
             RegistroLog.registrarAdvertencia(sb.toString());
             throw new IllegalArgumentException(sb.toString());
         }

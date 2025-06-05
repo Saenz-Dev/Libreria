@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class UsuarioDAO extends ConexionBD<Usuario> {
 
     @Override
-    public void  insertarDatos(Usuario usuario) throws SQLException, RuntimeException {
+    public void insertarDatos(Usuario usuario) throws SQLException, RuntimeException {
         if (usuario == null) {
             throw new RuntimeException("El usuario a guardar no tiene datos");
         }
@@ -26,7 +26,7 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
             preparedStatement.setDouble(5, usuario.getDescuentoTipoUsuario());
             preparedStatement.setString(6, usuario.getCuenta().getCorreo());
             int filasAfectadas = preparedStatement.executeUpdate();
-            
+
             if (filasAfectadas > 0) {
                 RegistroLog.registrarInfo("✅ Usuario insertado correctamente: " + usuario.getNombre() + " - " + usuario.getCuenta().getCorreo());
             } else {
@@ -54,9 +54,9 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
             preparedStatement.setString(6, usuario.getCuenta().getCorreo());
             int filasAfectadas = preparedStatement.executeUpdate();
             if (filasAfectadas > 0) {
-        	RegistroLog.registrarError("Se ha actualizado exitosamente el usuario " + usuario.getCuenta().getCorreo()+ ", fueron afectadas " + filasAfectadas + " filas, ");
+                RegistroLog.registrarError("Se ha actualizado exitosamente el usuario " + usuario.getCuenta().getCorreo() + ", fueron afectadas " + filasAfectadas + " filas, ");
             } else {
-        	RegistroLog.registrarError("No se actualizó el usuario: " + usuario.getNombre() + " - " + usuario.getCuenta().getCorreo());
+                RegistroLog.registrarError("No se actualizó el usuario: " + usuario.getNombre() + " - " + usuario.getCuenta().getCorreo());
             }
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al actualizar los datos en la tabla 'usuarios': " + e.getMessage(), e);
@@ -95,7 +95,7 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
     @Override
     public ArrayList<Usuario> seleccionarRegistros() throws SQLException, RuntimeException {
         ArrayList<Usuario> usuarios = new ArrayList<>();
-        String sentencia = "SELECT * FROM usuarios";
+        String sentencia = "SELECT * FROM usuarios ORDER BY nombre";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia); ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 Usuario usuario = new Usuario();
@@ -110,6 +110,26 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
             return usuarios;
         } catch (SQLException e) {
             throw new SQLException("❌ Error al seleccionar los datos en la tabla 'cuentas': " + e.getMessage());
+        }
+    }
+
+    public void eliminarRegistro(String correo) throws SQLException {
+        if (correo == null || correo.isEmpty()) {
+            RegistroLog.registrarAdvertencia("No se puede eliminar un usuario con correo nulo o vacío.");
+            throw new RuntimeException("No se proporcionó un correo válido para eliminar el usuario.");
+        }
+        String sentencia = "DELETE FROM usuarios WHERE correo = ?";
+        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
+            preparedStatement.setString(1, correo);
+            int filasAfectadas = preparedStatement.executeUpdate();
+            if (filasAfectadas > 0) {
+                RegistroLog.registrarInfo("✅ Usuario eliminado correctamente: " + correo);
+            } else {
+                RegistroLog.registrarInfo("⚠️ No se encontró el usuario para eliminar: " + correo);
+            }
+        } catch (SQLException e) {
+            RegistroLog.registrarError("❌ Error al eliminar el usuario: " + e.getMessage(), e);
+            throw new SQLException("❌ No se pudo eliminar el usuario. Intenta nuevamente.");
         }
     }
 }

@@ -1,6 +1,7 @@
 package co.edu.uptc.modelo;
 
 import java.io.Serializable;
+import java.util.Stack;
 
 /**
  * Clase encargada de almacenar los datos de un libro.
@@ -36,7 +37,7 @@ public class Libro implements Serializable {
     /**
      * Categoría del libro
      */
-    private String categoria;
+    private Categoria categoria;
 
     /**
      * Editorial del libro
@@ -70,11 +71,23 @@ public class Libro implements Serializable {
 
     private boolean isComprado;
 
+    private Stack<Comentario> comentarios;
+
+    public Stack<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(Stack<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
+
     /**
      * Constructor de la clase Libro
      */
     public Libro() {
         isComprado = false;
+        comentarios = new Stack<>();
+        categoria = new Categoria();
     }
     public boolean getIsComprado() {
         return isComprado;
@@ -85,7 +98,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que devuelve el ISBN del libro
+     * Metodo que devuelve el ISBN del libro
      * @return ISBN del libro
      */
     public String getIsbn() {
@@ -93,7 +106,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que actualiza el ISBN del libro
+     * Metodo que actualiza el ISBN del libro
      * @param isbn ISBN del libro
      */
     public void setIsbn(String isbn) {
@@ -101,7 +114,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que devuelve el título del libro
+     * Metodo que devuelve el título del libro
      * @return título del libro
      */
     public String getTitulo() {
@@ -109,7 +122,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que actualiza el título del libro
+     * Metodo que actualiza el título del libro
      * @param titulo título del libro
      */
     public void setTitulo(String titulo) {
@@ -117,7 +130,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que devuelve el autor del libro
+     * Metodo que devuelve el autor del libro
      * @return autor del libro
      */
     public String getAutor() {
@@ -125,7 +138,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que actualiza el autor del libro
+     * Metodo que actualiza el autor del libro
      * @param autor autor del libro
      */
     public void setAutor(String autor) {
@@ -133,7 +146,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que devuelve el año de publicación del libro
+     * Metodo que devuelve el año de publicación del libro
      * @return año de publicación del libro
      */
     public int getAnioPublicacion() {
@@ -141,7 +154,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que actualiza el año de publicación del libro
+     * Metodo que actualiza el año de publicación del libro
      * @param anioPublicacion año de publicación del libro
      */
     public void setAnioPublicacion(int anioPublicacion) {
@@ -149,23 +162,23 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que devuelve la categoría del libro
+     * Metodo que devuelve la categoría del libro
      * @return categoría del libro
      */
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
     /**
-     * Método que actualiza la categoría del libro
+     * Metodo que actualiza la categoría del libro
      * @param categoria categoría del libro
      */
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
     /**
-     * Método que devuelve el editorial del libro
+     * Metodo que devuelve el editorial del libro
      * @return editorial del libro
      */
     public String getEditorial() {
@@ -173,7 +186,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que actualiza el editorial del libro
+     * Metodo que actualiza el editorial del libro
      * @param editorial editorial del libro
      */
     public void setEditorial(String editorial) {
@@ -181,7 +194,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que devuelve el número de páginas del libro
+     * Metodo que devuelve el número de páginas del libro
      * @return número de páginas del libro
      */
     public int getNumeroPaginas() {
@@ -189,7 +202,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que actualiza el número de páginas del libro
+     * Metodo que actualiza el número de páginas del libro
      * @param numeroPaginas número de páginas del libro
      */
     public void setNumeroPaginas(int numeroPaginas) {
@@ -197,7 +210,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que devuelve el precio de venta del libro
+     * Metodo que devuelve el precio de venta del libro
      * @return precio de venta del libro
      */
     public double getPrecioVenta() {
@@ -205,7 +218,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que actualiza el precio de venta del libro
+     * Metodo que actualiza el precio de venta del libro
      * @param precioVenta precio de venta del libro
      */
     public void setPrecioVenta(double precioVenta) {
@@ -213,7 +226,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que devuelve el stock disponible del libro
+     * Metodo que devuelve el stock disponible del libro
      * @return stock disponible del libro
      */
     public int getStockDisponible() {
@@ -221,23 +234,22 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que actualiza el stock disponible del libro
-     * @param cantidadDisponible
+     * Metodo que actualiza el stock disponible del libro
+     * @param cantidadDisponible cantidad disponible
      */
     public void aumentarCantidad(int cantidadDisponible) {
         this.stockReservado += cantidadDisponible;
     }
 
     /**
-     * Método que devuelve el stock reservado del libro
-     * @return stock reservado del libro
+     * Metodo que devuelve el stock reservado del libro
      */
     public void disminuirCantidadUnidad() {
         this.stockReservado--;
     }
 
     /**
-     * Método que actualiza el stock reservado del libro
+     * Metodo que actualiza el stock reservado del libro
      * @param stockDisponible stock reservado del libro
      */
     public void setStockDisponible(int stockDisponible) {
@@ -245,7 +257,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que devuelve el tipo de libro
+     * Metodo que devuelve el tipo de libro
      * @return tipo de libro
      */
     public TipoLibroEnum getTipoLibro() {
@@ -253,7 +265,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que actualiza el tipo de libro
+     * Metodo que actualiza el tipo de libro
      * @param tipoLibroEnum tipo de libro
      */
     public void setTipoLibro(TipoLibroEnum tipoLibroEnum) {
@@ -261,7 +273,7 @@ public class Libro implements Serializable {
     }
 
     /**
-     * Método que devuelve el stock reservado del libro
+     * Metodo que devuelve el stock reservado del libro
      * @return stock reservado del libro
      */
     public int getStockReservado() {

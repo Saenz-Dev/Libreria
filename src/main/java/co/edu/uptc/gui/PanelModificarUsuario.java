@@ -1,10 +1,12 @@
 package co.edu.uptc.gui;
 
+import co.edu.uptc.modelo.TipoLibroEnum;
 import co.edu.uptc.modelo.TipoUsuarioEnum;
 import co.edu.uptc.modelo.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Clase que representa el panel de modificar el usuario en la interfaz gráfica.
@@ -12,53 +14,88 @@ import java.awt.*;
  */
 public class PanelModificarUsuario extends JDialog {
 
-    /** Etiqueta para el nombre del usuario. */
+    /**
+     * Etiqueta para el nombre del usuario.
+     */
     private JLabel labelNombre;
 
-    /** Etiqueta para el correo electrónico del usuario. */
+    /**
+     * Etiqueta para el correo electrónico del usuario.
+     */
     private JLabel labelCorreo;
 
-    /** Etiqueta para la contraseña del usuario. */
+    /**
+     * Etiqueta para la contraseña del usuario.
+     */
     private JLabel labelContrasena;
 
-    /** Etiqueta para la dirección del usuario. */
+    /**
+     * Etiqueta para la dirección del usuario.
+     */
     private JLabel labelDireccion;
 
-    /** Etiqueta para el número de teléfono del usuario. */
+    /**
+     * Etiqueta para el número de teléfono del usuario.
+     */
     private JLabel labelTelefono;
 
-    /** Etiqueta para el tipo de cliente (ej. Regular, VIP). */
+    /**
+     * Etiqueta para el tipo de cliente (ej. Regular, VIP).
+     */
     private JLabel labelTipoCliente;
 
-    /** Campo de texto para ingresar el nombre del usuario. */
+    /**
+     * Campo de texto para ingresar el nombre del usuario.
+     */
     private JTextField txtNombre;
 
-    /** Campo de texto para ingresar el correo electrónico del usuario. */
+    /**
+     * Campo de texto para ingresar el correo electrónico del usuario.
+     */
     private JTextField txtCorreo;
 
-    /** Campo de texto para ingresar la contraseña del usuario. */
+    /**
+     * Campo de texto para ingresar la contraseña del usuario.
+     */
     private JPasswordField txtContrasena;
 
-    /** Campo de texto para ingresar la dirección del usuario. */
+    /**
+     * Campo de texto para ingresar la dirección del usuario.
+     */
     private JTextField txtDireccion;
 
-    /** Campo de texto para ingresar el número de teléfono del usuario. */
+    /**
+     * Campo de texto para ingresar el número de teléfono del usuario.
+     */
     private JTextField txtTelefono;
 
-    /** ComboBox para seleccionar el tipo de cliente (ej. Regular, VIP). */
+    /**
+     * ComboBox para seleccionar el tipo de cliente (ej. Regular, VIP).
+     */
     private JComboBox cbTipoCliente;
 
-    /** Etiqueta para el título de la sección de actualización de datos. */
+    /**
+     * Etiqueta para el título de la sección de actualización de datos.
+     */
     private JLabel labelTitulo;
 
-    /** Botón para actualizar la información del usuario. */
+    /**
+     * Botón para actualizar la información del usuario.
+     */
     private JButton botonActualizar;
 
-    /** Botón para cancelar la actualización y cerrar la ventana. */
+    /**
+     * Botón para cancelar la actualización y cerrar la ventana.
+     */
     private JButton botonCancelar;
+
+    private JButton botonEliminar;
+
+    private JComboBox cbUsuario;
 
     /**
      * Obtiene el nombre ingresado por el usuario.
+     *
      * @return el nombre como una cadena de texto.
      */
     public String getTxtNombre() {
@@ -67,6 +104,7 @@ public class PanelModificarUsuario extends JDialog {
 
     /**
      * Obtiene el correo electrónico ingresado por el usuario.
+     *
      * @return el correo como una cadena de texto.
      */
     public String getTxtCorreo() {
@@ -75,6 +113,7 @@ public class PanelModificarUsuario extends JDialog {
 
     /**
      * Obtiene la contraseña ingresada por el usuario.
+     *
      * @return la contraseña como una cadena de texto.
      */
     public String getTxtContrasena() {
@@ -83,6 +122,7 @@ public class PanelModificarUsuario extends JDialog {
 
     /**
      * Obtiene la dirección ingresada por el usuario.
+     *
      * @return la dirección como una cadena de texto.
      */
     public String getTxtDireccion() {
@@ -91,6 +131,7 @@ public class PanelModificarUsuario extends JDialog {
 
     /**
      * Obtiene el número de teléfono ingresado por el usuario.
+     *
      * @return el teléfono como una cadena de texto.
      */
     public String getTxtTelefono() {
@@ -99,14 +140,16 @@ public class PanelModificarUsuario extends JDialog {
 
     /**
      * Obtiene el tipo de cliente seleccionado en el JComboBox.
+     *
      * @return el tipo de cliente como una cadena de texto.
      */
     public TipoUsuarioEnum getCbTipoCliente() {
-        return (TipoUsuarioEnum) cbTipoCliente.getItemAt(0);
+        return TipoUsuarioEnum.valueOf(cbTipoCliente.getSelectedItem().toString());
     }
 
     /**
      * Establece un nuevo nombre en el campo de texto.
+     *
      * @param nombre el nuevo nombre a asignar.
      */
     public void setTxtNombre(String nombre) {
@@ -115,6 +158,7 @@ public class PanelModificarUsuario extends JDialog {
 
     /**
      * Establece un nuevo correo en el campo de texto.
+     *
      * @param correo el nuevo correo a asignar.
      */
     public void setTxtCorreo(String correo) {
@@ -123,6 +167,7 @@ public class PanelModificarUsuario extends JDialog {
 
     /**
      * Establece una nueva contraseña en el campo de texto.
+     *
      * @param contrasena la nueva contraseña a asignar.
      */
     public void setTxtContrasena(String contrasena) {
@@ -131,6 +176,7 @@ public class PanelModificarUsuario extends JDialog {
 
     /**
      * Establece una nueva dirección en el campo de texto.
+     *
      * @param direccion la nueva dirección a asignar.
      */
     public void setTxtDireccion(String direccion) {
@@ -139,6 +185,7 @@ public class PanelModificarUsuario extends JDialog {
 
     /**
      * Establece un nuevo número de teléfono en el campo de texto.
+     *
      * @param telefono el nuevo teléfono a asignar.
      */
     public void setTxtTelefono(String telefono) {
@@ -147,78 +194,145 @@ public class PanelModificarUsuario extends JDialog {
 
     /**
      * Establece un nuevo tipo de cliente en el JComboBox.
+     *
      * @param tipoCliente el nuevo tipo de cliente a asignar.
      */
     public void setCbTipoCliente(TipoUsuarioEnum tipoCliente) {
         cbTipoCliente.setSelectedItem(tipoCliente);
     }
 
+    public JButton getBotonEliminar() {
+        return botonEliminar;
+    }
+
+    public void setBotonEliminar(JButton botonEliminar) {
+        this.botonEliminar = botonEliminar;
+    }
+
+    public JComboBox getCbUsuario() {
+        return cbUsuario;
+    }
+
+    public void setCbUsuario(JComboBox cbUsuario) {
+        this.cbUsuario = cbUsuario;
+    }
+
     /**
      * Constructor del panel de actualización de datos del usuario.
+     *
      * @param evento Manejador de eventos de la aplicación.
      */
-    public PanelModificarUsuario(Evento evento) {
+    public PanelModificarUsuario(Evento evento, EventoGestionUsuario eventoGestionUsuario) {
         setTitle("Actualizar Datos Usuario");
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.insets = new Insets(5, 10, 5, 10);
         inicializarAtributos();
-        asignarAccionBoton(evento);
+        asignarAccionBoton(evento, eventoGestionUsuario);
 
+        // Limitar el ancho de los JTextField
+        Dimension campoDimension = new Dimension(200, 25);
+        txtNombre.setPreferredSize(campoDimension);
+        txtDireccion.setPreferredSize(campoDimension);
+        txtTelefono.setPreferredSize(campoDimension);
+        txtCorreo.setPreferredSize(campoDimension);
+        txtContrasena.setPreferredSize(campoDimension);
+
+        // Título centrado
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.NONE;
         add(labelTitulo, gbc);
+
+        // ComboBox de usuario
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(cbUsuario, gbc);
+
+        // Campos y etiquetas
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.NONE;
+
+        gbc.gridy = 2;
+        gbc.gridx = 0;
         add(labelNombre, gbc);
         gbc.gridx = 1;
         add(txtNombre, gbc);
-        gbc.gridy = 2;
+
+        gbc.gridy = 3;
         gbc.gridx = 0;
         add(labelDireccion, gbc);
         gbc.gridx = 1;
         add(txtDireccion, gbc);
-        gbc.gridy = 3;
+
+        gbc.gridy = 4;
         gbc.gridx = 0;
         add(labelTelefono, gbc);
         gbc.gridx = 1;
         add(txtTelefono, gbc);
-        gbc.gridy = 4;
+
+        gbc.gridy = 5;
         gbc.gridx = 0;
         add(labelTipoCliente, gbc);
         gbc.gridx = 1;
         add(cbTipoCliente, gbc);
-        gbc.gridy = 5;
+
+        gbc.gridy = 6;
         gbc.gridx = 0;
         add(labelCorreo, gbc);
         gbc.gridx = 1;
         add(txtCorreo, gbc);
-        gbc.gridy = 6;
+
+        gbc.gridy = 7;
         gbc.gridx = 0;
         add(labelContrasena, gbc);
         gbc.gridx = 1;
         add(txtContrasena, gbc);
-        gbc.gridy = 7;
+
+        // Panel de botones
+        JPanel panelBotones = ajustarPanelBotones();
+        gbc.gridy = 8;
         gbc.gridx = 0;
-        add(botonActualizar, gbc);
-        gbc.gridx = 1;
-        add(botonCancelar, gbc);
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(panelBotones, gbc);
 
         setResizable(false);
         setModal(true);
-        setSize(400, 350);
+        setSize(400, 450);
         setLocationRelativeTo(null);
     }
 
-    private void asignarAccionBoton(Evento evento) {
+    public void llenarComboBoxUsuarios(ArrayList<Usuario> usuarios) {
+        cbUsuario.removeAllItems();
+        for (Usuario usuario : usuarios) {
+            cbUsuario.addItem(usuario.getNombre());
+        }
+        cbUsuario.setSelectedItem(0);
+    }
+
+    private JPanel ajustarPanelBotones() {
+        JPanel panelBotones = new JPanel();
+        panelBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        panelBotones.add(botonEliminar);
+        panelBotones.add(botonActualizar);
+        panelBotones.add(botonCancelar);
+        return panelBotones;
+    }
+
+    private void asignarAccionBoton(Evento evento, EventoGestionUsuario eventoGestionUsuario) {
         botonActualizar.addActionListener(evento);
-        botonActualizar.setActionCommand(evento.ACEPTAR_ACTUALIZAR_USUARIO);
+        botonActualizar.setActionCommand(Evento.ACEPTAR_ACTUALIZAR_USUARIO);
         botonCancelar.addActionListener(evento);
-        botonCancelar.setActionCommand(evento.CANCELAR_ACTUALIZAR_USUARIO);
+        botonCancelar.setActionCommand(Evento.CANCELAR_ACTUALIZAR_USUARIO);
+        botonEliminar.addActionListener(evento);
+        botonEliminar.setActionCommand(Evento.ELIMINAR_USUARIO);
+        cbUsuario.addItemListener(eventoGestionUsuario);
     }
 
     /**
@@ -237,12 +351,15 @@ public class PanelModificarUsuario extends JDialog {
         txtContrasena = new JPasswordField(20);
         txtDireccion = new JTextField(20);
         txtTelefono = new JTextField(20);
-        String[] tiposCliente = {"Regular", "Premium"};
-        cbTipoCliente = new JComboBox<>(tiposCliente);
+        cbTipoCliente = new JComboBox<>(TipoUsuarioEnum.values());
         labelTitulo = new JLabel("Actualizar Información Usuario");
         botonActualizar = new JButton("Actualizar");
         botonCancelar = new JButton("Cancelar");
         labelTitulo.setFont(new Font("Arial", Font.BOLD, 20));
+        botonEliminar = new JButton("Eliminar Usuario");
+        botonEliminar.setBackground(Color.RED);
+        botonEliminar.setForeground(Color.WHITE);
+        cbUsuario = new JComboBox();
     }
 
     public Usuario obtenerDatos() {
@@ -274,7 +391,9 @@ public class PanelModificarUsuario extends JDialog {
         setTxtTelefono(String.valueOf(usuario.getTelefono()));
         cbTipoCliente.setVisible(false);
         labelTipoCliente.setVisible(false);
-        //setCbTipoCliente(usuario.getTipoCliente());
+        setCbTipoCliente(usuario.getTipoCliente());
+        revalidate();
+        repaint();
     }
 
     public void limpiarTxt() {

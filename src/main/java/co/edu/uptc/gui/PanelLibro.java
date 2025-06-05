@@ -118,7 +118,7 @@ public class PanelLibro extends JPanel {
         format.setMinimumFractionDigits(0);
         labelTitulo = new JLabel(libro.getTitulo());
         labelAutorEditorial = new JLabel(libro.getAutor() + (!libro.getEditorial().isBlank() ? " - " + libro.getEditorial() : ""));
-        labelCategoriaPaginas = new JLabel(libro.getCategoria() + ((libro.getNumeroPaginas() != 0 ? " - " + libro.getNumeroPaginas()+ " pags." : "")));
+        labelCategoriaPaginas = new JLabel(libro.getCategoria().getNombre() + ((libro.getNumeroPaginas() != 0 ? " - " + libro.getNumeroPaginas()+ " pags." : "")));
         labelPrecio = new JLabel(String.valueOf(format.format(libro.getPrecioVenta())));
         botonAgregar = new JButton("Agregar al carrito");
         botonComentario = new JButton("Comentarios");

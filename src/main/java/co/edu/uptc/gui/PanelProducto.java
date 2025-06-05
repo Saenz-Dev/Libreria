@@ -52,7 +52,7 @@ public class PanelProducto extends JPanel {
     /**
      * Constructor del panel de un producto.
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.
-     * @param producto Referencia al producto (libro) asociado a este panel.
+     * @param libroComprado Referencia al producto (libro) asociado a este panel.
      */
     public PanelProducto(VentanaPrincipal ventanaPrincipal, LibroComprado libroComprado) {
         setLayout(new GridBagLayout());
@@ -97,7 +97,7 @@ public class PanelProducto extends JPanel {
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.EAST;
         add(botonEliminar, gbc);
-        botonDisminuir.setVisible(libroComprado.getNumeroLibros() > 1);
+        botonDisminuir.setVisible(libroComprado.getCantidadComprada() > 1);
         repaint();
     }
 
@@ -105,7 +105,7 @@ public class PanelProducto extends JPanel {
         labelNombreProducto = new JLabel(libroComprado.getTitulo());
         botonAumentar = new JButton("+");
         botonDisminuir = new JButton("-");
-        labelCantidad = new JLabel(String.valueOf(libroComprado.getNumeroLibros()));
+        labelCantidad = new JLabel(String.valueOf(libroComprado.getCantidadComprada()));
         labelCantidad.setPreferredSize(new Dimension(15, 20));
         botonEliminar = new JButton("Eliminar");
         labelPrecio = new JLabel(format.format(libroComprado.getPrecioTotal()));

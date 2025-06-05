@@ -4,18 +4,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
 
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.modelo.LibroCarrito;
 import co.edu.uptc.modelo.Recibo;
 import co.edu.uptc.modelo.ResumenProductoDTO;
 import co.edu.uptc.modelo.Tienda;
 import co.edu.uptc.modelo.Usuario;
 import co.edu.uptc.modelo.TotalesCompra;
 import co.edu.uptc.persistencia.CarritoDAO;
-import co.edu.uptc.persistencia.CuentaDAO;
 import co.edu.uptc.persistencia.LibroDAO;
 import co.edu.uptc.persistencia.ReciboDAO;
 import co.edu.uptc.persistencia.UsuarioDAO;
@@ -55,7 +52,7 @@ public class GestionCarrito {
      * @throws RuntimeException
      * @throws SQLException
      */
-    public void anadirLibrosCarrito(String isbnLibro) throws IOException, SQLException, RuntimeException {
+    public void  anadirLibrosCarrito(String isbnLibro) throws IOException, SQLException, RuntimeException {
         Usuario usuarioLog = tienda.getUsuarioActual();
         Libro libroCatalogo = validarDisponibilidadLibros(isbnLibro);
         if (libroCatalogo == null) {
@@ -103,6 +100,7 @@ public class GestionCarrito {
         libroCatalogo.reservarLibro();
         usuarioDAO.actualizarDatos(usuarioLogin);
         libroDAO.actualizarDatos(libroCatalogo);
+        tienda.getUsuarioActual().getCarrito().setLibros(carritoDAO.seleccionarRegistros(usuarioLogin.getCuenta().getCorreo()));
     }
 
     /**
@@ -132,9 +130,9 @@ public class GestionCarrito {
         validarLibroCarrito(libroCarrito);
         usuarioDAO.actualizarDatos(usuarioLogin);
         libroDAO.actualizarDatos(libroCatalogo);
-        actualizarCatalogoMemoria(libroCarrito);
+        //actualizarCatalogoMemoria(libroCarrito);
         carritoDAO.actualizarDatos(libroCarrito, tienda.getUsuarioActual().getCuenta().getCorreo());
-        tienda.getUsuarioActual().getCarrito().setLibros(carritoDAO.seleccionarRegistros(libroCarrito, usuarioLogin.getCuenta().getCorreo()));
+        tienda.getUsuarioActual().getCarrito().setLibros(carritoDAO.seleccionarRegistros(usuarioLogin.getCuenta().getCorreo()));
     }
 
     /**
@@ -142,7 +140,7 @@ public class GestionCarrito {
      *
      * @param libro libro modificado.
      */
-    private void actualizarCatalogoMemoria(Libro libro) {
+    public void actualizarCatalogoMemoria(Libro libro) {
         ArrayList<Libro> catalogo = tienda.getCatalogo().getCatalogoLibros();
         for (Libro libroBuscado : catalogo) {
             if (libroBuscado.getIsbn().equals(libro.getIsbn())) {
@@ -242,7 +240,7 @@ public class GestionCarrito {
      * @throws SQLException
      */
     public ArrayList<Libro> listarLibros() throws SQLException, RuntimeException {
-        return carritoDAO.seleccionarRegistros();
+        return carritoDAO.seleccionarRegistros(tienda.getUsuarioActual().getCuenta().getCorreo());
     }
 
     /**
@@ -255,7 +253,7 @@ public class GestionCarrito {
      * @throws RuntimeException
      * @throws SQLException
      */
-    public ResumenProductoDTO sumarProducto(String isbnProducto) throws IOException, SQLException, RuntimeException {
+    public ResumenProductoDTO sumarProducto(String isbnProducto) throws SQLException, RuntimeException {
         Libro libroCarrito = consultaLibroCarrito(isbnProducto);
         Libro libroCatalogo = consultaLibroCatalogo(isbnProducto);
 
@@ -264,7 +262,7 @@ public class GestionCarrito {
         libroCatalogo.reservarLibro();
         libroCarrito.aumentarCantidad(1);
         validarLibroCarrito(libroCarrito);
-        carritoDAO.actualizarDatos(libroCarrito);
+        carritoDAO.actualizarDatos(libroCarrito, tienda.getUsuarioActual().getCuenta().getCorreo());
         libroDAO.actualizarDatos(libroCatalogo);
 
         return actualizarProductoCarrito(isbnProducto);
@@ -285,7 +283,6 @@ public class GestionCarrito {
      *
      * @param isbn isbn del producto a actualizar en el carrito.
      * @return El resumen del producto.
-     *
      * @throws RuntimeException
      * @throws SQLException
      */
@@ -326,7 +323,7 @@ public class GestionCarrito {
         libroCarrito.disminuirCantidadUnidad();
 
         validarLibroCarrito(libroCarrito);
-        carritoDAO.actualizarDatos(libroCarrito);
+        carritoDAO.actualizarDatos(libroCarrito, tienda.getUsuarioActual().getCuenta().getCorreo());
         libroDAO.actualizarDatos(libroCatalogo);
 
         return actualizarProductoCarrito(isbnProducto);
@@ -357,6 +354,7 @@ public class GestionCarrito {
 
         carritoDAO.eliminarRegistro(libroCarrito, tienda.getUsuarioActual().getCuenta().getCorreo());
         libroDAO.actualizarDatos(libroCatalogo);
+        tienda.getUsuarioActual().getCarrito().setLibros(carritoDAO.seleccionarRegistros(tienda.getUsuarioActual().getCuenta().getCorreo()));
     }
 
     private Libro consultaLibroCatalogo(String isbnProducto) throws SQLException {
@@ -411,7 +409,7 @@ public class GestionCarrito {
     }
 
     private void setTotal(TotalesCompra totalesCompra) throws IOException {
-        totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(tienda.getRecibos().get(tienda.getUsuarioActual().getCuenta().getCorreo()), totalesCompra.getTotal()));
+        totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(tienda.getRecibosTienda().get(tienda.getUsuarioActual().getCuenta().getCorreo()), totalesCompra.getTotal()));
         totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoPremium());
     }
 

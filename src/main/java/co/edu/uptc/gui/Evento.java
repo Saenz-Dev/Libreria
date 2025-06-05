@@ -106,6 +106,8 @@ public class Evento implements ActionListener {
     public static final String ACTIVAR_GUARDAR_CODIGO = "Activar Guardar Codigo";
 
     public static final String CERRAR_CALIFICAR = "Cerrar Calificar";
+
+    public static final String ELIMINAR_USUARIO = "Eliminar Usuario";
     
     /** Referencia a la VentanaPrincipal. */
     private VentanaPrincipal ventana;
@@ -157,9 +159,10 @@ public class Evento implements ActionListener {
             case REGISTRAR_COMENTARIO -> ventana.registrarComentario();
             case VALIDAR_PREMIUM -> ventana.activarValidarPremium();
             case ACTIVAR_PANEL_PREMIUM -> ventana.activarPanelValidPremium();
-            case GUARDAR_CODIGO -> ventana.GuardarCodigo();
+            case GUARDAR_CODIGO -> ventana.guardarCodigo();
             case ACTIVAR_GUARDAR_CODIGO -> ventana.activarGuardarCodigo();
             case CERRAR_CALIFICAR -> ventana.cerrarCalificar();
+            case ELIMINAR_USUARIO -> ventana.eliminarUsuario();
         }
     }
 }

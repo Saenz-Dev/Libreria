@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
+import co.edu.uptc.modelo.Categoria;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
@@ -72,20 +73,28 @@ public class PanelCatalogo extends JPanel {
 
     private JLabel labelSinLibros;
 
+    private JComboBox <String> comboBoxCategorias;
+
+    private JComboBox <String> comboBoxFomatos;
+
     private final Color COLOR_FONDO = new Color(244, 246, 248);
 
     private final Color BORDE_TARJETA = new Color(144, 164, 174);
+
+    private EventoFiltro eventoFiltro;
 
     /**
      * Constructor del panel del catalogo.
      *
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.
      */
-    public PanelCatalogo(VentanaPrincipal ventanaPrincipal) {
-        initAtributos(ventanaPrincipal);
+    public PanelCatalogo(VentanaPrincipal ventanaPrincipal, EventoFiltro eventoFiltro) {
+        this.eventoFiltro = eventoFiltro;
+        initAtributos(ventanaPrincipal, eventoFiltro);
         gbc = new GridBagConstraints();
         personalizarFont();
         setupPanel();
+        personalizarFiltros();
 
         gbc.weightx = 1.0;
         gbc.insets = new Insets(5, 30, 5, 5);
@@ -93,9 +102,16 @@ public class PanelCatalogo extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.gridy = 0;
         gbc.gridx = 0;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 2;
         add(labelTitulo, gbc);
+        //agregar los filtros en la misma fila del titulo pero al lado derecho
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.gridx = 1;
+        JPanel panelFiltros = ajustarPanelFiltros();
+        add(panelFiltros, gbc);
 
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.gridx = 0;
         gbc.gridwidth = 1;
         gbc.weighty = 0.9;
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -108,10 +124,8 @@ public class PanelCatalogo extends JPanel {
         scrollPanelLibros.setOpaque(false);
         scrollPanelLibros.getViewport().setOpaque(false);
         scrollPanelLibros.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPanelLibros.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
         scrollPanelLibros.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPanelLibros.setViewportBorder(null);
-        scrollPanelLibros.setViewportView(panelLibros);
 
         scrollPanelLibros.setBorder(null);
 
@@ -119,8 +133,28 @@ public class PanelCatalogo extends JPanel {
         repaint();
     }
 
+    private JPanel ajustarPanelFiltros() {
+        JPanel panelFiltros = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panelFiltros.setOpaque(false);
+        panelFiltros.add(new JLabel("Categoría:"));
+        panelFiltros.add(comboBoxCategorias);
+        panelFiltros.add(new JLabel("Formato:"));
+        panelFiltros.add(comboBoxFomatos);
+
+        return panelFiltros;
+    }
+
     private void setupPanel() {
         setBackground(COLOR_FONDO);
+    }
+
+    private void personalizarFiltros() {
+        comboBoxCategorias.setPreferredSize(new Dimension(200, 30));
+        comboBoxFomatos.setPreferredSize(new Dimension(200, 30));
+        comboBoxCategorias.setBackground(Color.WHITE);
+        comboBoxFomatos.setBackground(Color.WHITE);
+        comboBoxCategorias.setFont(new Font("Arial", Font.PLAIN, 14));
+        comboBoxFomatos.setFont(new Font("Arial", Font.PLAIN, 14));
     }
 
     /**
@@ -137,12 +171,13 @@ public class PanelCatalogo extends JPanel {
      *
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.
      */
-    private void initAtributos(VentanaPrincipal ventanaPrincipal) {
+    private void initAtributos(VentanaPrincipal ventanaPrincipal, EventoFiltro eventoFiltro) {
         setLayout(new GridBagLayout());
         gbcPanelLibros = new GridBagConstraints();
         gbPanelLibros = new GridBagLayout();
+        gbPanelLibros.columnWeights = new double[]{1, 1, 1, 1};
         panelLibros = new JPanel(gbPanelLibros);
-        panelLibros.setPreferredSize(new Dimension(100, 100));
+        //panelLibros.setPreferredSize(new Dimension(1100, 600));
         panelLibros.setOpaque(false);
         panelLibros.setOpaque(false);
         this.ventanaPrincipal = ventanaPrincipal;
@@ -151,6 +186,10 @@ public class PanelCatalogo extends JPanel {
         numberFormat = NumberFormat.getCurrencyInstance();
         numberFormat.setMinimumFractionDigits(0);
         labelSinLibros = new JLabel("No hay libros registrados");
+        comboBoxCategorias = new JComboBox<>();
+        comboBoxCategorias.addItemListener(eventoFiltro);
+        comboBoxFomatos = new JComboBox<>();
+        comboBoxFomatos.addItemListener(eventoFiltro);
     }
 
 
@@ -165,7 +204,7 @@ public class PanelCatalogo extends JPanel {
         numberFormat.setMinimumFractionDigits(0);
         tableModel.setColumnIdentifiers(new Object[]{"ISBN", "Titulo", "Autor", "Año", "Categoria", "Editorial", "#Paginas", "Precio", "Disponible", "Reservado", "Tipo"});
         for (Libro libro : catalogo) {
-            tableModel.addRow(new Object[]{libro.getIsbn(), libro.getTitulo(), libro.getAutor(), libro.getAnioPublicacion(), libro.getCategoria(), libro.getEditorial(), libro.getNumeroPaginas(), numberFormat.format(libro.getPrecioVenta()), libro.getStockDisponible(), libro.getStockReservado(), libro.getTipoLibro()});
+            tableModel.addRow(new Object[]{libro.getIsbn(), libro.getTitulo(), libro.getAutor(), libro.getAnioPublicacion(), libro.getCategoria().getNombre(), libro.getEditorial(), libro.getNumeroPaginas(), numberFormat.format(libro.getPrecioVenta()), libro.getStockDisponible(), libro.getStockReservado(), libro.getTipoLibro()});
         }
 
         JTable tabla = new JTable(tableModel);
@@ -176,8 +215,11 @@ public class PanelCatalogo extends JPanel {
         tableHeader.setForeground(Color.WHITE);
         tableHeader.setFont(new Font("Arial", Font.BOLD, 12));
         remove(scrollPanelLibros);
-        gbc.gridwidth = 1;
+
+        gbc.gridx = 0;
+        gbc.gridwidth = 3;
         gbc.weighty = 0.9;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridy = 1;
@@ -188,6 +230,22 @@ public class PanelCatalogo extends JPanel {
 
         revalidate();
         repaint();
+    }
+
+    public void llenarFiltros(ArrayList<Categoria> categorias) {
+        comboBoxFomatos.removeItemListener(eventoFiltro);
+        comboBoxCategorias.removeItemListener(eventoFiltro);
+        comboBoxCategorias.removeAllItems();
+        comboBoxFomatos.removeAllItems();
+        comboBoxCategorias.addItem("TODOS");
+        comboBoxFomatos.addItem("TODOS");
+        for (Categoria categoria : categorias) {
+            comboBoxCategorias.addItem(categoria.getNombre());
+        }
+        comboBoxFomatos.addItem("FISICO");
+        comboBoxFomatos.addItem("DIGITAL");
+        comboBoxCategorias.addItemListener(eventoFiltro);
+        comboBoxFomatos.addItemListener(eventoFiltro);
     }
 
     public void personalizarTabla(JTable tabla) {
@@ -213,22 +271,25 @@ public class PanelCatalogo extends JPanel {
      * Crea paneles de libros a partir de un mapa de libros que son los libros
      * disponibles en el catálogo.
      *
-     * @param mapLibros Libros en el catalogo.
+     * @param catalogo Libros en el catalogo.
      */
     public void crearPanelesLibros(ArrayList<Libro> catalogo) {
 
         remove(scrollPanelLibros);
         panelLibros.removeAll();
-        gbc.gridwidth = 1;
+        gbc.gridwidth = 3;
         gbc.weighty = 0.9;
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridy = 1;
+        revalidate();
+        repaint();
         scrollPanelLibros = new JScrollPane(panelLibros);
         scrollPanelLibros.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPanelLibros.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
-        scrollPanelLibros.setPreferredSize(panelLibros.getSize());
+        scrollPanelLibros.setPreferredSize(new Dimension(800, 600));
+        //scrollPanelLibros.setPreferredSize(panelLibros.getSize());
 
         scrollPanelLibros.setBorder(null);
 
@@ -239,6 +300,7 @@ public class PanelCatalogo extends JPanel {
         gbcPanelLibros.weighty = 1;
         gbcPanelLibros.weightx = 1;
         gbcPanelLibros.anchor = GridBagConstraints.NORTHWEST;
+        gbcPanelLibros.fill = GridBagConstraints.BOTH;
 
         for (Libro libro : catalogo) {
             anadirPanelLibro(libro);
@@ -249,9 +311,7 @@ public class PanelCatalogo extends JPanel {
             panelLibros.revalidate();
             panelLibros.repaint();
         }
-        gbcPanelLibros.gridy++;
-        gbcPanelLibros.weighty = 10;
-        panelLibros.add(new JLabel(), gbcPanelLibros);
+
         revalidate();
         repaint();
     }
@@ -284,9 +344,11 @@ public class PanelCatalogo extends JPanel {
      * @param panelLibro Panel del libro a agregar.
      */
     public void anadirLibrosPanel(PanelLibro panelLibro) {
+        GridBagConstraints gbcPanelLibros = new GridBagConstraints();
         gbcPanelLibros.weightx = 1.0;
+        gbcPanelLibros.weighty = 1;
         gbcPanelLibros.insets = new Insets(10, 10, 10, 10);
-        gbcPanelLibros.fill = GridBagConstraints.NONE;
+        gbcPanelLibros.fill = GridBagConstraints.BOTH;
         gbcPanelLibros.gridwidth = 1;
 
         gbcPanelLibros.gridx = conteoColumnas;
@@ -298,5 +360,13 @@ public class PanelCatalogo extends JPanel {
             conteoColumnas = 0;
             conteoFilas++;
         }
+    }
+
+    public String getCategoriaSeleccionada() {
+        return (String) comboBoxCategorias.getSelectedItem();
+    }
+
+    public String getFormatoSeleccionado() {
+        return (String) comboBoxFomatos.getSelectedItem();
     }
 }

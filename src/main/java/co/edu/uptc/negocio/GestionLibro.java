@@ -66,6 +66,7 @@ public class GestionLibro {
         expresion.validarFormatoDatosLibro(libro);
         Libro libroExistente = libroDAO.seleccionarRegistro(libro);
         if (libroExistente.getIsComprado()) {
+            libro.setStockReservado(libroExistente.getStockReservado());
             libro.setIsComprado(true);
         }
         libroDAO.actualizarDatos(libro);

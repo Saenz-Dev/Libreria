@@ -128,8 +128,8 @@ public class PanelConfirmCompra extends JDialog {
         for (LibroComprado libroComprado : listaCarrito) {
             String isbn = libroComprado.getIsbn();
             String tituloLibro = libroComprado.getTitulo();
-            int cantidad = libroComprado.getNumeroLibros();
-            double valorUnitario = libroComprado.getPrecioUnitario();
+            int cantidad = libroComprado.getCantidadComprada();
+            double valorUnitario = libroComprado.getPrecioVenta();
             double impuestoTotalProducto = libroComprado.getImpuestoTotal();
             double impuesto = libroComprado.getImpuestoUnitario();
             double valor = libroComprado.getPrecioTotal();

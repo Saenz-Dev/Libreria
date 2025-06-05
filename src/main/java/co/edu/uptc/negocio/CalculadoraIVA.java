@@ -86,19 +86,19 @@ public class CalculadoraIVA {
      * @param catalogo       catalogo de libros
      * @return impuesto del producto
      */
-    public double impuestoProductos(LibroCarrito libroCarrito, Libro libroParametro) {
+    public double impuestoProductos(Libro libroCarrito, Libro libroParametro) {
         if (libroParametro.getTipoLibro() == TipoLibroEnum.FISICO) {
-            return libroCarrito.getCantidad() * libroParametro.getPrecioVenta() * 0.19;
+            return libroCarrito.getStockReservado() * libroParametro.getPrecioVenta() * 0.19;
         } else {
-            return libroCarrito.getCantidad() * libroParametro.getPrecioVenta() * 0.05;
+            return libroCarrito.getStockReservado() * libroParametro.getPrecioVenta() * 0.05;
         }
     }
 
-    public double impuestoProducto(Libro libroParametro) {
+    public double impuestoProducto(Libro libroParametro, Libro libroCatalogo) {
         if (libroParametro.getTipoLibro() == TipoLibroEnum.FISICO) {
-            return libroParametro.getPrecioVenta() * 0.19;
+            return libroCatalogo.getPrecioVenta() * 0.19;
         } else {
-            return libroParametro.getPrecioVenta() * 0.05;
+            return libroCatalogo.getPrecioVenta() * 0.05;
         }
     }
 

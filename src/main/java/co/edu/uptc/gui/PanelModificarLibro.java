@@ -1,11 +1,12 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.CategoriaLibro;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.TipoLibroEnum;
+import co.edu.uptc.modelo.Categoria;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Clase que representa el panel de modificación de un libro en la interfaz gráfica
@@ -200,8 +201,10 @@ public class PanelModificarLibro extends JDialog {
      *
      * @return Categoría del libro.
      */
-    public String getCategoria() {
-        return txtCategoria.getSelectedItem().toString();
+    public Categoria getCategoria() {
+        Categoria categoria = new Categoria();
+        categoria.setNombre(txtCategoria.getSelectedItem().toString());
+        return categoria;
     }
 
     /**
@@ -276,7 +279,7 @@ public class PanelModificarLibro extends JDialog {
      * @return Tipo de libro (físico o digital).
      */
     public TipoLibroEnum getFormato() {
-        return txtFormato.getSelectedItem().toString() == String.valueOf(TipoLibroEnum.FISICO) ? TipoLibroEnum.FISICO : TipoLibroEnum.DIGITAL;
+        return TipoLibroEnum.valueOf(txtFormato.getSelectedItem().toString());
     }
 
     /**
@@ -329,8 +332,8 @@ public class PanelModificarLibro extends JDialog {
      *
      * @param categoria Nueva categoría.
      */
-    public void setCategoria(String categoria) {
-        txtCategoria.setSelectedItem(categoria);
+    public void setCategoria(Categoria categoria) {
+        txtCategoria.setSelectedItem(categoria.getNombre());
     }
 
     /**
@@ -375,7 +378,7 @@ public class PanelModificarLibro extends JDialog {
      * @param tipoLibroEnum Nuevo tipo de libro (físico o digital).
      */
     public void setFormato(TipoLibroEnum tipoLibroEnum) {
-        txtFormato.setSelectedItem(String.valueOf(tipoLibroEnum));
+        txtFormato.setSelectedItem(tipoLibroEnum);
     }
 
     /**
@@ -504,7 +507,7 @@ public class PanelModificarLibro extends JDialog {
     private void initCb() {
         cbLibros = new JComboBox<>();//Lo agregue para el que se elija, los JTextField se llenen con la informacion de cada libro.
         cbLibros.setPreferredSize(new Dimension(15, 30));
-        txtCategoria = new JComboBox<>(CategoriaLibro.values());
+        txtCategoria = new JComboBox<>();
         txtFormato = new JComboBox<>(TipoLibroEnum.values());
     }
 
@@ -544,7 +547,6 @@ public class PanelModificarLibro extends JDialog {
         txtPrecio.setPreferredSize(dimension);
         txtCantidad = new JTextField(5);
         txtCantidad.setPreferredSize(dimension);
-        //cbLibros.setPreferredSize(new Dimension(80, 30));
     }
 
     public Libro obtenerDatos() throws RuntimeException {
@@ -566,6 +568,15 @@ public class PanelModificarLibro extends JDialog {
         }
     }
 
+    public void llenarCbCategoria(ArrayList<Categoria> categorias) {
+        txtCategoria.removeAllItems();
+        for (Categoria categoria : categorias) {
+            txtCategoria.addItem(categoria.getNombre());
+        }
+        txtCategoria.setSelectedIndex(0); // Selecciona la primera categoría por defecto
+
+    }
+
     public void llenarCampos(Libro libro) {
         setISBN(libro.getIsbn());
         setNombre(libro.getTitulo());
@@ -577,5 +588,7 @@ public class PanelModificarLibro extends JDialog {
         setPrecio(String.valueOf((int) libro.getPrecioVenta()));
         setCantidad(String.valueOf(libro.getStockDisponible()));
         setFormato(libro.getTipoLibro());
+        revalidate();
+        repaint();
     }
 }

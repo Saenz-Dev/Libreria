@@ -18,38 +18,19 @@ public class GestionCatalogo {
      * Instancia Catalogo
      */
     private Catalogo catalogo;
-    
-    private LibroDAO libroDAO; 
-    /**
-     * Instancia Manejo de Libros con JSON
-     */
-    private ManejoLibroJSON manejoLibroJSON;
+
+    private LibroDAO libroDAO;
+
+    private Tienda tienda;
 
     /**
      * Constructor de la clase
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     public GestionCatalogo(Tienda tienda, LibroDAO libroDAO) throws SQLException {
-        manejoLibroJSON = new ManejoLibroJSON(tienda);
+        this.tienda = tienda;
         this.libroDAO = libroDAO;
-    }
-
-    /**
-     * Método que devuelve la instancia manejo de libros con JSON
-     *
-     * @return instancia manejo de libros con JSON
-     */
-    public ManejoLibroJSON getManejoLibroJSON() {
-        return manejoLibroJSON;
-    }
-
-    /**
-     * Método que actualiza la instancia manejo de libros con JSON
-     *
-     * @param manejoLibroJSON instancia manejo de libros con JSON
-     */
-    public void setManejoLibroJSON(ManejoLibroJSON manejoLibroJSON) {
-        this.manejoLibroJSON = manejoLibroJSON;
     }
 
     /**
@@ -76,7 +57,7 @@ public class GestionCatalogo {
      * @return catalogo de libros disponibles en la tienda
      * @throws IOException si ocurre algún error cuando no se lee el JSON
      */
-    public ArrayList<Libro> listarLibros() throws SQLException{
-	return libroDAO.seleccionarRegistros();
+    public ArrayList<Libro> listarLibros() throws SQLException {
+        return libroDAO.seleccionarRegistros();
     }
 }

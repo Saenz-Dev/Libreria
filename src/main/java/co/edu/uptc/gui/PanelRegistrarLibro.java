@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -12,7 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import co.edu.uptc.modelo.CategoriaLibro;
+import co.edu.uptc.modelo.Categoria;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.TipoLibroEnum;
 
@@ -184,8 +185,10 @@ public class PanelRegistrarLibro extends JDialog {
      *
      * @return Categoría del libro como una cadena de texto.
      */
-    public String getTxtCategoria() {
-        return txtCategoria.getSelectedItem().toString();
+    public Categoria getTxtCategoria() {
+        Categoria categoria = new Categoria();
+        categoria.setNombre(txtCategoria.getSelectedItem().toString());
+        return categoria;
     }
 
     /**
@@ -261,7 +264,7 @@ public class PanelRegistrarLibro extends JDialog {
      * @return Formato del libro como un objeto TipoLibro.
      */
     public TipoLibroEnum getTxtFormato() {
-        return txtFormato.getSelectedItem().toString().equals(String.valueOf(TipoLibroEnum.FISICO)) ? TipoLibroEnum.FISICO : TipoLibroEnum.DIGITAL;
+        return TipoLibroEnum.valueOf(txtFormato.getSelectedItem().toString());
     }
 
     /**
@@ -501,11 +504,19 @@ public class PanelRegistrarLibro extends JDialog {
         txtPrecio = new JTextField(10);
         txtCantidad = new JTextField(5);
 
-        txtCategoria = new JComboBox<>(CategoriaLibro.values());
+        txtCategoria = new JComboBox<>();
         txtFormato = new JComboBox<>(TipoLibroEnum.values());
 
         botonAgregar = new JButton("Agregar");
         botonCancelar = new JButton("Cancelar");
+    }
+
+    public void llenarComboBoxCategoria(ArrayList<Categoria> categorias) {
+        txtCategoria.removeAllItems();
+        for (Categoria categoria : categorias) {
+            txtCategoria.addItem(categoria.getNombre());
+        }
+        txtCategoria.setSelectedIndex(0);
     }
 
     /**
@@ -520,6 +531,8 @@ public class PanelRegistrarLibro extends JDialog {
         setTxtNumeroPaginas("");
         setTxtPrecio("");
         setTxtCantidad("");
+        txtCategoria.setSelectedItem(0);
+        txtFormato.setSelectedItem(0);
     }
 
     /**

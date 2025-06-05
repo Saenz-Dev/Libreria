@@ -118,7 +118,7 @@ public class GestionUsuario {
             Libro libroCarrito = new Libro();
             libroCarrito.setIsbn(libroCarritoDefault.getIsbn()); // Seteo el isbn del libro del carrito
             carritoDAO.insertarDatos(libroCarritoDefault, tienda.getUsuarioActual().getCuenta().getCorreo()); // Inserto el libro del carrito de usuario default en el carrito del usuario logueado
-            carritoDAO.eliminarRegistro(libroCarrito); // Elimino el libro del carrito del usuario default
+            carritoDAO.eliminarRegistro(libroCarrito, "user_default"); // Elimino el libro del carrito del usuario default
         }
         cuentaDAO.actualizarDatos(cuentaEncontrada); // Actualizo la cuenta logueada en la base de datos
         tienda.getUsuarioActual().setCuenta(cuentaEncontrada); // Asigno la cuenta logueada al usuario actual de la tienda
@@ -179,14 +179,23 @@ public class GestionUsuario {
      */
     public void modificarUsuario(Usuario usuario) throws IllegalArgumentException, SQLException {
         expresion.validarDatosUsuario(usuario);
+        if (usuario.getCuenta().getCorreo().equals(tienda.getUsuarioActual().getCuenta().getCorreo())) {
+            usuario.getCuenta().setLog(true);
+        }
         if (usuario.getTipoCliente().equals(TipoUsuarioEnum.Premium)) {
             UsuarioPremium usuarioPremium = new UsuarioPremium(usuario);
             usuarioDAO.actualizarDatos(usuarioPremium);
             cuentaDAO.actualizarDatos(usuarioPremium.getCuenta());
+            if (usuario.getCuenta().getCorreo().equals(tienda.getUsuarioActual().getCuenta().getCorreo())) {
+                tienda.setUsuarioActual(usuarioPremium);
+            }
             return;
         }
         usuarioDAO.actualizarDatos(usuario);
         cuentaDAO.actualizarDatos(usuario.getCuenta());
+        if (usuario.getCuenta().getCorreo().equals(tienda.getUsuarioActual().getCuenta().getCorreo())) {
+            tienda.setUsuarioActual(usuario);
+        }
     }
 
     /**

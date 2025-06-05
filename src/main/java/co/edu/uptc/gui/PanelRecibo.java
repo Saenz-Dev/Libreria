@@ -139,8 +139,8 @@ public class PanelRecibo extends JDialog {
         for (LibroComprado libroComprado : recibo.getListaProductosComprados()) {
             String isbn = libroComprado.getIsbn();
             String producto = libroComprado.getTitulo();
-            int cantidad = libroComprado.getNumeroLibros();
-            double precioUnitario = libroComprado.getPrecioUnitario();
+            int cantidad = libroComprado.getCantidadComprada();
+            double precioUnitario = libroComprado.getPrecioVenta();
             double subtotal = libroComprado.getPrecioTotal();
             double impuestoUnitario = libroComprado.getImpuestoUnitario();
             double impuestoTotal = libroComprado.getImpuestoTotal();

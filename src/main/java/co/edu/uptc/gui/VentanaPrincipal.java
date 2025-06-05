@@ -61,6 +61,7 @@ public class VentanaPrincipal extends JFrame {
         try {
             gestionTienda.asignarUsuarioGenerico();
             menuPrincipal.usuarioNull();
+            menuPrincipal.getPanelCatalogo().llenarFiltros(gestionTienda.listarCategorias());
             menuPrincipal.getPanelCatalogo().crearPanelesLibros(gestionTienda.listarLibros());
             menuPrincipal.activarPanelCatalogo();
         } catch (SQLException e) {
@@ -106,8 +107,8 @@ public class VentanaPrincipal extends JFrame {
                 menuPrincipal.quitarFuncionesAdmin();
                 menuPrincipal.getPanelCatalogo().crearPanelesLibros(gestionTienda.listarLibros());
             }
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelInicioSesion(), "Inicio de sesión exitoso. Bienvenido(a) al sistema.", "Inicio Sesión", JOptionPane.INFORMATION_MESSAGE);
             menuPrincipal.setLabelNombreUsuario(gestionTienda.getUserLogin());
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelInicioSesion(), "Inicio de sesión exitoso. Bienvenido(a) al sistema.", "Inicio Sesión", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelInicioSesion(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IllegalArgumentException e) {
@@ -117,7 +118,6 @@ public class VentanaPrincipal extends JFrame {
 
     public void activarCerrarSesion() {
         try {
-
             int respuesta = JOptionPane.showOptionDialog(menuPrincipal, "¿Estás seguro de que deseas cerrar sesión?", "Cerrar Sesión", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sí", "No"}, JOptionPane.QUESTION_MESSAGE);
             if (respuesta != JOptionPane.YES_OPTION) {
                 return; // Si el usuario selecciona "No", no se cierra la sesión
@@ -161,15 +161,20 @@ public class VentanaPrincipal extends JFrame {
         try {
             menuPrincipal.activarPanelCompras();
             menuPrincipal.getPanelCompras().llenarTabla(gestionTienda.getComprasUserLogin());
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(menuPrincipal, e.getMessage(), "Cerrar Sesión", JOptionPane.ERROR_MESSAGE);
-        } catch (IOException | RuntimeException e) {
+        } catch (SQLException | IOException | RuntimeException e) {
             JOptionPane.showMessageDialog(menuPrincipal, e.getMessage(), "Cerrar Sesión", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void activarPanelRegistrarLibros() {
-        menuPrincipal.activarPanelRegistrarLibros();
+        try {
+            menuPrincipal.getPanelRegistrarLibro().llenarComboBoxCategoria(gestionTienda.listarCategorias());
+            menuPrincipal.activarPanelRegistrarLibros();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     public void activarPanelRegistrarUsuario() {
@@ -194,12 +199,13 @@ public class VentanaPrincipal extends JFrame {
     public void activarPanelModificarLibro() {
         try {
             String[] titulosLibros = gestionTienda.obtenerTitulosLibros();
+            menuPrincipal.getPanelModificarLibro().llenarCbCategoria(gestionTienda.listarCategorias());
             menuPrincipal.getPanelModificarLibro().listarLibros(titulosLibros);
             menuPrincipal.activarPanelModificarLibro();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarLibro(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -218,8 +224,14 @@ public class VentanaPrincipal extends JFrame {
 
     public void activarModificarDatosUsuario() {
         try {
-            Usuario usuario = gestionTienda.getUserLogin();
-            menuPrincipal.getPanelModificarUsuario().llenarCampos(usuario);
+            if (!gestionTienda.isAdminLogin()) {
+                Usuario usuario = gestionTienda.getUserLogin();
+                menuPrincipal.getPanelModificarUsuario().llenarCampos(usuario);
+                menuPrincipal.activarActualizarDatosUsuario();
+                return;
+            }
+            menuPrincipal.getPanelModificarUsuario().llenarComboBoxUsuarios(gestionTienda.listarUsuarios());
+            menuPrincipal.getPanelModificarUsuario().llenarCampos(gestionTienda.getTienda().getUsuarios().getFirst());
             menuPrincipal.activarActualizarDatosUsuario();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -301,9 +313,9 @@ public class VentanaPrincipal extends JFrame {
             String[] titulosLibros = gestionTienda.obtenerTitulosLibros();
             menuPrincipal.getPanelModificarLibro().listarLibros(titulosLibros);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IOException | RuntimeException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarLibro(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -324,8 +336,10 @@ public class VentanaPrincipal extends JFrame {
     public void activarPanelCatalogo() {
         try {
             if (gestionTienda.isAdminLogin()) {
+                menuPrincipal.getPanelCatalogo().llenarFiltros(gestionTienda.listarCategorias());
                 menuPrincipal.getPanelCatalogo().crearTablaLibros(gestionTienda.listarLibros());
             } else {
+                menuPrincipal.getPanelCatalogo().llenarFiltros(gestionTienda.listarCategorias());
                 menuPrincipal.getPanelCatalogo().crearPanelesLibros(gestionTienda.listarLibros());
             }
             menuPrincipal.activarPanelCatalogo();
@@ -334,15 +348,15 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
-    public void anadirProductosCarrito(String isbnLibro, int cantidad, PanelLibro panelLibro) {
+    public void anadirProductosCarrito(String isbnLibro, PanelLibro panelLibro) {
         try {
-            gestionTienda.anadirLibrosCarrito(isbnLibro, cantidad);
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelCatalogo(), "Libro añadido al carrito exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            gestionTienda.anadirLibrosCarrito(isbnLibro);
             panelLibro.habilitacionBoton(gestionTienda.validarExistenciaLibro(isbnLibro));
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelCatalogo(), "Libro añadido al carrito exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelCatalogo(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IOException | IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelCatalogo(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -389,13 +403,12 @@ public class VentanaPrincipal extends JFrame {
             gestionTienda.eliminarProductoCarrito(isbnProducto);
             menuPrincipal.getPanelConfirmCompra().llenarTabla(gestionTienda.valorCompra(), gestionTienda.listaCarrito());
         } catch (IOException | SQLException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void activarCancelarEliminarLibro() {
         menuPrincipal.activarPanelGestionLibro();
-        // activarCarrito();
     }
 
     public void activarPanelConfirmCompra() {
@@ -427,10 +440,10 @@ public class VentanaPrincipal extends JFrame {
         try {
             ArrayList<String> listaIsbn = menuPrincipal.getPanelCarrito().isbnLibrosCarrito();
             if (menuPrincipal.getPanelConfirmCompra().seleccionEfectivo()) {
-                gestionTienda.registrarCompra(listaIsbn, TipoPagoEnum.EFECTIVO);
+                gestionTienda.registrarCompra(TipoPagoEnum.EFECTIVO);
             }
             if (menuPrincipal.getPanelConfirmCompra().seleccionTarjeta()) {
-                gestionTienda.registrarCompra(listaIsbn, TipoPagoEnum.TARJETA);
+                gestionTienda.registrarCompra(TipoPagoEnum.TARJETA);
             }
             JOptionPane.showMessageDialog(menuPrincipal.getPanelConfirmCompra(), "Su compra ha sido exitosa.");
             menuPrincipal.getPanelConfirmCompra().setVisible(false);
@@ -451,9 +464,9 @@ public class VentanaPrincipal extends JFrame {
             menuPrincipal.getPanelRecibo().modificarLabels(gestionTienda.comprasUsuarioLog(fecha, numeroRecibo), true);
             menuPrincipal.activarPanelRecibo();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelRecibo(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelRecibo(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -466,9 +479,9 @@ public class VentanaPrincipal extends JFrame {
         try {
             gestionTienda.cerrarSesion(true);
         } catch (IOException | RuntimeException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelClPrincipal(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelClPrincipal(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -515,12 +528,11 @@ public class VentanaPrincipal extends JFrame {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelPremium(), "¡¡¡Felicidades, ahora eres un usuario Premium!!!\nRecibiras descuentos especiales.", "Felicidades", JOptionPane.INFORMATION_MESSAGE);
             menuPrincipal.getPanelPremium().setVisible(false);
             menuPrincipal.getBotonPremium().setVisible(false);
+            menuPrincipal.setLabelNombreUsuario(gestionTienda.getUserLogin());
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelPremium(), e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
             menuPrincipal.getPanelPremium().mostrarResultado(e.getMessage(), TipoResultadoEnum.ERROR);
-	    /*JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje",
-		    JOptionPane.WARNING_MESSAGE);*/
         }
     }
 
@@ -528,14 +540,14 @@ public class VentanaPrincipal extends JFrame {
         menuPrincipal.activarPanelPremium();
     }
 
-    public void GuardarCodigo() {
+    public void guardarCodigo() {
         try {
             gestionTienda.registrarCodigo(menuPrincipal.getPanelAggCodigo().obtenerCodigo());
             menuPrincipal.getPanelAggCodigo().mostrarMensajeExito("Codigo registrado.");
             menuPrincipal.getPanelAggCodigo().construirTabla(gestionTienda.consultaCodigos());
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelAggCodigo(), e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
             menuPrincipal.getPanelAggCodigo().mostrarMensaje(e.getMessage());
         }
@@ -546,14 +558,59 @@ public class VentanaPrincipal extends JFrame {
             menuPrincipal.getPanelAggCodigo().construirTabla(gestionTienda.consultaCodigos());
             menuPrincipal.activarPanelGuardarCodigos();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelAggCodigo(), e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarLibro(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelAggCodigo(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
 
     public void cerrarCalificar() {
         menuPrincipal.desactivarPanelCalificar();
         menuPrincipal.getPanelCalificar().limpiarComentario();
+    }
+
+    public void activarFiltrarLibros() {
+        try {
+            String categoria = menuPrincipal.getPanelCatalogo().getCategoriaSeleccionada();
+            String formato = menuPrincipal.getPanelCatalogo().getFormatoSeleccionado();
+            ArrayList<Libro> librosFiltrados = gestionTienda.filtrarLibros(categoria, formato);
+            if (librosFiltrados.isEmpty()) {
+                JOptionPane.showMessageDialog(menuPrincipal.getPanelCatalogo(), "No se encontraron libros con los criterios seleccionados.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                if (gestionTienda.isAdminLogin()) {
+                    menuPrincipal.getPanelCatalogo().crearTablaLibros(librosFiltrados);
+                } else {
+                    menuPrincipal.getPanelCatalogo().crearPanelesLibros(librosFiltrados);
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelCatalogo(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelCatalogo(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    public void eliminarUsuario() {
+        // TODO implementar la lógica para eliminar el usuario, solo puede eliminarlo el administrador, y se puede eliminar un usuario si no tiene compras registradas.
+        try {
+            String correo = menuPrincipal.getPanelModificarUsuario().getTxtCorreo();
+            gestionTienda.eliminarUsuario(correo);
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), "Usuario eliminado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            activarModificarDatosUsuario();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    public void cambiarInfoUsuario() {
+        try {
+            String usuario = (String) menuPrincipal.getPanelModificarUsuario().getCbUsuario().getSelectedItem();
+            menuPrincipal.getPanelModificarUsuario().llenarCampos(gestionTienda.buscarUsuario(usuario));
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+        // TODO cambiar info pero en el panel que se actualizan los datos
     }
 }

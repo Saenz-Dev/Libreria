@@ -99,7 +99,7 @@ public class CarritoDAO extends ConexionBD<Libro> {
                 while (resultSet.next()) {
                     Libro libroCarritoEncontrado = new Libro();
                     libroCarritoEncontrado.setIsbn(resultSet.getString("isbn_libro"));
-                    libroCarritoEncontrado.setStockDisponible(resultSet.getInt("cantidad"));
+                    libroCarritoEncontrado.setStockReservado(resultSet.getInt("cantidad"));
                     librosCarrito.add(libroCarritoEncontrado);
                 }
                 return librosCarrito;

@@ -139,7 +139,7 @@ public class PanelRegistrarUsuario extends JDialog {
      * @return Tipo de cliente como una cadena de texto.
      */
     public TipoUsuarioEnum getCbTipoCliente() {
-        return (TipoUsuarioEnum) cbTipoCliente.getSelectedItem();
+        return cbTipoCliente.getSelectedItem().toString().equals(String.valueOf(TipoUsuarioEnum.Regular)) ? TipoUsuarioEnum.Regular : TipoUsuarioEnum.Premium;
     }
 
     /**

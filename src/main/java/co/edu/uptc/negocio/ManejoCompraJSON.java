@@ -37,28 +37,28 @@ public class ManejoCompraJSON {
 
     public void leerCompras() throws IOException {
         if (file.length() == 0) {
-            tienda.setRecibos(new TreeMap<>());
-            objectMapper.writeValue(file, tienda.getRecibos());
+            tienda.setRecibosTienda(new TreeMap<>());
+            objectMapper.writeValue(file, tienda.getRecibosTienda());
         }
-        tienda.setRecibos(objectMapper.readValue(file, new TypeReference<TreeMap<String, ArrayList<Recibo>>>() {}));
+        tienda.setRecibosTienda(objectMapper.readValue(file, new TypeReference<TreeMap<String, ArrayList<Recibo>>>() {}));
     }
 
     public void crearCompra(Recibo recibo, Usuario usuarioLog) {
         try {
             if (!file.exists()) file.createNewFile();
             leerCompras();
-            if (tienda.getRecibos().get(usuarioLog.getCuenta().getCorreo()) == null) {
+            if (tienda.getRecibosTienda().get(usuarioLog.getCuenta().getCorreo()) == null) {
                 ArrayList<Recibo> listaRecibos = new ArrayList<>();
                 recibo.setNumeroRecibo(numeroFactura());
                 listaRecibos.add(recibo);
-                tienda.getRecibos().put(usuarioLog.getCuenta().getCorreo(), listaRecibos);
-                objectMapper.writeValue(file, tienda.getRecibos());
+                tienda.getRecibosTienda().put(usuarioLog.getCuenta().getCorreo(), listaRecibos);
+                objectMapper.writeValue(file, tienda.getRecibosTienda());
                 return;
             }
             recibo.setNumeroRecibo(numeroFactura());
-            tienda.getRecibos().get(usuarioLog.getCuenta().getCorreo()).add(recibo);
+            tienda.getRecibosTienda().get(usuarioLog.getCuenta().getCorreo()).add(recibo);
 
-            objectMapper.writeValue(file, tienda.getRecibos());
+            objectMapper.writeValue(file, tienda.getRecibosTienda());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -67,7 +67,7 @@ public class ManejoCompraJSON {
     public int numeroFactura() throws IOException {
         leerCompras();
         int numero = 0;
-        for (ArrayList<Recibo> listaRecibos: getTienda().getRecibos().values()) {
+        for (ArrayList<Recibo> listaRecibos: getTienda().getRecibosTienda().values()) {
             for (Recibo p : listaRecibos) {
                 for (LibroComprado compra : p.getListaProductosComprados()) {
                     numero++;
