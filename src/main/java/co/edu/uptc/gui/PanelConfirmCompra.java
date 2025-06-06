@@ -166,7 +166,6 @@ public class PanelConfirmCompra extends JDialog {
     public void personalizarTabla(JTable tabla) {
         tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabla.setRowHeight(30);
-        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabla.setFont(new Font("Arial", Font.PLAIN, 14));
         tabla.setSelectionBackground(new Color(0xE0E0E0));
         tabla.setSelectionForeground(Color.BLACK);

@@ -58,7 +58,7 @@ public class GestionCompra {
         reciboDAO.insertarDatos(recibo);
         validarExistenciaRecibosTienda(recibo);
         tienda.getRecibosTienda().get(tienda.getUsuarioActual().getCuenta().getCorreo()).add(recibo);
-        tienda.getUsuarioActual().getRecibosCompras().add(recibo);
+        tienda.getUsuarioActual().setRecibosCompras(reciboDAO.seleccionarRegistrosCompras(tienda.getUsuarioActual().getCuenta().getCorreo()));
     }
 
     private void validarExistenciaRecibosTienda(Recibo recibo) {

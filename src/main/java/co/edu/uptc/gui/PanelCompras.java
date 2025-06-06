@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 
 import java.awt.*;
 import java.text.NumberFormat;
@@ -99,9 +100,9 @@ public class PanelCompras extends JPanel {
         }
 
         tablaCompras = new JTable(tableModel);
+        personalizarTabla(tablaCompras);
         tablaCompras.revalidate();
         tablaCompras.repaint();
-        tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tablaCompras.getDefaultEditor(Boolean.class).addCellEditorListener(new EventoComentario(tablaCompras, ventanaPrincipal));
         tablaCompras.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             
@@ -136,5 +137,25 @@ public class PanelCompras extends JPanel {
         };
         tableModel.setColumnIdentifiers(cabecera);
         return tableModel;
+    }
+
+    public void personalizarTabla(JTable tabla) {
+        tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabla.setRowHeight(30);
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabla.setFont(new Font("Arial", Font.PLAIN, 14));
+        tabla.setSelectionBackground(new Color(0xE0E0E0));
+        tabla.setSelectionForeground(Color.BLACK);
+        tabla.setGridColor(Color.LIGHT_GRAY);
+        tabla.setShowGrid(true);
+        tabla.setIntercellSpacing(new Dimension(1, 1));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        centerRenderer.setPreferredSize(new Dimension(200, 30));
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            TableColumn column = tabla.getColumnModel().getColumn(i);
+            column.setPreferredWidth(150);
+        }
     }
 }

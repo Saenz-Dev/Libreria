@@ -1,55 +1,278 @@
 @startuml
-VentanaPrincipal --> "1" PanelInicioSesion
-VentanaPrincipal --> "1" Evento
-VentanaPrincipal --> "1" MenuPrincipal
-VentanaPrincipal --> "1" EventoLista
-VentanaPrincipal --> "1" EventoCantidad
-VentanaPrincipal --> "1" EventoCerrarFrame
-VentanaPrincipal ..> PanelLibro
-VentanaPrincipal ..> "3"PanelProducto
-Evento --> "1" VentanaPrincipal
-MenuPrincipal --> "1" PanelCatalogo
-MenuPrincipal --> "1" PanelCarrito
-MenuPrincipal --> "1" PanelPerfil
-MenuPrincipal --> "1" PanelCompras
-MenuPrincipal --> "1" PanelGestionLibro
-MenuPrincipal --> "1" PanelRegistrarLibro
-MenuPrincipal --> "1" PanelRegistrarUsuario
-MenuPrincipal --> "1" PanelModificarLibro
-MenuPrincipal --> "1" PanelModificarUsuario
-MenuPrincipal --> "1" PanelEliminarLibro
-MenuPrincipal --> "1" PanelConfirmCompra
-MenuPrincipal ..> Evento
-MenuPrincipal ..> EventoLista
-MenuPrincipal ..> VentanaPrincipal
-PanelConfirmCompra ..> Evento
-PanelLibro --> "1" EventoCatalogo
-PanelLibro ..> VentanaPrincipal
-PanelModificarUsuario ..> Evento
-PanelProducto --> "1" EventoCantidad
-PanelProducto ..> VentanaPrincipal
-EventoLista --> "1" VentanaPrincipal
-EventoCerrarFrame --> "1" VentanaPrincipal
-PanelCarrito --> "*" PanelProducto
-PanelCarrito --> "1" VentanaPrincipal
-PanelCarrito --> "1" PanelResumenCompra
-PanelCarrito ..> Evento
-PanelGestionLibro ..> Evento
-PanelInicioSesion ..> Evento
-EventoCantidad --> "1" PanelProducto
-EventoCantidad --> "1" VentanaPrincipal
-PanelModificarLibro ..> Evento
-PanelModificarLibro ..> EventoLista
-EventoCatalogo --> "1" VentanaPrincipal
-EventoCatalogo --> "1" PanelLibro
-PanelResumenCompra ..> Evento
-PanelPerfil ..> Evento
-PanelRegistrarLibro ..> Evento
-PanelLibroEliminar ..> VentanaPrincipal
-PanelCatalogo --> "1" VentanaPrincipal
-PanelCatalogo ..> PanelLibro
-PanelRegistrarUsuario ..> Evento
-PanelEliminarLibro --> "1" VentanaPrincipal
-PanelEliminarLibro --> "*" PanelLibroEliminar
-PanelEliminarLibro ..> Evento
+class Libro {
+    - {static} serialVersionUID:long
+    -isbn:String
+    -titulo:String
+    -autor:String
+    -anioPublicacion:int
+    -editorial:String
+    -numeroPaginas:int
+    -precioVenta:double
+    -stockDisponible:int
+    -stockReservado:int
+    -tipoLibroEnum:TipoLibroEnum
+    -isComprado:boolean
+    +<<create>>Libro():void
+    +setIsComprado(comprado:boolean):void
+    +getAnioPublicacion():int
+    +getEditorial():String
+    +setEditorial(editorial:String):void
+    +getPrecioVenta():double
+    +setPrecioVenta(precioVenta:double):void
+    +setStockDisponible(stockDisponible:int):void
+    +setTipoLibro(tipoLibroEnum:TipoLibroEnum):void
+    +aumentarCantidad(cantidadDisponible:int):void
+    +setStockReservado(stockReservado:int):void
+    +setComentarios(comentarios:Stack):void
+    +getStockDisponible():int
+    +reservarLibro():boolean
+    +eliminarReserva(stockAgregar:int):void
+    +setCategoria(categoria:Categoria):void
+    +confirmarCompra(cantidadDisminuir:int):void
+    +getCategoria():Categoria
+    +getTipoLibro():TipoLibroEnum
+    +getComentarios():Stack
+    +getNumeroPaginas():int
+    +setNumeroPaginas(numeroPaginas:int):void
+    +getStockReservado():int
+    +cancelarReserva():void
+    +getIsComprado():boolean
+    +setAnioPublicacion(anioPublicacion:int):void
+    +disminuirCantidadUnidad():void
+    +setTitulo(titulo:String):void
+    +getTitulo():String
+    +getIsbn():String
+    +getAutor():String
+    +setIsbn(isbn:String):void
+    +setAutor(autor:String):void
+}
+class UsuarioRegular {
+    - {static} serialVersionUID:long
+
+}
+class Recibo {
+    - {static} serialVersionUID:long
+    -correo:String
+    -nombreUsuario:String
+    -numeroRecibo:int
+    -fechaCompra:LocalDateTime
+    -tipoPagoEnum:TipoPagoEnum
+    -direccion:String
+    +<<create>>Recibo():void
+    +getListaProductosComprados():ArrayList
+    +setListaProductosComprados(listaProductosComprados:ArrayList):void
+    +getCorreo():String
+    +setCorreo(correo:String):void
+    +getValorCompra():TotalesCompra
+    +setValorCompra(totalesCompra:TotalesCompra):void
+    +getNumeroRecibo():int
+    +setNumeroRecibo(numeroRecibo:int):void
+    +setFechaCompra(fechaCompra:LocalDateTime):void
+    +setDireccion(direccion:String):void
+    +getFechaCompra():LocalDateTime
+    +getTipoPago():TipoPagoEnum
+    +setNombreUsuario(nombreUsuario:String):void
+    +obtenerFechaActual():LocalDateTime
+    +setTipoPago(tipoPagoEnum:TipoPagoEnum):void
+    +getNombreUsuario():String
+    +getDireccion():String
+}
+class Categoria {
+    -nombre:String
+    -idCategoria:int
+    +<<create>>Categoria(nombre:String,idCategoria:int):void
+    +<<create>>Categoria():void
+    +getNombre():String
+    +setNombre(nombre:String):void
+    +getIdCategoria():int
+    +setIdCategoria(idCategoria:int):void
+}
+class CodigoPremium {
+    -codigo:String
+    -usado:boolean
+    +<<create>>CodigoPremium():void
+    +getCodigo():String
+    +setCodigo(codigo:String):void
+    +getUsado():boolean
+    +setUsado(usado:boolean):void
+}
+class Tienda {
+    - {static} serialVersionUID:long
+    -recibosTienda:TreeMap
+    -mapComentarios:TreeMap
+    +<<create>>Tienda():void
+    +getUsuarioActual():Usuario
+    +setUsuarioActual(usuarioActual:Usuario):void
+    +setCatalogo(catalogo:Catalogo):void
+    +getUsuarios():ArrayList
+    +getCatalogo():Catalogo
+    +setRecibosTienda(recibosTienda:TreeMap):void
+    +getRecibosTienda():TreeMap
+    +getMapComentarios():TreeMap
+    +setMapComentarios(mapComentarios:TreeMap):void
+    +setUsuarios(usuarios:ArrayList):void
+}
+class DescFrecuencia {
+    - {static} serialVersionUID:long
+    -DESCUENTO_DIEZ_COMPRAS:double
+    -DESCUENTO_CINCUENTA_COMPRAS:double
+    -DESCUENTO_CIEN_COMPRAS:double
+    +<<create>>DescFrecuencia():void
+    +getDESCUENTO_DIEZ_COMPRAS():double
+    +getDESCUENTO_CIEN_COMPRAS():double
+    +getDESCUENTO_CINCUENTA_COMPRAS():double
+}
+class LibroComprado {
+    - {static} serialVersionUID:long
+    -cantidadComprada:int
+    -precioTotal:double
+    -descuentoPremium:double
+    -descuentoFrecuencia:double
+    -impuestoUnitario:double
+    -impuestoTotal:double
+    +<<create>>LibroComprado():void
+    +setCantidadComprada(cantidadComprada:int):void
+    +getDescuentoPremium():double
+    +getImpuestoUnitario():double
+    +getDescuentoFrecuencia():double
+    +getCantidadComprada():int
+    +setDescuentoPremium(descuentoPremium:double):void
+    +setImpuestoUnitario(impuestoUnitario:double):void
+    +setDescuentoFrecuencia(descuentoFrecuencia:double):void
+    +setPrecioTotal(precioTotal:double):void
+    +getPrecioTotal():double
+    +setImpuestoTotal(impuestoTotal:double):void
+    +getImpuestoTotal():double
+}
+class Carrito {
+    - {static} serialVersionUID:long
+    +<<create>>Carrito():void
+    +getLibros():ArrayList
+    +setLibros(librosArrayList:ArrayList):void
+    +trasladarLibros(libro:Libro):void
+    +buscarLibro(isbn:String,stockReservado:int):boolean
+}
+class Cuenta {
+    - {static} serialVersionUID:long
+    -correo:String
+    -contrasena:String
+    -isLog:boolean
+    +<<create>>Cuenta():void
+    +<<create>>Cuenta(correo:String,contrasena:String,isLog:boolean):void
+    +getCorreo():String
+    +setCorreo(correo:String):void
+    +setLog(log:boolean):void
+    +isLog():boolean
+    +setContrasena(contrasena:String):void
+    +getContrasena():String
+}
+class Comentario {
+    -comentario:String
+    -isbn:String
+    -correo:String
+    -usuario:String
+    -fecha:LocalDateTime
+    -calificacion:int
+    -tituloLibro:String
+    +<<create>>Comentario():void
+    +getIsbn():String
+    +setIsbn(isbn:String):void
+    +getCorreo():String
+    +getFecha():LocalDateTime
+    +setCorreo(correo:String):void
+    +setUsuario(usuario:String):void
+    +getUsuario():String
+    +setFecha(fecha:LocalDateTime):void
+    +getTituloLibro():String
+    +setComentario(comentario:String):void
+    +getComentario():String
+    +setTituloLibro(tituloLibro:String):void
+    +setCalificacion(calificacion:int):void
+    +getCalificacion():int
+}
+class UsuarioPremium {
+    - {static} serialVersionUID:long
+
+}
+class TotalesCompra {
+    - {static} serialVersionUID:long
+    -subtotal:double
+    -impuestos:double
+    -total:double
+    -descuentoPremium:double
+    -descuentoFrecuencia:double
+    +<<create>>TotalesCompra(subtotal:double,impuestos:double,total:double,descuentoPremium:double,descuentoFrecuencia:double):void
+    +<<create>>TotalesCompra():void
+    +setSubtotal(subtotal:double):void
+    +getImpuestos():double
+    +getSubtotal():double
+    +getDescuentoPremium():double
+    +getDescuentoFrecuencia():double
+    +setDescuentoPremium(descuentoPremium:double):void
+    +setDescuentoFrecuencia(descuentoFrecuencia:double):void
+    +getTotal():double
+    +setTotal(total:double):void
+    +setImpuestos(impuestos:double):void
+}
+class Catalogo {
+    - {static} serialVersionUID:long
+    +<<create>>Catalogo():void
+    +buscarLibroLocalTitulo(titulo:String):Libro
+    +buscarLibroLocalIsbn(isbn:String):Libro
+    +getCatalogoLibros():ArrayList
+    +setListaLibros(catalogoLibros:ArrayList):void
+}
+class Administrador {
+    - {static} serialVersionUID:long
+    + {static} CORREO:String
+    + {static} CONTRASENA:String
+    +<<create>>Administrador():void
+    +getCORREO():String
+    +getCONTRASENA():String
+}
+class Usuario {
+    + {static} serialVersionUID:long
+    -nombre:String
+    -direccionEnvio:String
+    -telefono:long
+    -tipoCliente:TipoUsuarioEnum
+    -descuentoTipoUsuario:double
+    +<<create>>Usuario():void
+    +<<create>>Usuario(usuario:Usuario):void
+    +setDescuentoTipoUsuario(descuentoTipoUsuario:double):void
+    +getDescuentoTipoUsuario():double
+    +getNombre():String
+    +getCuenta():Cuenta
+    +setNombre(nombre:String):void
+    +setCuenta(cuenta:Cuenta):void
+    +getCarrito():Carrito
+    +setCarrito(carrito:Carrito):void
+    +setDireccionEnvio(direccionEnvio:String):void
+    +getTelefono():long
+    +getTipoCliente():TipoUsuarioEnum
+    +setRecibosCompras(recibosCompras:ArrayList):void
+    +getDireccionEnvio():String
+    +setTelefono(telefono:long):void
+    +getRecibosCompras():ArrayList
+    +setTipoCliente(tipoCliente:TipoUsuarioEnum):void
+}
+
+Libro --> "1" Categoria
+Libro --> "*" Comentario
+Usuario <|-- UsuarioRegular
+UsuarioRegular ..> Usuario
+Recibo --> "1" TotalesCompra
+Recibo --> "*" LibroComprado
+Tienda --> "1" Catalogo
+Tienda --> "*" Usuario
+Tienda --> "1" Usuario
+Libro <|-- LibroComprado
+Carrito --> "*" Libro
+Usuario <|-- UsuarioPremium
+UsuarioPremium ..> Usuario
+Catalogo --> "*" Libro
+Usuario --> "1" Cuenta
+Usuario --> "*" Recibo
+Usuario --> "1" Carrito
+
 @enduml

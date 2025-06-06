@@ -10,9 +10,7 @@ import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumnModel;
+import javax.swing.table.*;
 
 import co.edu.uptc.modelo.LibroComprado;
 import co.edu.uptc.modelo.Recibo;
@@ -155,15 +153,12 @@ public class PanelRecibo extends JDialog {
         tableModel.addRow(new Object[]{"", "", "", "", "", "Total", format.format(recibo.getValorCompra().getTotal())});
 
         tablaCompras = new JTable(tableModel);
+        personalizarTabla(tablaCompras);
         tablaCompras.revalidate();
         tablaCompras.repaint();
-        tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        // tablaCompras.setSize(300, 100);
-
         if (!activarComentar) {
             TableColumnModel tcm = tablaCompras.getColumnModel();
             tcm.removeColumn(tcm.getColumn(7));
-            //tablaCompras.getColumnModel().getColumn(5).setPreferredWidth(0);
         } else {
             tablaCompras.getColumnModel().getColumn(7).setCellRenderer(new EventoRenderTable());
             tablaCompras.getDefaultEditor(Boolean.class).addCellEditorListener(new EventoRecibo(tablaCompras, ventanaPrincipal));
@@ -198,5 +193,25 @@ public class PanelRecibo extends JDialog {
         };
         tableModel.setColumnIdentifiers(cabecera);
         return tableModel;
+    }
+
+    public void personalizarTabla(JTable tabla) {
+        tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabla.setRowHeight(30);
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabla.setFont(new Font("Arial", Font.PLAIN, 14));
+        tabla.setSelectionBackground(new Color(0xE0E0E0));
+        tabla.setSelectionForeground(Color.BLACK);
+        tabla.setGridColor(Color.LIGHT_GRAY);
+        tabla.setShowGrid(true);
+        tabla.setIntercellSpacing(new Dimension(1, 1));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        centerRenderer.setPreferredSize(new Dimension(200, 30));
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            TableColumn column = tabla.getColumnModel().getColumn(i);
+            column.setPreferredWidth(150);
+        }
     }
 }

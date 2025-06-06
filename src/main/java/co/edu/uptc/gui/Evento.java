@@ -113,6 +113,8 @@ public class Evento implements ActionListener {
 
     public static final String ACTIVAR_AGREGAR_CATEGORIA = "Activar Agregar Categoria";
 
+    public static final String VACIAR_CARRITO = "Vaciar Carrito";
+
     /** Referencia a la VentanaPrincipal. */
     private VentanaPrincipal ventana;
 
@@ -169,6 +171,7 @@ public class Evento implements ActionListener {
             case ELIMINAR_USUARIO -> ventana.eliminarUsuario();
             case ACTIVAR_AGREGAR_CATEGORIA -> ventana.activarAgregarCategoria();
             case AGREGAR_CATEGORIA -> ventana.agregarCategoria();
+            case VACIAR_CARRITO -> ventana.activarVaciarCarrito();
         }
     }
 }

@@ -237,7 +237,7 @@ public class Libro implements Serializable {
      * Metodo que actualiza el stock disponible del libro
      * @param cantidadDisponible cantidad disponible
      */
-    public void aumentarCantidad(int cantidadDisponible) {
+    public void aumentarCantidadReservada(int cantidadDisponible) {
         this.stockReservado += cantidadDisponible;
     }
 

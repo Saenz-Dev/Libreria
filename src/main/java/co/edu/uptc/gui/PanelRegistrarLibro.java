@@ -1,17 +1,9 @@
 package co.edu.uptc.gui;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import co.edu.uptc.modelo.Categoria;
 import co.edu.uptc.modelo.Libro;
@@ -133,6 +125,8 @@ public class PanelRegistrarLibro extends JDialog {
      * Botón para cancelar la operación actual.
      */
     private JButton botonCancelar;
+
+    private JButton botonRegistrarCategoria;
 
     /**
      * Obtiene el ISBN ingresado en el campo de texto.
@@ -405,7 +399,8 @@ public class PanelRegistrarLibro extends JDialog {
         gbc.gridx = 0;
         add(labelCategoria, gbc);
         gbc.gridx = 1;
-        add(txtCategoria, gbc);
+        JPanel panelCategoria = ajustarPanelCategoria();
+        add(panelCategoria, gbc);
         gbc.gridy = 6;
         gbc.gridx = 0;
         add(labelEditorial, gbc);
@@ -443,6 +438,14 @@ public class PanelRegistrarLibro extends JDialog {
         setLocationRelativeTo(null);
     }
 
+    private JPanel ajustarPanelCategoria() {
+        JPanel panelCategoria = new JPanel();
+        panelCategoria.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelCategoria.add(txtCategoria);
+        panelCategoria.add(botonRegistrarCategoria);
+        return panelCategoria;
+    }
+
     private void dimensionarComponentes() {
         Dimension dimension = new Dimension(40, 40);
         //labelTitulo.setPreferredSize(dimension);
@@ -473,9 +476,11 @@ public class PanelRegistrarLibro extends JDialog {
 
     private void asignarEventoBoton(Evento evento) {
         botonAgregar.addActionListener(evento);
-        botonAgregar.setActionCommand(evento.REGISTRAR_LIBRO);
+        botonAgregar.setActionCommand(Evento.REGISTRAR_LIBRO);
         botonCancelar.addActionListener(evento);
-        botonCancelar.setActionCommand(evento.CANCELAR_REGISTRO_LIBRO);
+        botonCancelar.setActionCommand(Evento.CANCELAR_REGISTRO_LIBRO);
+        botonRegistrarCategoria.addActionListener(evento);
+        botonRegistrarCategoria.setActionCommand(Evento.ACTIVAR_AGREGAR_CATEGORIA);
     }
 
     /**
@@ -509,6 +514,7 @@ public class PanelRegistrarLibro extends JDialog {
 
         botonAgregar = new JButton("Agregar");
         botonCancelar = new JButton("Cancelar");
+        botonRegistrarCategoria = new JButton("Ag.Categoría");
     }
 
     public void llenarComboBoxCategoria(ArrayList<Categoria> categorias) {
@@ -517,6 +523,10 @@ public class PanelRegistrarLibro extends JDialog {
             txtCategoria.addItem(categoria.getNombre());
         }
         txtCategoria.setSelectedIndex(0);
+        txtCategoria.revalidate();
+        txtCategoria.repaint();
+        revalidate();
+        repaint();
     }
 
     /**

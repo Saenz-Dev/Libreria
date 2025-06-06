@@ -3,10 +3,7 @@ package co.edu.uptc.gui;
 import java.awt.*;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 import co.edu.uptc.modelo.LibroComprado;
@@ -32,6 +29,8 @@ public class PanelCarrito extends JPanel {
      * Panel que contiene los productos agregados al carrito.
      */
     private JPanel panelProductos;
+
+    private JButton botonVaciarCarrito;
 
     /**
      * Lista de paneles individuales para cada producto en el carrito.
@@ -86,7 +85,7 @@ public class PanelCarrito extends JPanel {
         listPanelesProductos = new ArrayList<>();
         gbcGeneral = new GridBagConstraints();
         gbcPanelProductos = new GridBagConstraints();
-        agregarPaneles();
+        agregarPaneles(evento);
         panelResumenCompra = new PanelResumenCompra(evento);
         this.ventanaPrincipal = ventanaPrincipal;
     }
@@ -94,20 +93,31 @@ public class PanelCarrito extends JPanel {
     /**
      * Agrega los componentes iniciales al panel.
      */
-    public void agregarPaneles() {
+    public void agregarPaneles(Evento evento) {
         setLayout(new GridBagLayout());
 
         gbcGeneral.gridy = 0;
         gbcGeneral.gridx = 0;
         gbcGeneral.weightx = 1.0;
-        gbcGeneral.fill = GridBagConstraints.HORIZONTAL;
+        gbcGeneral.fill = GridBagConstraints.NONE;
         gbcGeneral.anchor = GridBagConstraints.NORTHWEST;
         gbcGeneral.insets = new Insets(10, 10, 10, 10);
 
         labelTitulo = new JLabel("Mi carrito");
+        botonVaciarCarrito = new JButton("Vaciar Carrito");
+        botonVaciarCarrito.addActionListener(evento);
+        botonVaciarCarrito.setActionCommand(Evento.VACIAR_CARRITO);
+        botonVaciarCarrito.setToolTipText("Vaciar el carrito de compras");
+        botonVaciarCarrito.setBackground(Color.RED);
+        botonVaciarCarrito.setForeground(Color.WHITE);
+        botonVaciarCarrito.setFont(new Font("Arial", Font.BOLD, 16));
         Font fontTitulo = new Font("Arial", Font.BOLD, 30);
         labelTitulo.setFont(fontTitulo);
         add(labelTitulo, gbcGeneral);
+        gbcGeneral.anchor = GridBagConstraints.EAST;
+        gbcGeneral.insets.right = 30;
+        add(botonVaciarCarrito, gbcGeneral);
+        gbcGeneral.insets.right = 10;
     }
 
     /**
@@ -136,6 +146,7 @@ public class PanelCarrito extends JPanel {
         gbcGeneral.weighty = 1;
         gbcGeneral.fill = GridBagConstraints.BOTH;
         gbcGeneral.insets.bottom = 0;
+
 
         agregarJScroll();
 

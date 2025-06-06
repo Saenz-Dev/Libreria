@@ -633,6 +633,7 @@ public class VentanaPrincipal extends JFrame {
             gestionTienda.agregarCategoria(categoria);
             JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), "Categoria registrada", "Exito", JOptionPane.INFORMATION_MESSAGE);
             menuPrincipal.getPanelModificarLibro().llenarCbCategoria(gestionTienda.listarCategorias());
+            menuPrincipal.getPanelRegistrarLibro().llenarComboBoxCategoria(gestionTienda.listarCategorias());
         } catch (CategoriaException e) {
             confirmar(e, categoria);
         } catch (SQLException e) {
@@ -654,11 +655,26 @@ public class VentanaPrincipal extends JFrame {
                 }
                 try {
                     gestionTienda.insertarCategoria(categoria);
+                    menuPrincipal.getPanelModificarLibro().llenarCbCategoria(gestionTienda.listarCategorias());
+                    menuPrincipal.getPanelRegistrarLibro().llenarComboBoxCategoria(gestionTienda.listarCategorias());
                     JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), "Categoria registrada", "Exito", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
+        }
+    }
+
+    public void activarVaciarCarrito() {
+        try {
+            gestionTienda.vaciarCarrito();
+            menuPrincipal.getPanelCarrito().repaintPanel(new TotalesCompra(0, 0, 0, 0, 0));
+            menuPrincipal.getPanelCarrito().anadirProductosPanel(gestionTienda.listaCarrito());
+            JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), "Se vació el carrito correctamente.", "Vaciar Carrito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

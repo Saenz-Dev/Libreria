@@ -82,7 +82,7 @@ public class GestionCarrito {
     public void anadirProductoExistente(Libro libroCarrito, Libro libroCatalogo, Usuario usuarioLogin) throws IOException, SQLException, RuntimeException {
         if (libroCatalogo.getStockDisponible() == 0) throw new IllegalArgumentException("Libro Agotado");
         libroCatalogo.reservarLibro();
-        libroCarrito.aumentarCantidad(1);
+        libroCarrito.aumentarCantidadReservada(1);
         actualizarDatos(usuarioLogin, libroCatalogo, libroCarrito);
     }
 
@@ -260,7 +260,7 @@ public class GestionCarrito {
         validarDisponibilidad(isbnProducto, libroCarrito, libroCatalogo);
 
         libroCatalogo.reservarLibro();
-        libroCarrito.aumentarCantidad(1);
+        libroCarrito.aumentarCantidadReservada(1);
         validarLibroCarrito(libroCarrito);
         carritoDAO.actualizarDatos(libroCarrito, tienda.getUsuarioActual().getCuenta().getCorreo());
         libroDAO.actualizarDatos(libroCatalogo);
@@ -429,6 +429,26 @@ public class GestionCarrito {
             libroCatalogo.setIsbn(String.valueOf(libroCarrito.getIsbn()));
             libroCatalogo = libroDAO.seleccionarRegistro(libroCatalogo);
             libroCatalogo.confirmarCompra(libroCarrito.getStockReservado());
+            carritoDAO.eliminarRegistro(libroCarrito, tienda.getUsuarioActual().getCuenta().getCorreo());
+            libroDAO.actualizarDatos(libroCatalogo);
+            iteratorCarritoUser.remove();
+        }
+        tienda.getCatalogo().setListaLibros(libroDAO.seleccionarRegistros());
+    }
+
+    public void vaciarCarrito() throws SQLException, RuntimeException {
+        ArrayList<Libro> librosCarritoUser = tienda.getUsuarioActual().getCarrito().getLibros();
+        if (librosCarritoUser.isEmpty()) {
+            RegistroLog.registrarAdvertencia("El carrito del usuario está vacío.");
+            throw new RuntimeException("El carrito del usuario está vacío.");
+        }
+        Iterator<Libro> iteratorCarritoUser = librosCarritoUser.iterator();
+        while (iteratorCarritoUser.hasNext()) {
+            Libro libroCarrito = iteratorCarritoUser.next();
+            Libro libroCatalogo = new Libro();
+            libroCatalogo.setIsbn(String.valueOf(libroCarrito.getIsbn()));
+            libroCatalogo = libroDAO.seleccionarRegistro(libroCatalogo);
+            libroCatalogo.eliminarReserva(libroCarrito.getStockReservado());
             carritoDAO.eliminarRegistro(libroCarrito, tienda.getUsuarioActual().getCuenta().getCorreo());
             libroDAO.actualizarDatos(libroCatalogo);
             iteratorCarritoUser.remove();

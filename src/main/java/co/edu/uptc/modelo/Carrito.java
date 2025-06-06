@@ -66,7 +66,7 @@ public class Carrito implements Serializable {
     public boolean buscarLibro(String isbn, int stockReservado) {
         for (Libro libro : libros) {
             if (libro.getIsbn().equals(isbn)) {
-                libro.aumentarCantidad(stockReservado);
+                libro.aumentarCantidadReservada(stockReservado);
                 return true;
             }
         }

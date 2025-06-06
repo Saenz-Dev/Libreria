@@ -209,7 +209,7 @@ public class GestionTienda {
         recibo.setNumeroRecibo(compraDAO.seleccionarRegistros().size()); //En la BD compras se busca el numero de compra
         recibo = reciboDAO.seleccionarRegistroNumero(recibo);
         recibo.setNombreUsuario(usuarioLog.getNombre()); //Se asigna el nombre del usuario logueado// Y con este dato se manda por parametro a recibo para buscar cuales fueron los productos comprados*/
-        Recibo ultimoRecibo = tienda.getRecibosTienda().get(tienda.getUsuarioActual().getCuenta().getCorreo()).getFirst();
+        Recibo ultimoRecibo = tienda.getRecibosTienda().get(tienda.getUsuarioActual().getCuenta().getCorreo()).getLast();
         buscarNombresLibros(ultimoRecibo);//Se busca los nombres de los libros y se asignan al recibo
         return ultimoRecibo;
     }
@@ -238,10 +238,14 @@ public class GestionTienda {
         ArrayList<LibroComprado> listaCarrito = new ArrayList<>();
         buscarInfoCarrito(tienda.getUsuarioActual().getCarrito().getLibros());
         for (Libro libroCarritoUser : tienda.getUsuarioActual().getCarrito().getLibros()) {
-            LibroComprado libroComprado = aggInfoProductoCompra(calculadoraIVA, libroCarritoUser);////////////////
+            LibroComprado libroComprado = aggInfoProductoCompra(calculadoraIVA, libroCarritoUser);
             listaCarrito.add(libroComprado);
         }
         return listaCarrito;
+    }
+
+    public void vaciarCarrito() throws SQLException, RuntimeException {
+        gestionCarrito.vaciarCarrito();
     }
 
     private LibroComprado aggInfoProductoCompra(CalculadoraIVA calculadoraIVA, Libro libroCarrito) throws SQLException {
@@ -332,6 +336,8 @@ public class GestionTienda {
         Usuario usuarioPremium = new UsuarioPremium(getUserLogin());
         usuarioPremium.setTipoCliente(TipoUsuarioEnum.Premium);
         usuarioDAO.actualizarDatos(usuarioPremium);
+        usuarioPremium.setCarrito(tienda.getUsuarioActual().getCarrito());
+        usuarioPremium.setRecibosCompras(tienda.getUsuarioActual().getRecibosCompras());
         tienda.setUsuarioActual(usuarioPremium);
     }
 

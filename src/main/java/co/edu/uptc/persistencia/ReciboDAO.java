@@ -77,7 +77,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
 
     @Override
     public Recibo seleccionarRegistro(Recibo recibo) throws SQLException, RuntimeException {
-        String sql = "SELECT * FROM recibos WHERE fecha = ? AND numero_recibo= ?";
+        String sql = "SELECT * FROM recibos WHERE fecha = ? AND numero_recibo = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setTimestamp(1, Timestamp.valueOf(recibo.getFechaCompra()));
             preparedStatement.setInt(2, recibo.getNumeroRecibo());
@@ -194,7 +194,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     return compras;
                 } else {
                     RegistroLog.registrarInfo("No se encontraron recibos del usuario: " + correo);
-                    return null;
+                    return new ArrayList<>();
                 }
             }
         } catch (SQLException e) {

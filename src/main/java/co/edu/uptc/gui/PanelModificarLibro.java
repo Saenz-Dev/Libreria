@@ -580,8 +580,11 @@ public class PanelModificarLibro extends JDialog {
         for (Categoria categoria : categorias) {
             txtCategoria.addItem(categoria.getNombre());
         }
-        txtCategoria.setSelectedIndex(0); // Selecciona la primera categoría por defecto
-
+        txtCategoria.setSelectedIndex(0);
+        txtCategoria.revalidate();
+        txtCategoria.repaint();
+        revalidate();
+        repaint();// Selecciona la primera categoría por defecto
     }
 
     public void llenarCampos(Libro libro) {
