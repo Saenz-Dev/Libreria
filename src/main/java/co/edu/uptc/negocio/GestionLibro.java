@@ -49,8 +49,15 @@ public class GestionLibro {
     public void registrarLibro(Libro libro) throws IllegalArgumentException, SQLException {
         expresion.validarDatosObligatorios(libro);
         expresion.validarFormatoDatosLibro(libro);
+        validarExistenciaLibro(libro);
         libroDAO.insertarDatos(libro);
         tienda.getCatalogo().getCatalogoLibros().add(libro);
+    }
+
+    public void validarExistenciaLibro(Libro libro) {
+        for (Libro libroCatalogo : tienda.getCatalogo().getCatalogoLibros()) {
+            if (libroCatalogo.getIsbn().equals(libro.getIsbn())) throw new RuntimeException("El libro '" + libroCatalogo.getTitulo() + "' ya tiene el ISBN " + libroCatalogo.getIsbn() + " asignado.\nVerifique o cambie el ISBN");
+        }
     }
 
     /**

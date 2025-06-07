@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import co.edu.uptc.modelo.DescFrecuencia;
 import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.modelo.LibroCarrito;
 import co.edu.uptc.modelo.Recibo;
 import co.edu.uptc.modelo.TipoLibroEnum;
 import co.edu.uptc.modelo.Usuario;
@@ -26,43 +25,65 @@ public class CalculadoraIVA {
     /**
      * Método que devuelve el subtotal total de un carrito
      *
-     * @param carrito carrito a calcular
+     * @param librosCarrito carrito a calcular
+     * @param libroDAO      DAO de tabla libros
      * @return subtotal total del carrito
      * @throws RuntimeException
      * @throws SQLException
      */
-    public double subtotal(ArrayList<Libro> librosCarrito, LibroDAO libroDAO) throws SQLException, RuntimeException {
-        double subtotal = 0;
-        if (librosCarrito == null || librosCarrito.isEmpty()) return subtotal;
+    public double precioBaseTotal(ArrayList<Libro> librosCarrito, LibroDAO libroDAO) throws SQLException, RuntimeException {
+        double precioBase = 0;
+        if (librosCarrito == null || librosCarrito.isEmpty()) return precioBase;
 
-        for (Libro libroCarrito : librosCarrito) {
-            Libro libro = new Libro();
-            libro.setIsbn(String.valueOf(libroCarrito.getIsbn()));
-            libro = libroDAO.seleccionarRegistro(libro);
-            subtotal += libroCarrito.getStockReservado() * libro.getPrecioVenta();
-        }
-        return subtotal;
-    }
-
-    /**
-     * Método que devuelve el impuesto total de un carrito
-     *
-     * @param carrito carrito a calcular
-     * @return impuesto total del carrito
-     * @throws RuntimeException
-     * @throws SQLException
-     */
-    public double impuestos(ArrayList<Libro> librosCarrito, LibroDAO libroDAO) throws SQLException, RuntimeException {
-        double impuestos = 0;
-        if (librosCarrito == null || librosCarrito.isEmpty()) return impuestos;
         for (Libro libroCarrito : librosCarrito) {
             Libro libro = new Libro();
             libro.setIsbn(String.valueOf(libroCarrito.getIsbn()));
             libro = libroDAO.seleccionarRegistro(libro);
             if (libro.getTipoLibro() == TipoLibroEnum.FISICO) {
-                impuestos += libroCarrito.getStockReservado() * 0.19 * libro.getPrecioVenta();
+                precioBase += (libro.getPrecioVenta() * libroCarrito.getStockReservado()) / 1.19; //Quitamos el IVA
             } else {
-                impuestos += libroCarrito.getStockReservado() * 0.05 * libro.getPrecioVenta();
+                precioBase += (libro.getPrecioVenta() * libroCarrito.getStockReservado()) / 1.05;//Aqui tambien
+            }
+        }
+        return precioBase;
+    }
+
+    /**
+     * Método que devuelve el impuesto total de un carrito
+     *
+     * @param librosCarrito lista de libros de carrito
+     * @param libroDAO      DAO de libros
+     * @param usuario       usuario logueado
+     */
+    public double impuestos(ArrayList<Libro> librosCarrito, LibroDAO libroDAO, Usuario usuario) throws SQLException, RuntimeException {
+        double impuestos = 0;
+        if (librosCarrito == null || librosCarrito.isEmpty()) return impuestos;
+        for (Libro libroCarrito : librosCarrito) {
+            double precioBase;
+            double descuentoPremium;
+            double precioConDescuento;
+            double impuesto;
+            Libro libro = new Libro();
+            libro.setIsbn(String.valueOf(libroCarrito.getIsbn()));
+            libro = libroDAO.seleccionarRegistro(libro);
+            if (libro.getTipoLibro() == TipoLibroEnum.FISICO) {
+                precioBase = (libro.getPrecioVenta() *libroCarrito.getStockReservado()) / 1.19; //Le saco el precioBase, osea precio sin IVA
+                descuentoPremium = precioBase * usuario.getDescuentoTipoUsuario(); //Con el precio base y si el user es premium saco el descuentopremium
+                precioConDescuento = precioBase - descuentoPremium; //Resto  el precioBase y el descuento (si hay) para el nuevo precio base
+                impuesto = precioConDescuento * 0.19;
+                impuestos += impuesto;
+                /*precioBase = (libro.getPrecioVenta() * libroCarrito.getStockReservado()) / 1.19; //Obtengo el precio base
+                precioDescuento = precioBase * (1 - usuario.getDescuentoTipoUsuario());// despues el precio con descuento para el producto
+                impuestos += precioDescuento * 0.19;*/
+            } else {
+                precioBase = (libro.getPrecioVenta() *libroCarrito.getStockReservado()) / 1.05; //Le saco el precioBase, osea precio sin IVA
+                descuentoPremium = precioBase * usuario.getDescuentoTipoUsuario(); //Con el precio base y si el user es premium saco el descuentopremium
+                precioConDescuento = precioBase - descuentoPremium; //Resto  el precioBase y el descuento (si hay) para el nuevo precio base
+                impuesto = precioConDescuento * 0.05;
+                impuestos += impuesto;
+                /*precioBase = (libro.getPrecioVenta() * libroCarrito.getStockReservado()) / 1.05; //Obtengo el precio base
+                precioDescuento = precioBase * (1 - usuario.getDescuentoTipoUsuario());// despues el precio con descuento para el producto
+                impuestos += precioDescuento * 0.05;*/
             }
         }
         return impuestos;
@@ -71,56 +92,82 @@ public class CalculadoraIVA {
     /**
      * Método que devuelve el precio total de los productos que contiene un carrito
      *
-     * @param subtotal  subtotal de los productos del carrito
-     * @param impuestos impuestos de los productos del carrito
+     * @param precioBase subtotal de los productos del carrito
+     * @param impuestos  impuestos de los productos del carrito
      * @return suma de subtotal e impuestos
      */
-    public double total(double subtotal, double impuestos) {
-        return subtotal + impuestos;
+    public double total(double precioBase, double descuento, double impuestos) {
+        return precioBase - descuento + impuestos;
     }
 
     /**
-     * Método que devuelve el impuesto de un producto
+     * Método que devuelve el impuesto por cada libro (su cantidad)
      *
-     * @param libroParametro libro a calcular
-     * @param catalogo       catalogo de libros
+     * @param libroCatalogo libro a calcular
+     * @param libroCarrito  libro del carrito
      * @return impuesto del producto
      */
-    public double impuestoProductos(Libro libroCarrito, Libro libroParametro) {
-        if (libroParametro.getTipoLibro() == TipoLibroEnum.FISICO) {
-            return libroCarrito.getStockReservado() * libroParametro.getPrecioVenta() * 0.19;
+    public double impuestoProductos(Libro libroCarrito, Libro libroCatalogo, Usuario usuario) {
+        double precioBase;
+        double descuentoPremium;
+        double precioConDescuento;
+        if (libroCatalogo.getTipoLibro() == TipoLibroEnum.FISICO) {
+            precioBase = (libroCarrito.getStockReservado() *libroCatalogo.getPrecioVenta()) / 1.19; //Le saco el precioBase, osea precio sin IVA
+            descuentoPremium = precioBase * usuario.getDescuentoTipoUsuario(); //Con el precio base y si el user es premium saco el descuentopremium
+            precioConDescuento = precioBase - descuentoPremium; //Resto  el precioBase y el descuento (si hay) para el nuevo precio base
+            return precioConDescuento * 0.19;
+            /*precioBase = libroCatalogo.getPrecioVenta() * libroCarrito.getStockReservado() / 1.19;
+            return libroCarrito.getStockReservado() * libroCatalogo.getPrecioVenta() - precioBase;*/
         } else {
-            return libroCarrito.getStockReservado() * libroParametro.getPrecioVenta() * 0.05;
+            precioBase = (libroCatalogo.getPrecioVenta() * libroCarrito.getStockReservado()) / 1.05; //Le saco el precioBase, osea precio sin IVA
+            descuentoPremium = precioBase * usuario.getDescuentoTipoUsuario(); //Con el precio base y si el user es premium saco el descuentopremium
+            precioConDescuento = precioBase - descuentoPremium; //Resto  el precioBase y el descuento (si hay) para el nuevo precio base
+            return precioConDescuento * 0.05;
+            /*precioBase = libroCatalogo.getPrecioVenta() * libroCarrito.getStockReservado() / 1.05;
+            return libroCarrito.getStockReservado() * libroCatalogo.getPrecioVenta() - precioBase;*/
         }
     }
 
-    public double impuestoProducto(Libro libroParametro, Libro libroCatalogo) {
-        if (libroParametro.getTipoLibro() == TipoLibroEnum.FISICO) {
-            return libroCatalogo.getPrecioVenta() * 0.19;
+    public double impuestoProducto(Libro libroCatalogo, Usuario usuario) {
+        double precioBase;
+        double descuentoPremium;
+        double precioConDescuento;
+        double impuesto;
+        if (libroCatalogo.getTipoLibro() == TipoLibroEnum.FISICO) {
+            precioBase = libroCatalogo.getPrecioVenta() / 1.19; //Le saco el precioBase, osea precio sin IVA
+            descuentoPremium = precioBase * usuario.getDescuentoTipoUsuario(); //Con el precio base y si el user es premium saco el descuentopremium
+            precioConDescuento = precioBase - descuentoPremium; //Resto  el precioBase y el descuento (si hay) para el nuevo precio base
+            return precioConDescuento * 0.19;
+            //return precioConDescuento + impuesto;
         } else {
-            return libroCatalogo.getPrecioVenta() * 0.05;
+            precioBase = libroCatalogo.getPrecioVenta() / 1.05; //Le saco el precioBase, osea precio sin IVA
+            descuentoPremium = precioBase * usuario.getDescuentoTipoUsuario(); //Con el precio base y si el user es premium saco el descuentopremium
+            precioConDescuento = precioBase - descuentoPremium; //Resto  el precioBase y el descuento (si hay) para el nuevo precio base
+            return precioConDescuento * 0.05;
+            ///return precioConDescuento + impuesto;
+            /*
+            precioBase = libroCatalogo.getPrecioVenta() / 1.05;
+            return libroCatalogo.getPrecioVenta() - precioBase;*/
         }
     }
 
     /**
      * Método que devuelve el subtotal de un producto
      *
-     * @param libroParametro libro a calcular
-     * @param librosCarrito  libros del carrito de libros en el stock
+     * @param libroCatalogo libro del catalogo
+     * @param libroCarrito  libros del carrito de libros en el stock
      * @return subtotal del producto
      */
-    public double subtotalProducto(Libro libroCarrito, Libro libroCatalogo) {
-        return libroCarrito.getStockReservado() * libroCatalogo.getPrecioVenta();
-        /*for (Libro libro : librosCarrito) { //Busca el libro en el carrito del usuario 
-            if (libro.getIsbn().equals(libroParametro.getIsbn())) {//Si el isbn del libroParametro es igual a algun libro del carrito
-                return libro.getStockReservado() * libro.getPrecioVenta();//Retorna el precio del libro 
-            }
-        }
-        return 0;//Si no retorna cero*/
+    public double subtotalProducto(Libro libroCarrito, double precioBase, double descuento, double impuesto) {
+        return (libroCarrito.getStockReservado() * precioBase) - descuento + impuesto;
     }
 
-    public double descuentoPremium(double total, Usuario usuario) {
-        return total * usuario.getDescuentoTipoUsuario();
+    public double descuentoPremium(double precioBase, Usuario usuario) {
+        return precioBase * usuario.getDescuentoTipoUsuario();
+    }
+
+    public double descuentoPremiumTotal(double precioBase, Libro libroCarrito, Usuario usuario) {
+        return (precioBase * libroCarrito.getStockReservado()) * usuario.getDescuentoTipoUsuario();
     }
 
 
@@ -130,6 +177,14 @@ public class CalculadoraIVA {
         if (listaRecibos.size() == 50) return total * descFrecuencia.getDESCUENTO_CINCUENTA_COMPRAS();
         if (listaRecibos.size() == 100) return total * descFrecuencia.getDESCUENTO_CIEN_COMPRAS();
         return 0;
+    }
+
+    public double precioBaseUnitario(Libro libroCatalogo) {
+        if (libroCatalogo.getTipoLibro() == TipoLibroEnum.FISICO) {
+            return libroCatalogo.getPrecioVenta() / 1.19;
+        } else {
+            return libroCatalogo.getPrecioVenta() / 1.05;
+        }
     }
 }
 

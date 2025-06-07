@@ -27,7 +27,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
             preparedStatement.setString(5, recibo.getDireccion());
             preparedStatement.setDouble(6, recibo.getValorCompra().getDescuentoPremium());
             preparedStatement.setDouble(7, recibo.getValorCompra().getDescuentoFrecuencia());
-            preparedStatement.setDouble(12, recibo.getValorCompra().getSubtotal());
+            preparedStatement.setDouble(12, recibo.getValorCompra().getPrecioBase());
             preparedStatement.setDouble(13, recibo.getValorCompra().getImpuestos());
             preparedStatement.setDouble(14, recibo.getValorCompra().getTotal());
             for (LibroComprado libroComprado : recibo.getListaProductosComprados()) {
@@ -61,7 +61,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
             preparedStatement.setInt(7, recibo.getListaProductosComprados().getFirst().getCantidadComprada());
             preparedStatement.setDouble(8, recibo.getListaProductosComprados().getFirst().getPrecioVenta());
             preparedStatement.setDouble(9, recibo.getListaProductosComprados().getFirst().getPrecioTotal());
-            preparedStatement.setDouble(10, recibo.getValorCompra().getSubtotal());
+            preparedStatement.setDouble(10, recibo.getValorCompra().getPrecioBase());
             preparedStatement.setDouble(11, recibo.getValorCompra().getImpuestos());
             preparedStatement.setDouble(12, recibo.getValorCompra().getTotal());
             preparedStatement.setInt(13, recibo.getNumeroRecibo());
@@ -104,7 +104,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     libroComprado.setImpuestoTotal(resultSet.getDouble(17));
                     reciboQuery.getListaProductosComprados().add(libroComprado);
 
-                    reciboQuery.getValorCompra().setSubtotal(resultSet.getDouble(13));
+                    reciboQuery.getValorCompra().setPrecioBase(resultSet.getDouble(13));
                     reciboQuery.getValorCompra().setImpuestos(resultSet.getDouble(14));
                     reciboQuery.getValorCompra().setTotal(resultSet.getDouble(15));
                 }
@@ -148,7 +148,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     libroComprado.setImpuestoTotal(resultSet.getDouble(17));
                     reciboQuery.getListaProductosComprados().add(libroComprado);
 
-                    reciboQuery.getValorCompra().setSubtotal(resultSet.getDouble(13));
+                    reciboQuery.getValorCompra().setPrecioBase(resultSet.getDouble(13));
                     reciboQuery.getValorCompra().setImpuestos(resultSet.getDouble(14));
                     reciboQuery.getValorCompra().setTotal(resultSet.getDouble(15));
                 }
@@ -184,7 +184,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     libroComprado.setImpuestoTotal(resultSet.getDouble(17));
                     reciboQuery.getListaProductosComprados().add(libroComprado);
 
-                    reciboQuery.getValorCompra().setSubtotal(resultSet.getDouble(13));
+                    reciboQuery.getValorCompra().setPrecioBase(resultSet.getDouble(13));
                     reciboQuery.getValorCompra().setImpuestos(resultSet.getDouble(14));
                     reciboQuery.getValorCompra().setTotal(resultSet.getDouble(15));
                     compras.add(reciboQuery);
@@ -250,7 +250,7 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     libroComprado.setImpuestoTotal(resultSet.getDouble(17));
                     reciboQuery.getListaProductosComprados().add(libroComprado);
 
-                    reciboQuery.getValorCompra().setSubtotal(resultSet.getDouble(13));
+                    reciboQuery.getValorCompra().setPrecioBase(resultSet.getDouble(13));
                     reciboQuery.getValorCompra().setImpuestos(resultSet.getDouble(14));
                     reciboQuery.getValorCompra().setTotal(resultSet.getDouble(15));
                     if (recibosPorUsuario.containsKey(reciboQuery.getCorreo())) {

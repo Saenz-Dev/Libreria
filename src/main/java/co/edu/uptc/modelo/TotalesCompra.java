@@ -59,7 +59,7 @@ public class TotalesCompra implements Serializable{
      *
      * @return El subtotal antes de impuestos.
      */
-    public double getSubtotal() {
+    public double getPrecioBase() {
         return subtotal;
     }
 
@@ -68,7 +68,7 @@ public class TotalesCompra implements Serializable{
      *
      * @param subtotal El nuevo valor del subtotal.
      */
-    public void setSubtotal(double subtotal) {
+    public void setPrecioBase(double subtotal) {
         this.subtotal = subtotal;
     }
 

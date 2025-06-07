@@ -136,7 +136,7 @@ public class PanelConfirmCompra extends JDialog {
             tableModel.addRow(new Object[]{isbn, tituloLibro, format.format(valorUnitario), format.format(impuesto), cantidad, format.format(impuestoTotalProducto), format.format(valor), false});
         }
 
-        tableModel.addRow(new Object[]{"", "", "", "", "", "Subtotal", format.format(totalesCompra.getSubtotal())});
+        tableModel.addRow(new Object[]{"", "", "", "", "", "Subtotal", format.format(totalesCompra.getPrecioBase())});
         tableModel.addRow(new Object[]{"", "", "", "", "", "Impuestos", "+ " +  format.format(totalesCompra.getImpuestos())});
         tableModel.addRow(new Object[]{"", "", "", "", "", "Desc. Premium", "- " +  format.format(totalesCompra.getDescuentoPremium())});
         tableModel.addRow(new Object[]{"", "", "", "", "", "Des. Frecuencia", "- " +  format.format(totalesCompra.getDescuentoFrecuencia())});

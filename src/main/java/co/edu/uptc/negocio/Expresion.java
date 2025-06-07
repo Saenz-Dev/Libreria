@@ -158,6 +158,8 @@ public class Expresion {
         if (usuario.getNombre() != null && usuario.getNombre().length() > 50) {
             sb.append("El nombre no puede exceder los 50 caracteres.\n");
         }
+        if (String.valueOf(usuario.getTelefono()).length() > 10 || String.valueOf(usuario.getTelefono()).trim().length() < 10) sb.append("El teléfono debe tener obligatoriamente 10 numeros, sin espacios.\n");
+        if (usuario.getTelefono() < 0) sb.append("El telefono no puede ser negativo.\n");
         if (usuario.getDireccionEnvio() != null && usuario.getDireccionEnvio().length() > 100) {
             sb.append("La dirección de envío no puede exceder los 100 caracteres.\n");
         }
@@ -176,8 +178,8 @@ public class Expresion {
     //Ahora hacer el anterior metodo pero para los datos del libro
     public void validarLongitudDatos(Libro libro) throws IllegalArgumentException {
         StringBuilder sb = new StringBuilder();
-        if (libro.getTitulo() != null && libro.getTitulo().length() > 100) {
-            sb.append("El título no puede exceder los 100 caracteres.\n");
+        if (libro.getTitulo() != null && libro.getTitulo().length() > 60) {
+            sb.append("El título no puede exceder los 60 caracteres.\n");
         }
         if (libro.getAutor() != null && libro.getAutor().length() > 60) {
             sb.append("El autor no puede exceder los 50 caracteres.\n");

@@ -8,6 +8,7 @@ import java.awt.event.*;
 
 public class DialogAgregarCategoria extends JDialog {
 
+    private JLabel labelTitulo;
     private JTextField campoCategoria;
     private JButton botonAgregar;
     private JLabel etiquetaMensaje;
@@ -17,24 +18,20 @@ public class DialogAgregarCategoria extends JDialog {
     }
 
     private void initComponents(Evento evento) {
-        setLayout(new BorderLayout(10, 10));
-
-        JPanel panelCentral = new JPanel(new GridLayout(2, 1, 5, 5));
+        setLayout(new BorderLayout());
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 1, 10, 10));
+        labelTitulo = new JLabel("Agregar Categoria");
+        labelTitulo.setFont(new Font("Arial", Font.BOLD, 15));
         campoCategoria = new JTextField();
-        panelCentral.add(new JLabel("Nombre de la categoría:"));
-        panelCentral.add(campoCategoria);
-
-        JPanel panelBoton = new JPanel();
         botonAgregar = new JButton("Agregar");
-        panelBoton.add(botonAgregar);
-
         etiquetaMensaje = new JLabel("");
-        etiquetaMensaje.setForeground(Color.RED);
-        etiquetaMensaje.setHorizontalAlignment(SwingConstants.CENTER);
 
-        add(panelCentral, BorderLayout.CENTER);
-        add(panelBoton, BorderLayout.SOUTH);
-        add(etiquetaMensaje, BorderLayout.NORTH);
+        panel.add(labelTitulo);
+        panel.add(campoCategoria);
+        panel.add(botonAgregar);
+        panel.add(etiquetaMensaje);
+        add(panel, BorderLayout.CENTER);
 
         botonAgregar.addActionListener(evento);
         botonAgregar.setActionCommand(Evento.AGREGAR_CATEGORIA);

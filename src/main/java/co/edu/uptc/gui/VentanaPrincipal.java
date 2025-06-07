@@ -357,7 +357,8 @@ public class VentanaPrincipal extends JFrame {
 
     public void anadirProductosCarrito(String isbnLibro, PanelLibro panelLibro) {
         try {
-            gestionTienda.anadirLibrosCarrito(isbnLibro);
+            Libro libro = gestionTienda.anadirLibrosCarrito(isbnLibro);
+            panelLibro.setLabelTipoLibroCantidad(libro);
             panelLibro.habilitacionBoton(gestionTienda.validarExistenciaLibro(isbnLibro));
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCatalogo(), "Libro añadido al carrito exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
@@ -582,6 +583,7 @@ public class VentanaPrincipal extends JFrame {
             String formato = menuPrincipal.getPanelCatalogo().getFormatoSeleccionado();
             ArrayList<Libro> librosFiltrados = gestionTienda.filtrarLibros(categoria, formato);
             if (librosFiltrados.isEmpty()) {
+                menuPrincipal.getPanelCatalogo().activarMensajes("No se encontraron libros con los criterios seleccionados.");
                 JOptionPane.showMessageDialog(menuPrincipal.getPanelCatalogo(), "No se encontraron libros con los criterios seleccionados.", "Información", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 if (gestionTienda.isAdminLogin()) {

@@ -172,7 +172,7 @@ public class PanelResumenCompra extends JPanel {
      */
     public void modificarValor(TotalesCompra totalesCompra) {
         labelImpuestosValor.setText( "+ " + format.format(totalesCompra.getImpuestos()));
-        labelSubtotalValor.setText(format.format(totalesCompra.getSubtotal()));
+        labelSubtotalValor.setText(format.format(totalesCompra.getPrecioBase()));
         labelTotalValor.setText(format.format(totalesCompra.getTotal()));
         labelDescuentoValor.setText( "- " + format.format(totalesCompra.getDescuentoPremium()));
         labelDescuentoFrecuenteValor.setText( "- " + format.format(totalesCompra.getDescuentoFrecuencia()));

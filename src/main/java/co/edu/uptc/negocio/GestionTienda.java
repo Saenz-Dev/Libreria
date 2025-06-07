@@ -1,12 +1,12 @@
 package co.edu.uptc.negocio;
 
 import java.io.IOException;
-import java.sql.Array;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Stack;
 
 import co.edu.uptc.log.RegistroLog;
@@ -19,10 +19,7 @@ import co.edu.uptc.persistencia.CuentaDAO;
 import co.edu.uptc.persistencia.LibroDAO;
 import co.edu.uptc.persistencia.ReciboDAO;
 import co.edu.uptc.persistencia.UsuarioDAO;
-import org.apache.commons.text.similarity.JaroWinklerDistance;
 import org.apache.commons.text.similarity.JaroWinklerSimilarity;
-
-import javax.management.RuntimeErrorException;
 
 public class GestionTienda {
 
@@ -152,8 +149,8 @@ public class GestionTienda {
         return gestionCarrito.calculoResumenCompra(reciboDAO);
     }
 
-    public void anadirLibrosCarrito(String isbnLibro) throws RuntimeException, IOException, SQLException {
-        gestionCarrito.anadirLibrosCarrito(isbnLibro);
+    public Libro anadirLibrosCarrito(String isbnLibro) throws RuntimeException, IOException, SQLException {
+        return gestionCarrito.anadirLibrosCarrito(isbnLibro);
     }
 
     public ResumenProductoDTO sumarProductos(String isbnProducto) throws IOException, SQLException, RuntimeException {
@@ -168,7 +165,7 @@ public class GestionTienda {
         return gestionCarrito.disminuirProducto(isbnProducto);
     }
 
-    public void eliminarLibroUsuarioGenerico() throws IOException, SQLException, RuntimeException {
+    public void eliminarLibroUsuarioGenerico() throws SQLException, RuntimeException {
         ArrayList<Libro> librosCarritoDefaul = carritoDAO.seleccionarRegistros("user_default");
         if (librosCarritoDefaul == null || librosCarritoDefaul.isEmpty())
             return;// throw new IllegalArgumentException("El usuario default no tiene libros");
@@ -251,11 +248,15 @@ public class GestionTienda {
     private LibroComprado aggInfoProductoCompra(CalculadoraIVA calculadoraIVA, Libro libroCarrito) throws SQLException {
         Libro libroCatalogo = libroDAO.seleccionarRegistro(libroCarrito);
         LibroComprado libroComprado = setProductoCompra(libroCarrito);
-        libroComprado.setImpuestoUnitario(calculadoraIVA.impuestoProducto(libroCarrito, libroCatalogo));
-        //libroCarrito.setCorreo_usuario(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
-        libroCarrito.setIsbn(libroCarrito.getIsbn());
-        libroComprado.setPrecioTotal(calculadoraIVA.subtotalProducto(libroCarrito, libroCatalogo));
-        libroComprado.setImpuestoTotal(calculadoraIVA.impuestoProductos(libroCarrito, libroCatalogo));
+
+        libroComprado.setCantidadComprada(libroCarrito.getStockReservado());
+        libroComprado.setPrecioVenta(calculadoraIVA.precioBaseUnitario(libroCatalogo));
+        libroComprado.setDescuentoPremium(calculadoraIVA.descuentoPremium(libroComprado.getPrecioVenta(), tienda.getUsuarioActual()));
+        libroComprado.setDesPremiumTotal(calculadoraIVA.descuentoPremiumTotal(libroComprado.getPrecioVenta(), libroCarrito, tienda.getUsuarioActual()));
+        libroComprado.setImpuestoUnitario(calculadoraIVA.impuestoProducto(libroCatalogo, tienda.getUsuarioActual()));
+        libroComprado.setImpuestoTotal(calculadoraIVA.impuestoProductos(libroCarrito, libroCatalogo, tienda.getUsuarioActual()));
+        libroComprado.setPrecioTotal(calculadoraIVA.subtotalProducto(libroCarrito, libroComprado.getPrecioVenta(), libroComprado.getDesPremiumTotal(), libroComprado.getImpuestoTotal()));
+        libroCarrito.setIsbn(libroCatalogo.getIsbn());
         return libroComprado;
     }
 
@@ -276,14 +277,14 @@ public class GestionTienda {
 
     private void setValorCompra(TotalesCompra totalesCompra, CalculadoraIVA calculadoraIVA) throws SQLException, IOException {
         ArrayList<Libro> librosCarritoUserLog = tienda.getUsuarioActual().getCarrito().getLibros();
-        totalesCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUserLog, libroDAO));
-        totalesCompra.setSubtotal(calculadoraIVA.subtotal(librosCarritoUserLog, libroDAO));
-        totalesCompra.setTotal(calculadoraIVA.total(totalesCompra.getSubtotal(), totalesCompra.getImpuestos()));
-        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(totalesCompra.getTotal(), gestionUsuario.usuarioLogueado()));
+        totalesCompra.setPrecioBase(calculadoraIVA.precioBaseTotal(librosCarritoUserLog, libroDAO));
+        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(totalesCompra.getPrecioBase(), gestionUsuario.usuarioLogueado()));
+        totalesCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUserLog, libroDAO, gestionUsuario.usuarioLogueado()));
+        totalesCompra.setTotal(calculadoraIVA.total(totalesCompra.getPrecioBase(), totalesCompra.getDescuentoPremium(), totalesCompra.getImpuestos()));
         Recibo recibo = new Recibo();
         recibo.setCorreo(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
         totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(tienda.getUsuarioActual().getCuenta().getCorreo()), totalesCompra.getTotal()));
-        totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoPremium());
+        totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoFrecuencia());
     }
 
     public void guardarComentario(Comentario comentario) throws IOException, RuntimeException, SQLException {
@@ -418,17 +419,25 @@ public class GestionTienda {
     public void eliminarUsuario(String correo) throws SQLException, RuntimeException {
         ArrayList<Recibo> listaRecibos = reciboDAO.seleccionarRegistrosCompras(correo);
         ArrayList<Libro> listaCarrito = carritoDAO.seleccionarRegistros(correo);
+        ArrayList<Comentario> listaComentarios = comentarioDAO.seleccionarRegistros();
+        buscarComentarioUsuario(listaComentarios, correo);
         if (!listaCarrito.isEmpty()) {
             RegistroLog.registrarAdvertencia("El usuario no se puede eliminar, tiene productos en el carrito.");
             throw new RuntimeException("El usuario no se puede eliminar, tiene productos en el carrito.");
         }
-        if (listaRecibos == null || listaRecibos.isEmpty()) {
+        if (listaRecibos == null || !listaRecibos.isEmpty()) {
             RegistroLog.registrarAdvertencia("El usuario no se puede eliminar, tiene compras asociadas.");
             throw new RuntimeException("El usuario no se puede eliminar, tiene compras asociadas.");
         }
         usuarioDAO.eliminarRegistro(correo);
         cuentaDAO.eliminarRegistro(correo);
         tienda.setUsuarios(usuarioDAO.seleccionarRegistros());
+    }
+
+    public void buscarComentarioUsuario(ArrayList<Comentario> comentarios, String correo) {
+        for (Comentario comentario : comentarios) {
+            if (Objects.equals(comentario.getCorreo(), correo)) throw new RuntimeException("El usuario no se puede eliminar, tiene compras asociadas");
+        }
     }
 
     public void agregarCategoria(String categoria) throws SQLException, CategoriaException {

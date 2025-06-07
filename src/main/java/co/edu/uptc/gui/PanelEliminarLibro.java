@@ -18,16 +18,24 @@ import java.util.Map;
  */
 public class PanelEliminarLibro extends JPanel {
 
-    /** Etiqueta que muestra el título del panel. */
+    /**
+     * Etiqueta que muestra el título del panel.
+     */
     private JLabel labelTitulo;
 
-    /** Panel que contiene la lista de libros. */
+    /**
+     * Panel que contiene la lista de libros.
+     */
     private JPanel panelLibros;
 
-    /** Número de columnas en la disposición del panel de libros. */
+    /**
+     * Número de columnas en la disposición del panel de libros.
+     */
     private int conteoColumnas;
 
-    /** Número de filas en la disposición del panel de libros. */
+    /**
+     * Número de filas en la disposición del panel de libros.
+     */
     private int conteoFilas;
 
     /**
@@ -35,239 +43,376 @@ public class PanelEliminarLibro extends JPanel {
      */
     private GridBagLayout gbPanelLibros;
 
-    /** Restricciones para la disposición de los libros dentro del panel. */
+    /**
+     * Restricciones para la disposición de los libros dentro del panel.
+     */
     private GridBagConstraints gbcPanelLibros;
 
-    /** Panel con barra de desplazamiento que contiene el panel de libros. */
+    /**
+     * Panel con barra de desplazamiento que contiene el panel de libros.
+     */
     private JScrollPane scrollPanelLibros;
 
-    /** Formateador de números para mostrar precios u otros valores numéricos. */
+    /**
+     * Formateador de números para mostrar precios u otros valores numéricos.
+     */
     private NumberFormat numberFormat;
 
-    /** Referencia a la ventana principal de la aplicación. */
+    /**
+     * Referencia a la ventana principal de la aplicación.
+     */
     private VentanaPrincipal ventanaPrincipal;
 
-    /** Botón para eliminar un libro seleccionado. */
+    /**
+     * Botón para eliminar un libro seleccionado.
+     */
     private JButton botonEliminar;
 
-    /** Botón para cancelar la acción de eliminación. */
+    /**
+     * Botón para cancelar la acción de eliminación.
+     */
     private JButton botonCancelar;
 
-    /** Lista de paneles que representan los libros a eliminar. */
+    private GridBagConstraints gbc;
+    /**
+     * Lista de paneles que representan los libros a eliminar.
+     */
     private ArrayList<PanelLibroEliminar> listPanelesLibros;
 
     /**
      * Obtiene la lista de paneles de libros a eliminar.
-     * 
+     *
      * @return Lista de paneles de libros.
      */
     public ArrayList<PanelLibroEliminar> getListPanelesLibros() {
-	return listPanelesLibros;
+        return listPanelesLibros;
     }
 
     public ArrayList<String> isbnLibros() {
-	ArrayList<String> titulosLibros = new ArrayList<>();
-	if (listPanelesLibros.isEmpty())
-	    return null;
-	for (PanelLibroEliminar panelLibroEliminar : listPanelesLibros) {
-	    if (panelLibroEliminar.isSelected()) {
-		titulosLibros.add(panelLibroEliminar.getLibro().getIsbn());
-	    }
-	}
-	return titulosLibros;
+        ArrayList<String> titulosLibros = new ArrayList<>();
+        if (listPanelesLibros.isEmpty()) return null;
+        for (PanelLibroEliminar panelLibroEliminar : listPanelesLibros) {
+            if (panelLibroEliminar.isSelected()) {
+                titulosLibros.add(panelLibroEliminar.getLibro().getIsbn());
+            }
+        }
+        return titulosLibros;
     }
 
     public void eliminarPanelesSeleccionados() {
-	if (listPanelesLibros.isEmpty())
-	    return;
+        if (listPanelesLibros.isEmpty()) return;
 
-	Iterator<PanelLibroEliminar> iterator = listPanelesLibros.iterator();
-	while (iterator.hasNext()) {
-	    PanelLibroEliminar panelLibroEliminar = iterator.next();
-	    if (panelLibroEliminar.isSelected()) {
-		iterator.remove();
-	    }
-	}
+        Iterator<PanelLibroEliminar> iterator = listPanelesLibros.iterator();
+        while (iterator.hasNext()) {
+            PanelLibroEliminar panelLibroEliminar = iterator.next();
+            if (panelLibroEliminar.isSelected()) {
+                iterator.remove();
+            }
+        }
     }
 
     /**
      * Elimina un panel de libro del panel de eliminación.
-     * 
+     *
      * @param panelProducto Panel del libro a eliminar.
      */
     public void eliminarPanelProducto(PanelLibroEliminar panelProducto) {
-	panelLibros.remove(panelProducto);
+        panelLibros.remove(panelProducto);
     }
 
     /**
      * Constructor del panel de eliminación de libros.
-     * 
+     *
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.
      * @param evento           Manejador de eventos de la aplicación.
      */
     public PanelEliminarLibro(VentanaPrincipal ventanaPrincipal, Evento evento) {
-	initAtributos(ventanaPrincipal);
-	GridBagConstraints gbc = new GridBagConstraints();
-	ajustarPreferenciasPanel();
-	asignarAccionBoton(evento);
-	validarExistenciaProductos();
+        initAtributos(ventanaPrincipal);
+        gbc = new GridBagConstraints();
+        ajustarPreferenciasPanel();
+        asignarAccionBoton(evento);
+        validarExistenciaProductos();
 
-	gbc.weightx = 1.0;
-	gbc.insets = new Insets(5, 30, 5, 5);
-	gbc.fill = GridBagConstraints.HORIZONTAL;
-	gbc.anchor = GridBagConstraints.CENTER;
-	gbc.gridy = 0;
-	gbc.gridx = 0;
-	gbc.gridwidth = 2;
-	add(labelTitulo, gbc);
+        gbc.weightx = 1.0;
+        gbc.insets = new Insets(5, 30, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        add(labelTitulo, gbc);
 
-	gbc.weighty = 1;
-	gbc.gridheight = 2;
-	gbc.insets = new Insets(10, 10, 10, 10);
-	gbc.fill = GridBagConstraints.BOTH;
-	gbc.gridy = 1;
-	ajustarPanelLibros(gbc);
+        gbc.weighty = 1;
+        gbc.gridheight = 2;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridy = 1;
+        ajustarPanelLibros(gbc);
 
-	gbc.gridy = 2;
-	gbc.gridwidth = 2;
-	gbc.weightx = 1;
-	gbc.fill = GridBagConstraints.REMAINDER;
-	add(new JLabel(), gbc);
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.weightx = 1;
+        gbc.fill = GridBagConstraints.REMAINDER;
+        add(new JLabel(), gbc);
 
-	gbc.gridy = 3;
-	gbc.gridx = 0;
-	gbc.gridwidth = 1;
-	gbc.fill = GridBagConstraints.HORIZONTAL;
-	gbc.weighty = 0;
-	add(botonEliminar, gbc);
+        gbc.gridy = 3;
+        gbc.gridx = 0;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weighty = 0;
+        add(botonEliminar, gbc);
 
-	gbc.gridx = 1;
-	add(botonCancelar, gbc);
+        gbc.gridx = 1;
+        add(botonCancelar, gbc);
     }
 
     private void ajustarPanelLibros(GridBagConstraints gbc) {
-	panelLibros.setBorder(new LineBorder(Color.WHITE));
-	panelLibros.setBackground(Color.WHITE);
-	scrollPanelLibros = new JScrollPane(panelLibros);
-	scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
-	scrollPanelLibros.setBackground(Color.WHITE);
-	scrollPanelLibros.setBorder(new LineBorder(Color.WHITE));
-	add(scrollPanelLibros, gbc);
+        panelLibros.setBorder(new LineBorder(Color.WHITE));
+        panelLibros.setBackground(Color.WHITE);
+        scrollPanelLibros = new JScrollPane(panelLibros);
+        scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
+        scrollPanelLibros.setBackground(Color.WHITE);
+        scrollPanelLibros.setBorder(new LineBorder(Color.WHITE));
+        add(scrollPanelLibros, gbc);
     }
 
     private void ajustarPreferenciasPanel() {
-	personalizarFont();
-	setBackground(Color.WHITE);
-	setPreferredSize(new Dimension(400, 200));
+        personalizarFont();
+        setBackground(Color.WHITE);
+        setPreferredSize(new Dimension(400, 200));
     }
 
     private void asignarAccionBoton(Evento evento) {
-	botonEliminar.addActionListener(evento);
-	botonEliminar.setActionCommand(evento.FUNCION_ELIMINAR_LIBRO);
-	botonCancelar.addActionListener(evento);
-	botonCancelar.setActionCommand(evento.CANCELAR_ELIMINAR_LIBRO);
+        botonEliminar.addActionListener(evento);
+        botonEliminar.setActionCommand(Evento.FUNCION_ELIMINAR_LIBRO);
+        botonCancelar.addActionListener(evento);
+        botonCancelar.setActionCommand(Evento.CANCELAR_ELIMINAR_LIBRO);
+        botonEliminar.setBackground(Color.RED);
+        botonEliminar.setForeground(Color.WHITE);
+        botonCancelar.setBackground(Color.lightGray);
     }
 
     /**
      * Repinta el panel de libros.
      */
     public void repintarPanelLibros() {
-	gbcPanelLibros.gridy = 0;
-	gbcPanelLibros.gridx = 0;
-	gbcPanelLibros.weightx = 1;
-	gbcPanelLibros.weighty = 1;
-	gbcPanelLibros.fill = GridBagConstraints.CENTER;
-	conteoColumnas = 0;
-	conteoFilas = 0;
-	panelLibros.add(new JLabel("No hay libros registrados..."), gbcPanelLibros);
+        gbcPanelLibros.gridy = 0;
+        gbcPanelLibros.gridx = 0;
+        gbcPanelLibros.weightx = 1;
+        gbcPanelLibros.weighty = 1;
+        gbcPanelLibros.fill = GridBagConstraints.CENTER;
+        conteoColumnas = 0;
+        conteoFilas = 0;
+        panelLibros.add(new JLabel("No hay libros registrados..."), gbcPanelLibros);
     }
 
     /**
      * Agrega un panel que representa un libro al panel Eliminar Libros.
-     * 
+     *
      * @param panelLibro Panel del libro a agregar.
      */
-    public void anadirLibrosPanel(PanelLibroEliminar panelLibro) {
-	gbcPanelLibros.insets = new Insets(10, 10, 10, 10);
-	gbcPanelLibros.fill = GridBagConstraints.NONE;
 
-	gbcPanelLibros.gridx = conteoColumnas;
-	gbcPanelLibros.gridy = conteoFilas;
-	panelLibros.add(panelLibro, gbcPanelLibros);
-	listPanelesLibros.add(panelLibro);
+    public void anadirLibrosPanel(PanelLibroEliminar panelLibroEliminar) {
+        GridBagConstraints gbcPanelLibros = new GridBagConstraints();
+        gbcPanelLibros.weightx = 1.0;
+        gbcPanelLibros.weighty = 1;
+        gbcPanelLibros.insets = new Insets(10, 10, 10, 10);
+        gbcPanelLibros.fill = GridBagConstraints.NONE;
+        gbcPanelLibros.gridwidth = 1;
+        gbcPanelLibros.gridheight = 1;
+        gbcPanelLibros.anchor = GridBagConstraints.NORTHWEST;
 
-	conteoColumnas++;
-	if (conteoColumnas == 3) {
-	    conteoColumnas = 0;
-	    conteoFilas++;
-	}
+        gbcPanelLibros.gridx = conteoColumnas;
+        gbcPanelLibros.gridy = conteoFilas;
+        panelLibros.add(panelLibroEliminar, gbcPanelLibros);
+        listPanelesLibros.add(panelLibroEliminar);
+
+        conteoColumnas++;
+        if (conteoColumnas == 4) {
+            conteoColumnas = 0;
+            conteoFilas++;
+        }
     }
+
+    /*public void anadirLibrosPanel(PanelLibroEliminar panelLibro) {
+        gbcPanelLibros.insets = new Insets(10, 10, 10, 10);
+        gbcPanelLibros.fill = GridBagConstraints.NONE;
+
+        gbcPanelLibros.gridx = conteoColumnas;
+        gbcPanelLibros.gridy = conteoFilas;
+        panelLibros.add(panelLibro, gbcPanelLibros);
+        listPanelesLibros.add(panelLibro);
+
+        conteoColumnas++;
+        if (conteoColumnas == 3) {
+            conteoColumnas = 0;
+            conteoFilas++;
+        }
+    }*/
+
+    public void crearPanelesLibros(ArrayList<Libro> catalogo) {
+
+        remove(scrollPanelLibros);
+        panelLibros.removeAll();
+        gbc.gridwidth = 3;
+        gbc.weighty = 0.9;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        revalidate();
+        repaint();
+        scrollPanelLibros = new JScrollPane(panelLibros);
+        scrollPanelLibros.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPanelLibros.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
+        scrollPanelLibros.setPreferredSize(new Dimension(800, 600));
+        //scrollPanelLibros.setPreferredSize(panelLibros.getSize());
+
+        scrollPanelLibros.setBorder(null);
+
+        add(scrollPanelLibros, gbc);
+        conteoColumnas = 0;
+        conteoFilas = 0;
+
+        gbcPanelLibros.weighty = 1;
+        gbcPanelLibros.weightx = 1;
+        gbcPanelLibros.anchor = GridBagConstraints.NORTHWEST;
+        gbcPanelLibros.fill = GridBagConstraints.BOTH;
+
+        for (Libro libro : catalogo) {
+            agregarPanelLibro(libro);
+        }
+        /*if (panelLibros.getComponentCount() < 5) {
+            gbcPanelLibros.fill = GridBagConstraints.NONE;
+            gbcPanelLibros.gridy = conteoFilas++;
+            gbcPanelLibros.gridx = 0;
+            gbcPanelLibros.gridwidth = 1;
+            gbcPanelLibros.gridheight = 1;
+            gbcPanelLibros.weightx = 0;
+            gbcPanelLibros.weighty = 0;
+
+            JLabel espacio = new JLabel();
+            espacio.setPreferredSize(new Dimension(1, 1));
+            panelLibros.add(espacio, gbcPanelLibros);
+            /*
+            gbcPanelLibros.fill = GridBagConstraints.BOTH;
+            gbcPanelLibros.gridy = conteoFilas++;
+            gbcPanelLibros.gridx = 0;
+            gbcPanelLibros.gridwidth = 4;
+            gbcPanelLibros.gridheight = 2;
+            gbcPanelLibros.weightx = 0 ;
+            gbcPanelLibros.weighty = 0;
+            panelLibros.add(new JLabel(""), gbcPanelLibros);
+        }*/
+
+        if (conteoFilas == 0 && conteoColumnas > 0 && conteoColumnas < 4) {
+            gbcPanelLibros.fill = GridBagConstraints.HORIZONTAL;
+            gbcPanelLibros.gridx = conteoColumnas++;
+            gbcPanelLibros.gridwidth = 1;
+            gbcPanelLibros.gridheight = 2;
+            gbcPanelLibros.weightx = 1;
+            gbcPanelLibros.weighty = 1;
+
+            while (conteoColumnas < 4) {
+                gbcPanelLibros.gridx = conteoColumnas++;
+                JLabel espacio = new JLabel(); // NUEVO componente cada vez
+                espacio.setPreferredSize(new Dimension(600, 220));
+                panelLibros.add(espacio, gbcPanelLibros);
+            }
+        }
+
+        if (conteoFilas < 2) {
+            gbcPanelLibros.fill = GridBagConstraints.VERTICAL;
+            gbcPanelLibros.gridy = conteoFilas++;
+            gbcPanelLibros.gridwidth = 3;
+            gbcPanelLibros.gridheight = 2;
+            gbcPanelLibros.weightx = 1;
+            gbcPanelLibros.weighty = 1;
+
+            JLabel espacio = new JLabel(); // NUEVO componente cada vez
+            espacio.setPreferredSize(new Dimension(600, 500));
+            panelLibros.add(espacio, gbcPanelLibros);
+        }
+
+
+        if (panelLibros.getComponentCount() == 0) {
+            repintarPanelLibros();
+            panelLibros.revalidate();
+            panelLibros.repaint();
+        }
+
+        revalidate();
+        repaint();
+    }
+
 
     /**
      * Crea los paneles de libros a partir de un mapa de libros.
-     * 
+     *
      * @param mapLibros Libros en el catalogo.
      */
-    public void crearPanelesLibros(ArrayList<Libro> libros) {
-	listPanelesLibros = new ArrayList<>();
+    /*public void crearPanelesLibros(ArrayList<Libro> libros) {
+        listPanelesLibros = new ArrayList<>();
 
-	panelLibros.removeAll();
-	panelLibros.revalidate();
-	panelLibros.repaint();
-	conteoColumnas = 0;
-	conteoFilas = 0;
+        panelLibros.removeAll();
+        panelLibros.revalidate();
+        panelLibros.repaint();
+        conteoColumnas = 0;
+        conteoFilas = 0;
 
-	gbcPanelLibros.weightx = 1.0;
-	gbcPanelLibros.weighty = 1.0;
-	gbcPanelLibros.anchor = GridBagConstraints.NORTHWEST;
+        gbcPanelLibros.weightx = 1.0;
+        gbcPanelLibros.weighty = 1.0;
+        gbcPanelLibros.anchor = GridBagConstraints.NORTHWEST;
 
-	for (Libro libro : libros) {
-	    agregarPanelLibro(libro);
-	}
+        for (Libro libro : libros) {
+            agregarPanelLibro(libro);
+        }
 
-	if (panelLibros.getComponentCount() == 0) {
-	    repintarPanelLibros();
-	    panelLibros.revalidate();
-	    panelLibros.repaint();
-	}
+        if (panelLibros.getComponentCount() == 0) {
+            repintarPanelLibros();
+            panelLibros.revalidate();
+            panelLibros.repaint();
+        }
 
-	revalidate();
-	repaint();
+        revalidate();
+        repaint();
     }
-
+*/
     private void agregarPanelLibro(Libro libro) {
-	PanelLibroEliminar panelLibro = new PanelLibroEliminar(ventanaPrincipal, libro);
-	panelLibro.setPreferredSize(new Dimension(180, 120));
-	anadirLibrosPanel(panelLibro);
+        PanelLibroEliminar panelLibro = new PanelLibroEliminar(ventanaPrincipal, libro);
+        panelLibro.setPreferredSize(new Dimension(300, 220));
+
+        anadirLibrosPanel(panelLibro);
     }
 
     /**
      * Inicializa los atributos del panel de eliminación de libros.
-     * 
+     *
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.
      */
     private void initAtributos(VentanaPrincipal ventanaPrincipal) {
-	setLayout(new GridBagLayout());
-	gbcPanelLibros = new GridBagConstraints();
-	gbPanelLibros = new GridBagLayout();
-	panelLibros = new JPanel(gbPanelLibros);
-	this.ventanaPrincipal = ventanaPrincipal;
-	conteoFilas = 0;
-	conteoColumnas = 0;
-	numberFormat = NumberFormat.getCurrencyInstance();
-	numberFormat.setMinimumFractionDigits(0);
-	botonEliminar = new JButton("Eliminar");
-	botonCancelar = new JButton("Regresar");
-	listPanelesLibros = new ArrayList<>();
+        setLayout(new GridBagLayout());
+        gbcPanelLibros = new GridBagConstraints();
+        gbPanelLibros = new GridBagLayout();
+        panelLibros = new JPanel(gbPanelLibros);
+        this.ventanaPrincipal = ventanaPrincipal;
+        conteoFilas = 0;
+        conteoColumnas = 0;
+        numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat.setMinimumFractionDigits(0);
+        botonEliminar = new JButton("Eliminar");
+        botonCancelar = new JButton("Regresar");
+        listPanelesLibros = new ArrayList<>();
     }
 
     /**
      * Personaliza el formato de los textos del panel.
      */
     private void personalizarFont() {
-	Font font = new Font("Arial", Font.BOLD, 30);
-	labelTitulo = new JLabel("Eliminar Libros");
-	labelTitulo.setFont(font);
+        Font font = new Font("Arial", Font.BOLD, 30);
+        labelTitulo = new JLabel("Eliminar Libros");
+        labelTitulo.setFont(font);
     }
 
     /**
@@ -275,11 +420,10 @@ public class PanelEliminarLibro extends JPanel {
      * caso de estar vacío.
      */
     private void validarExistenciaProductos() {
-	if (panelLibros != null)
-	    return;
-	gbcPanelLibros.weighty = 1.0;
-	gbcPanelLibros.fill = GridBagConstraints.BOTH;
-	JLabel label = new JLabel("No hay productos seleccionados");
-	panelLibros.add(label, gbcPanelLibros);
+        if (panelLibros != null) return;
+        gbcPanelLibros.weighty = 1.0;
+        gbcPanelLibros.fill = GridBagConstraints.BOTH;
+        JLabel label = new JLabel("No hay productos seleccionados");
+        panelLibros.add(label, gbcPanelLibros);
     }
 }

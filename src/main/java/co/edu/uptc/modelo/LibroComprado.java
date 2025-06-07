@@ -14,6 +14,8 @@ public class LibroComprado extends Libro implements Serializable {
     private double descuentoFrecuencia;
     private double impuestoUnitario;
     private double impuestoTotal;
+    private double desPremiumTotal;
+
 
     public LibroComprado() {
         super();
@@ -24,6 +26,7 @@ public class LibroComprado extends Libro implements Serializable {
         this.descuentoFrecuencia = 0.0;
         this.impuestoUnitario = 0.0;
         this.impuestoTotal = 0.0;
+        this.desPremiumTotal = 0.0;
     }
 
     public int getCantidadComprada() {
@@ -72,5 +75,13 @@ public class LibroComprado extends Libro implements Serializable {
 
     public void setDescuentoFrecuencia(double descuentoFrecuencia) {
         this.descuentoFrecuencia = descuentoFrecuencia;
+    }
+
+    public double getDesPremiumTotal() {
+        return desPremiumTotal;
+    }
+
+    public void setDesPremiumTotal(double desPremiumTotal) {
+        this.desPremiumTotal = desPremiumTotal;
     }
 }
