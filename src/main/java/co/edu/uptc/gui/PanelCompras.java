@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class PanelCompras extends JPanel {
 
     /**
-     * Etiqueta que muestra el título del panel.
+     * Tabla que muestra las compras realizadas.
      */
     private JTable tablaCompras;
 
@@ -29,16 +29,31 @@ public class PanelCompras extends JPanel {
      */
     private JLabel labelTitulo;
 
+    /**
+     * Scroll para la tabla de compras.
+     */
     private JScrollPane scroll;
 
+    /**
+     * Restricciones de GridBagLayout para el layout principal.
+     */
     private GridBagConstraints gbc;
 
+    /**
+     * Referencia a la ventana principal de la aplicación.
+     */
     private VentanaPrincipal ventanaPrincipal;
 
+    /**
+     * Etiqueta que se muestra cuando no hay compras.
+     */
     private JLabel labelSinCompras;
 
     /**
      * Constructor del panel de compras.
+     *
+     * @param evento          Evento asociado al panel
+     * @param ventanaPrincipal Ventana principal de la aplicación
      */
     public PanelCompras(Evento evento, VentanaPrincipal ventanaPrincipal) {
         this.ventanaPrincipal = ventanaPrincipal;
@@ -64,6 +79,11 @@ public class PanelCompras extends JPanel {
         add(labelSinCompras, gbc);
     }
 
+    /**
+     * Llena la tabla con la lista de recibos proporcionada.
+     *
+     * @param listaRecibos Lista de recibos a mostrar
+     */
     public void llenarTabla(ArrayList<Recibo> listaRecibos) {
 
         if (scroll != null) {
@@ -87,6 +107,50 @@ public class PanelCompras extends JPanel {
         }
 
         labelSinCompras.setVisible(false);
+        llenarTabla(listaRecibos, tableModel);
+        ajustarJTable(tableModel);
+        ajustarHeaderTable();
+        scroll = new JScrollPane(tablaCompras);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        add(scroll, gbc);
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * Ajusta el estilo del encabezado de la tabla de compras.
+     */
+    private void ajustarHeaderTable() {
+        JTableHeader tableHeader = tablaCompras.getTableHeader();
+        tableHeader.setBackground(new Color(0x24242C));
+        tableHeader.setForeground(Color.WHITE);
+        tableHeader.setFont(new Font("Arial", Font.BOLD, 12));
+    }
+
+    /**
+     * Ajusta la tabla de compras con el modelo proporcionado.
+     *
+     * @param tableModel Modelo de tabla a aplicar
+     */
+    private void ajustarJTable(DefaultTableModel tableModel) {
+        tablaCompras = new JTable(tableModel);
+        personalizarTabla(tablaCompras);
+        tablaCompras.revalidate();
+        tablaCompras.repaint();
+        tablaCompras.getDefaultEditor(Boolean.class).addCellEditorListener(new EventoComentario(tablaCompras, ventanaPrincipal));
+        tablaCompras.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+        });
+    }
+
+    /**
+     * Llena la tabla con los datos de los recibos.
+     *
+     * @param listaRecibos Lista de recibos a mostrar
+     * @param tableModel   Modelo de tabla donde se agregarán los datos
+     */
+    private static void llenarTabla(ArrayList<Recibo> listaRecibos, DefaultTableModel tableModel) {
         int numCompra = 0;
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
         for (Recibo recibo : listaRecibos) {
@@ -98,28 +162,13 @@ public class PanelCompras extends JPanel {
                 tableModel.addRow(new Object[]{fecha, numeroRecibo});
             }
         }
-
-        tablaCompras = new JTable(tableModel);
-        personalizarTabla(tablaCompras);
-        tablaCompras.revalidate();
-        tablaCompras.repaint();
-        tablaCompras.getDefaultEditor(Boolean.class).addCellEditorListener(new EventoComentario(tablaCompras, ventanaPrincipal));
-        tablaCompras.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            
-        });
-
-        JTableHeader tableHeader = tablaCompras.getTableHeader();
-        tableHeader.setBackground(new Color(0x24242C));
-        tableHeader.setForeground(Color.WHITE);
-        tableHeader.setFont(new Font("Arial", Font.BOLD, 12));
-        scroll = new JScrollPane(tablaCompras);
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
-        add(scroll, gbc);
-        revalidate();
-        repaint();
     }
 
+    /**
+     * Crea y retorna el modelo de tabla por defecto para la tabla de compras.
+     *
+     * @return DefaultTableModel configurado para la tabla de compras
+     */
     private static DefaultTableModel getDefaultTableModel() {
         String[] cabecera = {"Fecha y Hora", "# Recibo", "Ver compra"};
         DefaultTableModel tableModel = new DefaultTableModel() {
@@ -139,6 +188,11 @@ public class PanelCompras extends JPanel {
         return tableModel;
     }
 
+    /**
+     * Personaliza la apariencia de la tabla de compras.
+     *
+     * @param tabla Tabla a personalizar
+     */
     public void personalizarTabla(JTable tabla) {
         tablaCompras.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabla.setRowHeight(30);

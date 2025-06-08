@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Clase que representa a un usuario en el sistema.
- * Contiene información personal y de cuenta para la gestión de compras y acceso.
+ * Clase que representa a un usuario en el sistema de la tienda virtual.
+ * Contiene información personal, de contacto, tipo de usuario, cuenta asociada, historial de compras y carrito de compras.
+ * Permite la gestión de compras, descuentos y acceso al sistema.
  */
 public class Usuario implements Serializable{
 
     /**
-     * 
+     * Identificador de versión para la serialización de la clase.
      */
     public static final long serialVersionUID = 7354483159484201335L;
 
@@ -30,7 +31,7 @@ public class Usuario implements Serializable{
     private long telefono;
 
     /**
-     * Tipo de cliente (por ejemplo, "regular", "VIP", etc.).
+     * Tipo de cliente (por ejemplo, regular o premium).
      */
     private TipoUsuarioEnum tipoCliente;
 
@@ -45,6 +46,9 @@ public class Usuario implements Serializable{
      */
     private double descuentoTipoUsuario;
 
+    /**
+     * Historial de recibos de compras realizados por el usuario.
+     */
     private ArrayList<Recibo> recibosCompras;
 
     /**
@@ -52,6 +56,9 @@ public class Usuario implements Serializable{
      */
     private Carrito carrito;
 
+    /**
+     * Constructor por defecto. Inicializa la cuenta, el carrito y la lista de recibos de compras.
+     */
     public Usuario() {
         cuenta = new Cuenta();
         carrito = new Carrito();
@@ -184,18 +191,38 @@ public class Usuario implements Serializable{
         this.carrito = carrito;
     }
 
+    /**
+     * Obtiene el descuento aplicado al tipo de usuario.
+     *
+     * @return El descuento del tipo de usuario.
+     */
     public double getDescuentoTipoUsuario() {
         return descuentoTipoUsuario;
     }
 
+    /**
+     * Establece el descuento para el tipo de usuario.
+     *
+     * @param descuentoTipoUsuario El descuento a asignar.
+     */
     public void setDescuentoTipoUsuario(double descuentoTipoUsuario) {
         this.descuentoTipoUsuario = descuentoTipoUsuario;
     }
 
+    /**
+     * Obtiene el historial de recibos de compras del usuario.
+     *
+     * @return La lista de recibos de compras.
+     */
     public ArrayList<Recibo> getRecibosCompras() {
         return recibosCompras;
     }
 
+    /**
+     * Establece el historial de recibos de compras del usuario.
+     *
+     * @param recibosCompras La lista de recibos a asignar.
+     */
     public void setRecibosCompras(ArrayList<Recibo> recibosCompras) {
         this.recibosCompras = recibosCompras;
     }

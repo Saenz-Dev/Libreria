@@ -61,7 +61,7 @@ public class Cuenta implements Serializable {
     }
 
     /**
-     * Metodo que devuelve la contraseña del usuario
+     * Devuelve la contraseña del usuario.
      * @return contraseña del usuario
      */
     public String getContrasena() {
@@ -69,7 +69,7 @@ public class Cuenta implements Serializable {
     }
 
     /**
-     * Metodo que actualiza la contraseña del usuario
+     * Establece la contraseña del usuario.
      * @param contrasena contraseña del usuario
      */
     public void setContrasena(String contrasena) {
@@ -77,18 +77,18 @@ public class Cuenta implements Serializable {
     }
 
     /**
-     * Metodo que devuelve si el usuario está logueado
-     * @return indica si el usuario está logueado
+     * Indica si el usuario está logueado.
+     * @return true si está logueado, false en caso contrario
      */
     public boolean isLog() {
         return isLog;
     }
 
     /**
-     * Metodo que actualiza si el usuario está logueado
-     * @param log indica si el usuario está logueado
+     * Establece el estado de logueo del usuario.
+     * @param isLog true si está logueado, false en caso contrario
      */
-    public void setLog(boolean log) {
-        isLog = log;
+    public void setLog(boolean isLog) {
+        this.isLog = isLog;
     }
 }

@@ -17,77 +17,45 @@ import java.util.Map;
  * su eliminación.
  */
 public class PanelEliminarLibro extends JPanel {
-
-    /**
-     * Etiqueta que muestra el título del panel.
-     */
+    /** Etiqueta que muestra el título del panel. */
     private JLabel labelTitulo;
-
-    /**
-     * Panel que contiene la lista de libros.
-     */
+    /** Panel que contiene la lista de libros. */
     private JPanel panelLibros;
-
-    /**
-     * Número de columnas en la disposición del panel de libros.
-     */
+    /** Número de columnas en la disposición del panel de libros. */
     private int conteoColumnas;
-
-    /**
-     * Número de filas en la disposición del panel de libros.
-     */
+    /** Número de filas en la disposición del panel de libros. */
     private int conteoFilas;
-
-    /**
-     * Administrador de diseño basado en GridBagLayout para organizar los libros.
-     */
+    /** Administrador de diseño basado en GridBagLayout para organizar los libros. */
     private GridBagLayout gbPanelLibros;
-
-    /**
-     * Restricciones para la disposición de los libros dentro del panel.
-     */
+    /** Restricciones para la disposición de los libros dentro del panel. */
     private GridBagConstraints gbcPanelLibros;
-
-    /**
-     * Panel con barra de desplazamiento que contiene el panel de libros.
-     */
+    /** Panel con barra de desplazamiento que contiene el panel de libros. */
     private JScrollPane scrollPanelLibros;
-
-    /**
-     * Formateador de números para mostrar precios u otros valores numéricos.
-     */
+    /** Formateador de números para mostrar precios u otros valores numéricos. */
     private NumberFormat numberFormat;
-
-    /**
-     * Referencia a la ventana principal de la aplicación.
-     */
+    /** Referencia a la ventana principal de la aplicación. */
     private VentanaPrincipal ventanaPrincipal;
-
-    /**
-     * Botón para eliminar un libro seleccionado.
-     */
+    /** Botón para eliminar un libro seleccionado. */
     private JButton botonEliminar;
-
-    /**
-     * Botón para cancelar la acción de eliminación.
-     */
+    /** Botón para cancelar la acción de eliminación. */
     private JButton botonCancelar;
-
+    /** Restricciones de GridBagLayout para el layout principal. */
     private GridBagConstraints gbc;
-    /**
-     * Lista de paneles que representan los libros a eliminar.
-     */
+    /** Lista de paneles que representan los libros a eliminar. */
     private ArrayList<PanelLibroEliminar> listPanelesLibros;
 
     /**
      * Obtiene la lista de paneles de libros a eliminar.
-     *
      * @return Lista de paneles de libros.
      */
     public ArrayList<PanelLibroEliminar> getListPanelesLibros() {
         return listPanelesLibros;
     }
 
+    /**
+     * Obtiene la lista de ISBN de los libros seleccionados para eliminar.
+     * @return Lista de ISBN de libros seleccionados o null si la lista está vacía.
+     */
     public ArrayList<String> isbnLibros() {
         ArrayList<String> titulosLibros = new ArrayList<>();
         if (listPanelesLibros.isEmpty()) return null;
@@ -99,6 +67,9 @@ public class PanelEliminarLibro extends JPanel {
         return titulosLibros;
     }
 
+    /**
+     * Elimina los paneles de libros seleccionados de la lista.
+     */
     public void eliminarPanelesSeleccionados() {
         if (listPanelesLibros.isEmpty()) return;
 
@@ -113,7 +84,6 @@ public class PanelEliminarLibro extends JPanel {
 
     /**
      * Elimina un panel de libro del panel de eliminación.
-     *
      * @param panelProducto Panel del libro a eliminar.
      */
     public void eliminarPanelProducto(PanelLibroEliminar panelProducto) {
@@ -122,7 +92,6 @@ public class PanelEliminarLibro extends JPanel {
 
     /**
      * Constructor del panel de eliminación de libros.
-     *
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.
      * @param evento           Manejador de eventos de la aplicación.
      */
@@ -166,6 +135,10 @@ public class PanelEliminarLibro extends JPanel {
         add(botonCancelar, gbc);
     }
 
+    /**
+     * Ajusta el panel de libros y su barra de desplazamiento.
+     * @param gbc Restricciones de GridBagLayout.
+     */
     private void ajustarPanelLibros(GridBagConstraints gbc) {
         panelLibros.setBorder(new LineBorder(Color.WHITE));
         panelLibros.setBackground(Color.WHITE);
@@ -176,12 +149,19 @@ public class PanelEliminarLibro extends JPanel {
         add(scrollPanelLibros, gbc);
     }
 
+    /**
+     * Ajusta las preferencias visuales y de layout del panel.
+     */
     private void ajustarPreferenciasPanel() {
         personalizarFont();
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(400, 200));
     }
 
+    /**
+     * Asigna las acciones a los botones de eliminar y cancelar.
+     * @param evento Evento a asociar
+     */
     private void asignarAccionBoton(Evento evento) {
         botonEliminar.addActionListener(evento);
         botonEliminar.setActionCommand(Evento.FUNCION_ELIMINAR_LIBRO);
@@ -208,10 +188,8 @@ public class PanelEliminarLibro extends JPanel {
 
     /**
      * Agrega un panel que representa un libro al panel Eliminar Libros.
-     *
-     * @param panelLibro Panel del libro a agregar.
+     * @param panelLibroEliminar Panel del libro a agregar.
      */
-
     public void anadirLibrosPanel(PanelLibroEliminar panelLibroEliminar) {
         GridBagConstraints gbcPanelLibros = new GridBagConstraints();
         gbcPanelLibros.weightx = 1.0;
@@ -234,24 +212,11 @@ public class PanelEliminarLibro extends JPanel {
         }
     }
 
-    /*public void anadirLibrosPanel(PanelLibroEliminar panelLibro) {
-        gbcPanelLibros.insets = new Insets(10, 10, 10, 10);
-        gbcPanelLibros.fill = GridBagConstraints.NONE;
-
-        gbcPanelLibros.gridx = conteoColumnas;
-        gbcPanelLibros.gridy = conteoFilas;
-        panelLibros.add(panelLibro, gbcPanelLibros);
-        listPanelesLibros.add(panelLibro);
-
-        conteoColumnas++;
-        if (conteoColumnas == 3) {
-            conteoColumnas = 0;
-            conteoFilas++;
-        }
-    }*/
-
+    /**
+     * Crea y muestra los paneles de libros a partir del catálogo recibido.
+     * @param catalogo Lista de libros del catálogo.
+     */
     public void crearPanelesLibros(ArrayList<Libro> catalogo) {
-
         remove(scrollPanelLibros);
         panelLibros.removeAll();
         gbc.gridwidth = 3;
@@ -262,12 +227,7 @@ public class PanelEliminarLibro extends JPanel {
         gbc.gridy = 1;
         revalidate();
         repaint();
-        scrollPanelLibros = new JScrollPane(panelLibros);
-        scrollPanelLibros.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPanelLibros.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
-        scrollPanelLibros.setPreferredSize(new Dimension(800, 600));
-        //scrollPanelLibros.setPreferredSize(panelLibros.getSize());
+        ajustarScrolLibros();
 
         scrollPanelLibros.setBorder(null);
 
@@ -283,29 +243,50 @@ public class PanelEliminarLibro extends JPanel {
         for (Libro libro : catalogo) {
             agregarPanelLibro(libro);
         }
-        /*if (panelLibros.getComponentCount() < 5) {
-            gbcPanelLibros.fill = GridBagConstraints.NONE;
-            gbcPanelLibros.gridy = conteoFilas++;
-            gbcPanelLibros.gridx = 0;
-            gbcPanelLibros.gridwidth = 1;
-            gbcPanelLibros.gridheight = 1;
-            gbcPanelLibros.weightx = 0;
-            gbcPanelLibros.weighty = 0;
 
-            JLabel espacio = new JLabel();
-            espacio.setPreferredSize(new Dimension(1, 1));
-            panelLibros.add(espacio, gbcPanelLibros);
-            /*
-            gbcPanelLibros.fill = GridBagConstraints.BOTH;
+        ajustarFilasColumnasScroll();
+
+        validarFilasColumnas();
+
+        validarPanelLibrosVacio();
+
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * Valida si el panel de libros está vacío y lo repinta si es necesario.
+     */
+    private void validarPanelLibrosVacio() {
+        if (panelLibros.getComponentCount() == 0) {
+            repintarPanelLibros();
+            panelLibros.revalidate();
+            panelLibros.repaint();
+        }
+    }
+
+    /**
+     * Valida la cantidad de filas y columnas para ajustar el layout.
+     */
+    private void validarFilasColumnas() {
+        if (conteoFilas < 2) {
+            gbcPanelLibros.fill = GridBagConstraints.VERTICAL;
             gbcPanelLibros.gridy = conteoFilas++;
-            gbcPanelLibros.gridx = 0;
-            gbcPanelLibros.gridwidth = 4;
+            gbcPanelLibros.gridwidth = 3;
             gbcPanelLibros.gridheight = 2;
-            gbcPanelLibros.weightx = 0 ;
-            gbcPanelLibros.weighty = 0;
-            panelLibros.add(new JLabel(""), gbcPanelLibros);
-        }*/
+            gbcPanelLibros.weightx = 1;
+            gbcPanelLibros.weighty = 1;
 
+            JLabel espacio = new JLabel(); // NUEVO componente cada vez
+            espacio.setPreferredSize(new Dimension(600, 500));
+            panelLibros.add(espacio, gbcPanelLibros);
+        }
+    }
+
+    /**
+     * Ajusta filas y columnas del panel de libros para el scroll.
+     */
+    private void ajustarFilasColumnasScroll() {
         if (conteoFilas == 0 && conteoColumnas > 0 && conteoColumnas < 4) {
             gbcPanelLibros.fill = GridBagConstraints.HORIZONTAL;
             gbcPanelLibros.gridx = conteoColumnas++;
@@ -321,64 +302,23 @@ public class PanelEliminarLibro extends JPanel {
                 panelLibros.add(espacio, gbcPanelLibros);
             }
         }
-
-        if (conteoFilas < 2) {
-            gbcPanelLibros.fill = GridBagConstraints.VERTICAL;
-            gbcPanelLibros.gridy = conteoFilas++;
-            gbcPanelLibros.gridwidth = 3;
-            gbcPanelLibros.gridheight = 2;
-            gbcPanelLibros.weightx = 1;
-            gbcPanelLibros.weighty = 1;
-
-            JLabel espacio = new JLabel(); // NUEVO componente cada vez
-            espacio.setPreferredSize(new Dimension(600, 500));
-            panelLibros.add(espacio, gbcPanelLibros);
-        }
-
-
-        if (panelLibros.getComponentCount() == 0) {
-            repintarPanelLibros();
-            panelLibros.revalidate();
-            panelLibros.repaint();
-        }
-
-        revalidate();
-        repaint();
     }
-
 
     /**
-     * Crea los paneles de libros a partir de un mapa de libros.
-     *
-     * @param mapLibros Libros en el catalogo.
+     * Ajusta el JScrollPane que contiene los libros.
      */
-    /*public void crearPanelesLibros(ArrayList<Libro> libros) {
-        listPanelesLibros = new ArrayList<>();
-
-        panelLibros.removeAll();
-        panelLibros.revalidate();
-        panelLibros.repaint();
-        conteoColumnas = 0;
-        conteoFilas = 0;
-
-        gbcPanelLibros.weightx = 1.0;
-        gbcPanelLibros.weighty = 1.0;
-        gbcPanelLibros.anchor = GridBagConstraints.NORTHWEST;
-
-        for (Libro libro : libros) {
-            agregarPanelLibro(libro);
-        }
-
-        if (panelLibros.getComponentCount() == 0) {
-            repintarPanelLibros();
-            panelLibros.revalidate();
-            panelLibros.repaint();
-        }
-
-        revalidate();
-        repaint();
+    private void ajustarScrolLibros() {
+        scrollPanelLibros = new JScrollPane(panelLibros);
+        scrollPanelLibros.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPanelLibros.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
+        scrollPanelLibros.setPreferredSize(new Dimension(800, 600));
     }
-*/
+
+    /**
+     * Agrega un panel de libro al panel de libros.
+     * @param libro Libro a agregar.
+     */
     private void agregarPanelLibro(Libro libro) {
         PanelLibroEliminar panelLibro = new PanelLibroEliminar(ventanaPrincipal, libro);
         panelLibro.setPreferredSize(new Dimension(300, 220));
@@ -388,7 +328,6 @@ public class PanelEliminarLibro extends JPanel {
 
     /**
      * Inicializa los atributos del panel de eliminación de libros.
-     *
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.
      */
     private void initAtributos(VentanaPrincipal ventanaPrincipal) {

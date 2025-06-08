@@ -10,8 +10,20 @@ import java.util.ArrayList;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Cuenta;
 
+/**
+ * DAO encargado de gestionar las operaciones de persistencia relacionadas con las cuentas de usuario.
+ * Permite insertar, actualizar, consultar y eliminar cuentas en la base de datos.
+ * Extiende la clase ConexionBD para el manejo de la conexión y operaciones genéricas.
+ */
 public class CuentaDAO extends ConexionBD<Cuenta> {
 
+    /**
+     * Inserta una nueva cuenta en la base de datos.
+     *
+     * @param cuenta objeto Cuenta a insertar
+     * @throws SQLException     si ocurre un error de base de datos
+     * @throws RuntimeException si la cuenta es nula
+     */
     @Override
     public void insertarDatos(Cuenta cuenta) throws SQLException, RuntimeException {
         if (cuenta == null) throw new RuntimeException("El cuenta a guardar no tiene datos");
@@ -28,6 +40,13 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
         }
     }
 
+    /**
+     * Actualiza los datos de una cuenta existente en la base de datos.
+     *
+     * @param cuenta objeto Cuenta a actualizar
+     * @throws SQLException     si ocurre un error de base de datos
+     * @throws RuntimeException si la cuenta es nula
+     */
     @Override
     public void actualizarDatos(Cuenta cuenta) throws SQLException, RuntimeException {
         if (cuenta == null) throw new RuntimeException("Cuenta vacía");
@@ -41,7 +60,7 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
                 RegistroLog.registrarInfo("✔ Cuenta actualizada correctamente con correo: " + cuenta.getCorreo());
             } else {
                 RegistroLog.registrarAdvertencia("⚠ No se encontró ninguna cuenta con el correo: " + cuenta.getCorreo());
-                //throw new RuntimeException("No se encontró una cuenta asociada al correo ingresado.");
+
             }
         } catch (SQLException e) {
             RegistroLog.registrarError("Error al actualizar los datos en la tabla 'cuentas': " + e.getMessage(), e);
@@ -49,6 +68,14 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
         }
     }
 
+    /**
+     * Selecciona un registro de cuenta en la base de datos según el correo proporcionado.
+     *
+     * @param cuenta objeto Cuenta con el correo a buscar
+     * @return objeto Cuenta con los datos encontrados, o null si no se encuentra ninguna cuenta
+     * @throws SQLException     si ocurre un error de base de datos
+     * @throws RuntimeException si el correo es nulo
+     */
     @Override
     public Cuenta seleccionarRegistro(Cuenta cuenta) throws SQLException, RuntimeException {
 
@@ -73,6 +100,12 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
         return null;
     }
 
+    /**
+     * Selecciona todos los registros de cuentas en la base de datos.
+     *
+     * @return lista de objetos Cuenta con todos los datos de cuentas
+     * @throws SQLException si ocurre un error de base de datos
+     */
     @Override
     public ArrayList<Cuenta> seleccionarRegistros() throws SQLException, RuntimeException {
         ArrayList<Cuenta> cuentas = new ArrayList<>();
@@ -91,6 +124,11 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
         }
     }
 
+    /**
+     * Elimina un registro de cuenta en la base de datos según el correo proporcionado.
+     *
+     * @param correo el correo de la cuenta a eliminar
+     */
     public void eliminarRegistro(String correo) {
         String sentencia = "DELETE FROM cuentas WHERE correo = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {

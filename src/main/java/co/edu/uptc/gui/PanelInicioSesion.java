@@ -61,6 +61,9 @@ public class PanelInicioSesion extends JPanel {
      */
     private JButton botonCrearCuenta;
 
+    /**
+     * Imagen de fondo del panel de inicio de sesión.
+     */
     private Image imagenFondo;
 
     /**
@@ -151,6 +154,9 @@ public class PanelInicioSesion extends JPanel {
     }
 
 
+    /**
+     * Personaliza la apariencia de los botones y etiquetas del panel.
+     */
     public void personalizarBotones() {
 
         labelTitulo.setFont(new Font("Montserrat", Font.BOLD, 28));
@@ -218,7 +224,10 @@ public class PanelInicioSesion extends JPanel {
         g.setColor(Color.BLACK);
     }
 
-    public void mouseListenersBtn() {
+    /**
+     * Asigna los listeners de mouse a los botones del panel.
+     */
+    private void mouseListenersBtn() {
         botonContinuar.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent event) {
                 botonContinuar.setBackground(new Color(25, 118, 210));

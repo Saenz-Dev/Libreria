@@ -102,7 +102,7 @@ public class PanelRecibo extends JDialog {
     public void initAtributos() {
         labelRecibo = new JLabel("RECIBO DE COMPRA");
 
-        labelRecibo.setFont(new Font( "", Font.BOLD, 18));
+        labelRecibo.setFont(new Font("", Font.BOLD, 18));
         labelNombreCliente = new JLabel();
         labelCorreoElectronico = new JLabel();
         labelFechaHora = new JLabel();
@@ -119,7 +119,6 @@ public class PanelRecibo extends JDialog {
     }
 
     public void llenarTabla(Recibo recibo, boolean activarComentar) {
-
         if (scroll != null) {
             remove(scroll);
             remove(scrollPane);
@@ -133,21 +132,7 @@ public class PanelRecibo extends JDialog {
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
 
-        DefaultTableModel tableModel = getDefaultTableModel();
-
-        // Quede aqui, modificar de aqui para abajo que datos van y cuales no van
-        // gracias :)
-        for (LibroComprado libroComprado : recibo.getListaProductosComprados()) {
-            String isbn = libroComprado.getIsbn();
-            String producto = libroComprado.getTitulo();
-            int cantidad = libroComprado.getCantidadComprada();
-            double precioUnitario = libroComprado.getPrecioVenta();
-            double subtotal = libroComprado.getPrecioTotal();
-            double impuestoUnitario = libroComprado.getImpuestoUnitario();
-            double impuestoTotal = libroComprado.getImpuestoTotal();
-
-            tableModel.addRow(new Object[]{isbn, producto, format.format(precioUnitario), format.format(impuestoUnitario), cantidad, format.format(impuestoTotal), format.format(subtotal)});
-        }
+        DefaultTableModel tableModel = getDefaultTableModel(recibo, format);
 
         JTable tablaTotales = tablaTotales(recibo, format);
 
@@ -159,22 +144,22 @@ public class PanelRecibo extends JDialog {
         scrollPane = new JScrollPane(tablaTotales);
         scrollPane.setPreferredSize(new Dimension(200, 100));
 
-
         personalizarTabla(tablaCompras);
+        tablaCompras.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaCompras.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaCompras.getColumnModel().getColumn(0).setWidth(0);
+        tablaCompras.getColumnModel().getColumn(1).setPreferredWidth(200);
         tablaCompras.revalidate();
         tablaCompras.repaint();
         if (!activarComentar) {
             TableColumnModel tcm = tablaCompras.getColumnModel();
-            tcm.removeColumn(tcm.getColumn(7));
+            tcm.removeColumn(tcm.getColumn(8));
         } else {
-            tablaCompras.getColumnModel().getColumn(7).setCellRenderer(new EventoRenderTable());
+            tablaCompras.getColumnModel().getColumn(8).setCellRenderer(new EventoRenderTable());
             tablaCompras.getDefaultEditor(Boolean.class).addCellEditorListener(new EventoRecibo(tablaCompras, ventanaPrincipal));
         }
 
-        JTableHeader tableHeader = tablaCompras.getTableHeader();
-        tableHeader.setBackground(new Color(0x24242C));
-        tableHeader.setForeground(Color.WHITE);
-        tableHeader.setFont(new Font("Arial", Font.BOLD, 12));
+        ajustarTableHeader();
         scroll = new JScrollPane(tablaCompras);
         scroll.setPreferredSize(new Dimension(200, 380));
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -182,7 +167,7 @@ public class PanelRecibo extends JDialog {
         add(scroll, gbc);
         gbc.gridheight = 1;
         gbc.gridwidth = 1;
-        gbc.weighty = 0.3; // ¡clave!
+        gbc.weighty = 0.3;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.NORTH;
@@ -191,9 +176,32 @@ public class PanelRecibo extends JDialog {
         add(scrollPane, gbc);
     }
 
+    private static DefaultTableModel getDefaultTableModel(Recibo recibo, NumberFormat format) {
+        DefaultTableModel tableModel = getDefaultTableModel();
+        for (LibroComprado libroComprado : recibo.getListaProductosComprados()) {
+            String isbn = libroComprado.getIsbn();
+            String producto = libroComprado.getTitulo();
+            int cantidad = libroComprado.getCantidadComprada();
+            double precioUnitario = libroComprado.getPrecioVenta();
+            double subtotal = libroComprado.getPrecioTotal();
+            double impuestoUnitario = libroComprado.getImpuestoUnitario();
+            double impuestoTotal = libroComprado.getImpuestoTotal();
+            double valorBaseTotal = libroComprado.getPrecioTotalSinIva();
+            tableModel.addRow(new Object[]{isbn, producto, format.format(precioUnitario), format.format(impuestoUnitario), cantidad, format.format(impuestoTotal), format.format(valorBaseTotal), format.format(subtotal)});
+        }
+        return tableModel;
+    }
+
+    private void ajustarTableHeader() {
+        JTableHeader tableHeader = tablaCompras.getTableHeader();
+        tableHeader.setBackground(new Color(0x24242C));
+        tableHeader.setForeground(Color.WHITE);
+        tableHeader.setFont(new Font("Arial", Font.BOLD, 12));
+    }
+
     private JTable tablaTotales(Recibo recibo, NumberFormat format) {
         DefaultTableModel tablaTotalesModel = new DefaultTableModel();
-        String[] titulos = {"Subtotal", "Impuestos", "Desc. Premium", "Desc. Frecuencia", "Total"};
+        String[] titulos = {"Subtotal Base", "Impuesto Total", "Desc. Premium", "Desc. Frecuencia", "Total"};
         tablaTotalesModel.setColumnIdentifiers(titulos);
 
         tablaTotalesModel.addRow(new Object[]{format.format(recibo.getValorCompra().getPrecioBase()), "+ " + format.format(recibo.getValorCompra().getImpuestos()), "- " + format.format(recibo.getValorCompra().getDescuentoPremium()), "- " + format.format(recibo.getValorCompra().getDescuentoFrecuencia()), format.format(recibo.getValorCompra().getTotal())});
@@ -201,14 +209,14 @@ public class PanelRecibo extends JDialog {
     }
 
     public static DefaultTableModel getDefaultTableModel() {
-        String[] cabecera = {"ISBN", "Producto", "V.Unitario", "V.Impuesto", "Cantidad", "T.Impuesto", "Total", "Comentar"};
+        String[] cabecera = {"ISBN", "Producto", "Vlr. Base", "IVA Unit.", "Cantidad", "IVA Total", "V.Base Total", "Vlr. Total", "Comentar"};
         DefaultTableModel tableModel = new DefaultTableModel() {
             public Class<?> getColumnClass(int indexColumna) {
-                return indexColumna == 7 ? Boolean.class : String.class;
+                return indexColumna == 8 ? Boolean.class : String.class;
             }
 
             public boolean isCellEditable(int row, int column) {
-                return column == 7 && tieneCheckBox(row);
+                return column == 8 && tieneCheckBox(row);
             }
 
             private boolean tieneCheckBox(int fila) {
@@ -224,7 +232,7 @@ public class PanelRecibo extends JDialog {
         tabla.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabla.setRowHeight(30);
         tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabla.setFont(new Font("Arial", Font.PLAIN, 12));
+        tabla.setFont(new Font("Arial", Font.PLAIN, 11));
         tabla.setSelectionBackground(new Color(0xE0E0E0));
         tabla.setSelectionForeground(Color.BLACK);
         tabla.setGridColor(Color.LIGHT_GRAY);
@@ -236,8 +244,13 @@ public class PanelRecibo extends JDialog {
         centerRenderer.setPreferredSize(new Dimension(200, 30));
         for (int i = 0; i < tabla.getColumnCount(); i++) {
             TableColumn column = tabla.getColumnModel().getColumn(i);
-            if (i == 1) column.setPreferredWidth(250);
-            if (i == 4) column.setPreferredWidth(56);
+            /*if (i == 1) {
+                column.setPreferredWidth(250);
+                continue;
+            } else if (i == 4) {
+                column.setPreferredWidth(56);
+                continue;
+            }*/
             column.setPreferredWidth(150);
         }
     }

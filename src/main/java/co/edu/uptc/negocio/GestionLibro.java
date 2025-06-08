@@ -10,12 +10,14 @@ import co.edu.uptc.modelo.Tienda;
 import co.edu.uptc.persistencia.LibroDAO;
 
 /**
- * Clase encargada de gestionar los libros del catálogo.
+ * Clase encargada de gestionar los libros del catálogo de la tienda virtual.
+ * Permite registrar, validar y administrar libros en el catálogo, asegurando la integridad de los datos y la persistencia.
+ * Utiliza DAOs para la persistencia de libros y utilidades para la validación de datos.
  */
 public class GestionLibro {
 
     /**
-     * Transferencia de datos entre la aplicación y la base de datos.
+     * DAO para operaciones de persistencia de libros.
      */
     private LibroDAO libroDAO;
 
@@ -30,7 +32,11 @@ public class GestionLibro {
     private Tienda tienda;
 
     /**
-     * Constructor de la clase
+     * Constructor de la clase. Inicializa la gestión de libros con la tienda y el DAO de libros.
+     *
+     * @param tienda referencia a la tienda virtual
+     * @param libroDAO DAO para libros
+     * @throws SQLException si ocurre un error de base de datos
      */
     public GestionLibro(Tienda tienda, LibroDAO libroDAO) throws SQLException {
         this.tienda = tienda;
@@ -40,11 +46,11 @@ public class GestionLibro {
     }
 
     /**
-     * Registra un libro en el catálogo
+     * Registra un libro en el catálogo.
      *
      * @param libro libro a registrar
      * @throws IllegalArgumentException si alguno de los campos no cumple con las reglas
-     * @throws SQLException             si ocurre algún error al acceder a la base de datos
+     * @throws SQLException si ocurre algún error al acceder a la base de datos
      */
     public void registrarLibro(Libro libro) throws IllegalArgumentException, SQLException {
         expresion.validarDatosObligatorios(libro);
@@ -54,6 +60,12 @@ public class GestionLibro {
         tienda.getCatalogo().getCatalogoLibros().add(libro);
     }
 
+    /**
+     * Valida si el libro ya existe en el catálogo por su ISBN.
+     *
+     * @param libro libro a validar
+     * @throws RuntimeException si el ISBN ya está registrado en otro libro
+     */
     public void validarExistenciaLibro(Libro libro) {
         for (Libro libroCatalogo : tienda.getCatalogo().getCatalogoLibros()) {
             if (libroCatalogo.getIsbn().equals(libro.getIsbn())) throw new RuntimeException("El libro '" + libroCatalogo.getTitulo() + "' ya tiene el ISBN " + libroCatalogo.getIsbn() + " asignado.\nVerifique o cambie el ISBN");

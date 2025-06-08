@@ -363,7 +363,6 @@ public class PanelRegistrarLibro extends JDialog {
 
         gbc.insets = new Insets(5, 10, 5, 10);
         inicializarAtributos();
-        //dimensionarComponentes();<>
         labelTitulo.setFont(new Font("Arial", Font.BOLD, 30));
 
         asignarEventoBoton(evento);
@@ -446,34 +445,6 @@ public class PanelRegistrarLibro extends JDialog {
         return panelCategoria;
     }
 
-    private void dimensionarComponentes() {
-        Dimension dimension = new Dimension(40, 40);
-        //labelTitulo.setPreferredSize(dimension);
-        labelISBN.setPreferredSize(dimension);
-        labelNombre.setPreferredSize(dimension);
-        labelAutor.setPreferredSize(dimension);
-        labelAnoPublicacion.setPreferredSize(dimension);
-        labelCategoria.setPreferredSize(dimension);
-        labelEditorial.setPreferredSize(dimension);
-        labelNumeroPaginas.setPreferredSize(dimension);
-        labelPrecio.setPreferredSize(dimension);
-        labelCantidad.setPreferredSize(dimension);
-        labelFormato.setPreferredSize(dimension);
-
-        txtISBN.setPreferredSize(dimension);
-        txtNombre.setPreferredSize(dimension);
-        txtAutor.setPreferredSize(dimension);
-        txtAnoPublicacion.setPreferredSize(dimension);
-        txtEditorial.setPreferredSize(dimension);
-        txtNumeroPaginas.setPreferredSize(dimension);
-        txtPrecio.setPreferredSize(dimension);
-        txtCantidad.setPreferredSize(dimension);
-        txtCategoria.setPreferredSize(dimension);
-        txtFormato.setPreferredSize(dimension);
-
-
-    }
-
     private void asignarEventoBoton(Evento evento) {
         botonAgregar.addActionListener(evento);
         botonAgregar.setActionCommand(Evento.REGISTRAR_LIBRO);
@@ -517,6 +488,11 @@ public class PanelRegistrarLibro extends JDialog {
         botonRegistrarCategoria = new JButton("Ag.Categoría");
     }
 
+    /**
+     * Llena el JComboBox de categorías con una lista de categorías.
+     *
+     * @param categorias Lista de categorías a mostrar en el JComboBox.
+     */
     public void llenarComboBoxCategoria(ArrayList<Categoria> categorias) {
         txtCategoria.removeAllItems();
         for (Categoria categoria : categorias) {

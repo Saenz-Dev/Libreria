@@ -14,21 +14,50 @@ import co.edu.uptc.persistencia.UsuarioDAO;
 
 /**
  * Clase encargada de gestionar el carrito de compras del usuario.
+ * Permite agregar, eliminar y actualizar productos en el carrito, así como calcular totales y gestionar la persistencia.
+ * Utiliza DAOs para interactuar con la base de datos y otras clases de negocio para la lógica de usuario y cálculos.
  */
 public class GestionCarrito {
 
+    /**
+     * DAO para operaciones de persistencia del carrito de compras.
+     */
     private CarritoDAO carritoDAO;
 
+    /**
+     * DAO para operaciones de persistencia de usuarios.
+     */
     private UsuarioDAO usuarioDAO;
 
+    /**
+     * DAO para operaciones de persistencia de libros.
+     */
     private LibroDAO libroDAO;
 
+    /**
+     * Lógica de negocio para la gestión de usuarios.
+     */
     private GestionUsuario gestionUsuario;
 
+    /**
+     * Utilidad para cálculos de IVA, descuentos y totales.
+     */
     private CalculadoraIVA calculadoraIVA;
 
+    /**
+     * Referencia a la tienda virtual actual.
+     */
     private Tienda tienda;
 
+    /**
+     * Constructor que inicializa la gestión del carrito con las dependencias necesarias.
+     *
+     * @param tienda referencia a la tienda virtual
+     * @param carritoDAO DAO para el carrito
+     * @param usuarioDAO DAO para usuarios
+     * @param libroDAO DAO para libros
+     * @param gestionUsuario lógica de negocio de usuarios
+     */
     public GestionCarrito(Tienda tienda, CarritoDAO carritoDAO, UsuarioDAO usuarioDAO, LibroDAO libroDAO, GestionUsuario gestionUsuario) {
         this.tienda = tienda;
         this.carritoDAO = carritoDAO;
@@ -39,13 +68,13 @@ public class GestionCarrito {
     }
 
     /**
-     * Agrega los libros al carrito del usuario
+     * Agrega los libros al carrito del usuario.
      *
      * @param isbnLibro libro a agregar al carrito
-     * @throws IOException      si ocurre algún error cuando no se escribe el
-     *                          usuario en el JSON
-     * @throws RuntimeException
-     * @throws SQLException
+     * @return el libro agregado o actualizado en el carrito
+     * @throws IOException si ocurre algún error al escribir el usuario en el JSON
+     * @throws RuntimeException si ocurre un error de lógica
+     * @throws SQLException si ocurre un error de base de datos
      */
     public Libro  anadirLibrosCarrito(String isbnLibro) throws IOException, SQLException, RuntimeException {
         Usuario usuarioLog = tienda.getUsuarioActual();
@@ -249,7 +278,7 @@ public class GestionCarrito {
      * @throws RuntimeException
      * @throws SQLException
      */
-    public ResumenProductoDTO sumarProducto(String isbnProducto) throws SQLException, RuntimeException {
+    public LibroComprado sumarProducto(String isbnProducto) throws SQLException, RuntimeException {
         Libro libroCarrito = consultaLibroCarrito(isbnProducto);
         Libro libroCatalogo = consultaLibroCatalogo(isbnProducto);
 
@@ -282,23 +311,14 @@ public class GestionCarrito {
      * @throws RuntimeException
      * @throws SQLException
      */
-    public ResumenProductoDTO actualizarProductoCarrito(String isbn) throws SQLException, RuntimeException {
+    public LibroComprado actualizarProductoCarrito(String isbn) throws SQLException, RuntimeException {
 
-        ResumenProductoDTO resumenProductoDTO = new ResumenProductoDTO();
         Libro libroCarrito = consultaLibroCarrito(isbn);
         Libro libroCatalogo = consultaLibroCatalogo(isbn);
         LibroComprado libroComprado = new LibroComprado();
         libroComprado.setCantidadComprada(libroCarrito.getStockReservado());
-        libroComprado.setPrecioVenta(calculadoraIVA.precioBaseUnitario(libroCatalogo));
-        libroComprado.setDescuentoPremium(calculadoraIVA.descuentoPremium(libroComprado.getPrecioVenta(), tienda.getUsuarioActual()));
-        libroComprado.setDesPremiumTotal(calculadoraIVA.descuentoPremiumTotal(libroComprado.getPrecioVenta(), libroCarrito, tienda.getUsuarioActual()));
-        libroComprado.setImpuestoUnitario(calculadoraIVA.impuestoProducto(libroCatalogo, tienda.getUsuarioActual()));
-        libroComprado.setImpuestoTotal(calculadoraIVA.impuestoProductos(libroCarrito, libroCatalogo, tienda.getUsuarioActual()));
-        libroComprado.setPrecioTotal(calculadoraIVA.subtotalProducto(libroCarrito, libroComprado.getPrecioVenta(), libroComprado.getDesPremiumTotal(), libroComprado.getImpuestoTotal()));
-        resumenProductoDTO.setSubtotal(libroComprado.getPrecioTotal());
-        resumenProductoDTO.setCantidadReservada(libroCarrito.getStockReservado());
-
-        return resumenProductoDTO;
+        libroComprado.setPrecioVenta(libroComprado.getCantidadComprada() * libroCatalogo.getPrecioVenta());
+        return libroComprado;
     }
 
     private void validarLibroCarritoNull(Libro libroCarrito) {
@@ -309,7 +329,7 @@ public class GestionCarrito {
     }
 
     /**
-     * Método que disminuye la cantidad de un libro en el carrito
+     * Metodo que disminuye la cantidad de un libro en el carrito
      *
      * @param isbnProducto libro a disminuir
      * @return subtotal del producto
@@ -318,7 +338,7 @@ public class GestionCarrito {
      * @throws RuntimeException
      * @throws SQLException
      */
-    public ResumenProductoDTO disminuirProducto(String isbnProducto) throws IOException, SQLException, RuntimeException {
+    public LibroComprado disminuirProducto(String isbnProducto) throws SQLException, RuntimeException {
         Libro libroCarrito = consultaLibroCarrito(isbnProducto);
         Libro libroCatalogo = consultaLibroCatalogo(isbnProducto);
 
@@ -402,26 +422,28 @@ public class GestionCarrito {
      */
     public TotalesCompra calculoResumenCompra(ReciboDAO reciboDAO) throws IOException, SQLException, RuntimeException {
         TotalesCompra totalesCompra = new TotalesCompra();
+        ArrayList<Recibo> recibosUsuario = reciboDAO.seleccionarRegistrosCompras(tienda.getUsuarioActual().getCuenta().getCorreo());
         ArrayList<Libro> librosCarritoUsuario = tienda.getUsuarioActual().getCarrito().getLibros();
         RegistroLog.registrarInfo("📦 Se encontraron " + librosCarritoUsuario.size() + " libros en el carrito del usuario: " + tienda.getUsuarioActual().getCuenta().getCorreo());
-        setValorCompra(totalesCompra, librosCarritoUsuario);
+        setValorCompra(totalesCompra, librosCarritoUsuario, recibosUsuario);
         Recibo recibo = new Recibo();
         recibo.setCorreo(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
         setTotal(totalesCompra);
         return totalesCompra;
     }
 
-    private void setTotal(TotalesCompra totalesCompra) throws IOException {
+    private void setTotal(TotalesCompra totalesCompra) {
         totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(tienda.getRecibosTienda().get(tienda.getUsuarioActual().getCuenta().getCorreo()), totalesCompra.getTotal()));
         totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoFrecuencia());
     }
 
-    private void setValorCompra(TotalesCompra totalesCompra, ArrayList<Libro> librosCarritoUsuario) throws SQLException {
-        totalesCompra.setPrecioBase(calculadoraIVA.precioBaseTotal(librosCarritoUsuario, libroDAO)); // Primero obtengo el precio base, osea le quito el IVA al precio que esta en el catalogo
-        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(totalesCompra.getPrecioBase(), gestionUsuario.usuarioLogueado()));//Despues a ese base, le saco el descuento
-        totalesCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUsuario, libroDAO, gestionUsuario.usuarioLogueado())); //Despues a la resta del precioBase - descuentoPremium = conIva + IVA y ese es el valor total
-        totalesCompra.setTotal(calculadoraIVA.total(totalesCompra.getPrecioBase(), totalesCompra.getDescuentoPremium(), totalesCompra.getImpuestos()));
-        //totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(totalesCompra.getTotal(), gestionUsuario.usuarioLogueado()));
+    private void setValorCompra(TotalesCompra totalesCompra, ArrayList<Libro> librosCarritoUsuario, ArrayList<Recibo> listaRecibosUsuario) throws SQLException {
+        totalesCompra.setPrecioBaseTotal(calculadoraIVA.precioBaseTotal(librosCarritoUsuario, libroDAO));
+        totalesCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUsuario, libroDAO));
+        totalesCompra.setTotal(calculadoraIVA.total(totalesCompra.getPrecioBase(), totalesCompra.getImpuestos()));
+        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremiumTotal(totalesCompra.getPrecioBase(), tienda.getUsuarioActual()));
+        totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(listaRecibosUsuario, totalesCompra.getTotal()));
+        totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoFrecuencia() - totalesCompra.getDescuentoPremium());
     }
 
     public void disminuirStock() throws SQLException, RuntimeException {

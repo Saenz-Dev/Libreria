@@ -385,6 +385,12 @@ public class PanelModificarUsuario extends JDialog {
         cbUsuario = new JComboBox();
     }
 
+    public void setLabelTitulo (String titulo) {
+        labelTitulo.setText(titulo);
+        revalidate();
+        repaint();
+    }
+
     private void personalizarComponentes() {
         botonActualizar.setBackground(Color.GREEN);
         botonActualizar.setForeground(Color.WHITE);

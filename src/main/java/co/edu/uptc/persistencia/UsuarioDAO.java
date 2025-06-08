@@ -10,8 +10,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Clase DAO (Data Access Object) encargada de realizar operaciones CRUD
+ * sobre la tabla 'usuarios' de la base de datos.
+ * Extiende de {@code ConexionBD<Usuario>} para utilizar las utilidades de conexión.
+ */
 public class UsuarioDAO extends ConexionBD<Usuario> {
 
+    /**
+     * Inserta un nuevo registro de usuario en la base de datos.
+     *
+     * @param usuario Objeto {@code Usuario} con los datos a insertar.
+     * @throws SQLException     Si ocurre un error al acceder a la base de datos.
+     * @throws RuntimeException Si el objeto usuario es nulo.
+     */
     @Override
     public void insertarDatos(Usuario usuario) throws SQLException, RuntimeException {
         if (usuario == null) {
@@ -38,6 +50,13 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
         }
     }
 
+    /**
+     * Actualiza los datos de un usuario existente en la base de datos.
+     *
+     * @param usuario Objeto {@code Usuario} con los datos a actualizar.
+     * @throws SQLException     Si ocurre un error al acceder a la base de datos.
+     * @throws RuntimeException Si el objeto usuario es nulo.
+     */
     @Override
     public void actualizarDatos(Usuario usuario) throws SQLException, RuntimeException {
         if (usuario == null) {
@@ -64,6 +83,14 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
         }
     }
 
+    /**
+     * Selecciona un registro de usuario por su correo electrónico.
+     *
+     * @param usuario Objeto {@code Usuario} con el correo a buscar.
+     * @return Usuario encontrado o null si no existe.
+     * @throws SQLException     Si ocurre un error al acceder a la base de datos.
+     * @throws RuntimeException Si el correo del usuario es nulo.
+     */
     @Override
     public Usuario seleccionarRegistro(Usuario usuario) throws SQLException, RuntimeException {
         if (usuario.getCuenta().getCorreo() == null) throw new RuntimeException("No ha ingresado algún usuario.");
@@ -92,6 +119,13 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
         }
     }
 
+    /**
+     * Selecciona todos los registros de usuarios en la base de datos.
+     *
+     * @return Lista de usuarios encontrados.
+     * @throws SQLException     Si ocurre un error al acceder a la base de datos.
+     * @throws RuntimeException Si ocurre un error al procesar los datos.
+     */
     @Override
     public ArrayList<Usuario> seleccionarRegistros() throws SQLException, RuntimeException {
         ArrayList<Usuario> usuarios = new ArrayList<>();
@@ -113,6 +147,13 @@ public class UsuarioDAO extends ConexionBD<Usuario> {
         }
     }
 
+    /**
+     * Elimina un registro de usuario por su correo electrónico.
+     *
+     * @param correo Correo del usuario a eliminar.
+     * @throws SQLException     Si ocurre un error al acceder a la base de datos.
+     * @throws RuntimeException Si el correo es nulo o vacío.
+     */
     public void eliminarRegistro(String correo) throws SQLException {
         if (correo == null || correo.isEmpty()) {
             RegistroLog.registrarAdvertencia("No se puede eliminar un usuario con correo nulo o vacío.");

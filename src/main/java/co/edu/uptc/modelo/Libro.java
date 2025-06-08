@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.Stack;
 
 /**
- * Clase encargada de almacenar los datos de un libro.
- * Representa un libro en el catálogo.
+ * Clase que representa un libro en la librería virtual.
+ * Contiene información relevante como ISBN, título, autor, editorial, categoría, número de páginas,
+ * precio, stock, tipo de libro y comentarios asociados.
  */
 public class Libro implements Serializable {
 
@@ -65,18 +66,32 @@ public class Libro implements Serializable {
     private int stockReservado;
 
     /**
-     * Tipo de libro
+     * Tipo de libro (físico o digital)
      */
     private TipoLibroEnum tipoLibroEnum;
 
+    /**
+     * Indica si el libro ha sido comprado
+     */
     private boolean isComprado;
 
+    /**
+     * Pila de comentarios asociados al libro
+     */
     private Stack<Comentario> comentarios;
 
+    /**
+     * Obtiene la pila de comentarios del libro.
+     * @return Pila de comentarios
+     */
     public Stack<Comentario> getComentarios() {
         return comentarios;
     }
 
+    /**
+     * Establece la pila de comentarios del libro.
+     * @param comentarios Pila de comentarios
+     */
     public void setComentarios(Stack<Comentario> comentarios) {
         this.comentarios = comentarios;
     }
@@ -89,10 +104,19 @@ public class Libro implements Serializable {
         comentarios = new Stack<>();
         categoria = new Categoria();
     }
+
+    /**
+     * Indica si el libro ha sido comprado.
+     * @return true si ha sido comprado, false en caso contrario
+     */
     public boolean getIsComprado() {
         return isComprado;
     }
 
+    /**
+     * Establece el estado de compra del libro.
+     * @param comprado true si ha sido comprado, false en caso contrario
+     */
     public void setIsComprado(boolean comprado) {
         isComprado = comprado;
     }

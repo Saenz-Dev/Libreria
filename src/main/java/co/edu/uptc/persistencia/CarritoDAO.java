@@ -2,8 +2,6 @@ package co.edu.uptc.persistencia;
 
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.modelo.LibroCarrito;
-import co.edu.uptc.modelo.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,8 +9,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * DAO encargado de gestionar las operaciones de persistencia relacionadas con el carrito de compras.
+ * Permite insertar, actualizar, eliminar y consultar libros en el carrito de un usuario en la base de datos.
+ * Extiende la clase ConexionBD para el manejo de la conexión y operaciones genéricas.
+ */
 public class CarritoDAO extends ConexionBD<Libro> {
 
+    /**
+     * Inserta un libro en el carrito de un usuario. Si el libro ya existe, suma la cantidad.
+     *
+     * @param libroCarrito libro a agregar al carrito
+     * @param correo correo del usuario
+     * @throws SQLException si ocurre un error de base de datos
+     * @throws RuntimeException si el libro es nulo o el ISBN es inválido
+     */
     public void insertarDatos(Libro libroCarrito, String correo) throws SQLException, RuntimeException {
         if (libroCarrito == null) {
             RegistroLog.registrarAdvertencia("El libro proporcionado es nulo en 'carritoDAO'");
@@ -36,6 +47,14 @@ public class CarritoDAO extends ConexionBD<Libro> {
         }
     }
 
+    /**
+     * Actualiza la cantidad de un libro en el carrito de un usuario.
+     *
+     * @param libroCarrito libro a actualizar
+     * @param correo correo del usuario
+     * @throws SQLException si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     public void actualizarDatos(Libro libroCarrito, String correo) throws SQLException, RuntimeException {
         String sql = "UPDATE carrito SET cantidad = ? WHERE correo_usuario = ? AND isbn_libro = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -51,6 +70,15 @@ public class CarritoDAO extends ConexionBD<Libro> {
         }
     }
 
+    /**
+     * Selecciona un registro de libro en el carrito de un usuario.
+     *
+     * @param libroCarrito libro a buscar en el carrito
+     * @param correo correo del usuario
+     * @return el libro encontrado en el carrito, o null si no existe
+     * @throws SQLException si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     public Libro seleccionarRegistro(Libro libroCarrito, String correo) throws SQLException, RuntimeException {
         String sql = "SELECT * FROM carrito WHERE correo_usuario = ? AND isbn_libro = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -110,6 +138,14 @@ public class CarritoDAO extends ConexionBD<Libro> {
         }
     }
 
+    /**
+     * Elimina un libro del carrito de un usuario.
+     *
+     * @param libroCarrito libro a eliminar del carrito
+     * @param correoUsuario correo del usuario
+     * @throws SQLException si ocurre un error de base de datos
+     * @throws RuntimeException si el libro o el correo son nulos
+     */
     public void eliminarRegistro(Libro libroCarrito, String correoUsuario) throws SQLException, RuntimeException {
         if (libroCarrito == null || correoUsuario == null) {
             RegistroLog.registrarAdvertencia("❗ Se intentó eliminar un libro nulo o con correo nulo.");

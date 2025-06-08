@@ -11,8 +11,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+/**
+ * DAO encargado de gestionar las operaciones de persistencia relacionadas con los recibos de compra.
+ * Permite insertar, actualizar, consultar y listar recibos en la base de datos.
+ * Extiende la clase ConexionBD para el manejo de la conexión y operaciones genéricas.
+ */
 public class ReciboDAO extends ConexionBD<Recibo> {
 
+    /**
+     * Inserta un nuevo recibo en la base de datos, incluyendo los productos comprados.
+     *
+     * @param recibo objeto Recibo a insertar
+     * @throws SQLException     si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     @Override
     public void insertarDatos(Recibo recibo) throws SQLException, RuntimeException {
         String sql = "INSERT INTO recibos (numero_recibo, correo, fecha, tipo_pago, direccion, descuento_Premium, descuento_Frecuencia, isbn, cantidad, precio_Unitario, precio_Total, subtotal, impuestos, total, impuesto_unitario, impuesto_total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -46,6 +58,13 @@ public class ReciboDAO extends ConexionBD<Recibo> {
         }
     }
 
+    /**
+     * Actualiza los datos de un recibo existente en la base de datos.
+     *
+     * @param recibo objeto Recibo a actualizar
+     * @throws SQLException     si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     @Override
     public void actualizarDatos(Recibo recibo) throws SQLException, RuntimeException {
         String sql = "UPDATE recibos SET correo = ?, fecha = ?, tipo_pago = ?, direccion = ?, descuento_Premium = ?, descuento_Frecuencia = ?, cantidad = ?, precio_Unitario = ?, precio_Total = ? , subtotal = ?, impuestos = ?, total = ?, impuesto_unitario = ?, impuesto_total = ?WHERE numero_recibo = ? AND isbn = ?";
@@ -75,6 +94,14 @@ public class ReciboDAO extends ConexionBD<Recibo> {
         }
     }
 
+    /**
+     * Selecciona un registro de recibo en la base de datos según el número de recibo y la fecha.
+     *
+     * @param recibo objeto Recibo con el número y fecha a buscar
+     * @return objeto Recibo con los datos encontrados, o null si no se encuentra
+     * @throws SQLException     si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     @Override
     public Recibo seleccionarRegistro(Recibo recibo) throws SQLException, RuntimeException {
         String sql = "SELECT * FROM recibos WHERE fecha = ? AND numero_recibo = ?";
@@ -102,9 +129,10 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     libroComprado.setPrecioTotal(resultSet.getDouble(12));
                     libroComprado.setImpuestoUnitario(resultSet.getDouble(16));
                     libroComprado.setImpuestoTotal(resultSet.getDouble(17));
+                    libroComprado.setPrecioTotalSinIva(libroComprado.getCantidadComprada() * libroComprado.getPrecioVenta());
                     reciboQuery.getListaProductosComprados().add(libroComprado);
 
-                    reciboQuery.getValorCompra().setPrecioBase(resultSet.getDouble(13));
+                    reciboQuery.getValorCompra().setPrecioBaseTotal(resultSet.getDouble(13));
                     reciboQuery.getValorCompra().setImpuestos(resultSet.getDouble(14));
                     reciboQuery.getValorCompra().setTotal(resultSet.getDouble(15));
                 }
@@ -122,6 +150,14 @@ public class ReciboDAO extends ConexionBD<Recibo> {
         }
     }
 
+    /**
+     * Selecciona un registro de recibo en la base de datos según el número de recibo.
+     *
+     * @param recibo objeto Recibo con el número a buscar
+     * @return objeto Recibo con los datos encontrados, o null si no se encuentra
+     * @throws SQLException     si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     public Recibo seleccionarRegistroNumero(Recibo recibo) throws SQLException, RuntimeException {
         String sql = "SELECT * FROM recibos WHERE numero_recibo= ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -146,9 +182,10 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     libroComprado.setPrecioTotal(resultSet.getDouble(12));
                     libroComprado.setImpuestoUnitario(resultSet.getDouble(16));
                     libroComprado.setImpuestoTotal(resultSet.getDouble(17));
+                    libroComprado.setPrecioTotalSinIva(libroComprado.getCantidadComprada() * libroComprado.getPrecioVenta());
                     reciboQuery.getListaProductosComprados().add(libroComprado);
 
-                    reciboQuery.getValorCompra().setPrecioBase(resultSet.getDouble(13));
+                    reciboQuery.getValorCompra().setPrecioBaseTotal(resultSet.getDouble(13));
                     reciboQuery.getValorCompra().setImpuestos(resultSet.getDouble(14));
                     reciboQuery.getValorCompra().setTotal(resultSet.getDouble(15));
                 }
@@ -159,6 +196,13 @@ public class ReciboDAO extends ConexionBD<Recibo> {
         }
     }
 
+    /**
+     * Selecciona todos los registros de recibos en la base de datos para un usuario específico.
+     *
+     * @param correo correo del usuario cuyos recibos se desean consultar
+     * @return lista de objetos Recibo con los datos encontrados
+     * @throws SQLException si ocurre un error de base de datos
+     */
     public ArrayList<Recibo> seleccionarRegistrosCompras(String correo) throws SQLException {
         String sql = "SELECT * FROM recibos WHERE correo = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -182,9 +226,10 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     libroComprado.setPrecioTotal(resultSet.getDouble(12));
                     libroComprado.setImpuestoUnitario(resultSet.getDouble(16));
                     libroComprado.setImpuestoTotal(resultSet.getDouble(17));
+                    libroComprado.setPrecioTotalSinIva(libroComprado.getCantidadComprada() * libroComprado.getPrecioVenta());
                     reciboQuery.getListaProductosComprados().add(libroComprado);
 
-                    reciboQuery.getValorCompra().setPrecioBase(resultSet.getDouble(13));
+                    reciboQuery.getValorCompra().setPrecioBaseTotal(resultSet.getDouble(13));
                     reciboQuery.getValorCompra().setImpuestos(resultSet.getDouble(14));
                     reciboQuery.getValorCompra().setTotal(resultSet.getDouble(15));
                     compras.add(reciboQuery);
@@ -203,6 +248,13 @@ public class ReciboDAO extends ConexionBD<Recibo> {
         }
     }
 
+    /**
+     * Selecciona todos los registros de recibos en la base de datos.
+     *
+     * @return lista de objetos Recibo con todos los datos de recibos
+     * @throws SQLException     si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     @Override
     public ArrayList<Recibo> seleccionarRegistros() throws SQLException, RuntimeException {
 
@@ -225,6 +277,12 @@ public class ReciboDAO extends ConexionBD<Recibo> {
         }
     }
 
+    /**
+     * Selecciona todos los recibos de la base de datos, agrupándolos por usuario.
+     *
+     * @return mapa con listas de recibos, donde la clave es el correo del usuario
+     * @throws SQLException si ocurre un error de base de datos
+     */
     public TreeMap<String, ArrayList<Recibo>> seleccionarRecibosTienda() throws SQLException {
         String sql = "SELECT * FROM recibos";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -248,9 +306,10 @@ public class ReciboDAO extends ConexionBD<Recibo> {
                     libroComprado.setPrecioTotal(resultSet.getDouble(12));
                     libroComprado.setImpuestoUnitario(resultSet.getDouble(16));
                     libroComprado.setImpuestoTotal(resultSet.getDouble(17));
+                    libroComprado.setPrecioTotalSinIva(libroComprado.getCantidadComprada() * libroComprado.getPrecioVenta());
                     reciboQuery.getListaProductosComprados().add(libroComprado);
 
-                    reciboQuery.getValorCompra().setPrecioBase(resultSet.getDouble(13));
+                    reciboQuery.getValorCompra().setPrecioBaseTotal(resultSet.getDouble(13));
                     reciboQuery.getValorCompra().setImpuestos(resultSet.getDouble(14));
                     reciboQuery.getValorCompra().setTotal(resultSet.getDouble(15));
                     if (recibosPorUsuario.containsKey(reciboQuery.getCorreo())) {

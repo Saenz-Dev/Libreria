@@ -8,8 +8,8 @@ import co.edu.uptc.modelo.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Clase para gestionar la persistencia de usuarios en formato JSON.
- * Permite la lectura, escritura y manipulación de los datos de los usuarios en un archivo JSON.
+ * Clase encargada de la gestión del usuario por defecto y su carrito en formato JSON.
+ * Permite guardar, agregar y eliminar libros del carrito del usuario por defecto utilizando Jackson para la serialización/deserialización.
  */
 public class ManejoUsuarioJSON {
 
@@ -37,7 +37,7 @@ public class ManejoUsuarioJSON {
     public ManejoUsuarioJSON(Tienda tienda) {
         objectMapper = new ObjectMapper();
         this.tienda = tienda;
-        ruta = "src/main/java/co/edu/uptc/persistencia/usuario.json";
+        ruta = "src/main/java/co/edu/uptc/persistencia/carrito_no_logueado.json";
         file = new File(ruta);
     }
 
@@ -59,10 +59,10 @@ public class ManejoUsuarioJSON {
     }
 
     /**
-     * Valida si los datos para iniciar sesión son correctos.
+     * Agrega libros al carrito del usuario por defecto y los guarda en el archivo JSON.
      *
-     * @return {@code true} si los datos son correctos, {@code false} en caso contrario.
-     * @throws IllegalArgumentException Si el usuario no existe o la contraseña es incorrecta.
+     * @param carrito Carrito con los libros a agregar
+     * @throws IllegalArgumentException si ocurre un error al agregar los libros
      */
     public void agregarLibrosCarrito(Carrito carrito) throws IllegalArgumentException {
         try {
@@ -79,10 +79,10 @@ public class ManejoUsuarioJSON {
     }
 
     /**
-     * Valida si los datos para iniciar sesión son correctos.
+     * Elimina todos los libros del carrito del usuario por defecto y actualiza el archivo JSON.
      *
-     * @return {@code true} si los datos son correctos, {@code false} en caso contrario.
-     * @throws IllegalArgumentException Si el usuario no existe o la contraseña es incorrecta.
+     * @param carrito Carrito a limpiar
+     * @throws IllegalArgumentException si ocurre un error al eliminar los libros
      */
     public void eliminarLibrosCarrito(Carrito carrito) throws IllegalArgumentException {
         try {

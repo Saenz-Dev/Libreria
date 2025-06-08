@@ -206,6 +206,11 @@ public class PanelRegistrarUsuario extends JDialog {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Asigna las acciones a los botones del panel de registro.
+     *
+     * @param evento Manejador de eventos que contiene las acciones a asignar.
+     */
     private void asignarAccionBoton(Evento evento) {
         botonRegistrar.addActionListener(evento);
         botonRegistrar.setActionCommand(evento.REGISTRAR_USUARIO);
@@ -276,6 +281,11 @@ public class PanelRegistrarUsuario extends JDialog {
 
     }
 
+    /**
+     * Establece la visibilidad del JComboBox y la etiqueta del tipo de usuario.
+     *
+     * @param activar true para mostrar, false para ocultar.
+     */
     public void setVisibleCbTipoUsuario(boolean activar) {
         cbTipoCliente.setVisible(activar);
         labelTipoCliente.setVisible(activar);

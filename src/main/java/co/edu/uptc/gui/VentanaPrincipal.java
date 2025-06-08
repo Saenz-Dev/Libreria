@@ -10,25 +10,39 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import co.edu.uptc.negocio.CategoriaException;
+import co.edu.uptc.excepcion.CategoriaException;
+import co.edu.uptc.modelo.*;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
-import co.edu.uptc.modelo.Comentario;
-import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.modelo.ResumenProductoDTO;
-import co.edu.uptc.modelo.TipoPagoEnum;
-import co.edu.uptc.modelo.TipoResultadoEnum;
-import co.edu.uptc.modelo.Usuario;
-import co.edu.uptc.modelo.TotalesCompra;
 import co.edu.uptc.negocio.GestionTienda;
 
+/**
+ * Clase principal de la aplicación de la Librería Virtual.
+ * Gestiona la ventana principal, la inicialización de la aplicación y la navegación entre paneles.
+ * @author Miguel Angel Saenz Tibambre
+ *
+ */
 public class VentanaPrincipal extends JFrame {
-
+    /**
+     * Instancia de la clase Evento para manejar eventos generales de la aplicación.
+     */
     private final Evento evento;
+    /**
+     * Instancia del menú principal de la aplicación.
+     */
     private final MenuPrincipal menuPrincipal;
+    /**
+     * Instancia de la clase GestionTienda para la lógica de negocio principal.
+     */
     private GestionTienda gestionTienda;
+    /**
+     * Evento para manejar el cierre de la ventana principal.
+     */
     private final EventoCerrarFrame eventoCerrarFrame;
 
+    /**
+     * Constructor de la ventana principal. Inicializa la interfaz y los componentes principales.
+     */
     public VentanaPrincipal() {
 
         super("Librería Virtual");
@@ -58,6 +72,9 @@ public class VentanaPrincipal extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    /**
+     * Inicializa la aplicación, asigna usuario genérico y carga el catálogo y filtros.
+     */
     public void iniciaAplicacion() {
         try {
             gestionTienda.asignarUsuarioGenerico();
@@ -72,24 +89,32 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel de inicio de sesión en el menú principal.
+     */
     public void activarIniciarSesion() {
         menuPrincipal.activarIniciarSesion();
     }
 
-    public static void main(String[] args) {
-        VentanaPrincipal main = new VentanaPrincipal();
-    }
-
+    /**
+     * Activa el panel de gestión de libros en el menú principal.
+     */
     public void activarPanelGestionLibros() {
         menuPrincipal.activarPanelGestionLibro();
     }
 
+    /**
+     * Activa la función de regresar en el panel de inicio de sesión.
+     */
     public void activarFuncionRegresar() {
         menuPrincipal.getPanelInicioSesion().setTxtCorreo("");
         menuPrincipal.getPanelInicioSesion().setTxtContrasena("");
         menuPrincipal.vistaPanelVenta();
     }
 
+    /**
+     * Activa el panel de venta y carga la información del usuario si ha iniciado sesión.
+     */
     public void activarPanelVenta() {
         String correo = menuPrincipal.getPanelInicioSesion().getTxtCorreo().getText();
         String contrasena = menuPrincipal.getPanelInicioSesion().getTxtContrasena().getText();
@@ -117,6 +142,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa la función de cerrar sesión, mostrando un mensaje de confirmación.
+     */
     public void activarCerrarSesion() {
         try {
             int respuesta = JOptionPane.showOptionDialog(menuPrincipal, "¿Estás seguro de que deseas cerrar sesión?", "Cerrar Sesión", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sí", "No"}, JOptionPane.QUESTION_MESSAGE);
@@ -133,6 +161,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel de perfil y carga la información del usuario.
+     */
     public void activarPanelPerfil() {
         try {
             menuPrincipal.getPanelPerfil().setLabelNombre("Nombre: " + gestionTienda.getUserLogin().getNombre());
@@ -147,6 +178,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel del carrito de compras y muestra los productos añadidos.
+     */
     public void activarCarrito() {
         try {
             menuPrincipal.activarPanelCarrito();
@@ -158,6 +192,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel de compras y muestra el historial de compras del usuario.
+     */
     public void activarPanelCompras() {
         try {
             menuPrincipal.activarPanelCompras();
@@ -167,6 +204,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel de registro de libros y carga las categorías disponibles.
+     */
     public void activarPanelRegistrarLibros() {
         try {
             menuPrincipal.getPanelRegistrarLibro().llenarComboBoxCategoria(gestionTienda.listarCategorias());
@@ -178,6 +218,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel de registro de usuarios, mostrando u ocultando el tipo de usuario según el rol.
+     */
     public void activarPanelRegistrarUsuario() {
         if (gestionTienda.isAdminLogin()) {
             menuPrincipal.getPanelRegistrarUsuario().setVisibleCbTipoUsuario(true);
@@ -187,16 +230,25 @@ public class VentanaPrincipal extends JFrame {
         menuPrincipal.activarPanelRegistrarUsuario();
     }
 
+    /**
+     * Cancela el registro de un libro y limpia los campos del formulario.
+     */
     public void activarCancelarRegistroLibro() {
         menuPrincipal.getPanelRegistrarLibro().limpiarTxtFieldsLibro();
         menuPrincipal.activarCancelarRegistroLibro();
     }
 
+    /**
+     * Cancela el registro de un usuario y limpia los campos del formulario.
+     */
     public void activarCancelarRegistroUsuario() {
         menuPrincipal.getPanelRegistrarUsuario().limpiarTxt();
         menuPrincipal.activarCancelarRegistroUsuario();
     }
 
+    /**
+     * Activa el panel de modificación de libros y carga los libros y categorías existentes.
+     */
     public void activarPanelModificarLibro() {
         try {
             String[] titulosLibros = gestionTienda.obtenerTitulosLibros();
@@ -210,6 +262,11 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Llena los campos del formulario de modificación de libros con los datos del libro seleccionado.
+     *
+     * @param tituloLibro Título del libro a buscar y editar.
+     */
     public void llenarCamposModificarLibros(String tituloLibro) {
         try {
             Libro libro = gestionTienda.buscarLibro(tituloLibro);
@@ -219,35 +276,52 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Cancela la modificación de un libro y regresa al panel anterior.
+     */
     public void activarCancelarModificacionLibro() {
         menuPrincipal.activarCancelarModificacionLibro();
     }
 
+    /**
+     * Activa el panel de modificación de datos de usuario, cargando la información según el rol.
+     */
     public void activarModificarDatosUsuario() {
         try {
             if (!gestionTienda.isAdminLogin()) {
                 Usuario usuario = gestionTienda.getUserLogin();
                 menuPrincipal.getPanelModificarUsuario().llenarCampos(usuario, false);
                 menuPrincipal.activarActualizarDatosUsuario();
+                menuPrincipal.getPanelModificarUsuario().setLabelTitulo("Gestionar Usuarios");
                 return;
             }
             menuPrincipal.getPanelModificarUsuario().llenarComboBoxUsuarios(gestionTienda.listarUsuarios());
             menuPrincipal.getPanelModificarUsuario().llenarCampos(gestionTienda.getTienda().getUsuarios().getFirst(), true);
             menuPrincipal.activarActualizarDatosUsuario();
+            menuPrincipal.getPanelModificarUsuario().setLabelTitulo("Modificar Datos");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelCarrito(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    /**
+     * Cancela la actualización de datos de usuario y regresa al panel anterior.
+     */
     public void activarCancelarActualizarUser() {
         menuPrincipal.activarCancelarActualizarUser();
     }
 
+    /**
+     * Limpia los campos de texto del formulario de inicio de sesión.
+     */
     public void limpiarTxtLogin() {
         menuPrincipal.getPanelInicioSesion().getTxtCorreo().setText("");
         menuPrincipal.getPanelInicioSesion().getTxtContrasena().setText("");
     }
 
+    /**
+     * Activa la función de registro de usuario, obteniendo los datos del formulario y llamando a la lógica de negocio.
+     */
     public void activarFuncionRegistrarUsuario() {
         try {
             Usuario usuario = menuPrincipal.getPanelRegistrarUsuario().obtenerDatos();
@@ -255,6 +329,7 @@ public class VentanaPrincipal extends JFrame {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarUsuario(), "Usuario Registrado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             menuPrincipal.getPanelRegistrarUsuario().limpiarTxt();
             menuPrincipal.getPanelRegistrarUsuario().setVisible(false);
+            menuPrincipal.getPanelModificarUsuario().llenarComboBoxUsuarios(gestionTienda.listarUsuarios());
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelRegistrarUsuario(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
@@ -262,6 +337,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel de eliminación de libros.
+     */
     public void activarEliminarLibros() {
         try {
             menuPrincipal.activarEliminarLibros();
@@ -273,6 +351,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Confirma y ejecuta la eliminación de los libros seleccionados en el panel de eliminación de libros.
+     */
     public void activarFuncionEliminarLibros() {
         try {
             ArrayList<String> isbnLibros = menuPrincipal.getPanelEliminarLibro().isbnLibros();
@@ -293,25 +374,33 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Confirma y aplica la modificación de los datos de usuario.
+     */
     public void activarAceptarModificarUsuario() {
         try {
             Usuario usuario = menuPrincipal.getPanelModificarUsuario().obtenerDatos();
             gestionTienda.modificarUsuario(usuario);
             JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), "Usuario Modificado Exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
             if (gestionTienda.isAdminLogin()) {
+                menuPrincipal.getPanelModificarUsuario().setLabelTitulo("Gestionar Usuarios");
                 menuPrincipal.getPanelModificarUsuario().llenarComboBoxUsuarios(gestionTienda.listarUsuarios());
                 menuPrincipal.getPanelModificarUsuario().llenarCampos(gestionTienda.getTienda().getUsuarios().getFirst(), true);
+                menuPrincipal.getPanelModificarUsuario().setVisible(true);
             } else {
+                menuPrincipal.getPanelModificarUsuario().setLabelTitulo("Modificar Datos");
                 menuPrincipal.getPanelModificarUsuario().getCbUsuario().setVisible(false);
                 menuPrincipal.getPanelModificarUsuario().llenarCampos(gestionTienda.getUserLogin(), false);
+                activarPanelPerfil();
             }
-            menuPrincipal.getPanelModificarUsuario().setVisible(true);
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    /**
+     * Confirma y aplica la modificación de los datos de un libro.
+     */
     public void activarFuncionModificarLibro() {
         try {
             Libro libro = menuPrincipal.getPanelModificarLibro().obtenerDatos();
@@ -326,6 +415,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Registra un nuevo libro en el sistema con los datos proporcionados en el formulario.
+     */
     public void activarFuncionRegistrarLibro() {
         try {
             Libro libro = menuPrincipal.getPanelRegistrarLibro().obtenerDatos();
@@ -340,6 +432,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel de catálogo y carga los libros y categorías según el rol del usuario.
+     */
     public void activarPanelCatalogo() {
         try {
             if (gestionTienda.isAdminLogin()) {
@@ -355,6 +450,12 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Añade un producto al carrito de compras y actualiza la interfaz del panel del libro.
+     *
+     * @param isbnLibro  ISBN del libro a añadir al carrito.
+     * @param panelLibro Panel del libro desde donde se añade el libro al carrito.
+     */
     public void anadirProductosCarrito(String isbnLibro, PanelLibro panelLibro) {
         try {
             Libro libro = gestionTienda.anadirLibrosCarrito(isbnLibro);
@@ -368,11 +469,17 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Suma un producto al carrito, actualizando la cantidad y el precio en el panel correspondiente.
+     *
+     * @param isbnProducto  ISBN del producto a sumar.
+     * @param panelProducto Panel del producto donde se actualizará la información.
+     */
     public void sumarProductoCarrito(String isbnProducto, PanelProducto panelProducto) {
         try {
-            ResumenProductoDTO resumenProductoDTO = gestionTienda.sumarProductos(isbnProducto);
-            panelProducto.actualizarPrecio(resumenProductoDTO.getSubtotal());
-            panelProducto.actualizarCantidad(resumenProductoDTO.getCantidadReservada());
+            LibroComprado libroComprado = gestionTienda.sumarProductos(isbnProducto);
+            panelProducto.actualizarPrecio(libroComprado.getPrecioVenta());
+            panelProducto.actualizarCantidad(libroComprado.getCantidadComprada());
             TotalesCompra totalesCompra = gestionTienda.resumenCompra();
             menuPrincipal.getPanelCarrito().repaintPanel(totalesCompra);
         } catch (Exception e) {
@@ -380,11 +487,17 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Disminuye la cantidad de un producto en el carrito, actualizando el precio y la cantidad en el panel correspondiente.
+     *
+     * @param isbnProducto  ISBN del producto a disminuir.
+     * @param panelProducto Panel del producto donde se actualizará la información.
+     */
     public void disminuirProductoCarrito(String isbnProducto, PanelProducto panelProducto) {
         try {
-            ResumenProductoDTO resumenProductoDTO = gestionTienda.disminuirProductoCarrito(isbnProducto);
-            panelProducto.actualizarPrecio(resumenProductoDTO.getSubtotal());
-            panelProducto.actualizarCantidad(resumenProductoDTO.getCantidadReservada());
+            LibroComprado libroComprado = gestionTienda.disminuirProductoCarrito(isbnProducto);
+            panelProducto.actualizarPrecio(libroComprado.getPrecioVenta());
+            panelProducto.actualizarCantidad(libroComprado.getCantidadComprada());
             TotalesCompra totalesCompra = gestionTienda.resumenCompra();
             menuPrincipal.getPanelCarrito().repaintPanel(totalesCompra);
         } catch (Exception e) {
@@ -392,6 +505,12 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Elimina un producto del carrito y actualiza el panel del carrito.
+     *
+     * @param isbnProducto  ISBN del producto a eliminar.
+     * @param panelProducto Panel del producto que se eliminará del carrito.
+     */
     public void eliminarProductoCarrito(String isbnProducto, PanelProducto panelProducto) {
         try {
             gestionTienda.eliminarProductoCarrito(isbnProducto);
@@ -406,6 +525,11 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Elimina un producto de la tabla de confirmación de compra y actualiza la información del carrito.
+     *
+     * @param isbnProducto ISBN del producto a eliminar de la tabla.
+     */
     public void eliminarProductoTabla(String isbnProducto) {
         try {
             gestionTienda.eliminarProductoCarrito(isbnProducto);
@@ -415,10 +539,16 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Cancela la eliminación de un libro y regresa al panel de gestión de libros.
+     */
     public void activarCancelarEliminarLibro() {
         menuPrincipal.activarPanelGestionLibro();
     }
 
+    /**
+     * Activa el panel de confirmación de compra y muestra los detalles de la compra.
+     */
     public void activarPanelConfirmCompra() {
         try {
             if (menuPrincipal.getPanelCarrito().getListPanelesProductos().isEmpty()) {
@@ -444,6 +574,9 @@ public class VentanaPrincipal extends JFrame {
         return false;
     }
 
+    /**
+     * Acepta y procesa la confirmación de compra, registrando la compra en el sistema.
+     */
     public void aceptarConfirmarCompra() {
         try {
             ArrayList<String> listaIsbn = menuPrincipal.getPanelCarrito().isbnLibrosCarrito();
@@ -467,6 +600,12 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel de recibo y muestra los detalles de una compra específica.
+     *
+     * @param fecha        Fecha de la compra a mostrar en el recibo.
+     * @param numeroRecibo Número de recibo de la compra a mostrar.
+     */
     public void activarPanelVerCompra(String fecha, int numeroRecibo) {
         try {
             menuPrincipal.getPanelRecibo().modificarLabels(gestionTienda.comprasUsuarioLog(fecha, numeroRecibo), true);
@@ -478,11 +617,17 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Cancela la confirmación de compra y regresa al panel del carrito.
+     */
     public void cancelarConfirmarCompra() {
         menuPrincipal.getPanelConfirmCompra().setVisible(false);
         activarCarrito();
     }
 
+    /**
+     * Cierra la sesión del usuario actual, ya sea genérico o registrado.
+     */
     public void cerrarSesionUsuario() {
         try {
             gestionTienda.cerrarSesion(true);
@@ -493,11 +638,20 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel para registrar un comentario sobre un libro.
+     *
+     * @param isbn        ISBN del libro al que se le quiere registrar un comentario.
+     * @param nombreLibro Nombre del libro al que se le quiere registrar un comentario.
+     */
     public void activarRegistrarComentario(String isbn, String nombreLibro) {
         menuPrincipal.getPanelCalificar().setLabelLibro(isbn, nombreLibro);
         menuPrincipal.activarPanelCalificar();
     }
 
+    /**
+     * Registra un comentario en el sistema, obteniendo los datos del panel de calificación.
+     */
     public void registrarComentario() {
         try {
             Comentario comentario = menuPrincipal.getPanelCalificar().getComentario();
@@ -514,6 +668,11 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel que muestra los comentarios registrados sobre un libro.
+     *
+     * @param isbn ISBN del libro cuyos comentarios se quieren mostrar.
+     */
     public void activarMostrarComentario(String isbn) {
         try {
 
@@ -528,6 +687,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa la validación de un código premium ingresado por el usuario.
+     */
     public void activarValidarPremium() {
         String codigo = menuPrincipal.getPanelPremium().obtenerCodigo();
         try {
@@ -544,16 +706,22 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel de premium para mostrar información y opciones relacionadas.
+     */
     public void activarPanelValidPremium() {
         menuPrincipal.activarPanelPremium();
     }
 
+    /**
+     * Guarda un código promocional en el sistema, registrado por el administrador.
+     */
     public void guardarCodigo() {
         try {
             gestionTienda.registrarCodigo(menuPrincipal.getPanelAggCodigo().obtenerCodigo());
             menuPrincipal.getPanelAggCodigo().mostrarMensajeExito("Codigo registrado.");
             menuPrincipal.getPanelAggCodigo().construirTabla(gestionTienda.consultaCodigos());
-
+            menuPrincipal.getPanelAggCodigo().limpiarCampoCodigo();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(menuPrincipal.getPanelAggCodigo(), e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
@@ -561,6 +729,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el panel para guardar códigos promocionales, mostrando la lista de códigos existentes.
+     */
     public void activarGuardarCodigo() {
         try {
             menuPrincipal.getPanelAggCodigo().construirTabla(gestionTienda.consultaCodigos());
@@ -572,11 +743,17 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Cierra el panel de calificación y limpia el comentario ingresado.
+     */
     public void cerrarCalificar() {
         menuPrincipal.desactivarPanelCalificar();
         menuPrincipal.getPanelCalificar().limpiarComentario();
     }
 
+    /**
+     * Filtra los libros en el catálogo según la categoría y formato seleccionados.
+     */
     public void activarFiltrarLibros() {
         try {
             String categoria = menuPrincipal.getPanelCatalogo().getCategoriaSeleccionada();
@@ -599,6 +776,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Elimina un usuario del sistema, dado su correo electrónico.
+     */
     public void eliminarUsuario() {
         try {
             String correo = menuPrincipal.getPanelModificarUsuario().getTxtCorreo();
@@ -612,6 +792,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Cambia la información mostrada en el panel de modificación de usuario, según el usuario seleccionado.
+     */
     public void cambiarInfoUsuario() {
         try {
             String usuario = (String) menuPrincipal.getPanelModificarUsuario().getCbUsuario().getSelectedItem();
@@ -621,14 +804,23 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Activa el diálogo para agregar una nueva categoría desde el panel de registro de libros.
+     */
     public void activarAgregarCategoriaAg() {
         menuPrincipal.activarDialogoAgregarCategoria(menuPrincipal.getPanelRegistrarLibro());
     }
 
+    /**
+     * Activa el diálogo para agregar una nueva categoría desde el panel de modificación de libros.
+     */
     public void activarAgregarCategoria() {
         menuPrincipal.activarDialogoAgregarCategoria(menuPrincipal.getPanelModificarLibro());
     }
 
+    /**
+     * Agrega una nueva categoría al sistema, evitando duplicados y categorías parecidas.
+     */
     public void agregarCategoria() {
         String categoria = menuPrincipal.getDialogAgregarCategoria().getCampoCategoria();
         try {
@@ -667,6 +859,9 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Vacía el carrito de compras, eliminando todos los productos añadidos.
+     */
     public void activarVaciarCarrito() {
         try {
             gestionTienda.vaciarCarrito();

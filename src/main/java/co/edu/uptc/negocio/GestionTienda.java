@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.Stack;
 
+import co.edu.uptc.excepcion.CategoriaException;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.*;
 import co.edu.uptc.persistencia.CarritoDAO;
@@ -21,26 +22,86 @@ import co.edu.uptc.persistencia.ReciboDAO;
 import co.edu.uptc.persistencia.UsuarioDAO;
 import org.apache.commons.text.similarity.JaroWinklerSimilarity;
 
+/**
+ * Clase principal de la lógica de negocio que gestiona la tienda virtual de libros.
+ * Se encarga de inicializar y coordinar los diferentes módulos de la tienda, como usuarios, libros, catálogo, carrito, compras, comentarios y códigos premium.
+ * Proporciona acceso centralizado a los DAOs y utilidades necesarias para la operación de la tienda.
+ */
 public class GestionTienda {
 
+    /**
+     * Instancia principal de la tienda virtual.
+     */
     private Tienda tienda;
+    /**
+     * Lógica de negocio para la gestión de usuarios.
+     */
     private GestionUsuario gestionUsuario;
+    /**
+     * Lógica de negocio para la gestión de libros.
+     */
     private GestionLibro gestionLibro;
+    /**
+     * Lógica de negocio para la gestión del catálogo.
+     */
     private GestionCatalogo gestionCatalogo;
+    /**
+     * Lógica de negocio para la gestión del carrito de compras.
+     */
     private GestionCarrito gestionCarrito;
+    /**
+     * Lógica de negocio para la gestión de compras.
+     */
     private GestionCompra gestionCompra;
+    /**
+     * Lógica de negocio para la gestión de comentarios.
+     */
     private GestionComentario gestionComentario;
+    /**
+     * Lógica de negocio para la gestión de códigos premium.
+     */
     private GestionCodigo gestionCodigo;
+    /**
+     * DAO para operaciones de persistencia del carrito de compras.
+     */
     private CarritoDAO carritoDAO;
+    /**
+     * DAO para operaciones de persistencia de usuarios.
+     */
     private UsuarioDAO usuarioDAO;
+    /**
+     * DAO para operaciones de persistencia de cuentas.
+     */
     private CuentaDAO cuentaDAO;
+    /**
+     * DAO para operaciones de persistencia de libros.
+     */
     private LibroDAO libroDAO;
+    /**
+     * DAO para operaciones de persistencia de recibos.
+     */
     private ReciboDAO reciboDAO;
+    /**
+     * DAO para operaciones de persistencia de comentarios.
+     */
     private ComentarioDAO comentarioDAO;
+    /**
+     * DAO para operaciones de persistencia de compras.
+     */
     private CompraDAO compraDAO;
+    /**
+     * DAO para operaciones de persistencia de códigos premium.
+     */
     private CodigoDAO codigoDAO;
+    /**
+     * Utilidad para cálculos de IVA, descuentos y totales.
+     */
     private CalculadoraIVA calculadoraIVA;
 
+    /**
+     * Constructor que inicializa todos los módulos y DAOs necesarios para la gestión de la tienda virtual.
+     * @throws SQLException si ocurre un error al inicializar algún DAO
+     */
     public GestionTienda() throws SQLException {
         tienda = new Tienda();
         carritoDAO = new CarritoDAO();
@@ -102,10 +163,24 @@ public class GestionTienda {
         eliminarLibroUsuarioGenerico();
     }
 
+    /**
+     * Registra un nuevo usuario en la tienda virtual.
+     *
+     * @param usuario usuario a registrar
+     * @throws RuntimeException si ocurre un error de lógica
+     * @throws SQLException si ocurre un error de base de datos
+     */
     public void registrarUsuario(Usuario usuario) throws RuntimeException, SQLException {
         gestionUsuario.registrarUsuario(usuario);
     }
 
+    /**
+     * Modifica los datos de un usuario existente en la tienda virtual.
+     *
+     * @param usuario usuario a modificar
+     * @throws RuntimeException si se intenta modificar el usuario por defecto o el administrador
+     * @throws SQLException si ocurre un error de base de datos
+     */
     public void modificarUsuario(Usuario usuario) throws RuntimeException, SQLException {
         if (usuario.getCuenta().getCorreo() == "user_default" || usuario.getCuenta().getCorreo() == Administrador.CORREO) {
             throw new RuntimeException("No se puede modificar el usuario por defecto ni el correo.");
@@ -113,47 +188,121 @@ public class GestionTienda {
         gestionUsuario.modificarUsuario(usuario);
     }
 
+    /**
+     * Verifica si el usuario actual es el usuario genérico por defecto.
+     *
+     * @return true si es el usuario genérico, false en caso contrario
+     */
     public boolean isGenericoLogin() {
         return gestionUsuario.isDefaultUserLogin();
     }
 
+    /**
+     * Obtiene un arreglo con los títulos de los libros registrados en la tienda.
+     *
+     * @return arreglo de títulos de libros
+     * @throws SQLException si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     public String[] obtenerTitulosLibros() throws SQLException, RuntimeException {
         return gestionLibro.obtenerLibros();
     }
 
+    /**
+     * Busca un libro en el catálogo por su título.
+     *
+     * @param titulo título del libro a buscar
+     * @return libro encontrado
+     * @throws SQLException si ocurre un error de base de datos
+     */
     public Libro buscarLibro(String titulo) throws SQLException {
         return gestionLibro.buscarLibro(titulo);
     }
 
+    /**
+     * Elimina uno o varios libros del catálogo por su lista de ISBN.
+     *
+     * @param listaIsbn lista de ISBN de los libros a eliminar
+     * @throws RuntimeException si ocurre un error de lógica
+     * @throws IOException si ocurre un error de entrada/salida
+     * @throws SQLException si ocurre un error de base de datos
+     */
     public void eliminarLibro(ArrayList<String> listaIsbn) throws RuntimeException, IOException, SQLException {
         gestionLibro.eliminarLibro(listaIsbn);
     }
 
+    /**
+     * Modifica los datos de un libro existente en el catálogo.
+     *
+     * @param libro libro a modificar
+     * @throws RuntimeException si ocurre un error de lógica
+     * @throws IOException si ocurre un error de entrada/salida
+     * @throws SQLException si ocurre un error de base de datos
+     */
     public void modificarLibro(Libro libro) throws RuntimeException, IOException, SQLException {
         gestionLibro.modificarLibro(libro);
     }
 
+    /**
+     * Registra un nuevo libro en el catálogo de la tienda.
+     *
+     * @param libro libro a registrar
+     * @throws IOException si ocurre un error de entrada/salida
+     * @throws RuntimeException si ocurre un error de lógica
+     * @throws SQLException si ocurre un error de base de datos
+     */
     public void registrarLibro(Libro libro) throws IOException, RuntimeException, SQLException {
         gestionLibro.registrarLibro(libro);
     }
 
+    /**
+     * Valida si un libro existe y tiene stock disponible en el catálogo.
+     *
+     * @param isbnLibro ISBN del libro a validar
+     * @return true si el libro existe y tiene stock disponible, false en caso contrario
+     * @throws SQLException si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     public boolean validarExistenciaLibro(String isbnLibro) throws SQLException, RuntimeException {
         return gestionLibro.validarExistencia(isbnLibro);
     }
 
+    /**
+     * Lista todos los libros disponibles en el catálogo de la tienda.
+     *
+     * @return lista de libros disponibles
+     * @throws SQLException si ocurre un error de base de datos
+     */
     public ArrayList<Libro> listarLibros() throws SQLException {
         return gestionCatalogo.listarLibros();
     }
 
+    /**
+     * Calcula y retorna el resumen de la compra actual del usuario.
+     *
+     * @return objeto TotalesCompra con el resumen de la compra
+     * @throws IOException si ocurre un error de entrada/salida
+     * @throws SQLException si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     public TotalesCompra resumenCompra() throws IOException, SQLException, RuntimeException {
         return gestionCarrito.calculoResumenCompra(reciboDAO);
     }
 
+    /**
+     * Añade un libro al carrito de compras del usuario actual.
+     *
+     * @param isbnLibro ISBN del libro a añadir
+     * @return libro añadido o actualizado en el carrito
+     * @throws RuntimeException si ocurre un error de lógica
+     * @throws IOException si ocurre un error de entrada/salida
+     * @throws SQLException si ocurre un error de base de datos
+     */
     public Libro anadirLibrosCarrito(String isbnLibro) throws RuntimeException, IOException, SQLException {
         return gestionCarrito.anadirLibrosCarrito(isbnLibro);
     }
 
-    public ResumenProductoDTO sumarProductos(String isbnProducto) throws IOException, SQLException, RuntimeException {
+    public LibroComprado sumarProductos(String isbnProducto) throws SQLException, RuntimeException {
         return gestionCarrito.sumarProducto(isbnProducto);
     }
 
@@ -161,7 +310,7 @@ public class GestionTienda {
         gestionCarrito.eliminarProducto(isbnProducto);
     }
 
-    public ResumenProductoDTO disminuirProductoCarrito(String isbnProducto) throws IOException, SQLException, RuntimeException {
+    public LibroComprado disminuirProductoCarrito(String isbnProducto) throws SQLException, RuntimeException {
         return gestionCarrito.disminuirProducto(isbnProducto);
     }
 
@@ -251,12 +400,13 @@ public class GestionTienda {
 
         libroComprado.setCantidadComprada(libroCarrito.getStockReservado());
         libroComprado.setPrecioVenta(calculadoraIVA.precioBaseUnitario(libroCatalogo));
-        libroComprado.setDescuentoPremium(calculadoraIVA.descuentoPremium(libroComprado.getPrecioVenta(), tienda.getUsuarioActual()));
-        libroComprado.setDesPremiumTotal(calculadoraIVA.descuentoPremiumTotal(libroComprado.getPrecioVenta(), libroCarrito, tienda.getUsuarioActual()));
-        libroComprado.setImpuestoUnitario(calculadoraIVA.impuestoProducto(libroCatalogo, tienda.getUsuarioActual()));
-        libroComprado.setImpuestoTotal(calculadoraIVA.impuestoProductos(libroCarrito, libroCatalogo, tienda.getUsuarioActual()));
-        libroComprado.setPrecioTotal(calculadoraIVA.subtotalProducto(libroCarrito, libroComprado.getPrecioVenta(), libroComprado.getDesPremiumTotal(), libroComprado.getImpuestoTotal()));
+        libroComprado.setImpuestoUnitario(calculadoraIVA.impuestoProducto(libroCatalogo));
+        libroComprado.setImpuestoTotal(calculadoraIVA.impuestoProductos(libroCarrito, libroCatalogo));
+        libroComprado.setPrecioTotalSinIva(calculadoraIVA.subtotalProducto(libroCarrito, libroComprado.getPrecioVenta()));
+        libroComprado.setPrecioTotal(calculadoraIVA.total(libroComprado.getPrecioTotalSinIva(), libroComprado.getImpuestoTotal()));
         libroCarrito.setIsbn(libroCatalogo.getIsbn());
+        libroComprado.setIsbn(libroCatalogo.getIsbn());
+
         return libroComprado;
     }
 
@@ -277,14 +427,12 @@ public class GestionTienda {
 
     private void setValorCompra(TotalesCompra totalesCompra, CalculadoraIVA calculadoraIVA) throws SQLException, IOException {
         ArrayList<Libro> librosCarritoUserLog = tienda.getUsuarioActual().getCarrito().getLibros();
-        totalesCompra.setPrecioBase(calculadoraIVA.precioBaseTotal(librosCarritoUserLog, libroDAO));
-        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremium(totalesCompra.getPrecioBase(), gestionUsuario.usuarioLogueado()));
-        totalesCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUserLog, libroDAO, gestionUsuario.usuarioLogueado()));
-        totalesCompra.setTotal(calculadoraIVA.total(totalesCompra.getPrecioBase(), totalesCompra.getDescuentoPremium(), totalesCompra.getImpuestos()));
-        Recibo recibo = new Recibo();
-        recibo.setCorreo(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
+        totalesCompra.setPrecioBaseTotal(calculadoraIVA.precioBaseTotal(librosCarritoUserLog, libroDAO));
+        totalesCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUserLog, libroDAO));
+        totalesCompra.setTotal(calculadoraIVA.total(totalesCompra.getPrecioBase(), totalesCompra.getImpuestos()));
+        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremiumTotal(totalesCompra.getPrecioBase(), tienda.getUsuarioActual()));
         totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(tienda.getUsuarioActual().getCuenta().getCorreo()), totalesCompra.getTotal()));
-        totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoFrecuencia());
+        totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoFrecuencia() - totalesCompra.getDescuentoPremium());
     }
 
     public void guardarComentario(Comentario comentario) throws IOException, RuntimeException, SQLException {
@@ -436,7 +584,8 @@ public class GestionTienda {
 
     public void buscarComentarioUsuario(ArrayList<Comentario> comentarios, String correo) {
         for (Comentario comentario : comentarios) {
-            if (Objects.equals(comentario.getCorreo(), correo)) throw new RuntimeException("El usuario no se puede eliminar, tiene compras asociadas");
+            if (Objects.equals(comentario.getCorreo(), correo))
+                throw new RuntimeException("El usuario no se puede eliminar, tiene compras asociadas");
         }
     }
 

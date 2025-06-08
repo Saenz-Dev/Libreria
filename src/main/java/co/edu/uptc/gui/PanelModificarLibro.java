@@ -9,8 +9,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Clase que representa el panel de modificación de un libro en la interfaz gráfica
- * Permite visualizar los datos de un libro y gestionar su modificación.
+ * Clase que representa el panel de modificación de libros en la interfaz gráfica.
+ * Permite modificar los datos de un libro existente en el catálogo.
  */
 public class PanelModificarLibro extends JDialog {
 
@@ -444,9 +444,7 @@ public class PanelModificarLibro extends JDialog {
         gbc.gridx = 0;
         add(labelCategoria, gbc);
         gbc.gridx = 1;
-        JPanel panelCategoria = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelCategoria.add(txtCategoria);
-        panelCategoria.add(btnAgregarCategoria);
+        JPanel panelCategoria = ajustarPanelCategoria();
         add(panelCategoria, gbc);
         gbc.gridy = 7;
         gbc.gridx = 0;
@@ -485,6 +483,22 @@ public class PanelModificarLibro extends JDialog {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Ajusta el panel de categoría agregando el campo de texto y el botón para agregar categoría.
+     * @return JPanel con los componentes de categoría.
+     */
+    private JPanel ajustarPanelCategoria() {
+        JPanel panelCategoria = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panelCategoria.add(txtCategoria);
+        panelCategoria.add(btnAgregarCategoria);
+        return panelCategoria;
+    }
+
+    /**
+     * Asigna las acciones a los botones y listeners del panel.
+     * @param evento Manejador de eventos principal.
+     * @param eventoLista Manejador de eventos para la lista de libros.
+     */
     private void asignarAccionBoton(Evento evento, EventoLista eventoLista) {
         botonModificar.addActionListener(evento);
         botonModificar.setActionCommand(evento.MODIFICAR_LIBRO);
@@ -575,6 +589,11 @@ public class PanelModificarLibro extends JDialog {
         }
     }
 
+    /**
+     * Llena el ComboBox de categorías con una lista de categorías.
+     *
+     * @param categorias Lista de categorías a mostrar en el ComboBox.
+     */
     public void llenarCbCategoria(ArrayList<Categoria> categorias) {
         txtCategoria.removeAllItems();
         for (Categoria categoria : categorias) {
@@ -584,9 +603,14 @@ public class PanelModificarLibro extends JDialog {
         txtCategoria.revalidate();
         txtCategoria.repaint();
         revalidate();
-        repaint();// Selecciona la primera categoría por defecto
+        repaint();
     }
 
+    /**
+     * Llena los campos del panel con los datos de un libro existente.
+     *
+     * @param libro Libro con los datos a mostrar.
+     */
     public void llenarCampos(Libro libro) {
         setISBN(libro.getIsbn());
         setNombre(libro.getTitulo());

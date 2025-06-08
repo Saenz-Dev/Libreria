@@ -8,33 +8,61 @@ import co.edu.uptc.modelo.Usuario;
 import java.time.LocalDate;
 
 /**
- * Clase encargad de validar los datos del usuario. Contiene expresiones
- * regulares para validar los datos.
+ * Clase encargada de validar los datos del usuario y otros datos del sistema.
+ * Contiene expresiones regulares para validar los datos y métodos de validación para usuarios, libros y otros campos.
  */
 public class Expresion {
 
     /**
-     * Expresiones regulares
+     * Expresión regular para validar solo letras y espacios.
      */
     public static final String EXPRESION_ALFABETICA = "^[a-zA-Z\\p{L}\\s]+$";
+    /**
+     * Expresión regular para validar números de teléfono.
+     */
     public static final String EXPRESION_NUMERICA_TELEFONO = "^3[0-9]{9}$";
+    /**
+     * Expresión regular para validar precios numéricos.
+     */
     public static final String EXPRESION_NUMERICA_PRECIO = "^[0-9]+$";
+    /**
+     * Expresión regular para validar el número de páginas de un libro.
+     */
     public static final String EXPRESION_NUMERO_PAGINAS = "^[0-9]{1,4}$";
+    /**
+     * Expresión regular para validar direcciones.
+     */
     public static final String EXPRESION_DIRECCION = "^([\\w\\s#.-]+),\\s*[\\p{L}\\s]+,\\s*[\\p{L}\\s]+$";
+    /**
+     * Expresión regular para validar correos electrónicos.
+     */
     public static final String EXPRESION_CORREO = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}+$";
+    /**
+     * Expresión regular para validar contraseñas de usuario.
+     */
     public static final String EXPRESION_CONTRASENA = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*()\\-+\\.])[a-zA-Z\\d!@#$%^&*()\\-+\\.]{8,}$";
+    /**
+     * Expresión regular para validar ISBN de libros.
+     */
     public static final String EXPRESION_ISBN = "^(978|979)(-?[0-9]){10}$";
+    /**
+     * Expresión regular para validar el año de publicación.
+     */
     public static final String EXPRESION_ANO_PUBLICACION = "^[0-9]{4}$";
+    /**
+     * Expresión regular para validar contraseñas de administrador.
+     */
     public static final String EXPRESION_CONTRASENA_ADMIN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+=\\-{}\\[\\]:;\"'<>.,?/\\\\])[a-zA-Z\\d!@#$%^&*()_+=\\-{}\\[\\]:;\"'<>.,?/\\\\]{16,}$";
+    /**
+     * Expresión regular para validar categorías de libros.
+     */
     public static final String EXPRESION_CATEGORIA = "^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,25}$";
 
-
     /**
-     * Metodo que valida los datos del usuario en el formulario
+     * Método que valida los datos del usuario en el formulario.
      *
-     * @param usuario a validar los datos
-     * @throws IllegalArgumentException si alguno de los campos no cumple con las
-     *                                  reglas
+     * @param usuario Usuario a validar los datos
+     * @throws IllegalArgumentException si alguno de los campos no cumple con las reglas
      */
     public void validarDatosUsuario(Usuario usuario) throws IllegalArgumentException {
         validarLongitudDatos(usuario);
@@ -147,7 +175,7 @@ public class Expresion {
                 throw new RuntimeException("La contraseña del administrador es obligatoria.");
             }
         }
-        if (usuario.getNombre().isBlank() || String.valueOf(usuario.getTelefono()).isBlank() || usuario.getTelefono() == 0 || usuario.getDireccionEnvio().isBlank() || usuario.getCuenta().getCorreo().isBlank() || usuario.getCuenta().getContrasena().isBlank()) {
+        if (usuario.getNombre().isBlank() || usuario.getNombre().isEmpty() || String.valueOf(usuario.getTelefono()).isBlank() || usuario.getTelefono() == 0 || usuario.getDireccionEnvio().isBlank() || usuario.getCuenta().getCorreo().isBlank() || usuario.getCuenta().getContrasena().isBlank()) {
             RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
             throw new IllegalArgumentException("Los campos con * son obligatorios.\n");
         }
@@ -221,6 +249,12 @@ public class Expresion {
         }
     }
 
+    /**
+     * Valida la categoría de un libro.
+     *
+     * @param categoria la categoría a validar
+     * @throws IllegalArgumentException si la categoría no cumple con las reglas
+     */
     public void validarCategoria(String categoria) {
         if (!categoria.matches(EXPRESION_CATEGORIA)) {
             RegistroLog.registrarAdvertencia("La categoría solo puede contener letras y debe tener entre 3 y 25 caracteres.");

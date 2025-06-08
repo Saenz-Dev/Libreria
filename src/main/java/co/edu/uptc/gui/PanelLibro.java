@@ -8,40 +8,41 @@ import java.awt.*;
 import java.text.NumberFormat;
 
 /**
- * Clase que representa el panel de un libro en la interfaz gráfica de panel Catalogo.
- * Permite visualizar los datos de un libro y gestionar su presentación.
+ * Clase que representa el panel visual de un libro en el catálogo.
+ * Permite mostrar información del libro y gestionar acciones como agregar al carrito o ver comentarios.
  */
 public class PanelLibro extends JPanel {
-
     /**
-     * Etiqueta para el título del libro.
+     * Etiqueta para mostrar el título del libro.
      */
     private JLabel labelTitulo;
-
     /**
-     * Etiqueta para mostrar el autor y la editorial del libro.
+     * Etiqueta para mostrar el autor y editorial del libro.
      */
     private JLabel labelAutorEditorial;
-
     /**
-     * Etiqueta para mostrar la categoría y el número de páginas del libro.
+     * Etiqueta para mostrar la categoría y número de páginas.
      */
     private JLabel labelCategoriaPaginas;
-
     /**
      * Etiqueta para mostrar el precio del libro.
      */
     private JLabel labelPrecio;
+    /**
+     * Etiqueta para indicar que el precio incluye IVA.
+     */
+    private JLabel labelIvaIncluido;
 
     private JLabel labelTipoLibroCantidad;
-
-    private JLabel labelIvaIncluido;
 
     /**
      * Botón para agregar el libro al carrito de compras.
      */
     private JButton botonAgregar;
 
+    /**
+     * Botón para ver los comentarios del libro.
+     */
     private JButton botonComentario;
 
     /**
@@ -166,7 +167,7 @@ public class PanelLibro extends JPanel {
     }
 
     /**
-     * Personaliza el formato de los textos del panel.
+     * Personaliza el formato de los textos y botones del panel.
      */
     public void personalizar() {
         labelTitulo.setFont(new Font("Sunglasses", Font.BOLD, 20));

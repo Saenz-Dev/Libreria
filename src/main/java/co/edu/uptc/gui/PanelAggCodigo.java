@@ -34,12 +34,10 @@ public class PanelAggCodigo extends JPanel {
         gbc.gridx = 0;
         gbc.gridwidth = 2;
 
-        // Título
-        labelTitulo = crearLabel("AGREGAR CÓDIGOS", 28, COLOR_TITULO);
+        labelTitulo = crearLabel("AGREGAR CÓDIGOS PREMIUM", 28, COLOR_TITULO);
         gbc.gridy = 0;
         add(labelTitulo, gbc);
 
-        // Campo de texto
         gbc.fill = GridBagConstraints.NONE;
         campoCodigo = new JTextField(20);
         campoCodigo.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -48,7 +46,6 @@ public class PanelAggCodigo extends JPanel {
         gbc.gridy++;
         add(campoCodigo, gbc);
 
-        // Botón
         botonGuardar = new JButton("Agregar código");
         botonGuardar.setFont(new Font("Arial", Font.BOLD, 16));
         botonGuardar.setBackground(COLOR_BOTON);
@@ -60,14 +57,13 @@ public class PanelAggCodigo extends JPanel {
         gbc.gridy++;
         add(botonGuardar, gbc);
 
-        // Label de mensaje
         labelMensaje = crearLabel("", 14, Color.WHITE);
         labelMensaje.setOpaque(true);
         labelMensaje.setVisible(false);
         gbc.gridy++;
         add(labelMensaje, gbc);
 
-        // Tabla
+
         gbc.fill = GridBagConstraints.HORIZONTAL;
         tablaCodigos = new JTable();
         tablaCodigos.setRowHeight(25);
@@ -96,7 +92,6 @@ public class PanelAggCodigo extends JPanel {
         header.setFont(new Font("Arial", Font.BOLD, 14));
         tablaCodigos.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        // Alternar color de filas
         tablaCodigos.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value,
@@ -113,6 +108,10 @@ public class PanelAggCodigo extends JPanel {
     
     public String obtenerCodigo() {
         return campoCodigo.getText().trim();
+    }
+
+    public void limpiarCampoCodigo() {
+        campoCodigo.setText("");
     }
 
     public void construirTabla(ArrayList<CodigoPremium> codigos) {
@@ -143,10 +142,6 @@ public class PanelAggCodigo extends JPanel {
         labelMensaje.setBackground(new Color(39, 174, 96)); // Verde
         labelMensaje.setText(mensaje);
         labelMensaje.setVisible(true);
-    }
-
-    public void ocultarLabelMensaje() {
-        labelMensaje.setVisible(false);
     }
 }
 

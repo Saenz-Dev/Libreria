@@ -9,13 +9,31 @@ import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Stack;
 
+/**
+ * PanelComentario es un JDialog que muestra los comentarios y calificaciones de un libro.
+ */
 public class PanelComentario extends JDialog {
 
+    /**
+     * Etiqueta para el título de la sección de comentarios
+     */
     private JLabel labelComentario;
+    /**
+     * Panel con scroll para mostrar los comentarios
+     */
     private JScrollPane scrollPane;
+    /**
+     * Restricciones de GridBagLayout para el layout principal
+     */
     private GridBagConstraints gbc;
+    /**
+     * Botón para cerrar el diálogo
+     */
     private JButton botonCerrar;
 
+    /**
+     * Constructor del panel de comentarios. Inicializa la ventana y sus componentes.
+     */
     public PanelComentario() {
         setLayout(new GridBagLayout());
         setTitle("Calificaciones y comentarios");
@@ -27,6 +45,9 @@ public class PanelComentario extends JDialog {
         initAtributos();
     }
 
+    /**
+     * Inicializa los atributos y componentes gráficos del panel.
+     */
     private void initAtributos() {
         labelComentario = new JLabel("Comentarios");
         labelComentario.setFont(new Font("Arial", Font.BOLD, 20));
@@ -47,8 +68,12 @@ public class PanelComentario extends JDialog {
         add(botonCerrar, gbc);
     }
 
+    /**
+     * Repinta el panel con los comentarios recibidos en el stack.
+     *
+     * @param stackComentarios Pila de comentarios a mostrar
+     */
     public void repintarComentarios(Stack<Comentario> stackComentarios) {
-        // Supongamos que tienes un panel principal dentro del scrollPane
         labelComentario.setText("Comentarios: " + stackComentarios.getFirst().getTituloLibro());
         JPanel panelComentarios = new JPanel(new GridBagLayout());
         GridBagConstraints gbcComentarios = new GridBagConstraints();
@@ -60,9 +85,26 @@ public class PanelComentario extends JDialog {
         gbcComentarios.anchor = GridBagConstraints.NORTH;
         gbcComentarios.insets = new Insets(5, 5, 5, 5);
 
-        int fila = 0; // Control manual de filas
+        int fila = 0;
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
+        llenarPanelComentarios(stackComentarios, format, gbcComentarios, fila, panelComentarios);
+        if (scrollPane != null) {
+            remove(scrollPane);
+        }
+        reubicarScroll(gbcComentarios, panelComentarios);
+    }
+
+    /**
+     * Llena el panel de comentarios con los datos de cada comentario.
+     *
+     * @param stackComentarios Pila de comentarios a mostrar
+     * @param format           Formato de fecha para mostrar
+     * @param gbcComentarios   Restricciones de GridBag para los comentarios
+     * @param fila             Fila actual en el GridBagLayout
+     * @param panelComentarios Panel donde se agregarán los comentarios
+     */
+    private static void llenarPanelComentarios(Stack<Comentario> stackComentarios, DateTimeFormatter format, GridBagConstraints gbcComentarios, int fila, JPanel panelComentarios) {
         for (Comentario comentario : stackComentarios) {
             JPanel panelComentario = new JPanel(new GridBagLayout());
             panelComentario.setBorder(BorderFactory.createTitledBorder(comentario.getUsuario()));
@@ -99,12 +141,14 @@ public class PanelComentario extends JDialog {
             gbcComentarios.gridy = fila++;
             panelComentarios.add(panelComentario, gbcComentarios);
         }
-        if (scrollPane != null) {
-            remove(scrollPane);
-        }
-        reubicarScroll(gbcComentarios, panelComentarios);
     }
 
+    /**
+     * Reubica el JScrollPane con el panel de comentarios en el layout principal.
+     *
+     * @param gbcComentarios   Restricciones de GridBag para los comentarios
+     * @param panelComentarios Panel que contiene los comentarios
+     */
     private void reubicarScroll(GridBagConstraints gbcComentarios, JPanel panelComentarios) {
         gbcComentarios.gridy++;
         gbcComentarios.weighty = 1;
@@ -119,6 +163,11 @@ public class PanelComentario extends JDialog {
         scrollPane.repaint();
     }
 
+    /**
+     * Agrega los comentarios al panel. Si no hay comentarios, muestra un mensaje.
+     *
+     * @param stackComentarios Pila de comentarios a mostrar
+     */
     public void agregarComentarios(Stack<Comentario> stackComentarios) {
         if (stackComentarios == null || stackComentarios.isEmpty()) {
             if (scrollPane != null) {

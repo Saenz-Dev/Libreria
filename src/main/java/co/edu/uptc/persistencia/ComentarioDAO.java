@@ -11,8 +11,19 @@ import java.time.format.DateTimeFormatter;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Comentario;
 
+/**
+ * DAO encargado de gestionar las operaciones de persistencia relacionadas con los comentarios de los libros.
+ * Permite insertar, consultar y listar comentarios en la base de datos.
+ * Extiende la clase ConexionBD para el manejo de la conexión y operaciones genéricas.
+ */
 public class ComentarioDAO extends ConexionBD<Comentario> {
 
+    /**
+     * Inserta un nuevo comentario en la base de datos.
+     *
+     * @param comentario objeto Comentario a insertar
+     * @throws SQLException si ocurre un error de base de datos
+     */
     @Override
     public void insertarDatos(Comentario comentario) throws SQLException {
         String sql = "INSERT INTO comentarios (isbn_libro, correo_usuario, comentario, calificacion, fecha) VALUES (?, ?, ?, ?, ?)";        
@@ -33,6 +44,12 @@ public class ComentarioDAO extends ConexionBD<Comentario> {
         }
     }
 
+    /**
+     * Obtiene todos los comentarios registrados en la base de datos.
+     *
+     * @return lista de comentarios encontrados
+     * @throws SQLException si ocurre un error de base de datos
+     */
     @Override
     public ArrayList<Comentario> seleccionarRegistros() throws SQLException {
         String sql = "SELECT * FROM comentarios";
@@ -59,6 +76,13 @@ public class ComentarioDAO extends ConexionBD<Comentario> {
         }
     }
 
+    /**
+     * Obtiene los comentarios registrados en la base de datos para un libro específico.
+     *
+     * @param isbnLibro ISBN del libro cuyos comentarios se desean obtener
+     * @return lista de comentarios del libro especificado
+     * @throws SQLException si ocurre un error de base de datos
+     */
     public ArrayList<Comentario> seleccionarComentariosPorLibro(String isbnLibro) throws SQLException {
         String sql = "SELECT * FROM comentarios WHERE isbn_libro = ?";
         try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

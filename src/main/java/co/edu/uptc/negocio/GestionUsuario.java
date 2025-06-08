@@ -11,23 +11,49 @@ import co.edu.uptc.persistencia.CuentaDAO;
 import co.edu.uptc.persistencia.UsuarioDAO;
 
 /**
- * Clase encargada de gestionar los usuarios.
+ * Clase encargada de gestionar los usuarios de la tienda virtual.
+ * Permite registrar, modificar, eliminar y autenticar usuarios, así como validar sus datos y gestionar su carrito de compras.
+ * Utiliza DAOs para la persistencia de usuarios, cuentas y carritos, y utilidades para la validación de datos.
  */
 public class GestionUsuario {
 
+    /**
+     * DAO para operaciones de persistencia de cuentas de usuario.
+     */
     private CuentaDAO cuentaDAO;
 
+    /**
+     * DAO para operaciones de persistencia de usuarios.
+     */
     private UsuarioDAO usuarioDAO;
 
+    /**
+     * DAO para operaciones de persistencia de carritos de compra.
+     */
     private CarritoDAO carritoDAO;
 
+    /**
+     * Utilidad para validación de datos de usuario.
+     */
     private Expresion expresion;
 
+    /**
+     * Instancia del administrador del sistema.
+     */
     private Administrador administrador;
 
+    /**
+     * Referencia a la tienda virtual.
+     */
     private Tienda tienda;
 
-
+    /**
+     * Obtiene el usuario actualmente logueado en la tienda.
+     *
+     * @return usuario actual
+     * @throws SQLException si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     public Usuario usuarioLogueado() throws SQLException, RuntimeException {
         return tienda.getUsuarioActual();
         /*usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
@@ -35,6 +61,15 @@ public class GestionUsuario {
         return usuarioLog;*/
     }
 
+    /**
+     * Constructor que inicializa la gestión de usuarios con las dependencias necesarias.
+     *
+     * @param tienda referencia a la tienda virtual
+     * @param usuarioDAO DAO para usuarios
+     * @param cuentaDAO DAO para cuentas
+     * @param carritoDAO DAO para carritos
+     * @throws SQLException si ocurre un error de base de datos
+     */
     public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, CuentaDAO cuentaDAO, CarritoDAO carritoDAO) throws SQLException {
         this.tienda = tienda;
         this.cuentaDAO = cuentaDAO;
@@ -46,11 +81,12 @@ public class GestionUsuario {
         administrador = new Administrador();
     }
 
-
     /**
-     * Registra un usuario en la base de datos
+     * Registra un usuario en la base de datos.
      *
-     * @throws IllegalArgumentException si alguno de los datos del usuario no cumple con las reglas
+     * @param usuario usuario a registrar
+     * @throws RuntimeException si alguno de los datos del usuario no cumple con las reglas
+     * @throws SQLException si ocurre un error de base de datos
      */
     public void registrarUsuario(Usuario usuario) throws RuntimeException, SQLException {
         if (cuentaDAO.seleccionarRegistro(usuario.getCuenta()) != null) {
@@ -178,6 +214,7 @@ public class GestionUsuario {
      *                                  con las reglas
      */
     public void modificarUsuario(Usuario usuario) throws IllegalArgumentException, SQLException {
+        expresion.validarDatosObligatoriosUser(usuario);
         expresion.validarDatosUsuario(usuario);
         if (usuario.getCuenta().getCorreo().equals(tienda.getUsuarioActual().getCuenta().getCorreo())) {
             usuario.getCuenta().setLog(true);

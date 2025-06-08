@@ -19,7 +19,6 @@ public class PanelCalificar extends JDialog {
     private JButton botonCerrar;
 
     public PanelCalificar(Evento evento) {
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLayout(new GridBagLayout());
         setTitle("Calificación y Comentarios");
         setSize(500, 450);
@@ -107,9 +106,9 @@ public class PanelCalificar extends JDialog {
 
     public void asignarAccionBotones(Evento evento) {
         botonAgregarCC.addActionListener(evento);
-        botonAgregarCC.setActionCommand(evento.REGISTRAR_COMENTARIO);
+        botonAgregarCC.setActionCommand(Evento.REGISTRAR_COMENTARIO);
         botonCerrar.addActionListener(evento);
-        botonCerrar.setActionCommand(evento.CERRAR_CALIFICAR);
+        botonCerrar.setActionCommand(Evento.CERRAR_CALIFICAR);
     }
 
     public void setLabelLibro(String isbn, String nombreLibro) {

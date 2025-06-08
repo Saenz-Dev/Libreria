@@ -9,117 +9,88 @@ import java.awt.event.ActionListener;
  */
 public class Evento implements ActionListener {
 
+    /** Acción para activar el panel de inicio de sesión. */
     public final static String ACTIVAR_INICIAR_SESION = "Activar Iniciar Sesion";
-
     /** Acción para gestionar libros. */
     public final static String GESTIONAR_LIBROS = "Gestionar Libros";
-
     /** Acción para regresar al menú anterior. */
     public final static String SALIR = "Regresar";
-
     /** Acción para abrir la ventana de registro de libros. */
     public final static String VENTANA_REGISTRAR_LIBRO = "Ventana Registrar Libros";
-
     /** Acción para registrar un libro. */
     public final static String REGISTRAR_LIBRO = "Registrar Libros";
-
     /** Acción para abrir la ventana de modificación de libros. */
     public final static String VENTANA_MODIFICAR_LIBRO = "Ventana Modificar Libros";
-
     /** Acción para abrir la ventana de registro de usuarios. */
     public final static String VENTANA_REGISTRAR_USUARIO = "Ventana Registrar Usuarios";
-
     /** Acción para registrar un usuario. */
     public final static String REGISTRAR_USUARIO = "Registrar Usuario";
-
     /** Acción para eliminar un libro. */
     public final static String ELIMINAR_LIBRO = "Eliminar Libros";
-
     /** Función para eliminar un libro. */
     public final static String FUNCION_ELIMINAR_LIBRO = "Funcion Eliminar Libro";
-
     /** Acción para cancelar el registro de un usuario. */
     public final static String CANCELAR_REGISTRO_USUARIO = "Cancelar Usuario";
-
     /** Acción para cancelar el registro de un libro. */
     public final static String CANCELAR_REGISTRO_LIBRO = "Cancelar Libro";
-
     /** Acción para cancelar la modificación de un libro. */
     public final static String CANCELAR_MODIFICACION_LIBRO = "Cancelar Modificacion Libro";
-
     /** Acción para cancelar la eliminación de un libro. */
     public final static String CANCELAR_ELIMINAR_LIBRO = "Cancelar Eliminar Libro";
-
     /** Acción para continuar con el inicio de sesión. */
     public final static String CONTINUAR_INICIAR_SESION = "Continuar";
-
     /** Acción para ver el catálogo de libros. */
     public final static String CATALOGO = "Catalogo";
-
     /** Acción para cerrar sesión. */
     public final static String CERRAR_SESION = "Cerrar Sesion";
-
     /** Acción para acceder al perfil del usuario. */
     public final static String PERFIL = "Perfil";
-
     /** Acción para acceder al carrito de compras. */
     public final static String CARRITO = "Carrito";
-
     /** Acción para ver las compras realizadas. */
     public final static String COMPRAS = "Compras";
-
     /** Acción para actualizar los datos del usuario. */
     public final static String ACTUALIZAR_DATOS_USUARIO = "Actualizar Datos Usuario";
-
     /** Acción para aceptar la actualización de datos del usuario. */
     public final static String ACEPTAR_ACTUALIZAR_USUARIO = "Aceptar Datos Usuario";
-
     /** Acción para cancelar la actualización de datos del usuario. */
     public final static String CANCELAR_ACTUALIZAR_USUARIO = "Cancelar Datos Usuario";
-
     /** Acción para modificar un libro. */
     public final static String MODIFICAR_LIBRO = "Modificar Libro";
-
-    /**Accion para acceder al panel de confirmar la compra */
+    /** Acción para acceder al panel de confirmar la compra. */
     public final static String ACTIVAR_PANEL_CONFIRMAR = "Activar Panel Confirmar Compra";
-
-    /**Accion para acceder al salir del panel de confirmar compra */
+    /** Acción para salir del panel de confirmar compra. */
     public final static String CANCELAR_CONFIRMAR_COMPRA = "Cancelar Confirmar Compra";
-
-    /**Accion para confirmar la compra */
+    /** Acción para confirmar la compra. */
     public final static String ACEPTAR_CONFIRMAR_COMPRA = "Aceptar Confirmar Compra";
-
-    /**Accion para registrar el comentario*/
+    /** Acción para registrar el comentario. */
     public final static String REGISTRAR_COMENTARIO = "Registrar Comentario";
-
-    /**Accion para mostrar los comentarios*/
+    /** Acción para mostrar los comentarios. */
     public final static String MOSTRAR_COMENTARIOS = "Mostrar Comentarios";
-    
-    /**Accion para validar usuario premium*/
+    /** Acción para validar usuario premium. */
     public final static String VALIDAR_PREMIUM = "Validar Premium";
-    
-    /**Accion para activar el panel usuario premium*/
+    /** Acción para activar el panel usuario premium. */
     public final static String ACTIVAR_PANEL_PREMIUM = "Activar Panel Premium";
-
+    /** Acción para guardar un código. */
     public static final String GUARDAR_CODIGO = "Guardar Codigo";
-
+    /** Acción para activar el panel de guardar código. */
     public static final String ACTIVAR_GUARDAR_CODIGO = "Activar Guardar Codigo";
-
+    /** Acción para cerrar el panel de calificación. */
     public static final String CERRAR_CALIFICAR = "Cerrar Calificar";
-
+    /** Acción para eliminar un usuario. */
     public static final String ELIMINAR_USUARIO = "Eliminar Usuario";
-
+    /** Acción para agregar una categoría. */
     public static final String AGREGAR_CATEGORIA = "Agregar Categoria";
-
+    /** Acción para activar el panel de agregar categoría. */
     public static final String ACTIVAR_AGREGAR_CATEGORIA = "Activar Agregar Categoria";
-
+    /** Acción para vaciar el carrito de compras. */
     public static final String VACIAR_CARRITO = "Vaciar Carrito";
 
     /** Referencia a la VentanaPrincipal. */
     private VentanaPrincipal ventana;
 
     /**
-     * Constructor de la clase.
+     * Constructor de la clase Evento.
      * @param ventana Instancia de VentanaPrincipal.
      */
     public Evento(VentanaPrincipal ventana) {

@@ -9,6 +9,7 @@ import java.text.NumberFormat;
 
 /**
  * Clase que representa el panel de eliminación de un libro en la  {@link PanelEliminarLibro}.
+ * Permite mostrar información básica del libro y seleccionar si se elimina o no.
  */
 public class PanelLibroEliminar extends JPanel {
 
@@ -101,7 +102,12 @@ public class PanelLibroEliminar extends JPanel {
         labelPrecio.setFont(new Font("Sunglasses", Font.BOLD, 10));
         labelAutor.setFont(new Font("Sunglasses", Font.BOLD, 12));
     }
-    
+
+    /**
+     * Habilita o deshabilita el botón de selección del libro.
+     * Si el libro está comprado, se muestra un mensaje indicando que no se puede eliminar.
+     * @param valor {@code true} si el libro está comprado, {@code false} en caso contrario.
+     */
     public void habilitacionBoton(boolean valor) {
         if (valor) {
             checkBox.setVisible(false);

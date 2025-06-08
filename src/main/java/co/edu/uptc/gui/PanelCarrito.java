@@ -103,6 +103,20 @@ public class PanelCarrito extends JPanel {
         gbcGeneral.anchor = GridBagConstraints.NORTHWEST;
         gbcGeneral.insets = new Insets(10, 10, 10, 10);
 
+        personalizarComponentes(evento);
+        add(labelTitulo, gbcGeneral);
+        gbcGeneral.anchor = GridBagConstraints.EAST;
+        gbcGeneral.insets.right = 30;
+        add(botonVaciarCarrito, gbcGeneral);
+        gbcGeneral.insets.right = 10;
+    }
+
+    /**
+     * Personaliza los componentes del panel del carrito.
+     *
+     * @param evento Evento que maneja las acciones de los botones.
+     */
+    private void personalizarComponentes(Evento evento) {
         labelTitulo = new JLabel("Mi carrito");
         botonVaciarCarrito = new JButton("Vaciar Carrito");
         botonVaciarCarrito.addActionListener(evento);
@@ -113,11 +127,6 @@ public class PanelCarrito extends JPanel {
         botonVaciarCarrito.setFont(new Font("Arial", Font.BOLD, 16));
         Font fontTitulo = new Font("Arial", Font.BOLD, 30);
         labelTitulo.setFont(fontTitulo);
-        add(labelTitulo, gbcGeneral);
-        gbcGeneral.anchor = GridBagConstraints.EAST;
-        gbcGeneral.insets.right = 30;
-        add(botonVaciarCarrito, gbcGeneral);
-        gbcGeneral.insets.right = 10;
     }
 
     /**
@@ -164,6 +173,10 @@ public class PanelCarrito extends JPanel {
 
     }
 
+    /**
+     * Agrega un JScrollPane al panel de productos.
+     * Si ya existe, lo reemplaza con el nuevo panel de productos.
+     */
     private void agregarJScroll() {
         if (scrollPane != null) {
             gbcGeneral.insets.left = 5;
@@ -176,6 +189,11 @@ public class PanelCarrito extends JPanel {
         add(scrollPane, gbcGeneral);
     }
 
+    /**
+     * Agrega los libros comprados al panel de productos.
+     *
+     * @param librosCarrito Lista de libros comprados que se mostrarán en el panel.
+     */
     private void agregarLibroPanel(ArrayList<LibroComprado> librosCarrito) {
         if (librosCarrito.isEmpty()) {
             validarExistenciaProductos();
@@ -234,7 +252,11 @@ public class PanelCarrito extends JPanel {
         panelResumenCompra.repaint();
     }
 
-
+    /**
+     * Obtiene una lista de los ISBN de los libros en el carrito.
+     *
+     * @return Lista de ISBN de los libros en el carrito, o null si no hay productos.
+     */
     public ArrayList<String> isbnLibrosCarrito() {
         ArrayList<String> titulosLibros = new ArrayList<>();
         if (listPanelesProductos.isEmpty()) return null;

@@ -10,8 +10,20 @@ import java.util.ArrayList;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Recibo;
 
+/**
+ * DAO encargado de gestionar las operaciones de persistencia relacionadas con las compras realizadas en la tienda virtual.
+ * Permite insertar, consultar y actualizar registros de compras en la base de datos.
+ * Extiende la clase ConexionBD para el manejo de la conexión y operaciones genéricas.
+ */
 public class CompraDAO extends ConexionBD<Recibo> {
 
+    /**
+     * Inserta un nuevo registro de compra en la base de datos.
+     *
+     * @param recibo objeto Recibo con la información de la compra
+     * @throws SQLException si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     @Override
     public void insertarDatos(Recibo recibo) throws SQLException, RuntimeException {
         String sql = "INSERT INTO compras (numero_compra, correo, fecha) VALUES (?, ?, ?)";
@@ -28,10 +40,25 @@ public class CompraDAO extends ConexionBD<Recibo> {
         }
     }
 
+    /**
+     * Actualiza un registro de compra en la base de datos (no implementado).
+     *
+     * @param objeto objeto Recibo a actualizar
+     * @throws SQLException si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     @Override
     public void actualizarDatos(Recibo objeto) throws SQLException, RuntimeException {
     }
 
+    /**
+     * Consulta un registro de compra específico en la base de datos por fecha y número de compra.
+     *
+     * @param recibo objeto Recibo con los datos de búsqueda (fecha y número)
+     * @return el objeto Recibo encontrado o null si no existe
+     * @throws SQLException si ocurre un error de base de datos
+     * @throws RuntimeException si ocurre un error de lógica
+     */
     @Override
     public Recibo seleccionarRegistro(Recibo recibo) throws SQLException, RuntimeException {
         String sql = "SELECT * FROM compras WHERE fecha = ? AND numero_compra = ?";

@@ -71,16 +71,34 @@ public class PanelCatalogo extends JPanel {
      */
     private VentanaPrincipal ventanaPrincipal;
 
+    /**
+     * Etiqueta que muestra un mensaje cuando no hay libros registrados.
+     */
     private JLabel labelSinLibros;
 
+    /**
+     * ComboBox para seleccionar categorías de libros.
+     */
     private JComboBox<String> comboBoxCategorias;
 
+    /**
+     * ComboBox para seleccionar formatos de libros (físico o digital).
+     */
     private JComboBox<String> comboBoxFomatos;
 
+    /**
+     * Color de fondo del panel del catálogo.
+     */
     private final Color COLOR_FONDO = new Color(244, 246, 248);
 
+    /**
+     * Color del borde de las tarjetas de los libros.
+     */
     private final Color BORDE_TARJETA = new Color(144, 164, 174);
 
+    /**
+     * Evento que maneja los filtros de búsqueda en el catálogo.
+     */
     private EventoFiltro eventoFiltro;
 
     /**
@@ -104,7 +122,7 @@ public class PanelCatalogo extends JPanel {
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         add(labelTitulo, gbc);
-        //agregar los filtros en la misma fila del titulo pero al lado derecho
+
         gbc.anchor = GridBagConstraints.EAST;
         gbc.gridx = 1;
         JPanel panelFiltros = ajustarPanelFiltros();
@@ -117,6 +135,18 @@ public class PanelCatalogo extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridy = 1;
+        ajustarScrollPanelLibros();
+
+        scrollPanelLibros.setBorder(null);
+
+        add(scrollPanelLibros, gbc);
+        repaint();
+    }
+
+    /**
+     * Ajusta las propiedades del panel de libros, incluyendo bordes y tamaño.
+     */
+    private void ajustarScrollPanelLibros() {
         panelLibros.setBorder(new LineBorder(BORDE_TARJETA, 2, true));
         scrollPanelLibros = new JScrollPane(panelLibros);
         scrollPanelLibros.getVerticalScrollBar().setUnitIncrement(15);
@@ -126,13 +156,14 @@ public class PanelCatalogo extends JPanel {
         scrollPanelLibros.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPanelLibros.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPanelLibros.setViewportBorder(null);
-
-        scrollPanelLibros.setBorder(null);
-
-        add(scrollPanelLibros, gbc);
-        repaint();
     }
 
+    /**
+     * Ajusta el panel de filtros para que se muestre en la parte superior derecha
+     * del panel del catálogo.
+     *
+     * @return Un JPanel que contiene los filtros de categoría y formato.
+     */
     private JPanel ajustarPanelFiltros() {
         JPanel panelFiltros = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelFiltros.setOpaque(false);
@@ -144,10 +175,17 @@ public class PanelCatalogo extends JPanel {
         return panelFiltros;
     }
 
+    /**
+     * Configura el panel del catálogo con un color de fondo y otras propiedades.
+     */
     private void setupPanel() {
         setBackground(COLOR_FONDO);
     }
 
+    /**
+     * Personaliza los filtros de búsqueda del catálogo, estableciendo tamaños y
+     * fuentes.
+     */
     private void personalizarFiltros() {
         comboBoxCategorias.setPreferredSize(new Dimension(200, 30));
         comboBoxFomatos.setPreferredSize(new Dimension(200, 30));

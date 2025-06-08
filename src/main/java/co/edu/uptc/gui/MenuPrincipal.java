@@ -168,6 +168,8 @@ public class MenuPrincipal extends JPanel {
 
     private DialogAgregarCategoria dialogAgregarCategoria;
 
+    private PanelPremium panelPremium;
+
     private VentanaPrincipal ventanaPrincipal;
 
     private final Color COLOR_ACTIVO = new Color(25, 118, 210);
@@ -179,8 +181,6 @@ public class MenuPrincipal extends JPanel {
     private final Color COLOR_IZQUIERDA = new Color(227, 242, 253);
 
     private final Color COLOR_LETRA = new Color(64, 64, 64);
-
-    private PanelPremium panelPremium;
 
     /**
      * Obtiene el panel de compras del usuario.
@@ -343,6 +343,23 @@ public class MenuPrincipal extends JPanel {
         gbc = new GridBagConstraints();
         this.ventanaPrincipal = ventanaPrincipal;
 
+        initAtributos(evento, ventanaPrincipal);
+
+        cardLayout = new CardLayout();
+        panelCL = new JPanel(cardLayout);
+        panelCL.add(panelCatalogo, "Catalogo");
+        panelCL.add(panelPerfil, "Perfil");
+        panelCL.add(panelCarrito, "Carrito");
+        panelCL.add(scrollTabla, "Compras");
+        panelCL.add(panelGestionLibro, "Gestion Libros");
+        panelCL.add(panelEliminarLibro, "Eliminar Libros");
+        panelCL.add(panelAggCodigo, "Agregar Codigos");
+
+        add(panelIzquierda(evento), BorderLayout.WEST);
+        add(panelCL, BorderLayout.CENTER);
+    }
+
+    private void initAtributos(Evento evento, VentanaPrincipal ventanaPrincipal) {
         eventoLista = new EventoLista(ventanaPrincipal);
         eventoFiltro = new EventoFiltro(ventanaPrincipal);
         eventoGestionUsuario = new EventoGestionUsuario(ventanaPrincipal);
@@ -368,19 +385,6 @@ public class MenuPrincipal extends JPanel {
         clPrincipal = new CardLayout();
         panelClPrincipal = new JPanel(clPrincipal);
         dialogAgregarCategoria = new DialogAgregarCategoria(evento);
-
-        cardLayout = new CardLayout();
-        panelCL = new JPanel(cardLayout);
-        panelCL.add(panelCatalogo, "Catalogo");
-        panelCL.add(panelPerfil, "Perfil");
-        panelCL.add(panelCarrito, "Carrito");
-        panelCL.add(scrollTabla, "Compras");
-        panelCL.add(panelGestionLibro, "Gestion Libros");
-        panelCL.add(panelEliminarLibro, "Eliminar Libros");
-        panelCL.add(panelAggCodigo, "Agregar Codigos");
-
-        add(panelIzquierda(evento), BorderLayout.WEST);
-        add(panelCL, BorderLayout.CENTER);
     }
 
     public PanelInicioSesion getPanelInicioSesion() {

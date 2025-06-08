@@ -59,8 +59,6 @@ public class PanelProducto extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         setBackground(Color.lightGray);
 
-        /*No sé si sea necesario este Map entonces por eso lo comente porque solo puedo pasar el libro y después obtener sus atributos y valores*/
-        //Map<String, ArrayList<Libro>> catalogo = librosDisp;
         format = NumberFormat.getCurrencyInstance();
         format.setMinimumFractionDigits(1);
         this.isbnProducto = libroComprado.getIsbn();

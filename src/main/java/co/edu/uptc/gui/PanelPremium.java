@@ -17,25 +17,47 @@ import javax.swing.SwingConstants;
 
 import co.edu.uptc.modelo.TipoResultadoEnum;
 
+/**
+ * Clase que representa el panel de validación de código Premium.
+ * Permite al usuario ingresar un código para acceder a funciones exclusivas.
+ */
 public class PanelPremium extends JDialog {
-
+    /** Etiqueta para el título principal del panel. */
     private JLabel labelTitulo;
+    /** Etiqueta para el subtítulo o instrucciones. */
     private JLabel labelSubtitulo;
+    /** Campo de texto para ingresar el código premium. */
     private JTextField txtFieldCodigo;
+    /** Botón para validar el código ingresado. */
     private JButton botonValidar;
+    /** Etiqueta para mostrar el progreso o mensajes de validación. */
     private JLabel labelProgreso;
 
+    /**
+     * Obtiene el código ingresado por el usuario.
+     * @return Código ingresado en el campo de texto.
+     */
     public String obtenerCodigo() {
         return txtFieldCodigo.getText();
     }
 
+    /** Color de fondo principal del panel. */
     private final Color BACKGROUND_COLOR = new Color(102, 126, 234);
+    /** Color dorado para resaltar elementos premium. */
     private final Color GOLD_COLOR = new Color(255, 215, 0);
+    /** Color para indicar éxito en la validación. */
     private final Color SUCCESS_COLOR = new Color(76, 175, 80);
+    /** Color para indicar error en la validación. */
     private final Color ERROR_COLOR = new Color(244, 67, 54);
+    /** Color blanco para textos destacados. */
     private final Color TEXT_WHITE = new Color(255, 255, 255);
+    /** Color oscuro para textos secundarios. */
     private final Color TEXT_DARK = new Color(51, 51, 51);
 
+    /**
+     * Constructor del panel premium.
+     * @param evento Manejador de eventos para el botón de validación.
+     */
     public PanelPremium(Evento evento) {
         initJDialog();
         crearComponentes();
@@ -44,9 +66,11 @@ public class PanelPremium extends JDialog {
         /*
          * confiLayout(); confiListeners();
          */
-
     }
 
+    /**
+     * Inicializa las propiedades del JDialog.
+     */
     private void initJDialog() {
         setTitle("Validador de Código Premium");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -57,6 +81,9 @@ public class PanelPremium extends JDialog {
         setVisible(false);
     }
 
+    /**
+     * Crea e inicializa los componentes gráficos del panel.
+     */
     private void crearComponentes() {
         labelTitulo = new JLabel("ACCESO PREMIUM", SwingConstants.CENTER);
         labelTitulo.setFont(new Font("Arial", Font.BOLD, 28));
@@ -81,6 +108,9 @@ public class PanelPremium extends JDialog {
         labelProgreso.setVisible(false);
     }
 
+    /**
+     * Configura el panel principal y sus componentes.
+     */
     private void confiPanel() {
         getContentPane().setLayout(new BorderLayout());
         getContentPane().setBackground(BACKGROUND_COLOR);
@@ -132,6 +162,11 @@ public class PanelPremium extends JDialog {
         botonValidar.setActionCommand(Evento.VALIDAR_PREMIUM);
     }
 
+    /**
+     * Muestra el resultado de la validación del código premium.
+     * @param mensaje Mensaje a mostrar en la etiqueta de progreso.
+     * @param esPremium Indica si la validación fue exitosa o fallida.
+     */
     public void mostrarResultado(String mensaje, TipoResultadoEnum esPremium) {
         labelProgreso.setText(mensaje);
         labelProgreso.setVisible(true);
@@ -151,22 +186,4 @@ public class PanelPremium extends JDialog {
         revalidate();
         repaint();
     }
-
-    public void mostrarEstadoPremium() {
-        labelProgreso.setText("✨ USUARIO PREMIUM ACTIVADO ✨");
-        labelProgreso.setOpaque(true);
-        labelProgreso.setBackground(GOLD_COLOR);
-        labelProgreso.setForeground(TEXT_DARK);
-        labelProgreso.setVisible(true);
-
-        revalidate();
-        repaint();
-    }
-
-    private void ocultarResultado() {
-        labelProgreso.setVisible(false);
-        revalidate();
-        repaint();
-    }
-
 }

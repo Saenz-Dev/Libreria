@@ -1,14 +1,16 @@
 package co.edu.uptc.modelo;
 
 /**
- * Representa los diferentes formatos en los que un libro puede estar disponible.
+ * Enum que representa los diferentes formatos en los que un libro puede estar disponible en la tienda virtual.
+ * Puede ser físico o digital.
  */
 public enum TipoLibroEnum {
-
-    /** Libro en formato físico (impreso en papel). */
+    /**
+     * Libro en formato físico (impreso).
+     */
     FISICO,
-
-    /** Libro en formato digital (eBook, PDF, ePub, etc.). */
+    /**
+     * Libro en formato digital (electrónico).
+     */
     DIGITAL;
 }
-
