@@ -75,4 +75,5 @@ public abstract class ConexionBD<T>{
     public abstract ArrayList<T> seleccionarRegistros() throws SQLException, RuntimeException;
 
     //Este es un comentario
+    //
 }
