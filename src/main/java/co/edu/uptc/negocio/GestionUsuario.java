@@ -224,6 +224,7 @@ public class GestionUsuario {
             usuarioDAO.actualizarDatos(usuarioPremium);
             cuentaDAO.actualizarDatos(usuarioPremium.getCuenta());
             if (usuario.getCuenta().getCorreo().equals(tienda.getUsuarioActual().getCuenta().getCorreo())) {
+                usuarioPremium.setRecibosCompras(tienda.getUsuarioActual().getRecibosCompras());
                 tienda.setUsuarioActual(usuarioPremium);
             }
             return;
@@ -231,6 +232,7 @@ public class GestionUsuario {
         usuarioDAO.actualizarDatos(usuario);
         cuentaDAO.actualizarDatos(usuario.getCuenta());
         if (usuario.getCuenta().getCorreo().equals(tienda.getUsuarioActual().getCuenta().getCorreo())) {
+            usuario.setRecibosCompras(tienda.getUsuarioActual().getRecibosCompras());
             tienda.setUsuarioActual(usuario);
         }
     }

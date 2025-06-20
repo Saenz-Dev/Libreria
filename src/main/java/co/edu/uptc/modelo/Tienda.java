@@ -33,12 +33,6 @@ public class Tienda implements Serializable {
     private TreeMap<String, ArrayList<Recibo>> recibosTienda;
 
     /**
-     * Mapa que almacena los comentarios de cada libro.
-     * La clave es el ISBN del libro y el valor es una lista de comentarios.
-     */
-    private TreeMap<String, Stack<Comentario>> mapComentarios;
-
-    /**
      * Usuario actual que está interactuando con la tienda.
      */
     private Usuario usuarioActual;
@@ -50,7 +44,6 @@ public class Tienda implements Serializable {
         catalogo = new Catalogo();
         usuarios = new ArrayList<>();
         recibosTienda = new TreeMap<>();
-        mapComentarios = new TreeMap<>();
         usuarioActual = new Usuario();
     }
 
@@ -116,21 +109,5 @@ public class Tienda implements Serializable {
      */
     public void setRecibosTienda(TreeMap<String, ArrayList<Recibo>> recibosTienda) {
         this.recibosTienda = recibosTienda;
-    }
-
-    /**
-     * Obtiene el mapa que almacena los comentarios de cada libro.
-     * @return mapa de comentarios por libro
-     */
-    public TreeMap<String, Stack<Comentario>> getMapComentarios() {
-        return mapComentarios;
-    }
-
-    /**
-     * Establece el mapa que almacena los comentarios de cada libro.
-     * @param mapComentarios mapa de comentarios por libro
-     */
-    public void setMapComentarios(TreeMap<String, Stack<Comentario>> mapComentarios) {
-        this.mapComentarios = mapComentarios;
     }
 }

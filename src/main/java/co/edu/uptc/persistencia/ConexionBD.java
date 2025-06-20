@@ -73,4 +73,6 @@ public abstract class ConexionBD<T>{
      * @throws RuntimeException si ocurre un error de lógica
      */
     public abstract ArrayList<T> seleccionarRegistros() throws SQLException, RuntimeException;
+
+    //Este es un comentario
 }

@@ -428,20 +428,14 @@ public class GestionCarrito {
         setValorCompra(totalesCompra, librosCarritoUsuario, recibosUsuario);
         Recibo recibo = new Recibo();
         recibo.setCorreo(gestionUsuario.usuarioLogueado().getCuenta().getCorreo());
-        setTotal(totalesCompra);
         return totalesCompra;
-    }
-
-    private void setTotal(TotalesCompra totalesCompra) {
-        totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(tienda.getRecibosTienda().get(tienda.getUsuarioActual().getCuenta().getCorreo()), totalesCompra.getTotal()));
-        totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoFrecuencia());
     }
 
     private void setValorCompra(TotalesCompra totalesCompra, ArrayList<Libro> librosCarritoUsuario, ArrayList<Recibo> listaRecibosUsuario) throws SQLException {
         totalesCompra.setPrecioBaseTotal(calculadoraIVA.precioBaseTotal(librosCarritoUsuario, libroDAO));
         totalesCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUsuario, libroDAO));
         totalesCompra.setTotal(calculadoraIVA.total(totalesCompra.getPrecioBase(), totalesCompra.getImpuestos()));
-        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremiumTotal(totalesCompra.getPrecioBase(), tienda.getUsuarioActual()));
+        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremiumTotal(totalesCompra.getTotal(), tienda.getUsuarioActual()));
         totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(listaRecibosUsuario, totalesCompra.getTotal()));
         totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoFrecuencia() - totalesCompra.getDescuentoPremium());
     }

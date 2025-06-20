@@ -782,6 +782,10 @@ public class VentanaPrincipal extends JFrame {
     public void eliminarUsuario() {
         try {
             String correo = menuPrincipal.getPanelModificarUsuario().getTxtCorreo();
+            int opcion = JOptionPane.showOptionDialog(menuPrincipal.getDialogAgregarCategoria(), "\n¿Estas seguro de eliminar este usuario?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Sí", "No"}, JOptionPane.QUESTION_MESSAGE);
+            if (opcion == 1) {
+                return;
+            }
             gestionTienda.eliminarUsuario(correo);
             JOptionPane.showMessageDialog(menuPrincipal.getPanelModificarUsuario(), "Usuario eliminado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
             activarModificarDatosUsuario();
@@ -852,7 +856,7 @@ public class VentanaPrincipal extends JFrame {
                     menuPrincipal.getPanelModificarLibro().llenarCbCategoria(gestionTienda.listarCategorias());
                     menuPrincipal.getPanelRegistrarLibro().llenarComboBoxCategoria(gestionTienda.listarCategorias());
                     JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), "Categoria registrada", "Exito", JOptionPane.INFORMATION_MESSAGE);
-                } catch (SQLException ex) {
+                } catch (SQLException | RuntimeException ex) {
                     JOptionPane.showMessageDialog(menuPrincipal.getDialogAgregarCategoria(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;

@@ -425,12 +425,12 @@ public class GestionTienda {
         return totalesCompra;
     }
 
-    private void setValorCompra(TotalesCompra totalesCompra, CalculadoraIVA calculadoraIVA) throws SQLException, IOException {
+    private void setValorCompra(TotalesCompra totalesCompra, CalculadoraIVA calculadoraIVA) throws SQLException {
         ArrayList<Libro> librosCarritoUserLog = tienda.getUsuarioActual().getCarrito().getLibros();
         totalesCompra.setPrecioBaseTotal(calculadoraIVA.precioBaseTotal(librosCarritoUserLog, libroDAO));
         totalesCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUserLog, libroDAO));
         totalesCompra.setTotal(calculadoraIVA.total(totalesCompra.getPrecioBase(), totalesCompra.getImpuestos()));
-        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremiumTotal(totalesCompra.getPrecioBase(), tienda.getUsuarioActual()));
+        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremiumTotal(totalesCompra.getTotal(), tienda.getUsuarioActual()));
         totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(tienda.getUsuarioActual().getCuenta().getCorreo()), totalesCompra.getTotal()));
         totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoFrecuencia() - totalesCompra.getDescuentoPremium());
     }

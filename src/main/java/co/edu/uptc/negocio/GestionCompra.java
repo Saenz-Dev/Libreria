@@ -162,7 +162,7 @@ public class GestionCompra {
         recibo.getValorCompra().setPrecioBaseTotal(calculadoraIVA.precioBaseTotal(listaCarritoUser, libroDAO));
         recibo.getValorCompra().setImpuestos(calculadoraIVA.impuestos(listaCarritoUser, libroDAO));
         recibo.getValorCompra().setTotal(calculadoraIVA.total(recibo.getValorCompra().getPrecioBase(), recibo.getValorCompra().getImpuestos()));
-        recibo.getValorCompra().setDescuentoPremium(calculadoraIVA.descuentoPremiumTotal(recibo.getValorCompra().getPrecioBase(), tienda.getUsuarioActual()));
+        recibo.getValorCompra().setDescuentoPremium(calculadoraIVA.descuentoPremiumTotal(recibo.getValorCompra().getTotal(), tienda.getUsuarioActual()));
         recibo.getValorCompra().setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(usuarioLog.getCuenta().getCorreo()), recibo.getValorCompra().getTotal()));
         recibo.getValorCompra().setTotal(recibo.getValorCompra().getTotal() - recibo.getValorCompra().getDescuentoFrecuencia() - recibo.getValorCompra().getDescuentoPremium());
         recibo.setTipoPago(tipoPagoEnum);
