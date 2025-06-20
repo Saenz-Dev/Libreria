@@ -2592,3 +2592,30 @@ INFO: ✔ Cuenta actualizada correctamente con correo: user_default
 jun 20, 2025 12:57:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
 INFO: ✅ Usuario encontrado: user_default
 
+jun 20, 2025 1:24:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 1:24:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 1:24:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 1:24:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 1:24:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 1:24:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+jun 20, 2025 1:24:32 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 20, 2025 1:24:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+jun 20, 2025 1:24:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
