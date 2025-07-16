@@ -3,7 +3,6 @@ package co.edu.uptc.negocio;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
 
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.Tienda;

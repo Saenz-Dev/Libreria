@@ -1,6 +1,5 @@
 package co.edu.uptc.negocio;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

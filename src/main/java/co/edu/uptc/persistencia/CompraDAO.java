@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
+import co.edu.uptc.contrato.IConexionBD;
+import co.edu.uptc.contrato.IRepositorio;
+import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Recibo;
 
@@ -15,19 +19,25 @@ import co.edu.uptc.modelo.Recibo;
  * Permite insertar, consultar y actualizar registros de compras en la base de datos.
  * Extiende la clase ConexionBD para el manejo de la conexión y operaciones genéricas.
  */
-public class CompraDAO extends ConexionBD<Recibo> {
+public class CompraDAO implements IRepositorio<Recibo> {
+
+    private IConexionBD iConexionBD;
+
+    public CompraDAO(IConexionBD iConexionBD) {
+        this.iConexionBD = iConexionBD;
+    }
 
     /**
      * Inserta un nuevo registro de compra en la base de datos.
      *
      * @param recibo objeto Recibo con la información de la compra
-     * @throws SQLException si ocurre un error de base de datos
+     * @throws SQLException     si ocurre un error de base de datos
      * @throws RuntimeException si ocurre un error de lógica
      */
     @Override
-    public void insertarDatos(Recibo recibo) throws SQLException, RuntimeException {
+    public void guardar(Recibo recibo) throws RepositorioException {
         String sql = "INSERT INTO compras (numero_compra, correo, fecha) VALUES (?, ?, ?)";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setInt(1, recibo.getNumeroRecibo());
             preparedStatement.setString(2, recibo.getCorreo());
@@ -36,7 +46,7 @@ public class CompraDAO extends ConexionBD<Recibo> {
             RegistroLog.registrarInfo("Compra " + recibo.getNumeroRecibo() + " registrada correctamente para el correo: " + recibo.getCorreo());
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al insertar los datos en la tabla 'compras': " + e.getMessage(), e);
-            throw new SQLException("❌ No se pudo registrar la compra. Por favor, intenta de nuevo o contacta soporte.");
+            throw new RepositorioException("❌ No se pudo registrar la compra. Por favor, intenta de nuevo o contacta soporte.");
         }
     }
 
@@ -44,25 +54,26 @@ public class CompraDAO extends ConexionBD<Recibo> {
      * Actualiza un registro de compra en la base de datos (no implementado).
      *
      * @param objeto objeto Recibo a actualizar
-     * @throws SQLException si ocurre un error de base de datos
+     * @throws SQLException     si ocurre un error de base de datos
      * @throws RuntimeException si ocurre un error de lógica
      */
     @Override
-    public void actualizarDatos(Recibo objeto) throws SQLException, RuntimeException {
+    public void actualizar(Recibo objeto) throws RepositorioException {
     }
+
 
     /**
      * Consulta un registro de compra específico en la base de datos por fecha y número de compra.
      *
      * @param recibo objeto Recibo con los datos de búsqueda (fecha y número)
      * @return el objeto Recibo encontrado o null si no existe
-     * @throws SQLException si ocurre un error de base de datos
+     * @throws SQLException     si ocurre un error de base de datos
      * @throws RuntimeException si ocurre un error de lógica
      */
     @Override
-    public Recibo seleccionarRegistro(Recibo recibo) throws SQLException, RuntimeException {
+    public Recibo consultar(Recibo recibo) throws RepositorioException {
         String sql = "SELECT * FROM compras WHERE fecha = ? AND numero_compra = ?";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setTimestamp(1, Timestamp.valueOf(recibo.getFechaCompra()));
             preparedStatement.setInt(2, recibo.getNumeroRecibo());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -77,13 +88,14 @@ public class CompraDAO extends ConexionBD<Recibo> {
             }
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al consultar el registro de compra: " + e.getMessage(), e);
-            throw new SQLException("❌ No se pudo consultar el registro de la compra. Intenta de nuevo más tarde.");
+            throw new RepositorioException("❌ No se pudo consultar el registro de la compra. Intenta de nuevo más tarde.");
         }
     }
 
-    public ArrayList<Recibo> seleccionarRegistros(Recibo recib) throws SQLException, RuntimeException {
+    @Override
+    public List<Recibo> seleccionarRegistros(Recibo recib) throws RepositorioException {
         String sql = "SELECT * FROM compras WHERE correo = ?";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, recib.getCorreo());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 ArrayList<Recibo> listaRecibos = new ArrayList<>();
@@ -100,14 +112,14 @@ public class CompraDAO extends ConexionBD<Recibo> {
                 return listaRecibos;
             }
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al seleccionar el registro en la tabla 'compras': " + e.getMessage());
+            throw new RepositorioException("❌ Error al seleccionar el registro en la tabla 'compras': " + e.getMessage());
         }
     }
 
     @Override
-    public ArrayList<Recibo> seleccionarRegistros() throws SQLException, RuntimeException {
+    public List<Recibo> consultar() throws RepositorioException {
         String sql = "SELECT * FROM compras";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 ArrayList<Recibo> listaRecibos = new ArrayList<>();
                 while (resultSet.next()) {
@@ -120,13 +132,11 @@ public class CompraDAO extends ConexionBD<Recibo> {
                 if (listaRecibos.isEmpty()) {
                     RegistroLog.registrarInfo("No se encontraron registros en la tabla 'compras'.");
                 }
-
                 return listaRecibos;
             }
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al seleccionar los registros en la tabla 'compras': " + e.getMessage(), e);
-            throw new SQLException("❌ No se pudo buscar las compras: ");
+            throw new RepositorioException("❌ No se pudo buscar las compras: ");
         }
     }
-
 }

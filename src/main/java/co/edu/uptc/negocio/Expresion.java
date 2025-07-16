@@ -186,7 +186,8 @@ public class Expresion {
         if (usuario.getNombre() != null && usuario.getNombre().length() > 50) {
             sb.append("El nombre no puede exceder los 50 caracteres.\n");
         }
-        if (String.valueOf(usuario.getTelefono()).length() > 10 || String.valueOf(usuario.getTelefono()).trim().length() < 10) sb.append("El teléfono debe tener obligatoriamente 10 numeros, sin espacios.\n");
+        if (String.valueOf(usuario.getTelefono()).length() > 10 || String.valueOf(usuario.getTelefono()).trim().length() < 10)
+            sb.append("El teléfono debe tener obligatoriamente 10 numeros, sin espacios.\n");
         if (usuario.getTelefono() < 0) sb.append("El telefono no puede ser negativo.\n");
         if (usuario.getDireccionEnvio() != null && usuario.getDireccionEnvio().length() > 100) {
             sb.append("La dirección de envío no puede exceder los 100 caracteres.\n");

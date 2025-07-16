@@ -1,5 +1,8 @@
 package co.edu.uptc.persistencia;
 
+import co.edu.uptc.contrato.IConexionBD;
+import co.edu.uptc.log.RegistroLog;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,15 +12,14 @@ import java.util.ArrayList;
 /**
  * Clase abstracta base para los DAOs que gestiona la conexión y operaciones genéricas con la base de datos MySQL.
  * Proporciona métodos para crear la conexión y define las operaciones CRUD básicas que deben implementar las subclases.
- *
- * @param <T> Tipo de entidad que maneja el DAO
  */
-public abstract class ConexionBD<T>{
+public class ConexionBD implements IConexionBD {
 
+    private final String NOMBRE_BD = "db_libreria";
     /**
      * URL de conexión a la base de datos MySQL.
      */
-    private final String URL = "jdbc:mysql://localhost:3306/db_libreria";
+    private final String URL = "jdbc:mysql://localhost:3306/" + NOMBRE_BD;
     /**
      * Usuario de la base de datos.
      */
@@ -26,54 +28,47 @@ public abstract class ConexionBD<T>{
      * Contraseña de la base de datos.
      */
     private final String CONTRASENA = "Niosaenz123";
-    
+
+    /**
+     * Conexión vinculada a la base de datos.
+     */
+    private Connection connection;
+
+    public ConexionBD() {
+        try {
+            connection = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
+        } catch (SQLException e) {
+            RegistroLog.registrarError("Surgió un problema al conectar con la base de datos", e);
+            throw new RuntimeException("Surgió un problema en el programa, contactate con el propietario.");
+        }
+    }
+
     /**
      * Crea y retorna una nueva conexión a la base de datos.
      *
      * @return conexión a la base de datos
      * @throws SQLException si ocurre un error al conectar
      */
-    protected Connection crearConexion() throws SQLException {
-        return DriverManager.getConnection(URL, USUARIO, CONTRASENA);
+    @Override
+    public Connection crearConexion() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            return DriverManager.getConnection(URL, USUARIO, CONTRASENA);
+        }
+        return connection;
     }
 
     /**
-     * Inserta un registro en la base de datos.
-     *
-     * @param objeto entidad a insertar
-     * @throws SQLException si ocurre un error de base de datos
-     * @throws RuntimeException si ocurre un error de lógica
+     * Desconecta la conexión a la base de datos.
      */
-    public abstract void insertarDatos(T objeto) throws  SQLException, RuntimeException;
-
-    /**
-     * Actualiza un registro en la base de datos.
-     *
-     * @param objeto entidad a actualizar
-     * @throws SQLException si ocurre un error de base de datos
-     * @throws RuntimeException si ocurre un error de lógica
-     */
-    public abstract void actualizarDatos(T objeto) throws  SQLException, RuntimeException;
-
-    /**
-     * Selecciona un registro específico de la base de datos.
-     *
-     * @param objeto entidad con los datos de búsqueda
-     * @return entidad encontrada o null si no existe
-     * @throws SQLException si ocurre un error de base de datos
-     * @throws RuntimeException si ocurre un error de lógica
-     */
-    public abstract T seleccionarRegistro(T objeto) throws SQLException, RuntimeException;
-
-    /**
-     * Selecciona todos los registros de la base de datos.
-     *
-     * @return lista de entidades encontradas
-     * @throws SQLException si ocurre un error de base de datos
-     * @throws RuntimeException si ocurre un error de lógica
-     */
-    public abstract ArrayList<T> seleccionarRegistros() throws SQLException, RuntimeException;
-
-    //Este es un comentario
-    //
+    @Override
+    public void cerrarConexion() throws SQLException {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            RegistroLog.registrarError("Error al cerrar la base de datos", e);
+        }
+        connection = null;
+    }
 }

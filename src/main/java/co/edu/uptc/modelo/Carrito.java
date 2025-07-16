@@ -22,6 +22,11 @@ public class Carrito implements Serializable {
     private ArrayList<Libro> libros;
 
     /**
+     * Usuario del carrito
+     */
+    private Usuario usuario;
+
+    /**
      * Constructor de la clase
      */
     public Carrito() {
@@ -36,6 +41,13 @@ public class Carrito implements Serializable {
         return libros;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
     /**
      * Pasa los libros del user_default al usuario que inicia sesión
      * @param libro libro a asignar al usuario que se loguea

@@ -42,7 +42,7 @@ public class GestionCarrito {
     /**
      * Utilidad para cálculos de IVA, descuentos y totales.
      */
-    private CalculadoraIVA calculadoraIVA;
+    private CalculadoraTiendaImpl calculadoraTiendaImpl;
 
     /**
      * Referencia a la tienda virtual actual.
@@ -64,7 +64,7 @@ public class GestionCarrito {
         this.usuarioDAO = usuarioDAO;
         this.libroDAO = libroDAO;
         this.gestionUsuario = gestionUsuario;
-        calculadoraIVA = new CalculadoraIVA();
+        calculadoraTiendaImpl = new CalculadoraTiendaImpl();
     }
 
     /**
@@ -370,7 +370,7 @@ public class GestionCarrito {
             throw new IllegalArgumentException("No se pudo sumar el producto con ISBN:" + isbnProducto);
         }
 
-        ArrayList<Libro> librosCarrito = listarLibros(); //Selecciona todos los libros que estan en todos los carritos
+        ArrayList<Libro> librosCarrito = listarLibros(); //Selecciona todos los libros que están en todos los carritos
 
         libroCatalogo.setIsComprado(validarComprado(librosCarrito, isbnProducto));
         libroCatalogo.eliminarReserva(libroCarrito.getStockReservado());
@@ -432,11 +432,11 @@ public class GestionCarrito {
     }
 
     private void setValorCompra(TotalesCompra totalesCompra, ArrayList<Libro> librosCarritoUsuario, ArrayList<Recibo> listaRecibosUsuario) throws SQLException {
-        totalesCompra.setPrecioBaseTotal(calculadoraIVA.precioBaseTotal(librosCarritoUsuario, libroDAO));
-        totalesCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUsuario, libroDAO));
-        totalesCompra.setTotal(calculadoraIVA.total(totalesCompra.getPrecioBase(), totalesCompra.getImpuestos()));
-        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremiumTotal(totalesCompra.getTotal(), tienda.getUsuarioActual()));
-        totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(listaRecibosUsuario, totalesCompra.getTotal()));
+        totalesCompra.setPrecioBaseTotal(calculadoraTiendaImpl.calcularBaseTotalCompra(librosCarritoUsuario));
+        totalesCompra.setImpuestos(calculadoraTiendaImpl.calcularImpuestoTotalCompra(librosCarritoUsuario));
+        totalesCompra.setTotal(calculadoraTiendaImpl.total(totalesCompra.getPrecioBase(), totalesCompra.getImpuestos()));
+        totalesCompra.setDescuentoPremium(calculadoraTiendaImpl.descuentoPremiumTotal(totalesCompra.getTotal(), tienda.getUsuarioActual()));
+        totalesCompra.setDescuentoFrecuencia(calculadoraTiendaImpl.descuentoFrecuencia(listaRecibosUsuario, totalesCompra.getTotal()));
         totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoFrecuencia() - totalesCompra.getDescuentoPremium());
     }
 

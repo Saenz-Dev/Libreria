@@ -2,6 +2,7 @@ package co.edu.uptc.modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase que representa a un usuario en el sistema de la tienda virtual.
@@ -49,7 +50,7 @@ public class Usuario implements Serializable{
     /**
      * Historial de recibos de compras realizados por el usuario.
      */
-    private ArrayList<Recibo> recibosCompras;
+    private List<Recibo> recibosCompras;
 
     /**
      * Carrito de compras del usuario, donde se almacenan los libros seleccionados.
@@ -214,7 +215,7 @@ public class Usuario implements Serializable{
      *
      * @return La lista de recibos de compras.
      */
-    public ArrayList<Recibo> getRecibosCompras() {
+    public List<Recibo> getRecibosCompras() {
         return recibosCompras;
     }
 

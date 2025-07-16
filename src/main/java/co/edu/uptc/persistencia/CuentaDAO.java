@@ -6,7 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
+import co.edu.uptc.contrato.IConexionBD;
+import co.edu.uptc.contrato.IRepositorio;
+import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Cuenta;
 
@@ -15,20 +19,26 @@ import co.edu.uptc.modelo.Cuenta;
  * Permite insertar, actualizar, consultar y eliminar cuentas en la base de datos.
  * Extiende la clase ConexionBD para el manejo de la conexión y operaciones genéricas.
  */
-public class CuentaDAO extends ConexionBD<Cuenta> {
+public class CuentaDAO implements IRepositorio<Cuenta> {
+
+    private IConexionBD iConexionBD;
+
+    public CuentaDAO(IConexionBD iConexionBD) {
+        this.iConexionBD = iConexionBD;
+    }
 
     /**
      * Inserta una nueva cuenta en la base de datos.
      *
      * @param cuenta objeto Cuenta a insertar
-     * @throws SQLException     si ocurre un error de base de datos
-     * @throws RuntimeException si la cuenta es nula
+     * @throws RepositorioException si ocurre un error de base de datos.
+     * @throws RuntimeException     si la cuenta es nula.
      */
     @Override
-    public void insertarDatos(Cuenta cuenta) throws SQLException, RuntimeException {
+    public void guardar(Cuenta cuenta) throws RepositorioException {
         if (cuenta == null) throw new RuntimeException("El cuenta a guardar no tiene datos");
         String sentencia = "INSERT INTO cuentas (correo, contraseña, conectado) VALUES (?, ?, ?)";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
+        try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.setString(1, cuenta.getCorreo());
             preparedStatement.setString(2, cuenta.getContrasena());
             preparedStatement.setBoolean(3, cuenta.isLog());
@@ -36,35 +46,7 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
             RegistroLog.registrarInfo("✔ Cuenta insertada correctamente con correo: " + cuenta.getCorreo());
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al insertar los datos en la tabla 'cuentas': " + e.getMessage(), e);
-            throw new SQLException("❌ Error al insertar los datos en la tabla 'cuentas': " + e.getMessage());
-        }
-    }
-
-    /**
-     * Actualiza los datos de una cuenta existente en la base de datos.
-     *
-     * @param cuenta objeto Cuenta a actualizar
-     * @throws SQLException     si ocurre un error de base de datos
-     * @throws RuntimeException si la cuenta es nula
-     */
-    @Override
-    public void actualizarDatos(Cuenta cuenta) throws SQLException, RuntimeException {
-        if (cuenta == null) throw new RuntimeException("Cuenta vacía");
-        String sentencia = "UPDATE cuentas SET contraseña = ?, conectado = ? WHERE correo = ?";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.setString(1, cuenta.getContrasena());
-            preparedStatement.setBoolean(2, cuenta.isLog());
-            preparedStatement.setString(3, cuenta.getCorreo());
-            int filasActualizadas = preparedStatement.executeUpdate();
-            if (filasActualizadas > 0) {
-                RegistroLog.registrarInfo("✔ Cuenta actualizada correctamente con correo: " + cuenta.getCorreo());
-            } else {
-                RegistroLog.registrarAdvertencia("⚠ No se encontró ninguna cuenta con el correo: " + cuenta.getCorreo());
-
-            }
-        } catch (SQLException e) {
-            RegistroLog.registrarError("Error al actualizar los datos en la tabla 'cuentas': " + e.getMessage(), e);
-            throw new SQLException("Ocurrió un problema técnico al actualizar la cuenta.");
+            throw new RepositorioException("❌ Error al insertar los datos en la tabla 'cuentas': " + e.getMessage());
         }
     }
 
@@ -77,10 +59,9 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
      * @throws RuntimeException si el correo es nulo
      */
     @Override
-    public Cuenta seleccionarRegistro(Cuenta cuenta) throws SQLException, RuntimeException {
-
+    public Cuenta consultar(Cuenta cuenta) throws RepositorioException {
         String sentencia = "SELECT * FROM cuentas WHERE correo = ?";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
+        try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
             preparedStatement.setString(1, cuenta.getCorreo());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -95,7 +76,7 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
             }
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error SQL al buscar cuenta con correo " + cuenta.getCorreo() + ": " + e.getMessage(), e);
-            throw new SQLException("❌ Error al consultar la base de datos. Intente nuevamente.");
+            throw new RepositorioException("❌ Error al consultar la base de datos. Intente nuevamente.");
         }
         return null;
     }
@@ -107,10 +88,10 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
      * @throws SQLException si ocurre un error de base de datos
      */
     @Override
-    public ArrayList<Cuenta> seleccionarRegistros() throws SQLException, RuntimeException {
+    public List<Cuenta> consultar() throws RepositorioException {
         ArrayList<Cuenta> cuentas = new ArrayList<>();
         String sentencia = "SELECT * FROM cuentas";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia); ResultSet resultSet = preparedStatement.executeQuery()) {
+        try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia); ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 Cuenta cuenta = new Cuenta();
                 cuenta.setCorreo(resultSet.getString("correo"));
@@ -120,27 +101,56 @@ public class CuentaDAO extends ConexionBD<Cuenta> {
             }
             return cuentas;
         } catch (SQLException e) {
-            throw new SQLException("❌ Error al seleccionar los datos en la tabla 'cuentas': " + e.getMessage());
+            throw new RepositorioException("❌ Error al seleccionar los datos en la tabla 'cuentas': " + e.getMessage());
+        }
+    }
+
+    /**
+     * Actualiza los datos de una cuenta existente en la base de datos.
+     *
+     * @param cuenta objeto Cuenta a actualizar
+     * @throws SQLException     si ocurre un error de base de datos
+     * @throws RuntimeException si la cuenta es nula
+     */
+    @Override
+    public void actualizar(Cuenta cuenta) throws RepositorioException {
+        if (cuenta == null) throw new RuntimeException("Cuenta vacía");
+        String sentencia = "UPDATE cuentas SET contraseña = ?, conectado = ? WHERE correo = ?";
+        try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
+            preparedStatement.setString(1, cuenta.getContrasena());
+            preparedStatement.setBoolean(2, cuenta.isLog());
+            preparedStatement.setString(3, cuenta.getCorreo());
+            int filasActualizadas = preparedStatement.executeUpdate();
+            if (filasActualizadas > 0) {
+                RegistroLog.registrarInfo("✔ Cuenta actualizada correctamente con correo: " + cuenta.getCorreo());
+            } else {
+                RegistroLog.registrarAdvertencia("⚠ No se encontró ninguna cuenta con el correo: " + cuenta.getCorreo());
+
+            }
+        } catch (SQLException e) {
+            RegistroLog.registrarError("Error al actualizar los datos en la tabla 'cuentas': " + e.getMessage(), e);
+            throw new RepositorioException("Ocurrió un problema técnico al actualizar la cuenta.");
         }
     }
 
     /**
      * Elimina un registro de cuenta en la base de datos según el correo proporcionado.
      *
-     * @param correo el correo de la cuenta a eliminar
+     * @param cuenta la cuenta que contiene el correo de la cuenta a eliminar
      */
-    public void eliminarRegistro(String correo) {
+    @Override
+    public void eliminar(Cuenta cuenta) throws RepositorioException {
         String sentencia = "DELETE FROM cuentas WHERE correo = ?";
-        try (Connection connection = crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.setString(1, correo);
+        try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
+            preparedStatement.setString(1, cuenta.getCorreo());
             int filasEliminadas = preparedStatement.executeUpdate();
             if (filasEliminadas > 0) {
-                RegistroLog.registrarInfo("✔ Cuenta eliminada correctamente con correo: " + correo);
+                RegistroLog.registrarInfo("✔ Cuenta eliminada correctamente con correo: " + cuenta.getCorreo());
             } else {
-                RegistroLog.registrarAdvertencia("⚠ No se encontró ninguna cuenta con el correo: " + correo);
+                RegistroLog.registrarAdvertencia("⚠ No se encontró ninguna cuenta con el correo: " + cuenta.getCorreo());
             }
         } catch (SQLException e) {
-            RegistroLog.registrarError("❌ Error al eliminar la cuenta con correo " + correo + ": " + e.getMessage(), e);
+            RegistroLog.registrarError("❌ Error al eliminar la cuenta con correo " + cuenta.getCorreo() + ": " + e.getMessage(), e);
         }
     }
 }

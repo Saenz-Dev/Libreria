@@ -12,14 +12,8 @@ import java.util.Stack;
 import co.edu.uptc.excepcion.CategoriaException;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.*;
-import co.edu.uptc.persistencia.CarritoDAO;
-import co.edu.uptc.persistencia.CodigoDAO;
-import co.edu.uptc.persistencia.ComentarioDAO;
-import co.edu.uptc.persistencia.CompraDAO;
-import co.edu.uptc.persistencia.CuentaDAO;
+import co.edu.uptc.persistencia.*;
 import co.edu.uptc.persistencia.LibroDAO;
-import co.edu.uptc.persistencia.ReciboDAO;
-import co.edu.uptc.persistencia.UsuarioDAO;
 import org.apache.commons.text.similarity.JaroWinklerSimilarity;
 
 /**
@@ -96,7 +90,7 @@ public class GestionTienda {
     /**
      * Utilidad para cálculos de IVA, descuentos y totales.
      */
-    private CalculadoraIVA calculadoraIVA;
+    private CalculadoraTiendaImpl calculadoraTiendaImpl;
 
     /**
      * Constructor que inicializa todos los módulos y DAOs necesarios para la gestión de la tienda virtual.
@@ -119,7 +113,7 @@ public class GestionTienda {
         gestionCompra = new GestionCompra(tienda, reciboDAO, carritoDAO, compraDAO);
         gestionComentario = new GestionComentario(tienda, comentarioDAO);
         gestionCodigo = new GestionCodigo(codigoDAO);
-        calculadoraIVA = new CalculadoraIVA();
+        calculadoraTiendaImpl = new CalculadoraTiendaImpl();
     }
 
     public Tienda getTienda() {
@@ -384,7 +378,7 @@ public class GestionTienda {
         ArrayList<LibroComprado> listaCarrito = new ArrayList<>();
         buscarInfoCarrito(tienda.getUsuarioActual().getCarrito().getLibros());
         for (Libro libroCarritoUser : tienda.getUsuarioActual().getCarrito().getLibros()) {
-            LibroComprado libroComprado = aggInfoProductoCompra(calculadoraIVA, libroCarritoUser);
+            LibroComprado libroComprado = aggInfoProductoCompra(calculadoraTiendaImpl, libroCarritoUser);
             listaCarrito.add(libroComprado);
         }
         return listaCarrito;
@@ -394,16 +388,16 @@ public class GestionTienda {
         gestionCarrito.vaciarCarrito();
     }
 
-    private LibroComprado aggInfoProductoCompra(CalculadoraIVA calculadoraIVA, Libro libroCarrito) throws SQLException {
+    private LibroComprado aggInfoProductoCompra(CalculadoraTiendaImpl calculadoraTiendaImpl, Libro libroCarrito) throws SQLException {
         Libro libroCatalogo = libroDAO.seleccionarRegistro(libroCarrito);
         LibroComprado libroComprado = setProductoCompra(libroCarrito);
 
         libroComprado.setCantidadComprada(libroCarrito.getStockReservado());
-        libroComprado.setPrecioVenta(calculadoraIVA.precioBaseUnitario(libroCatalogo));
-        libroComprado.setImpuestoUnitario(calculadoraIVA.impuestoProducto(libroCatalogo));
-        libroComprado.setImpuestoTotal(calculadoraIVA.impuestoProductos(libroCarrito, libroCatalogo));
-        libroComprado.setPrecioTotalSinIva(calculadoraIVA.subtotalProducto(libroCarrito, libroComprado.getPrecioVenta()));
-        libroComprado.setPrecioTotal(calculadoraIVA.total(libroComprado.getPrecioTotalSinIva(), libroComprado.getImpuestoTotal()));
+        libroComprado.setPrecioVenta(calculadoraTiendaImpl.calcularBase(libroCatalogo));
+        libroComprado.setImpuestoUnitario(calculadoraTiendaImpl.calcularImpuesto(libroCatalogo));
+        libroComprado.setImpuestoTotal(calculadoraTiendaImpl.calcularImpuestoTotalProducto(libroCarrito));
+        libroComprado.setPrecioTotalSinIva(calculadoraTiendaImpl.calcularBaseTotalProducto(libroCarrito));
+        libroComprado.setPrecioTotal(calculadoraTiendaImpl.total(libroComprado.getPrecioTotalSinIva(), libroComprado.getImpuestoTotal()));
         libroCarrito.setIsbn(libroCatalogo.getIsbn());
         libroComprado.setIsbn(libroCatalogo.getIsbn());
 
@@ -421,17 +415,17 @@ public class GestionTienda {
 
     public TotalesCompra valorCompra() throws IOException, SQLException, RuntimeException {
         TotalesCompra totalesCompra = new TotalesCompra();
-        setValorCompra(totalesCompra, calculadoraIVA);
+        setValorCompra(totalesCompra, calculadoraTiendaImpl);
         return totalesCompra;
     }
 
-    private void setValorCompra(TotalesCompra totalesCompra, CalculadoraIVA calculadoraIVA) throws SQLException {
+    private void setValorCompra(TotalesCompra totalesCompra, CalculadoraTiendaImpl calculadoraTiendaImpl) throws SQLException {
         ArrayList<Libro> librosCarritoUserLog = tienda.getUsuarioActual().getCarrito().getLibros();
-        totalesCompra.setPrecioBaseTotal(calculadoraIVA.precioBaseTotal(librosCarritoUserLog, libroDAO));
-        totalesCompra.setImpuestos(calculadoraIVA.impuestos(librosCarritoUserLog, libroDAO));
-        totalesCompra.setTotal(calculadoraIVA.total(totalesCompra.getPrecioBase(), totalesCompra.getImpuestos()));
-        totalesCompra.setDescuentoPremium(calculadoraIVA.descuentoPremiumTotal(totalesCompra.getTotal(), tienda.getUsuarioActual()));
-        totalesCompra.setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(tienda.getUsuarioActual().getCuenta().getCorreo()), totalesCompra.getTotal()));
+        totalesCompra.setPrecioBaseTotal(calculadoraTiendaImpl.calcularBaseTotalCompra(librosCarritoUserLog));
+        totalesCompra.setImpuestos(calculadoraTiendaImpl.calcularImpuestoTotalCompra(librosCarritoUserLog));
+        totalesCompra.setTotal(calculadoraTiendaImpl.total(totalesCompra.getPrecioBase(), totalesCompra.getImpuestos()));
+        totalesCompra.setDescuentoPremium(calculadoraTiendaImpl.descuentoPremiumTotal(totalesCompra.getTotal(), tienda.getUsuarioActual()));
+        totalesCompra.setDescuentoFrecuencia(calculadoraTiendaImpl.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(tienda.getUsuarioActual().getCuenta().getCorreo()), totalesCompra.getTotal()));
         totalesCompra.setTotal(totalesCompra.getTotal() - totalesCompra.getDescuentoFrecuencia() - totalesCompra.getDescuentoPremium());
     }
 

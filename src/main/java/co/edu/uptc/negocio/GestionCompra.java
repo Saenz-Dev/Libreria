@@ -50,7 +50,7 @@ public class GestionCompra {
     /**
      * Utilidad para cálculos de IVA, descuentos y totales.
      */
-    private CalculadoraIVA calculadoraIVA;
+    private CalculadoraTiendaImpl calculadoraTiendaImpl;
 
     /**
      * Constructor que inicializa la gestión de compras con las dependencias necesarias.
@@ -67,7 +67,7 @@ public class GestionCompra {
         this.compraDAO = compraDAO;
         this.reciboDAO = reciboDAO;
         this.carritoDAO = carritoDAO;
-        calculadoraIVA = new CalculadoraIVA();
+        calculadoraTiendaImpl = new CalculadoraTiendaImpl();
     }
 
     /**
@@ -94,7 +94,7 @@ public class GestionCompra {
             setInfoRecibo(usuarioLog, fecha, recibo);
             registradoCompra = validarCompraRegistrada(registradoCompra, recibo);
 
-            setProductoCompra(calculadoraIVA, libroCarritoUser, recibo, libroComprado, libro);
+            setProductoCompra(calculadoraTiendaImpl, libroCarritoUser, recibo, libroComprado, libro);
             setResumenCarritoCompra(usuarioLog, tipoPagoEnum, libroDAO, listaCarritoUser, recibo);
         }
         reciboDAO.insertarDatos(recibo);
@@ -159,11 +159,11 @@ public class GestionCompra {
      * @throws SQLException si ocurre un error de base de datos
      */
     private void setResumenCarritoCompra(Usuario usuarioLog, TipoPagoEnum tipoPagoEnum, LibroDAO libroDAO, ArrayList<Libro> listaCarritoUser, Recibo recibo) throws SQLException {
-        recibo.getValorCompra().setPrecioBaseTotal(calculadoraIVA.precioBaseTotal(listaCarritoUser, libroDAO));
-        recibo.getValorCompra().setImpuestos(calculadoraIVA.impuestos(listaCarritoUser, libroDAO));
-        recibo.getValorCompra().setTotal(calculadoraIVA.total(recibo.getValorCompra().getPrecioBase(), recibo.getValorCompra().getImpuestos()));
-        recibo.getValorCompra().setDescuentoPremium(calculadoraIVA.descuentoPremiumTotal(recibo.getValorCompra().getTotal(), tienda.getUsuarioActual()));
-        recibo.getValorCompra().setDescuentoFrecuencia(calculadoraIVA.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(usuarioLog.getCuenta().getCorreo()), recibo.getValorCompra().getTotal()));
+        recibo.getValorCompra().setPrecioBaseTotal(calculadoraTiendaImpl.calcularBaseTotalCompra(listaCarritoUser));
+        recibo.getValorCompra().setImpuestos(calculadoraTiendaImpl.calcularImpuestoTotalCompra(listaCarritoUser));
+        recibo.getValorCompra().setTotal(calculadoraTiendaImpl.total(recibo.getValorCompra().getPrecioBase(), recibo.getValorCompra().getImpuestos()));
+        recibo.getValorCompra().setDescuentoPremium(calculadoraTiendaImpl.descuentoPremiumTotal(recibo.getValorCompra().getTotal(), tienda.getUsuarioActual()));
+        recibo.getValorCompra().setDescuentoFrecuencia(calculadoraTiendaImpl.descuentoFrecuencia(reciboDAO.seleccionarRegistrosCompras(usuarioLog.getCuenta().getCorreo()), recibo.getValorCompra().getTotal()));
         recibo.getValorCompra().setTotal(recibo.getValorCompra().getTotal() - recibo.getValorCompra().getDescuentoFrecuencia() - recibo.getValorCompra().getDescuentoPremium());
         recibo.setTipoPago(tipoPagoEnum);
     }
@@ -171,19 +171,19 @@ public class GestionCompra {
     /**
      * Establece la información de un producto comprado en el recibo.
      *
-     * @param calculadoraIVA utilidad para cálculos
+     * @param calculadoraTiendaImpl utilidad para cálculos
      * @param libroCarritoUser libro del carrito
      * @param recibo recibo generado
      * @param libroComprado objeto de libro comprado
      * @param libroCatalogo libro del catálogo
      */
-    private void setProductoCompra(CalculadoraIVA calculadoraIVA, Libro libroCarritoUser, Recibo recibo, LibroComprado libroComprado, Libro libroCatalogo) {
+    private void setProductoCompra(CalculadoraTiendaImpl calculadoraTiendaImpl, Libro libroCarritoUser, Recibo recibo, LibroComprado libroComprado, Libro libroCatalogo) {
         libroComprado.setCantidadComprada(libroCarritoUser.getStockReservado());
-        libroComprado.setPrecioVenta(calculadoraIVA.precioBaseUnitario(libroCatalogo));
-        libroComprado.setImpuestoUnitario(calculadoraIVA.impuestoProducto(libroCatalogo));
-        libroComprado.setImpuestoTotal(calculadoraIVA.impuestoProductos(libroCarritoUser, libroCatalogo));
-        libroComprado.setPrecioTotalSinIva(calculadoraIVA.subtotalProducto(libroCarritoUser, libroComprado.getPrecioVenta()));
-        libroComprado.setPrecioTotal(calculadoraIVA.total(libroComprado.getPrecioTotalSinIva(), libroComprado.getImpuestoTotal()));
+        libroComprado.setPrecioVenta(calculadoraTiendaImpl.calcularBase(libroCatalogo));
+        libroComprado.setImpuestoUnitario(calculadoraTiendaImpl.calcularImpuesto(libroCatalogo));
+        libroComprado.setImpuestoTotal(calculadoraTiendaImpl.calcularImpuestoTotalProducto(libroCarritoUser));
+        libroComprado.setPrecioTotalSinIva(calculadoraTiendaImpl.calcularBaseTotalProducto(libroCarritoUser));
+        libroComprado.setPrecioTotal(calculadoraTiendaImpl.total(libroComprado.getPrecioTotalSinIva(), libroComprado.getImpuestoTotal()));
         recibo.getListaProductosComprados().add(libroComprado);
     }
 
