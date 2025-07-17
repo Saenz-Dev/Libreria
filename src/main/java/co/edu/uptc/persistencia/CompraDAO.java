@@ -53,12 +53,42 @@ public class CompraDAO implements IRepositorio<Recibo> {
     /**
      * Actualiza un registro de compra en la base de datos (no implementado).
      *
-     * @param objeto objeto Recibo a actualizar
-     * @throws SQLException     si ocurre un error de base de datos
+     * @param recibo objeto Recibo a actualizar
+     * @throws RuntimeException si ocurre un error de base de datos
      * @throws RuntimeException si ocurre un error de lógica
      */
     @Override
-    public void actualizar(Recibo objeto) throws RepositorioException {
+    public void actualizar(Recibo recibo) throws RepositorioException {
+        String sql = "UPDATE compras SET correo = ?, fecha = ? WHERE numero_compra = ?";
+        try (Connection con = iConexionBD.crearConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, recibo.getCorreo());
+            ps.setTimestamp(2, Timestamp.valueOf(recibo.getFechaCompra()));
+            ps.setInt(3, recibo.getNumeroRecibo());
+            ps.executeUpdate();
+            RegistroLog.registrarInfo("Compra " + recibo.getNumeroRecibo() + " ACTUALIZADA correctamente para el correo: " + recibo.getCorreo());
+        } catch (SQLException e) {
+            RegistroLog.registrarError("❌ Error al actualizar los datos en la tabla 'compras': " + e.getMessage(), e);
+            throw new RepositorioException("No se pudo realizar la actualización del recibo. Por favor contacta a soporte.");
+        }
+    }
+
+    /**
+     * Elimina un recibo de compra de la base de datos.
+     *
+     * @param recibo recibo de compra a eliminar.
+     * @throws RepositorioException excepción si ocurre un error al realizar la actualización en la base de datos.
+     */
+    @Override
+    public void eliminar(Recibo recibo) throws RepositorioException {
+        String sql = "DELETE FROM compras WHERE numero_compra = ?";
+        try (Connection con = iConexionBD.crearConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, recibo.getNumeroRecibo());
+            ps.executeUpdate();
+            RegistroLog.registrarInfo("Compra " + recibo.getNumeroRecibo() + " ELIMINADA correctamente para el correo: " + recibo.getCorreo());
+        } catch (SQLException e) {
+            RegistroLog.registrarError("❌ Error al actualizar los datos en la tabla 'compras': " + e.getMessage(), e);
+            throw new RepositorioException("No se pudo realizar la actualización del recibo. Por favor contacta a soporte.");
+        }
     }
 
 
@@ -67,8 +97,8 @@ public class CompraDAO implements IRepositorio<Recibo> {
      *
      * @param recibo objeto Recibo con los datos de búsqueda (fecha y número)
      * @return el objeto Recibo encontrado o null si no existe
-     * @throws SQLException     si ocurre un error de base de datos
-     * @throws RuntimeException si ocurre un error de lógica
+     * @throws RepositorioException si ocurre un error de base de datos
+     * @throws RuntimeException     si ocurre un error de lógica
      */
     @Override
     public Recibo consultar(Recibo recibo) throws RepositorioException {
@@ -92,30 +122,12 @@ public class CompraDAO implements IRepositorio<Recibo> {
         }
     }
 
-    @Override
-    public List<Recibo> seleccionarRegistros(Recibo recib) throws RepositorioException {
-        String sql = "SELECT * FROM compras WHERE correo = ?";
-        try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, recib.getCorreo());
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                ArrayList<Recibo> listaRecibos = new ArrayList<>();
-                if (!resultSet.next()) {
-                    throw new RuntimeException("No se encontró la compra con los datos proporcionados.");
-                }
-                while (resultSet.next()) {
-                    Recibo recibo = new Recibo();
-                    recibo.setNumeroRecibo(resultSet.getInt("numero_compra"));
-                    recibo.setCorreo(resultSet.getString("correo"));
-                    recibo.setFechaCompra(resultSet.getTimestamp("fecha").toLocalDateTime());
-                    listaRecibos.add(recibo);
-                }
-                return listaRecibos;
-            }
-        } catch (SQLException e) {
-            throw new RepositorioException("❌ Error al seleccionar el registro en la tabla 'compras': " + e.getMessage());
-        }
-    }
-
+    /**
+     * Consulta la lista de recibos generales de la base de datos.
+     *
+     * @return lista de recibos de la base de datos.
+     * @throws RepositorioException excepción si surgen errores al realizar la consulta.
+     */
     @Override
     public List<Recibo> consultar() throws RepositorioException {
         String sql = "SELECT * FROM compras";

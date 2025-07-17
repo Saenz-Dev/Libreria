@@ -208,7 +208,7 @@ public class LibroDAO implements IRepositorio<Libro>, ILibroBusquedaPorTitulo  {
      * @throws RuntimeException si el título es nulo o vacío
      */
     @Override
-    public Libro buscarLibroPorTitulo(ILibroBusquedaStrategy estrategia) throws RepositorioException {
+    public Libro buscarLibroPorTitulo(IBusquedaStrategy estrategia) throws RepositorioException {
         try (Connection connection = conexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(estrategia.getSQL())) {
             estrategia.ajustarParametro(preparedStatement);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

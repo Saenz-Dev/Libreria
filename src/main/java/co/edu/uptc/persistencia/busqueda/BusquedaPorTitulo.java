@@ -1,11 +1,11 @@
-package co.edu.uptc.persistencia;
+package co.edu.uptc.persistencia.busqueda;
 
-import co.edu.uptc.contrato.ILibroBusquedaStrategy;
+import co.edu.uptc.contrato.IBusquedaStrategy;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class BusquedaPorTitulo implements ILibroBusquedaStrategy {
+public class BusquedaPorTitulo implements IBusquedaStrategy {
     private String titulo;
 
     public BusquedaPorTitulo(String titulo) {

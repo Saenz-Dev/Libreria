@@ -1,7 +1,6 @@
 package co.edu.uptc.contrato;
 
 import co.edu.uptc.excepcion.RepositorioException;
-import co.edu.uptc.modelo.Recibo;
 
 import java.util.List;
 
@@ -15,6 +14,4 @@ public interface IRepositorio<T> {
     void actualizar(T objeto) throws RepositorioException;
 
     void eliminar(T objeto) throws RepositorioException;
-
-    List<Recibo> consultar(Recibo recib) throws RepositorioException;
 }
