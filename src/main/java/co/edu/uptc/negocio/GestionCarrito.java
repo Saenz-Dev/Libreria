@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.*;
 import co.edu.uptc.persistencia.CarritoDAO;
@@ -474,5 +475,17 @@ public class GestionCarrito {
             iteratorCarritoUser.remove();
         }
         tienda.getCatalogo().setListaLibros(libroDAO.seleccionarRegistros());
+    }
+
+    private void migrarLibrosCarrito(Usuario usuarioLog) throws RepositorioException {
+        Carrito carritoUserDefault = new Carrito();
+        carritoUserDefault.setUsuario(usuarioLog);//Agrego el usuario al carrito para realizar la relación.
+        String nombreUsuario = usuarioLog.getNombre();
+        usuarioLog.setNombre("user_default");
+        carritoUserDefault = repositorioCarrito.consultar(carritoUserDefault);//Consulto en la base de datos el carrito de user_default
+        repositorioCarrito.guardar(carritoUserDefault);
+        repositorioCarrito.eliminar(carritoUserDefault);
+        usuarioLog.setNombre(nombreUsuario);
+        repositorioCuenta.actualizar(usuarioLog.getCuenta());
     }
 }

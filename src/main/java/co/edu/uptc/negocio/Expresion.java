@@ -2,6 +2,7 @@ package co.edu.uptc.negocio;
 
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Administrador;
+import co.edu.uptc.modelo.Cuenta;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.Usuario;
 
@@ -238,13 +239,13 @@ public class Expresion {
      * @param contrasena contraseña del usuario
      * @throws IllegalArgumentException si alguno de los datos del inicio de sesión no cumple con las reglas
      */
-    public void validarCamposVaciosLogin(String correo, String contrasena) throws IllegalArgumentException {
-        if (!correo.equals(Administrador.CORREO)) {
-            if (correo.isBlank() && contrasena.isBlank()) {
+    public void validarCamposVaciosCuenta(Cuenta cuenta) throws IllegalArgumentException {
+        if (!cuenta.getCorreo().equals(Administrador.CORREO)) {
+            if (cuenta.getCorreo().isBlank() && cuenta.getContrasena().isBlank()) {
                 throw new IllegalArgumentException("Digite el correo y la contraseña.");
-            } else if (correo.isBlank()) {
+            } else if (cuenta.getCorreo().isBlank()) {
                 throw new IllegalArgumentException("Digite el correo.");
-            } else if (contrasena.isBlank()) {
+            } else if (cuenta.getContrasena().isBlank()) {
                 throw new IllegalArgumentException("Digite la contraseña.");
             }
         }

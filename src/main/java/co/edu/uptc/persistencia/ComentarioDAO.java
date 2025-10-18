@@ -11,6 +11,7 @@ import java.util.List;
 
 import co.edu.uptc.contrato.IBusquedaStrategy;
 import co.edu.uptc.contrato.IConexionBD;
+import co.edu.uptc.contrato.IMapper;
 import co.edu.uptc.contrato.IRepositorio;
 import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
@@ -24,9 +25,11 @@ import co.edu.uptc.modelo.Comentario;
 public class ComentarioDAO implements IRepositorio<Comentario> {
 
     private IConexionBD iConexionBD;
+    private IMapper<Comentario> comentarioIMapper;
 
-    public ComentarioDAO(IConexionBD iConexionBD) {
+    public ComentarioDAO(IConexionBD iConexionBD, IMapper<Comentario> comentarioIMapper) {
         this.iConexionBD = iConexionBD;
+        this.comentarioIMapper = comentarioIMapper;
     }
 
     /**
@@ -41,11 +44,7 @@ public class ComentarioDAO implements IRepositorio<Comentario> {
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             comentario.getFecha().format(dateFormat);
-            preparedStatement.setLong(1, Long.parseLong(comentario.getIsbn()));
-            preparedStatement.setString(2, comentario.getCorreo());
-            preparedStatement.setString(3, comentario.getComentario());
-            preparedStatement.setInt(4, comentario.getCalificacion());
-            preparedStatement.setTimestamp(5, Timestamp.valueOf(comentario.getFecha()));
+            comentarioIMapper.mapearObjeto(comentario, preparedStatement);
             preparedStatement.executeUpdate();
             RegistroLog.registrarInfo("Comentario insertado correctamente para ISBN " + comentario.getIsbn() + ", usuario: " + comentario.getCorreo());
         } catch (SQLException e) {
@@ -66,12 +65,7 @@ public class ComentarioDAO implements IRepositorio<Comentario> {
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql); ResultSet resultSet = preparedStatement.executeQuery()) {
             ArrayList<Comentario> comentarios = new ArrayList<>();
             while (resultSet.next()) {
-                Comentario comentario = new Comentario();
-                comentario.setIsbn(resultSet.getString("isbn_libro"));
-                comentario.setCorreo(resultSet.getString("correo_usuario"));
-                comentario.setComentario(resultSet.getString("comentario"));
-                comentario.setCalificacion(resultSet.getInt("calificacion"));
-                comentario.setFecha(resultSet.getTimestamp("fecha").toLocalDateTime());
+                Comentario comentario = comentarioIMapper.mapearResultSet(resultSet);
                 comentarios.add(comentario);
             }
             if (comentarios.isEmpty()) {
@@ -99,12 +93,7 @@ public class ComentarioDAO implements IRepositorio<Comentario> {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 ArrayList<Comentario> comentarios = new ArrayList<>();
                 while (resultSet.next()) {
-                    Comentario comentario = new Comentario();
-                    comentario.setIsbn(resultSet.getString("isbn_libro"));
-                    comentario.setCorreo(resultSet.getString("correo_usuario"));
-                    comentario.setComentario(resultSet.getString("comentario"));
-                    comentario.setCalificacion(resultSet.getInt("calificacion"));
-                    comentario.setFecha(resultSet.getTimestamp("fecha").toLocalDateTime());
+                    Comentario comentario = comentarioIMapper.mapearResultSet(resultSet);
                     comentarios.add(comentario);
                 }
                 return comentarios;
@@ -117,10 +106,9 @@ public class ComentarioDAO implements IRepositorio<Comentario> {
 
     @Override
     public void actualizar(Comentario comentario) throws RepositorioException {
-        String sql = "UPDATE comentarios SET comentario = ?, calificacion = ? WHERE isbn_libro = ? AND correo_usuario = ?";
+        String sql = "UPDATE comentarios SET isbn_libro = ?, correo_usuario = ?, comentario = ?, calificacion = ?, fecha = ? WHERE isbn_libro = ? AND correo_usuario = ?";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, comentario.getComentario());
-            preparedStatement.setInt(2, comentario.getCalificacion());
+            comentarioIMapper.mapearObjeto(comentario, preparedStatement);
             preparedStatement.setLong(3, Long.parseLong(comentario.getIsbn()));
             preparedStatement.setString(4, comentario.getCorreo());
             preparedStatement.executeUpdate();
@@ -152,11 +140,7 @@ public class ComentarioDAO implements IRepositorio<Comentario> {
             preparedStatement.setLong(1, Long.parseLong(comentario.getIsbn()));
             preparedStatement.setString(2, comentario.getCorreo());
             if (resultSet.next()) {
-                comentario.setIsbn(resultSet.getString("isbn_libro"));
-                comentario.setCorreo(resultSet.getString("correo_usuario"));
-                comentario.setComentario(resultSet.getString("comentario"));
-                comentario.setCalificacion(resultSet.getInt("calificacion"));
-                comentario.setFecha(resultSet.getTimestamp("fecha").toLocalDateTime());
+                comentarioIMapper.mapearResultSet(resultSet);
                 RegistroLog.registrarInfo("✅ Se encontró el comentario del libro: " + comentario.getIsbn() + " del usuario: " + comentario.getCorreo() + ".");
                 return comentario;
             }

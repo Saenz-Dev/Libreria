@@ -147,9 +147,23 @@ public class GestionTienda {
         }
     }
 
-
+    /**
+     * Valida si el correo del administrador es el del usuario logueado
+     *
+     * @return retorna true si el correo del administrador es el del usuario
+     * logueado
+     */
     public boolean isAdminLogin() {
-        return gestionUsuario.isAdminLogin();
+        return tienda.getUsuarioActual().getCuenta().getCorreo().equals(Administrador.CORREO);
+    }
+
+    /**
+     * Valida si el usuario logueado es el default
+     *
+     * @return retorna true si el usuario logueado es el default
+     */
+    public boolean isDefaultUserLogin() {
+        return tienda.getUsuarioActual().getCuenta().getCorreo().equals("user_default");
     }
 
     public void cerrarSesion(boolean cerrarAplicacion) throws IOException, RuntimeException, SQLException {

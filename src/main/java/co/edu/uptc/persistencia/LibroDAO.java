@@ -5,6 +5,7 @@ import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.TipoLibroEnum;
+import co.edu.uptc.persistencia.mapper.LibroMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,11 +22,11 @@ import java.util.List;
 public class LibroDAO implements IRepositorio<Libro>, ILibroBusquedaPorTitulo  {
 
     private IConexionBD conexionBD;
-    private ICategoriaRepositorio categoriaRepo;
+    private IMapper<Libro> libroIMapper;
 
-    public LibroDAO(IConexionBD conexionBD, ICategoriaRepositorio categoriaRepo) {
+    public LibroDAO(IConexionBD conexionBD, IMapper<Libro> libroIMapper) {
         this.conexionBD = conexionBD;
-        this.categoriaRepo = categoriaRepo;
+        this.libroIMapper = libroIMapper;
     }
 
     /**
@@ -40,18 +41,7 @@ public class LibroDAO implements IRepositorio<Libro>, ILibroBusquedaPorTitulo  {
         if (libro == null) throw new RuntimeException("No se puede guardar un libro vacío.");
         String sentencia = "INSERT INTO libros (isbn, titulo, autor, año_publicación, editorial, páginas, precio, stockDisponible, stockReservado, tipo, comprado, id_categoria) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = conexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.setString(1, libro.getIsbn());
-            preparedStatement.setString(2, libro.getTitulo());
-            preparedStatement.setString(3, libro.getAutor());
-            preparedStatement.setInt(4, libro.getAnioPublicacion());
-            preparedStatement.setString(5, libro.getEditorial());
-            preparedStatement.setInt(6, libro.getNumeroPaginas());
-            preparedStatement.setDouble(7, libro.getPrecioVenta());
-            preparedStatement.setInt(8, libro.getStockDisponible());
-            preparedStatement.setInt(9, libro.getStockReservado());
-            preparedStatement.setString(10, String.valueOf(libro.getTipoLibro()));
-            preparedStatement.setBoolean(11, libro.getIsComprado());
-            preparedStatement.setInt(12, categoriaRepo.consultarCategoriaNombre(libro.getCategoria().getNombre()).getIdCategoria());
+            libroIMapper.mapearObjeto(libro, preparedStatement);
             preparedStatement.executeUpdate();
             RegistroLog.registrarInfo("✅ Libro insertado correctamente con ISBN: " + libro.getIsbn());
         } catch (SQLException e) {
@@ -75,19 +65,7 @@ public class LibroDAO implements IRepositorio<Libro>, ILibroBusquedaPorTitulo  {
             preparedStatement.setString(1, libro.getIsbn());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    Libro libroResult = new Libro();
-                    libroResult.setIsbn(resultSet.getString("isbn"));
-                    libroResult.setTitulo(resultSet.getString("titulo"));
-                    libroResult.setAutor(resultSet.getString("autor"));
-                    libroResult.setAnioPublicacion(resultSet.getInt("año_publicación"));
-                    libroResult.setCategoria(categoriaRepo.consultarCategoriaID(resultSet.getInt("id_categoria")));
-                    libroResult.setEditorial(resultSet.getString("editorial"));
-                    libroResult.setNumeroPaginas(resultSet.getInt("páginas"));
-                    libroResult.setPrecioVenta(resultSet.getDouble("precio"));
-                    libroResult.setStockDisponible(resultSet.getInt("stockDisponible"));
-                    libroResult.setStockReservado(resultSet.getInt("stockReservado"));
-                    libroResult.setTipoLibro(TipoLibroEnum.valueOf(resultSet.getString("tipo")));
-                    libroResult.setIsComprado(resultSet.getBoolean("comprado"));
+                    Libro libroResult = libroIMapper.mapearResultSet(resultSet);
                     RegistroLog.registrarInfo("✅ Libro encontrado: " + libro.getIsbn());
                     return libroResult;
                 } else {
@@ -114,19 +92,7 @@ public class LibroDAO implements IRepositorio<Libro>, ILibroBusquedaPorTitulo  {
         String sentencia = "SELECT * FROM libros ORDER BY titulo ASC";
         try (Connection connection = conexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia); ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                Libro libroResult = new Libro();
-                libroResult.setIsbn(resultSet.getString("isbn"));
-                libroResult.setTitulo(resultSet.getString("titulo"));
-                libroResult.setAutor(resultSet.getString("autor"));
-                libroResult.setAnioPublicacion(resultSet.getInt("año_publicación"));
-                libroResult.setCategoria(categoriaRepo.consultarCategoriaID(resultSet.getInt("id_categoria")));
-                libroResult.setEditorial(resultSet.getString("editorial"));
-                libroResult.setNumeroPaginas(resultSet.getInt("páginas"));
-                libroResult.setPrecioVenta(resultSet.getDouble("precio"));
-                libroResult.setStockDisponible(resultSet.getInt("stockDisponible"));
-                libroResult.setStockReservado(resultSet.getInt("stockReservado"));
-                libroResult.setTipoLibro(TipoLibroEnum.valueOf(resultSet.getString("tipo")));
-                libroResult.setIsComprado(resultSet.getBoolean("comprado"));
+                Libro libroResult = libroIMapper.mapearResultSet(resultSet);
                 libros.add(libroResult);
             }
             RegistroLog.registrarInfo("✅ Se obtuvieron " + libros.size() + " libros de la base de datos");
@@ -147,21 +113,10 @@ public class LibroDAO implements IRepositorio<Libro>, ILibroBusquedaPorTitulo  {
     @Override
     public void actualizar(Libro libro) throws RepositorioException {
         if (libro == null) throw new RuntimeException("No se puede actualizar un libro nulo.");
-        String sentencia = "UPDATE libros SET titulo = ?, autor = ?, año_publicación = ?, id_categoria = ?, editorial = ?, páginas = ?, precio = ?, stockDisponible = ?, tipo = ?, stockReservado = ?, comprado = ? WHERE isbn = ?";
+        String sentencia = "UPDATE libros SET isbn = ?, titulo = ?, autor = ?, año_publicación = ?, id_categoria = ?, editorial = ?, páginas = ?, precio = ?, stockDisponible = ?, tipo = ?, stockReservado = ?, comprado = ? WHERE isbn = ?";
         try (Connection connection = conexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.setString(1, libro.getTitulo());
-            preparedStatement.setString(2, libro.getAutor());
-            preparedStatement.setInt(3, libro.getAnioPublicacion());
-            preparedStatement.setString(4, categoriaRepo.consultarCategoriaNombre(libro.getCategoria().getNombre()).getIdCategoria() + "");
-            preparedStatement.setString(5, libro.getEditorial());
-            preparedStatement.setInt(6, libro.getNumeroPaginas());
-            preparedStatement.setDouble(7, libro.getPrecioVenta());
-            preparedStatement.setInt(8, libro.getStockDisponible());
-            preparedStatement.setString(9, String.valueOf(libro.getTipoLibro()));
-            preparedStatement.setInt(10, libro.getStockReservado());
-            preparedStatement.setBoolean(11, libro.getIsComprado());
-            preparedStatement.setString(12, libro.getIsbn());
-
+            libroIMapper.mapearObjeto(libro, preparedStatement);
+            preparedStatement.setString(13, libro.getIsbn());
             int filasActualizadas = preparedStatement.executeUpdate();
 
             if (filasActualizadas > 0) {
@@ -213,19 +168,7 @@ public class LibroDAO implements IRepositorio<Libro>, ILibroBusquedaPorTitulo  {
             estrategia.ajustarParametro(preparedStatement);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    Libro libroResult = new Libro();
-                    libroResult.setIsbn(resultSet.getString("isbn"));
-                    libroResult.setTitulo(resultSet.getString("titulo"));
-                    libroResult.setAutor(resultSet.getString("autor"));
-                    libroResult.setAnioPublicacion(resultSet.getInt("año_publicación"));
-                    libroResult.setCategoria(categoriaRepo.consultarCategoriaID(resultSet.getInt("id_categoria")));
-                    libroResult.setEditorial(resultSet.getString("editorial"));
-                    libroResult.setNumeroPaginas(resultSet.getInt("páginas"));
-                    libroResult.setPrecioVenta(resultSet.getDouble("precio"));
-                    libroResult.setStockDisponible(resultSet.getInt("stockDisponible"));
-                    libroResult.setStockReservado(resultSet.getInt("stockReservado"));
-                    libroResult.setTipoLibro(TipoLibroEnum.valueOf(resultSet.getString("tipo")));
-                    libroResult.setIsComprado(resultSet.getBoolean("comprado"));
+                    Libro libroResult = libroIMapper.mapearResultSet(resultSet);
                     RegistroLog.registrarInfo("✅ Libro encontrado con título: " + libroResult.getTitulo());
                     return libroResult;
                 } else {

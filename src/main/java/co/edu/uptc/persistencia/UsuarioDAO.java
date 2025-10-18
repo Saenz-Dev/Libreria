@@ -1,6 +1,7 @@
 package co.edu.uptc.persistencia;
 
 import co.edu.uptc.contrato.IConexionBD;
+import co.edu.uptc.contrato.IMapper;
 import co.edu.uptc.contrato.IRepositorio;
 import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
@@ -13,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Clase DAO (Data Access Object) encargada de realizar operaciones CRUD
@@ -20,20 +22,21 @@ import java.util.List;
  * Extiende de {@code ConexionBD<Usuario>} para utilizar las utilidades de conexión.
  */
 public class UsuarioDAO implements IRepositorio<Usuario> {
-    private IConexionBD iConexionBD;
 
-    public UsuarioDAO(IConexionBD iConexionBD) {
+    private IConexionBD iConexionBD;
+    private IMapper<Usuario> mapperUsuario;
+
+    public UsuarioDAO(IConexionBD iConexionBD, IMapper<Usuario> mapperUsuario) {
         this.iConexionBD = iConexionBD;
+        this.mapperUsuario = mapperUsuario;
     }
 
     /**
      * Inserta un nuevo registro de usuario en la base de datos.
      *
      * @param usuario Objeto {@code Usuario} con los datos a insertar.
-     * @throws SQLException     Si ocurre un error al acceder a la base de datos.
      * @throws RuntimeException Si el objeto usuario es nulo.
      */
-
     @Override
     public void guardar(Usuario usuario) throws RepositorioException {
         if (usuario == null) {
@@ -41,14 +44,8 @@ public class UsuarioDAO implements IRepositorio<Usuario> {
         }
         String sentencia = "INSERT INTO usuarios (nombre, dirección, telefono, cliente, descuento, correo) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.setString(1, usuario.getNombre());
-            preparedStatement.setString(2, usuario.getDireccionEnvio());
-            preparedStatement.setLong(3, usuario.getTelefono());
-            preparedStatement.setString(4, usuario.getTipoCliente().toString());
-            preparedStatement.setDouble(5, usuario.getDescuentoTipoUsuario());
-            preparedStatement.setString(6, usuario.getCuenta().getCorreo());
+            mapperUsuario.mapearObjeto(usuario, preparedStatement);
             int filasAfectadas = preparedStatement.executeUpdate();
-
             if (filasAfectadas > 0) {
                 RegistroLog.registrarInfo("✅ Usuario insertado correctamente: " + usuario.getNombre() + " - " + usuario.getCuenta().getCorreo());
             } else {
@@ -65,8 +62,8 @@ public class UsuarioDAO implements IRepositorio<Usuario> {
      *
      * @param usuario Objeto {@code Usuario} con el correo a buscar.
      * @return Usuario encontrado o null si no existe.
-     * @throws SQLException     Si ocurre un error al acceder a la base de datos.
-     * @throws RuntimeException Si el correo del usuario es nulo.
+     * @throws RepositorioException Si ocurre un error al acceder a la base de datos.
+     * @throws RuntimeException     Si el correo del usuario es nulo.
      */
     @Override
     public Usuario consultar(Usuario usuario) throws RepositorioException {
@@ -76,13 +73,7 @@ public class UsuarioDAO implements IRepositorio<Usuario> {
             preparedStatement.setString(1, usuario.getCuenta().getCorreo());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    Usuario usuarioEncontrado = new Usuario();
-                    usuarioEncontrado.setNombre(resultSet.getString("nombre"));
-                    usuarioEncontrado.setDireccionEnvio(resultSet.getString("dirección"));
-                    usuarioEncontrado.setTelefono(resultSet.getLong("telefono"));
-                    usuarioEncontrado.setTipoCliente(TipoUsuarioEnum.valueOf(resultSet.getString("cliente")));
-                    usuarioEncontrado.setDescuentoTipoUsuario(resultSet.getDouble("descuento"));
-                    usuarioEncontrado.getCuenta().setCorreo(resultSet.getString("correo"));
+                    Usuario usuarioEncontrado = mapperUsuario.mapearResultSet(resultSet);
                     RegistroLog.registrarInfo("✅ Usuario encontrado: " + usuarioEncontrado.getCuenta().getCorreo());
                     return usuarioEncontrado;
                 } else {
@@ -109,13 +100,7 @@ public class UsuarioDAO implements IRepositorio<Usuario> {
         String sentencia = "SELECT * FROM usuarios ORDER BY nombre";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia); ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                Usuario usuario = new Usuario();
-                usuario.setNombre(resultSet.getString("nombre"));
-                usuario.setDireccionEnvio(resultSet.getString("dirección"));
-                usuario.setTelefono(resultSet.getLong("telefono"));
-                usuario.setTipoCliente(TipoUsuarioEnum.valueOf(resultSet.getString("cliente")));
-                usuario.setDescuentoTipoUsuario(resultSet.getDouble("descuento"));
-                usuario.getCuenta().setCorreo(resultSet.getString("correo"));
+                Usuario usuario = mapperUsuario.mapearResultSet(resultSet);
                 usuarios.add(usuario);
             }
             return usuarios;
@@ -139,12 +124,7 @@ public class UsuarioDAO implements IRepositorio<Usuario> {
         }
         String sentencia = "UPDATE usuarios SET nombre = ?, dirección = ?, telefono = ?, cliente = ?, descuento = ? WHERE correo = ?";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.setString(1, usuario.getNombre());
-            preparedStatement.setString(2, usuario.getDireccionEnvio());
-            preparedStatement.setLong(3, usuario.getTelefono());
-            preparedStatement.setString(4, usuario.getTipoCliente().toString());
-            preparedStatement.setDouble(5, usuario.getDescuentoTipoUsuario());
-            preparedStatement.setString(6, usuario.getCuenta().getCorreo());
+            mapperUsuario.mapearObjeto(usuario, preparedStatement);
             int filasAfectadas = preparedStatement.executeUpdate();
             if (filasAfectadas > 0) {
                 RegistroLog.registrarError("Se ha actualizado exitosamente el usuario " + usuario.getCuenta().getCorreo() + ", fueron afectadas " + filasAfectadas + " filas, ");

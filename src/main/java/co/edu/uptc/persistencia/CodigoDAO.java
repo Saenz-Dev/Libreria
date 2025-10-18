@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.uptc.contrato.IConexionBD;
+import co.edu.uptc.contrato.IMapper;
 import co.edu.uptc.contrato.IRepositorio;
 import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
@@ -22,9 +23,11 @@ import co.edu.uptc.modelo.Cuenta;
 public class CodigoDAO implements IRepositorio<CodigoPremium> {
 
     private IConexionBD iConexionBD;
+    private IMapper<CodigoPremium> codigoIMapper;
 
-    public CodigoDAO(IConexionBD iConexionBD) {
+    public CodigoDAO(IConexionBD iConexionBD, IMapper<CodigoPremium> codigoIMapper) {
         this.iConexionBD = iConexionBD;
+        this.codigoIMapper = codigoIMapper;
     }
 
     /**
@@ -38,8 +41,7 @@ public class CodigoDAO implements IRepositorio<CodigoPremium> {
     public void guardar(CodigoPremium codigo) throws RepositorioException {
         String sentencia = "INSERT INTO cod_premium (codigo, usado) VALUES (?, ?)";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.setString(1, codigo.getCodigo());
-            preparedStatement.setBoolean(2, codigo.getUsado());
+            codigoIMapper.mapearObjeto(codigo, preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RepositorioException("Este codigo ya esta registrado.");
@@ -55,10 +57,10 @@ public class CodigoDAO implements IRepositorio<CodigoPremium> {
      */
     @Override
     public void actualizar(CodigoPremium codigo) throws RepositorioException {
-        String sentencia = "UPDATE cod_premium SET usado = ? WHERE codigo = ?";
+        String sentencia = "UPDATE cod_premium SET codigo = ?, usado = ? WHERE codigo = ?";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sentencia)) {
-            preparedStatement.setBoolean(1, codigo.getUsado());
-            preparedStatement.setString(2, codigo.getCodigo());
+            codigoIMapper.mapearObjeto(codigo, preparedStatement);
+            preparedStatement.setString(3, codigo.getCodigo());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RepositorioException("Ocurrió un problema técnico al actualizar el codigo: " + codigo);
@@ -67,6 +69,7 @@ public class CodigoDAO implements IRepositorio<CodigoPremium> {
 
     /**
      * Elimina un código premium de la base de datos.
+     *
      * @param codigo código a eliminar.
      * @throws RepositorioException si ocurre un error al realizar la eliminación del código.
      */
@@ -96,10 +99,7 @@ public class CodigoDAO implements IRepositorio<CodigoPremium> {
             preparedStatement.setString(1, objeto.getCodigo());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    CodigoPremium codPremium = new CodigoPremium();
-                    codPremium.setCodigo(resultSet.getString(1));
-                    codPremium.setUsado(resultSet.getBoolean(2));
-                    return codPremium;
+                    return codigoIMapper.mapearResultSet(resultSet);
                 }
             }
         } catch (SQLException e) {
@@ -115,9 +115,7 @@ public class CodigoDAO implements IRepositorio<CodigoPremium> {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 ArrayList<CodigoPremium> codigos = new ArrayList<>();
                 while (resultSet.next()) {
-                    CodigoPremium codPremium = new CodigoPremium();
-                    codPremium.setCodigo(resultSet.getString(1));
-                    codPremium.setUsado(resultSet.getBoolean(2));
+                    CodigoPremium codPremium = codigoIMapper.mapearResultSet(resultSet);
                     codigos.add(codPremium);
                 }
                 return codigos;

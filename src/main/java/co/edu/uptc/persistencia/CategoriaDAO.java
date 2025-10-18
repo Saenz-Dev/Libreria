@@ -51,7 +51,7 @@ public class CategoriaDAO implements ICategoriaRepositorio {
      * @throws SQLException si ocurre un error de base de datos
      */
     @Override
-    public Categoria consultar(Categoria categoria) throws RepositorioException{
+    public Categoria consultar(Categoria categoria) throws RepositorioException {
         String sql = "SELECT * FROM categoria WHERE nombre = ?";
         try (Connection connection = conexionBD.crearConexion(); PreparedStatement psCat = connection.prepareStatement(sql)) {
             psCat.setString(1, categoria.getNombre());
@@ -76,7 +76,7 @@ public class CategoriaDAO implements ICategoriaRepositorio {
      * @throws SQLException si ocurre un error de base de datos
      */
     @Override
-    public List<Categoria> consultar() throws RepositorioException{
+    public List<Categoria> consultar() throws RepositorioException {
         String sqlCategoria = "SELECT * FROM categoria";
         try (Connection connection = conexionBD.crearConexion(); PreparedStatement psCat = connection.prepareStatement(sqlCategoria)) {
             ArrayList<Categoria> categorias = new ArrayList<>();
@@ -119,7 +119,7 @@ public class CategoriaDAO implements ICategoriaRepositorio {
      * @param categoria categoria a eliminar.
      */
     @Override
-    public void eliminar(Categoria categoria) throws RepositorioException{
+    public void eliminar(Categoria categoria) throws RepositorioException {
         String sql = "DELETE FROM categoria WHERE id_categoria = ?";
         try (Connection connection = conexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, categoria.getIdCategoria());
@@ -131,7 +131,7 @@ public class CategoriaDAO implements ICategoriaRepositorio {
     }
 
     @Override
-    public Categoria consultarCategoriaID(int idCategoria) throws RepositorioException {
+    public Categoria consultar(int idCategoria) throws RepositorioException {
         String sqlCategoria = "SELECT * FROM categoria WHERE id_categoria = ?";
         try (Connection connection = conexionBD.crearConexion(); PreparedStatement psCat = connection.prepareStatement(sqlCategoria)) {
             psCat.setInt(1, idCategoria);
@@ -151,7 +151,7 @@ public class CategoriaDAO implements ICategoriaRepositorio {
     }
 
     @Override
-    public Categoria consultarCategoriaNombre(String titulo) throws RepositorioException {
+    public Categoria consultar(String titulo) throws RepositorioException {
         String sqlCategoria = "SELECT * FROM categoria WHERE nombre = ?";
         try (Connection connection = conexionBD.crearConexion(); PreparedStatement psCat = connection.prepareStatement(sqlCategoria)) {
             psCat.setString(1, titulo);

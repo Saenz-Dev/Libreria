@@ -13,6 +13,12 @@ public class SelectorDescuentoFrecuencia {
         this.listaDescuentos = listaDescuentos;
     }
 
+    /**
+     * Calcula el descuento dependiendo de la cantidad de Recibos (cantidad de compras realizadas)
+     * @param listaRecibos lista de recibos (compras).
+     * @param total precio total de compra.
+     * @return descuento respecto a la compra.
+     */
     public double calcular(List<Recibo> listaRecibos, double total) {
         double descuento = 0;
         for (IDescuentoFrecuencia descuentoFrecuencia : listaDescuentos) {

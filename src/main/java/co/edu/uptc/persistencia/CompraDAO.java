@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.uptc.contrato.IConexionBD;
+import co.edu.uptc.contrato.IMapper;
 import co.edu.uptc.contrato.IRepositorio;
 import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
+import co.edu.uptc.modelo.Compra;
 import co.edu.uptc.modelo.Recibo;
 
 /**
@@ -19,31 +21,30 @@ import co.edu.uptc.modelo.Recibo;
  * Permite insertar, consultar y actualizar registros de compras en la base de datos.
  * Extiende la clase ConexionBD para el manejo de la conexión y operaciones genéricas.
  */
-public class CompraDAO implements IRepositorio<Recibo> {
+public class CompraDAO implements IRepositorio<Compra> {
 
     private IConexionBD iConexionBD;
+    private IMapper<Compra> compraIMapper;
 
-    public CompraDAO(IConexionBD iConexionBD) {
+    public CompraDAO(IConexionBD iConexionBD, IMapper<Compra> compraIMapper) {
         this.iConexionBD = iConexionBD;
+        this.compraIMapper = compraIMapper;
     }
 
     /**
      * Inserta un nuevo registro de compra en la base de datos.
      *
-     * @param recibo objeto Recibo con la información de la compra
+     * @param compra objeto Recibo con la información de la compra
      * @throws SQLException     si ocurre un error de base de datos
      * @throws RuntimeException si ocurre un error de lógica
      */
     @Override
-    public void guardar(Recibo recibo) throws RepositorioException {
+    public void guardar(Compra compra) throws RepositorioException {
         String sql = "INSERT INTO compras (numero_compra, correo, fecha) VALUES (?, ?, ?)";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-            preparedStatement.setInt(1, recibo.getNumeroRecibo());
-            preparedStatement.setString(2, recibo.getCorreo());
-            preparedStatement.setTimestamp(3, Timestamp.valueOf(recibo.getFechaCompra()));
+            compraIMapper.mapearObjeto(compra, preparedStatement);
             preparedStatement.executeUpdate();
-            RegistroLog.registrarInfo("Compra " + recibo.getNumeroRecibo() + " registrada correctamente para el correo: " + recibo.getCorreo());
+            RegistroLog.registrarInfo("Compra " + compra.getNumeroCompra() + " registrada correctamente para el correo: " + compra.getCorreo());
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al insertar los datos en la tabla 'compras': " + e.getMessage(), e);
             throw new RepositorioException("❌ No se pudo registrar la compra. Por favor, intenta de nuevo o contacta soporte.");
@@ -53,19 +54,18 @@ public class CompraDAO implements IRepositorio<Recibo> {
     /**
      * Actualiza un registro de compra en la base de datos (no implementado).
      *
-     * @param recibo objeto Recibo a actualizar
+     * @param compra objeto {@code Compra} a actualizar
      * @throws RuntimeException si ocurre un error de base de datos
      * @throws RuntimeException si ocurre un error de lógica
      */
     @Override
-    public void actualizar(Recibo recibo) throws RepositorioException {
-        String sql = "UPDATE compras SET correo = ?, fecha = ? WHERE numero_compra = ?";
+    public void actualizar(Compra compra) throws RepositorioException {
+        String sql = "UPDATE compras SET numero_compra = ?, correo = ?, fecha = ? WHERE numero_compra = ?";
         try (Connection con = iConexionBD.crearConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, recibo.getCorreo());
-            ps.setTimestamp(2, Timestamp.valueOf(recibo.getFechaCompra()));
-            ps.setInt(3, recibo.getNumeroRecibo());
+            compraIMapper.mapearObjeto(compra, ps);
+            ps.setInt(3, compra.getNumeroCompra());
             ps.executeUpdate();
-            RegistroLog.registrarInfo("Compra " + recibo.getNumeroRecibo() + " ACTUALIZADA correctamente para el correo: " + recibo.getCorreo());
+            RegistroLog.registrarInfo("Compra " + compra.getNumeroCompra() + " ACTUALIZADA correctamente para el correo: " + compra.getCorreo());
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al actualizar los datos en la tabla 'compras': " + e.getMessage(), e);
             throw new RepositorioException("No se pudo realizar la actualización del recibo. Por favor contacta a soporte.");
@@ -75,16 +75,16 @@ public class CompraDAO implements IRepositorio<Recibo> {
     /**
      * Elimina un recibo de compra de la base de datos.
      *
-     * @param recibo recibo de compra a eliminar.
+     * @param compra {@code Compra} a eliminar.
      * @throws RepositorioException excepción si ocurre un error al realizar la actualización en la base de datos.
      */
     @Override
-    public void eliminar(Recibo recibo) throws RepositorioException {
+    public void eliminar(Compra compra) throws RepositorioException {
         String sql = "DELETE FROM compras WHERE numero_compra = ?";
         try (Connection con = iConexionBD.crearConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, recibo.getNumeroRecibo());
+            ps.setInt(1, compra.getNumeroCompra());
             ps.executeUpdate();
-            RegistroLog.registrarInfo("Compra " + recibo.getNumeroRecibo() + " ELIMINADA correctamente para el correo: " + recibo.getCorreo());
+            RegistroLog.registrarInfo("Compra " + compra.getNumeroCompra() + " ELIMINADA correctamente para el correo: " + compra.getCorreo());
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al actualizar los datos en la tabla 'compras': " + e.getMessage(), e);
             throw new RepositorioException("No se pudo realizar la actualización del recibo. Por favor contacta a soporte.");
@@ -95,26 +95,23 @@ public class CompraDAO implements IRepositorio<Recibo> {
     /**
      * Consulta un registro de compra específico en la base de datos por fecha y número de compra.
      *
-     * @param recibo objeto Recibo con los datos de búsqueda (fecha y número)
+     * @param compra objeto {@code Compra} con los datos de búsqueda (fecha y número)
      * @return el objeto Recibo encontrado o null si no existe
      * @throws RepositorioException si ocurre un error de base de datos
      * @throws RuntimeException     si ocurre un error de lógica
      */
     @Override
-    public Recibo consultar(Recibo recibo) throws RepositorioException {
+    public Compra consultar(Compra compra) throws RepositorioException {
         String sql = "SELECT * FROM compras WHERE fecha = ? AND numero_compra = ?";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setTimestamp(1, Timestamp.valueOf(recibo.getFechaCompra()));
-            preparedStatement.setInt(2, recibo.getNumeroRecibo());
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(compra.getFecha()));
+            preparedStatement.setInt(2, compra.getNumeroCompra());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-
                 while (resultSet.next()) {
-                    recibo.setNumeroRecibo(resultSet.getInt("numero_compra"));
-                    recibo.setCorreo(resultSet.getString("correo"));
-                    recibo.setFechaCompra(resultSet.getTimestamp("fecha").toLocalDateTime());
+                    compraIMapper.mapearResultSet(resultSet);
                 }
-                RegistroLog.registrarInfo("✅ Registro de compra consultado correctamente. Número: " + recibo.getNumeroRecibo());
-                return recibo;
+                RegistroLog.registrarInfo("✅ Registro de compra consultado correctamente. Número: " + compra.getNumeroCompra());
+                return compra;
             }
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al consultar el registro de compra: " + e.getMessage(), e);
@@ -129,17 +126,14 @@ public class CompraDAO implements IRepositorio<Recibo> {
      * @throws RepositorioException excepción si surgen errores al realizar la consulta.
      */
     @Override
-    public List<Recibo> consultar() throws RepositorioException {
+    public List<Compra> consultar() throws RepositorioException {
         String sql = "SELECT * FROM compras";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                ArrayList<Recibo> listaRecibos = new ArrayList<>();
+                ArrayList<Compra> listaRecibos = new ArrayList<>();
                 while (resultSet.next()) {
-                    Recibo recibo = new Recibo();
-                    recibo.setNumeroRecibo(resultSet.getInt("numero_compra"));
-                    recibo.setCorreo(resultSet.getString("correo"));
-                    recibo.setFechaCompra(resultSet.getTimestamp("fecha").toLocalDateTime());
-                    listaRecibos.add(recibo);
+                    Compra compra = compraIMapper.mapearResultSet(resultSet);
+                    listaRecibos.add(compra);
                 }
                 if (listaRecibos.isEmpty()) {
                     RegistroLog.registrarInfo("No se encontraron registros en la tabla 'compras'.");

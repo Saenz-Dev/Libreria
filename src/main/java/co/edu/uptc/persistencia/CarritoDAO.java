@@ -1,6 +1,7 @@
 package co.edu.uptc.persistencia;
 
 import co.edu.uptc.contrato.IConexionBD;
+import co.edu.uptc.contrato.IMapper;
 import co.edu.uptc.contrato.IRepositorio;
 import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
@@ -22,9 +23,11 @@ import java.util.List;
 public class CarritoDAO implements IRepositorio<Carrito> {
 
     private IConexionBD iConexionBD;
+    private IMapper<Carrito> carritoIMapper;
 
-    public CarritoDAO(IConexionBD iConexionBD) {
+    public CarritoDAO(IConexionBD iConexionBD, IMapper<Carrito> carritoIMapper) {
         this.iConexionBD = iConexionBD;
+        this.carritoIMapper = carritoIMapper;
     }
 
     /**
@@ -42,14 +45,12 @@ public class CarritoDAO implements IRepositorio<Carrito> {
         }
         String sql = "INSERT INTO carrito (correo_usuario, isbn_libro, cantidad) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE cantidad = cantidad + ?";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, carrito.getUsuario().getCuenta().getCorreo());
-            preparedStatement.setString(2, carrito.getLibros().getLast().getIsbn());
-            preparedStatement.setInt(3, carrito.getLibros().getLast().getStockReservado());
+            carritoIMapper.mapearObjeto(carrito, preparedStatement);
             preparedStatement.setInt(4, carrito.getLibros().getLast().getStockReservado());
             preparedStatement.executeUpdate();
             RegistroLog.registrarInfo("Se agregaron: " + carrito.getLibros().getLast().getStockReservado() + " libros con ISBN: " + carrito.getLibros().getLast().getIsbn() + ",  usuario: " + carrito.getUsuario().getCuenta().getCorreo() + ".");
         } catch (NumberFormatException e) {
-            RegistroLog.registrarError("Formate de ISBN inválido para el libro: '" + carrito.getLibros().getLast().getIsbn() + " ->" + e.getMessage(), e);
+            RegistroLog.registrarError("Formato de ISBN inválido para el libro: '" + carrito.getLibros().getLast().getIsbn() + " ->" + e.getMessage(), e);
             throw new RuntimeException("El formato del código ISBN es incorrecto, verifica el número ingresado.");
         } catch (SQLException e) {
             RegistroLog.registrarError("Error SQL al insertar en la tabla 'carrito: '" + e.getMessage(), e);
@@ -57,22 +58,20 @@ public class CarritoDAO implements IRepositorio<Carrito> {
         }
     }
 
+    /**
+     * Consulta el carrito del usuario a buscar.
+     *
+     * @param carrito carrito del usuario.
+     * @return carrito del usuario encontrado
+     * @throws RepositorioException si ocurre una excepción al realizar la consulta.
+     */
     @Override
     public Carrito consultar(Carrito carrito) throws RepositorioException {
-        ArrayList<Libro> librosCarrito = new ArrayList<>();
         String sql = "SELECT * FROM carrito WHERE correo_usuario = ?";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, carrito.getUsuario().getCuenta().getCorreo());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    Libro libroCarritoEncontrado = new Libro();
-                    libroCarritoEncontrado.setIsbn(resultSet.getString("isbn_libro"));
-                    libroCarritoEncontrado.setStockReservado(resultSet.getInt("cantidad"));
-                    librosCarrito.add(libroCarritoEncontrado);
-                }
-                Carrito carritoLocal = new Carrito();
-                carritoLocal.setLibros(librosCarrito);
-                return carritoLocal;
+                return carritoIMapper.mapearResultSet(resultSet);
             }
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al consultar el carrito del usuario: " + carrito.getUsuario().getCuenta().getCorreo(), e);
@@ -80,21 +79,20 @@ public class CarritoDAO implements IRepositorio<Carrito> {
         }
     }
 
+    /**
+     * Consulta general de los carritos de todos los usuarios.
+     *
+     * @return todos los carritos del sistema.
+     * @throws RepositorioException si ocurre una excepción al realizar la consulta.
+     */
     @Override
     public List<Carrito> consultar() throws RepositorioException {
         ArrayList<Libro> librosCarrito = new ArrayList<>();
         String sql = "SELECT * FROM carrito WHERE correo_usuario = ?";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    Libro libroCarritoEncontrado = new Libro();
-                    libroCarritoEncontrado.setIsbn(resultSet.getString("isbn_libro"));
-                    libroCarritoEncontrado.setStockReservado(resultSet.getInt("cantidad"));
-                    librosCarrito.add(libroCarritoEncontrado);
-                }
                 List<Carrito> carritos = new ArrayList<>();
-                Carrito carrito = new Carrito();
-                carrito.setLibros(librosCarrito);
+                Carrito carrito = carritoIMapper.mapearResultSet(resultSet);
                 carritos.add(carrito);
                 return carritos;
             }
@@ -108,16 +106,16 @@ public class CarritoDAO implements IRepositorio<Carrito> {
      * Actualiza la cantidad de un libro en el carrito de un usuario.
      *
      * @param carrito carrito a guardar.
-     * @throws SQLException     si ocurre un error de base de datos
-     * @throws RuntimeException si ocurre un error de lógica
+     * @throws RepositorioException si ocurre un error de base de datos
+     * @throws RuntimeException     si ocurre un error de lógica
      */
     @Override
     public void actualizar(Carrito carrito) throws RepositorioException {
-        String sql = "UPDATE carrito SET cantidad = ? WHERE correo_usuario = ? AND isbn_libro = ?";
+        String sql = "UPDATE carrito SET correo = ?, isbn_libro = ?, cantidad = ? WHERE correo_usuario = ? AND isbn_libro = ?";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, carrito.getUsuario().getCarrito().getLibros().getLast().getStockReservado());
-            preparedStatement.setString(2, carrito.getUsuario().getCuenta().getCorreo());
-            preparedStatement.setString(3, String.valueOf(carrito.getUsuario().getCarrito().getLibros().getLast().getIsbn()));
+            carritoIMapper.mapearObjeto(carrito, preparedStatement);
+            preparedStatement.setString(4, carrito.getUsuario().getCuenta().getCorreo());
+            preparedStatement.setString(5, String.valueOf(carrito.getUsuario().getCarrito().getLibros().getLast().getIsbn()));
             preparedStatement.executeUpdate();
             RegistroLog.registrarInfo("✅ Actualización exitosa del libro con ISBN: " + carrito.getUsuario().getCarrito().getLibros().getLast().getIsbn() + ", usuario: " + carrito.getUsuario().getCuenta().getCorreo());
         } catch (SQLException e) {
@@ -131,8 +129,8 @@ public class CarritoDAO implements IRepositorio<Carrito> {
      * Elimina un libro del carrito de un usuario.
      *
      * @param carrito carrito a eliminar.
-     * @throws SQLException     si ocurre un error de base de datos
-     * @throws RuntimeException si el libro o el correo son nulos
+     * @throws RepositorioException si ocurre un error de base de datos
+     * @throws RuntimeException     si el libro o el correo son nulos
      */
 
     @Override
@@ -141,19 +139,13 @@ public class CarritoDAO implements IRepositorio<Carrito> {
             RegistroLog.registrarAdvertencia("❗ Se intentó eliminar un libro nulo o con correo nulo.");
             throw new RuntimeException("⚠️ No se proporcionó un libro válido para eliminar.");
         }
-
         String sql = "DELETE FROM carrito WHERE correo_usuario = ? AND isbn_libro = ?";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             for (Libro libro : carrito.getLibros()) {
                 preparedStatement.setString(1, carrito.getUsuario().getCuenta().getCorreo());
                 preparedStatement.setString(2, libro.getIsbn());
-                int filasAfectadas = preparedStatement.executeUpdate();
-
-                if (filasAfectadas > 0) {
-                    RegistroLog.registrarInfo("🗑️ Libro eliminado del carrito (ISBN: " + libro.getIsbn() + ", Usuario: " + carrito.getUsuario().getCuenta().getCorreo() + ").");
-                } else {
-                    RegistroLog.registrarAdvertencia("⚠️ No se encontró el libro para eliminar (ISBN: " + libro.getIsbn() + ", Usuario: " + carrito.getUsuario().getCuenta().getCorreo() + ").");
-                }
+                preparedStatement.executeUpdate();
+                RegistroLog.registrarInfo("🗑️ Libro eliminado del carrito (ISBN: " + libro.getIsbn() + ", Usuario: " + carrito.getUsuario().getCuenta().getCorreo() + ").");
             }
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al eliminar el libro del carrito.", e);

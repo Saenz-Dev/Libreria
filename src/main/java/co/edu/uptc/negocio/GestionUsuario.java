@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import co.edu.uptc.contrato.*;
+import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.*;
-import co.edu.uptc.persistencia.CarritoDAO;
-import co.edu.uptc.persistencia.CuentaDAO;
 import co.edu.uptc.persistencia.UsuarioDAO;
 
 /**
@@ -15,22 +15,13 @@ import co.edu.uptc.persistencia.UsuarioDAO;
  * Permite registrar, modificar, eliminar y autenticar usuarios, así como validar sus datos y gestionar su carrito de compras.
  * Utiliza DAOs para la persistencia de usuarios, cuentas y carritos, y utilidades para la validación de datos.
  */
-public class GestionUsuario {
-
-    /**
-     * DAO para operaciones de persistencia de cuentas de usuario.
-     */
-    private CuentaDAO cuentaDAO;
-
-    /**
-     * DAO para operaciones de persistencia de usuarios.
-     */
-    private UsuarioDAO usuarioDAO;
-
-    /**
-     * DAO para operaciones de persistencia de carritos de compra.
-     */
-    private CarritoDAO carritoDAO;
+public class GestionUsuario implements IGestionTienda<Usuario> {
+    private IRolAutenticacion rolAutenticacion;
+    private IUsuarioConverter usuarioConverter;
+    private IUsuarioValidator usuarioValidator;
+    private IAutenticacion autenticacion;
+    private IRepositorio<Usuario> repositorioUsuario;
+    private IRepositorio<Cuenta> repositorioCuenta;
 
     /**
      * Utilidad para validación de datos de usuario.
@@ -47,69 +38,29 @@ public class GestionUsuario {
      */
     private Tienda tienda;
 
-    /**
-     * Obtiene el usuario actualmente logueado en la tienda.
-     *
-     * @return usuario actual
-     * @throws SQLException si ocurre un error de base de datos
-     * @throws RuntimeException si ocurre un error de lógica
-     */
-    public Usuario usuarioLogueado() throws SQLException, RuntimeException {
-        return tienda.getUsuarioActual();
-        /*usuarioLog = usuarioDAO.seleccionarRegistro(usuarioLog);
-        usuarioLog.setCuenta(cuentaDAO.seleccionarRegistro(usuarioLog.getCuenta()));
-        return usuarioLog;*/
-    }
 
     /**
      * Constructor que inicializa la gestión de usuarios con las dependencias necesarias.
      *
-     * @param tienda referencia a la tienda virtual
+     * @param tienda     referencia a la tienda virtual
      * @param usuarioDAO DAO para usuarios
-     * @param cuentaDAO DAO para cuentas
+     * @param cuentaDAO  DAO para cuentas
      * @param carritoDAO DAO para carritos
      * @throws SQLException si ocurre un error de base de datos
      */
-    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, CuentaDAO cuentaDAO, CarritoDAO carritoDAO) throws SQLException {
+    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, IRepositorio<Usuario> repositorioUsuario, IRepositorio<Cuenta> repositorioCuenta, IRolAutenticacion rolAutenticacion, IUsuarioConverter usuarioConverter, IUsuarioValidator usuarioValidator, IAutenticacion autenticacion) throws SQLException {
+        this.rolAutenticacion = rolAutenticacion;
+        this.usuarioConverter = usuarioConverter;
+        this.usuarioValidator = usuarioValidator;
+        this.autenticacion = autenticacion;
         this.tienda = tienda;
-        this.cuentaDAO = cuentaDAO;
-        this.usuarioDAO = usuarioDAO;
-        this.carritoDAO = carritoDAO;
+        this.repositorioUsuario = repositorioUsuario;
+        this.repositorioCuenta = repositorioCuenta;
+
         tienda.getUsuarioActual().getCuenta().setCorreo("user_default");// TODO cambiar esto y mejor dejar usuario default en un JSON
         tienda.setUsuarioActual(usuarioDAO.seleccionarRegistro(tienda.getUsuarioActual()));
         expresion = new Expresion();
         administrador = new Administrador();
-    }
-
-    /**
-     * Registra un usuario en la base de datos.
-     *
-     * @param usuario usuario a registrar
-     * @throws RuntimeException si alguno de los datos del usuario no cumple con las reglas
-     * @throws SQLException si ocurre un error de base de datos
-     */
-    public void registrarUsuario(Usuario usuario) throws RuntimeException, SQLException {
-        if (cuentaDAO.seleccionarRegistro(usuario.getCuenta()) != null) {
-            RegistroLog.registrarAdvertencia("Intento de registrar un correo ya existente: " + usuario.getCuenta().getCorreo());
-            throw new IllegalArgumentException("El correo '" + usuario.getCuenta().getCorreo() + "' ya está vinculado a otra cuenta");
-        }
-        expresion.validarDatosObligatoriosUser(usuario);
-        expresion.validarDatosUsuario(usuario);
-        Usuario usuarioGuardar = convertirUsuario(usuario);
-        usuarioGuardar.getCuenta().setLog(false);
-        cuentaDAO.insertarDatos(usuarioGuardar.getCuenta());
-        usuarioDAO.insertarDatos(usuarioGuardar);
-    }
-
-    public Usuario convertirUsuario(Usuario usuario) {
-        Usuario usuarioGuardar;
-        if (usuario.getTipoCliente().equals(TipoUsuarioEnum.Premium)) {
-            usuarioGuardar = new UsuarioPremium(usuario);
-            usuarioGuardar.setTipoCliente(TipoUsuarioEnum.Premium);
-        } else {
-            usuarioGuardar = new UsuarioRegular(usuario);
-        }
-        return usuarioGuardar;
     }
 
     /**
@@ -121,87 +72,63 @@ public class GestionUsuario {
      *                                  con las reglas
      */
     public void iniciarSesion(String correo, String contrasena) throws IllegalArgumentException, SQLException {
+        Cuenta cuentaBuscada = crearEntidadCuenta(correo, contrasena);
+        expresion.validarCamposVaciosCuenta(cuentaBuscada);
+        Cuenta cuentaEncontrada = usuarioValidator.validarExistenciaUsuario(cuentaBuscada);
+        usuarioValidator.validarCuentaEncontrada(cuentaBuscada, cuentaEncontrada);
+        tienda.getUsuarioActual().setCuenta(cuentaEncontrada);
+        autenticacion.iniciarSesion(cuentaEncontrada);
+        migrarLibrosCarrito();
+    }
+
+    private Cuenta crearEntidadCuenta(String correo, String contrasena) {
         Cuenta cuenta = new Cuenta();
         cuenta.setCorreo(correo);
         cuenta.setContrasena(contrasena);
-        expresion.validarCamposVaciosLogin(correo, contrasena);
+        return cuenta;
+    }
+
+    /**
+     * Cierra la sesión del usuario logueado y asigna el usuario genérico.
+     *
+     * @param cerrarAplicacion si se debe cerrar la aplicación
+     * @throws RuntimeException si ocurre un error al cerrar la sesión
+     * @throws SQLException     si ocurre un error al acceder a la base de datos
+     */
+    public void cerrarSesionUsuario(boolean cerrarAplicacion) throws RuntimeException, SQLException {
+        autenticacion.cerrarSesion(tienda.getUsuarioActual().getCuenta());
+        RegistroLog.registrarInfo(tienda.getUsuarioActual().getCuenta().getCorreo() + " cerró la sesión.");
+        repositorioUsuario.actualizar(tienda.getUsuarioActual());
+        repositorioCuenta.actualizar(tienda.getUsuarioActual().getCuenta());
+        asignarUsuarioGenerico();
+        if (cerrarAplicacion) {
+            RegistroLog.fileHandler.close();
+        }
+    }
+
+    public void asignarUsuarioGenerico() throws SQLException {
         Usuario usuario = new Usuario();
-        usuario.getCuenta().setCorreo(correo);
-        usuario.getCuenta().setContrasena(contrasena);
-        validarDatosLogin(cuenta);
+        usuario.getCuenta().setCorreo("user_default");
+        tienda.setUsuarioActual(repositorioUsuario.consultar(usuario));
     }
 
     /**
-     * Valida si el usuario existe
+     * Registra un usuario en la base de datos.
      *
-     * @param cuenta cuenta del usuario
-     * @throws IllegalArgumentException si el usuario no existe
+     * @param usuario usuario a registrar
+     * @throws RuntimeException si alguno de los datos del usuario no cumple con las reglas
+     * @throws SQLException     si ocurre un error de base de datos
      */
-    public boolean validarDatosLogin(Cuenta cuenta) throws SQLException {
-        Cuenta cuentaEncontrada = cuentaDAO.seleccionarRegistro(cuenta); //Consulta la cuenta en la base de datos
-        Usuario usuarioLog = new Usuario(); // Creo un usuario para signar la cuenta encontrada
-        usuarioLog.setCuenta(cuentaEncontrada);// Asigno la cuenta al usuario para seleccionar el registro despues para asignar a una variable de Usuario el usuario logueado
-        validarCuentaBuscada(cuenta, cuentaEncontrada); // Valido que la cuenta no sea nula
-
-        cuentaEncontrada.setLog(true); // Actualizo el estado de la cuenta logueada
-        tienda.setUsuarioActual(usuarioDAO.seleccionarRegistro(usuarioLog)); // Selecciono el usuario logueado en la BD con la cuenta encontrada
-        if (usuarioLog.getCuenta().getCorreo().equals(Administrador.CORREO)) {
-            return false;
-        }
-
-        ArrayList<Libro> librosCarritoDefault = carritoDAO.seleccionarRegistros("user_default"); // Selecciono los libros del carrito del usuario default
-        for (Libro libroCarritoDefault : librosCarritoDefault) {
-            Libro libroCarrito = new Libro();
-            libroCarrito.setIsbn(libroCarritoDefault.getIsbn()); // Seteo el isbn del libro del carrito
-            carritoDAO.insertarDatos(libroCarritoDefault, tienda.getUsuarioActual().getCuenta().getCorreo()); // Inserto el libro del carrito de usuario default en el carrito del usuario logueado
-            carritoDAO.eliminarRegistro(libroCarrito, "user_default"); // Elimino el libro del carrito del usuario default
-        }
-        cuentaDAO.actualizarDatos(cuentaEncontrada); // Actualizo la cuenta logueada en la base de datos
-        tienda.getUsuarioActual().setCuenta(cuentaEncontrada); // Asigno la cuenta logueada al usuario actual de la tienda
-        return true;
-    }
-
-    /**
-     * Valida si la cuenta buscada es nula o si la contraseña es incorrecta
-     *
-     * @param cuenta           cuenta del usuario
-     * @param cuentaEncontrada cuenta encontrada en la base de datos
-     * @throws IllegalArgumentException si la cuenta no está registrada o si la contraseña es incorrecta
-     */
-    private void validarCuentaBuscada(Cuenta cuenta, Cuenta cuentaEncontrada) {
-        if (cuentaEncontrada == null) {
-            RegistroLog.registrarAdvertencia("❌ Intento de inicio de sesión con correo no registrado: " + cuenta.getCorreo());
-            throw new IllegalArgumentException("El usuario ingresado no está registrado.");
-        }
-
-        if (!cuentaEncontrada.getContrasena().equals(cuenta.getContrasena())) {
-            RegistroLog.registrarAdvertencia("❌ Contraseña incorrecta para el correo: " + cuenta.getCorreo());
-            throw new IllegalArgumentException("El correo o la contraseña es incorrecta.");
-        }
-
-        if (cuentaEncontrada.getCorreo().equals(Administrador.CORREO) && !cuentaEncontrada.getContrasena().equals(cuenta.getContrasena())) {
-            RegistroLog.registrarAdvertencia("❌ Contraseña incorrecta para el administrador: " + cuenta.getCorreo());
-            throw new IllegalArgumentException("El correo o la contraseña es incorrecta.");
-        }
-    }
-
-    /**
-     * Valida si el correo del administrador es el del usuario logueado
-     *
-     * @return retorna true si el correo del administrador es el del usuario
-     * logueado
-     */
-    public boolean isAdminLogin() {
-        return tienda.getUsuarioActual().getCuenta().getCorreo().equals(administrador.getCORREO());
-    }
-
-    /**
-     * Valida si el usuario logueado es el default
-     *
-     * @return retorna true si el usuario logueado es el default
-     */
-    public boolean isDefaultUserLogin() {
-        return tienda.getUsuarioActual().getCuenta().getCorreo().equals("user_default");
+    @Override
+    public void guardar(Usuario usuario) throws RepositorioException {
+        Cuenta cuenta = repositorioCuenta.consultar(usuario.getCuenta());
+        usuarioValidator.validarCuentaNula(cuenta);
+        expresion.validarDatosObligatoriosUser(usuario);
+        expresion.validarDatosUsuario(usuario);
+        Usuario usuarioGuardar = usuarioConverter.transformarEntidad(usuario);
+        usuarioGuardar.getCuenta().setLog(false);
+        repositorioCuenta.guardar(usuarioGuardar.getCuenta());
+        repositorioUsuario.guardar(usuarioGuardar);
     }
 
     /**
@@ -213,7 +140,8 @@ public class GestionUsuario {
      * @throws IllegalArgumentException si alguno de los datos del usuario no cumple
      *                                  con las reglas
      */
-    public void modificarUsuario(Usuario usuario) throws IllegalArgumentException, SQLException {
+    @Override
+    public void actualizar(Usuario usuario) throws RepositorioException {
         expresion.validarDatosObligatoriosUser(usuario);
         expresion.validarDatosUsuario(usuario);
         if (usuario.getCuenta().getCorreo().equals(tienda.getUsuarioActual().getCuenta().getCorreo())) {
@@ -237,29 +165,27 @@ public class GestionUsuario {
         }
     }
 
-    /**
-     * Cierra la sesión del usuario logueado y asigna el usuario genérico.
-     *
-     * @param cerrarAplicacion si se debe cerrar la aplicación
-     * @throws RuntimeException si ocurre un error al cerrar la sesión
-     * @throws SQLException     si ocurre un error al acceder a la base de datos
-     */
-    public void cerrarSesionUsuario(boolean cerrarAplicacion) throws RuntimeException, SQLException {
-        tienda.setUsuarioActual(usuarioDAO.seleccionarRegistro(tienda.getUsuarioActual()));
-        tienda.getUsuarioActual().setCuenta(cuentaDAO.seleccionarRegistro(tienda.getUsuarioActual().getCuenta()));
-        tienda.getUsuarioActual().getCuenta().setLog(false);
-        RegistroLog.registrarInfo(tienda.getUsuarioActual().getCuenta().getCorreo() + " cerró la sesión.");
-        usuarioDAO.actualizarDatos(tienda.getUsuarioActual());
-        cuentaDAO.actualizarDatos(tienda.getUsuarioActual().getCuenta());
-        asignarUsuarioGenerico();
-        if (cerrarAplicacion) {
-            RegistroLog.fileHandler.close();
-        }
+    @Override
+    public Usuario leer(Usuario usuario) throws RepositorioException {
+        return repositorioUsuario.consultar(usuario);
     }
 
-    public void asignarUsuarioGenerico() throws SQLException {
-        Usuario usuario = new Usuario();
-        usuario.getCuenta().setCorreo("user_default");
-        tienda.setUsuarioActual(usuarioDAO.seleccionarRegistro(usuario));
+    @Override
+    public void eliminar(Usuario usuario) throws RepositorioException {
+        ArrayList<Recibo> listaRecibos = reciboDAO.seleccionarRegistrosCompras(correo);
+        ArrayList<Libro> listaCarrito = carritoDAO.seleccionarRegistros(correo);
+        ArrayList<Comentario> listaComentarios = comentarioDAO.seleccionarRegistros();
+        buscarComentarioUsuario(listaComentarios, correo);
+        if (!listaCarrito.isEmpty()) {
+            RegistroLog.registrarAdvertencia("El usuario no se puede eliminar, tiene productos en el carrito.");
+            throw new RuntimeException("El usuario no se puede eliminar, tiene productos en el carrito.");
+        }
+        if (listaRecibos == null || !listaRecibos.isEmpty()) {
+            RegistroLog.registrarAdvertencia("El usuario no se puede eliminar, tiene compras asociadas.");
+            throw new RuntimeException("El usuario no se puede eliminar, tiene compras asociadas.");
+        }
+        usuarioDAO.eliminarRegistro(correo);
+        cuentaDAO.eliminarRegistro(correo);
+        tienda.setUsuarios(usuarioDAO.seleccionarRegistros());
     }
 }
