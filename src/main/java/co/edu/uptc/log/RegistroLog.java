@@ -94,4 +94,8 @@ public class RegistroLog {
     public static void registrarInfo(String mensaje) {
         LOGGER.log(Level.INFO, mensaje + "\n");
     }
+
+    public static void cerrar() {
+        if (fileHandler != null) fileHandler.close();
+    }
 }

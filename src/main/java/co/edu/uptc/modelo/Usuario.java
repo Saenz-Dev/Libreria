@@ -224,7 +224,7 @@ public class Usuario implements Serializable{
      *
      * @param recibosCompras La lista de recibos a asignar.
      */
-    public void setRecibosCompras(ArrayList<Recibo> recibosCompras) {
+    public void setRecibosCompras(List<Recibo> recibosCompras) {
         this.recibosCompras = recibosCompras;
     }
 }

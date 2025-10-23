@@ -3,6 +3,7 @@ package co.edu.uptc.negocio;
 import co.edu.uptc.contrato.*;
 import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.excepcion.UsuarioNoEncontradoException;
+import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.*;
 import co.edu.uptc.persistencia.CarritoDAO;
 
@@ -12,6 +13,7 @@ public class Autenticacion implements IAutenticacion {
 
     private IRepositorio<Cuenta> repositorioCuenta;
     private IRepositorio<Carrito> repositorioCarrito;
+    private IRepositorio<Usuario> repositorioUsuario;
     private IUsuarioValidator usuarioValidator;
     private IUsuarioConverter convertidorUsuario;
     private IGestionTienda<Carrito> gestionCarrito;
@@ -19,9 +21,9 @@ public class Autenticacion implements IAutenticacion {
     private Expresion expresion;
 
 
-    public Autenticacion(IRepositorio<Cuenta> repositorioCuenta, IUsuarioValidator validadorUsuario, IUsuarioConverter convertidorUsuario, IGestionTienda<Carrito> gestionCarrito, Expresion expresion, Tienda tienda) {
+    public Autenticacion(IRepositorio<Cuenta> repositorioCuenta, IUsuarioValidator validadorUsuario, IUsuarioConverter convertidorUsuario, IGestionTienda<Carrito> gestionCarrito, IRepositorio<Usuario> repositorioUsuario, Expresion expresion, Tienda tienda) {
         this.repositorioCuenta = repositorioCuenta;
-        this.usuarioValidator = validadorUsuario;
+        this.usuarioValidator = validadorUsuario; //TODO se debe recibir una clase implementación osea UsuarioValidatorImpl
         this.convertidorUsuario = convertidorUsuario;
         this.gestionCarrito = gestionCarrito;
         this.expresion = expresion;
@@ -37,9 +39,7 @@ public class Autenticacion implements IAutenticacion {
      */
     @Override
     public void iniciarSesion(Cuenta cuenta) throws RepositorioException {
-        expresion.validarCamposVaciosCuenta(cuenta);
         Cuenta cuentaConsultada = repositorioCuenta.consultar(cuenta);
-        usuarioValidator = new UsuarioValidatorImp();
         Cuenta cuentaEncontrada = usuarioValidator.validarExistenciaUsuario(cuentaConsultada);
         usuarioValidator.validarCuentaEncontrada(cuentaConsultada, cuentaEncontrada);
         tienda.getUsuarioActual().setCuenta(cuentaEncontrada);
@@ -48,7 +48,13 @@ public class Autenticacion implements IAutenticacion {
     }
 
     @Override
-    public void cerrarSesion(Cuenta cuenta) {
+    public void cerrarSesion(Cuenta cuenta) throws RepositorioException {
         cuenta.setLog(false);
+        RegistroLog.registrarInfo(cuenta.getCorreo() + " cerró la sesión.");
+        repositorioUsuario.actualizar(tienda.getUsuarioActual());
+        repositorioCuenta.actualizar(tienda.getUsuarioActual().getCuenta());
+        Usuario usuario = new Usuario();
+        usuario.getCuenta().setCorreo("user_default");
+        tienda.setUsuarioActual(repositorioUsuario.consultar(usuario));
     }
 }

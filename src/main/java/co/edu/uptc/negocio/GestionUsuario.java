@@ -3,12 +3,17 @@ package co.edu.uptc.negocio;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import co.edu.uptc.contrato.*;
 import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.*;
+import co.edu.uptc.persistencia.ReciboDAO;
 import co.edu.uptc.persistencia.UsuarioDAO;
+import co.edu.uptc.persistencia.busqueda.BusquedaCarritoPorCorreo;
+import co.edu.uptc.persistencia.busqueda.BusquedaComentarioPorCorreo;
+import co.edu.uptc.persistencia.busqueda.BusquedaReciboPorCorreo;
 
 /**
  * Clase encargada de gestionar los usuarios de la tienda virtual.
@@ -23,20 +28,12 @@ public class GestionUsuario implements IGestionTienda<Usuario> {
     private IAutenticacion autenticacion;
     private IRepositorio<Usuario> repositorioUsuario;
     private IRepositorio<Cuenta> repositorioCuenta;
-
-    /**
-     * Utilidad para validación de datos de usuario.
-     */
+    private IRepositorio<Recibo> repositorioRecibo;
+    private IRepositorio<Carrito> repositorioCarrito;
+    private IConsultaStrategy<Recibo> consultaReciboStrategy;
+    private IConsultaStrategy<Libro> consultaLibroStrategy;
+    private IConsultaStrategy<Comentario> consultaComentarioStrategy;
     private Expresion expresion;
-
-    /**
-     * Instancia del administrador del sistema.
-     */
-    private Administrador administrador;
-
-    /**
-     * Referencia a la tienda virtual.
-     */
     private Tienda tienda;
 
 
@@ -49,7 +46,7 @@ public class GestionUsuario implements IGestionTienda<Usuario> {
      * @param carritoDAO DAO para carritos
      * @throws SQLException si ocurre un error de base de datos
      */
-    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, IRepositorio<Usuario> repositorioUsuario, IRepositorio<Cuenta> repositorioCuenta, IRolAutenticacion rolAutenticacion, IUsuarioConverter usuarioConverter, IAutenticacion autenticacion, UsuarioValidatorImp usuarioValidator) throws SQLException {
+    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, IRepositorio<Usuario> repositorioUsuario, IRepositorio<Cuenta> repositorioCuenta, IRolAutenticacion rolAutenticacion, IUsuarioConverter usuarioConverter, IAutenticacion autenticacion, UsuarioValidatorImp usuarioValidator, IRepositorio<Recibo> repositorioRecibo, IRepositorio<Carrito> repositorioCarrito, IConsultaStrategy<Recibo> consultaReciboStrategy, IConsultaStrategy<Libro> consultaLibroStrategy, IConsultaStrategy<Comentario> consultaComentarioStrategy) throws SQLException {
         this.rolAutenticacion = rolAutenticacion;
         this.usuarioConverter = usuarioConverter;
         this.usuarioValidator = usuarioValidator;
@@ -57,11 +54,15 @@ public class GestionUsuario implements IGestionTienda<Usuario> {
         this.tienda = tienda;
         this.repositorioUsuario = repositorioUsuario;
         this.repositorioCuenta = repositorioCuenta;
+        this.repositorioRecibo = repositorioRecibo;
+        this.repositorioCarrito = repositorioCarrito;
+        this.consultaReciboStrategy = consultaReciboStrategy;
+        this.consultaLibroStrategy = consultaLibroStrategy;
+        this.consultaComentarioStrategy = consultaComentarioStrategy;
 
-        tienda.getUsuarioActual().getCuenta().setCorreo("user_default");// TODO cambiar esto y mejor dejar usuario default en un JSON
-        tienda.setUsuarioActual(usuarioDAO.seleccionarRegistro(tienda.getUsuarioActual()));
+        tienda.getUsuarioActual().getCuenta().setCorreo("user_default");
+        tienda.setUsuarioActual(repositorioUsuario.consultar(tienda.getUsuarioActual()));
         expresion = new Expresion();
-        administrador = new Administrador();
     }
 
     /**
@@ -74,16 +75,9 @@ public class GestionUsuario implements IGestionTienda<Usuario> {
      */
     public void iniciarSesion(String correo, String contrasena) throws IllegalArgumentException, SQLException {
         Cuenta cuenta = new Cuenta(correo, contrasena);
+        expresion.validarCamposVaciosCuenta(cuenta);
         autenticacion.iniciarSesion(cuenta);
-        //TODO terminé aquí, entonces vamos a continuar mañana desde aquí, no se si migrarLibrosCarrito() va aquí, sin embargo mañana veo
-        migrarLibrosCarrito();
-    }
-
-    private Cuenta crearEntidadCuenta(String correo, String contrasena) {
-        Cuenta cuenta = new Cuenta();
-        cuenta.setCorreo(correo);
-        cuenta.setContrasena(contrasena);
-        return cuenta;
+//        migrarLibrosCarrito(); //TODO pasarlo a la clase que contiene esta clase osea GestionTienda
     }
 
     /**
@@ -95,13 +89,8 @@ public class GestionUsuario implements IGestionTienda<Usuario> {
      */
     public void cerrarSesionUsuario(boolean cerrarAplicacion) throws RuntimeException, SQLException {
         autenticacion.cerrarSesion(tienda.getUsuarioActual().getCuenta());
-        RegistroLog.registrarInfo(tienda.getUsuarioActual().getCuenta().getCorreo() + " cerró la sesión.");
-        repositorioUsuario.actualizar(tienda.getUsuarioActual());
-        repositorioCuenta.actualizar(tienda.getUsuarioActual().getCuenta());
         asignarUsuarioGenerico();
-        if (cerrarAplicacion) {
-            RegistroLog.fileHandler.close();
-        }
+        if (cerrarAplicacion) RegistroLog.cerrar();
     }
 
     public void asignarUsuarioGenerico() throws SQLException {
@@ -142,24 +131,21 @@ public class GestionUsuario implements IGestionTienda<Usuario> {
     public void actualizar(Usuario usuario) throws RepositorioException {
         expresion.validarDatosObligatoriosUser(usuario);
         expresion.validarDatosUsuario(usuario);
-        if (usuario.getCuenta().getCorreo().equals(tienda.getUsuarioActual().getCuenta().getCorreo())) {
-            usuario.getCuenta().setLog(true);
-        }
+        validarIgualdadCorreo(usuario);
+        repositorioUsuario.actualizar(usuario);
+        repositorioCuenta.actualizar(usuario.getCuenta());
         if (usuario.getTipoCliente().equals(TipoUsuarioEnum.Premium)) {
-            UsuarioPremium usuarioPremium = new UsuarioPremium(usuario);
-            usuarioDAO.actualizarDatos(usuarioPremium);
-            cuentaDAO.actualizarDatos(usuarioPremium.getCuenta());
-            if (usuario.getCuenta().getCorreo().equals(tienda.getUsuarioActual().getCuenta().getCorreo())) {
-                usuarioPremium.setRecibosCompras(tienda.getUsuarioActual().getRecibosCompras());
-                tienda.setUsuarioActual(usuarioPremium);
-            }
-            return;
+            usuario = new UsuarioPremium(usuario);
         }
-        usuarioDAO.actualizarDatos(usuario);
-        cuentaDAO.actualizarDatos(usuario.getCuenta());
         if (usuario.getCuenta().getCorreo().equals(tienda.getUsuarioActual().getCuenta().getCorreo())) {
             usuario.setRecibosCompras(tienda.getUsuarioActual().getRecibosCompras());
             tienda.setUsuarioActual(usuario);
+        }
+    }
+
+    private void validarIgualdadCorreo(Usuario usuario) {
+        if (usuario.getCuenta().getCorreo().equals(tienda.getUsuarioActual().getCuenta().getCorreo())) {
+            usuario.getCuenta().setLog(true);
         }
     }
 
@@ -169,11 +155,20 @@ public class GestionUsuario implements IGestionTienda<Usuario> {
     }
 
     @Override
-    public void eliminar(Usuario usuario) throws RepositorioException {
-        ArrayList<Recibo> listaRecibos = reciboDAO.seleccionarRegistrosCompras(correo);
-        ArrayList<Libro> listaCarrito = carritoDAO.seleccionarRegistros(correo);
-        ArrayList<Comentario> listaComentarios = comentarioDAO.seleccionarRegistros();
-        buscarComentarioUsuario(listaComentarios, correo);
+    public void eliminar(Usuario usuario) throws SQLException {
+        IBusquedaStrategy busquedaStrategy = new BusquedaReciboPorCorreo(usuario.getCuenta().getCorreo());
+        List<Recibo> listaRecibos = consultaReciboStrategy.consultar(busquedaStrategy);
+        busquedaStrategy = new BusquedaCarritoPorCorreo(usuario.getCuenta().getCorreo());
+        List<Libro> listaCarrito = consultaLibroStrategy.consultar(busquedaStrategy);
+        busquedaStrategy = new BusquedaComentarioPorCorreo(usuario.getCuenta().getCorreo());
+        List<Comentario> listaComentarios = consultaComentarioStrategy.consultar(busquedaStrategy);
+        verificarRequisitosEliminacion(listaCarrito, listaRecibos, listaComentarios);
+        repositorioUsuario.eliminar(usuario);
+        repositorioCuenta.eliminar(usuario.getCuenta());
+        tienda.setUsuarios(repositorioUsuario.consultar());
+    }
+
+    private static void verificarRequisitosEliminacion(List<Libro> listaCarrito, List<Recibo> listaRecibos, List<Comentario> listaComentarios) {
         if (!listaCarrito.isEmpty()) {
             RegistroLog.registrarAdvertencia("El usuario no se puede eliminar, tiene productos en el carrito.");
             throw new RuntimeException("El usuario no se puede eliminar, tiene productos en el carrito.");
@@ -182,8 +177,9 @@ public class GestionUsuario implements IGestionTienda<Usuario> {
             RegistroLog.registrarAdvertencia("El usuario no se puede eliminar, tiene compras asociadas.");
             throw new RuntimeException("El usuario no se puede eliminar, tiene compras asociadas.");
         }
-        usuarioDAO.eliminarRegistro(correo);
-        cuentaDAO.eliminarRegistro(correo);
-        tienda.setUsuarios(usuarioDAO.seleccionarRegistros());
+        if (listaComentarios == null || !listaComentarios.isEmpty()) {
+            RegistroLog.registrarAdvertencia("El usuario no se puede eliminar, tiene comentarios asociados.");
+            throw new RuntimeException("El usuario no se puede eliminar, tiene comentarios asociadas.");
+        }
     }
 }

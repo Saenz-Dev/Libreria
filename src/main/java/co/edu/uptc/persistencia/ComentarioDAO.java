@@ -9,10 +9,7 @@ import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import co.edu.uptc.contrato.IBusquedaStrategy;
-import co.edu.uptc.contrato.IConexionBD;
-import co.edu.uptc.contrato.IMapper;
-import co.edu.uptc.contrato.IRepositorio;
+import co.edu.uptc.contrato.*;
 import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Comentario;
@@ -22,7 +19,7 @@ import co.edu.uptc.modelo.Comentario;
  * Permite insertar, consultar y listar comentarios en la base de datos.
  * Extiende la clase ConexionBD para el manejo de la conexión y operaciones genéricas.
  */
-public class ComentarioDAO implements IRepositorio<Comentario> {
+public class ComentarioDAO implements IRepositorio<Comentario>, IConsultaStrategy<Comentario> {
 
     private IConexionBD iConexionBD;
     private IMapper<Comentario> comentarioIMapper;
@@ -149,5 +146,22 @@ public class ComentarioDAO implements IRepositorio<Comentario> {
             throw new RepositorioException("❌ No se pudieron obtener los comentarios. Intenta nuevamente");
         }
         return null;
+    }
+
+    @Override
+    public List<Comentario> consultar(IBusquedaStrategy iBusquedaStrategy) throws SQLException {
+        try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(iBusquedaStrategy.getSQL())) {
+            iBusquedaStrategy.ajustarParametro(preparedStatement);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                List<Comentario> comentarios = new ArrayList<>();
+                while (resultSet.next()) {
+                    comentarios.add(comentarioIMapper.mapearResultSet(resultSet));
+                }
+                return comentarios;
+            }
+        } catch (SQLException e) {
+            RegistroLog.registrarError("❌ Error al seleccionar los registros en la tabla 'comentarios': " + e.getMessage(), e);
+            throw new RepositorioException("❌ No se pudieron obtener los comentarios. Intenta nuevamente");
+        }
     }
 }

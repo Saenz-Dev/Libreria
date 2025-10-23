@@ -1,12 +1,11 @@
 package co.edu.uptc.persistencia;
 
-import co.edu.uptc.contrato.IConexionBD;
-import co.edu.uptc.contrato.IMapper;
-import co.edu.uptc.contrato.IRepositorio;
+import co.edu.uptc.contrato.*;
 import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Carrito;
 import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.Recibo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,12 +19,13 @@ import java.util.List;
  * Permite insertar, actualizar, eliminar y consultar libros en el carrito de un usuario en la base de datos.
  * Extiende la clase ConexionBD para el manejo de la conexión y operaciones genéricas.
  */
-public class CarritoDAO implements IRepositorio<Carrito> {
+public class CarritoDAO implements IRepositorio<Carrito>, IConsultaStrategy<Libro> {
 
     private IConexionBD iConexionBD;
     private IMapper<Carrito> carritoIMapper;
 
-    public CarritoDAO(IConexionBD iConexionBD, IMapper<Carrito> carritoIMapper) {
+
+    public CarritoDAO(IConexionBD iConexionBD, IMapper<Carrito> carritoIMapper, IMapper<Libro> libroIMapper) {
         this.iConexionBD = iConexionBD;
         this.carritoIMapper = carritoIMapper;
     }
@@ -87,7 +87,6 @@ public class CarritoDAO implements IRepositorio<Carrito> {
      */
     @Override
     public List<Carrito> consultar() throws RepositorioException {
-        ArrayList<Libro> librosCarrito = new ArrayList<>();
         String sql = "SELECT * FROM carrito WHERE correo_usuario = ?";
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -150,6 +149,26 @@ public class CarritoDAO implements IRepositorio<Carrito> {
         } catch (SQLException e) {
             RegistroLog.registrarError("❌ Error al eliminar el libro del carrito.", e);
             throw new RepositorioException("❌ No se pudo eliminar el libro del carrito. Intenta nuevamente.");
+        }
+    }
+
+
+    /**
+     * Consulta en la base de datos la lista de libros en el Carrito de un usuario.
+     * @param iBusquedaStrategy estrategia a realizar la busqueda.
+     * @return lista de libros en el carrito de un usuario.
+     */
+    @Override
+    public List<Libro> consultar(IBusquedaStrategy iBusquedaStrategy) throws SQLException {
+        try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(iBusquedaStrategy.getSQL())) {
+            iBusquedaStrategy.ajustarParametro(preparedStatement);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                Carrito carrito = carritoIMapper.mapearResultSet(resultSet);
+                return carrito.getLibros();
+            }
+        } catch (SQLException e) {
+            RegistroLog.registrarError("❌ Error al consultar los carrito");
+            throw new RepositorioException("❌ No se pudo consultar el carrito del usuario. Por favor, intenta nuevamente.");
         }
     }
 }

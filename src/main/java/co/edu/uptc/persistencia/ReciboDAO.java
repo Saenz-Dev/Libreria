@@ -1,9 +1,6 @@
 package co.edu.uptc.persistencia;
 
-import co.edu.uptc.contrato.IBusquedaStrategy;
-import co.edu.uptc.contrato.IConexionBD;
-import co.edu.uptc.contrato.IMapper;
-import co.edu.uptc.contrato.IRepositorio;
+import co.edu.uptc.contrato.*;
 import co.edu.uptc.excepcion.RepositorioException;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.LibroComprado;
@@ -22,7 +19,7 @@ import java.util.TreeMap;
  * Permite insertar, actualizar, consultar y listar recibos en la base de datos.
  * Extiende la clase ConexionBD para el manejo de la conexión y operaciones genéricas.
  */
-public class ReciboDAO implements IRepositorio<Recibo> {
+public class ReciboDAO implements IRepositorio<Recibo>, IConsultaStrategy<Recibo> {
 
     private IConexionBD iConexionBD;
     private IMapper<Recibo> mapperRecibo;
@@ -129,6 +126,7 @@ public class ReciboDAO implements IRepositorio<Recibo> {
      * @return lista de objetos Recibo con los datos encontrados
      * @throws SQLException si ocurre un error de base de datos
      */
+    @Override
     public List<Recibo> consultar(IBusquedaStrategy busquedaReciboPorCorreo) throws SQLException {
         try (Connection connection = iConexionBD.crearConexion(); PreparedStatement preparedStatement = connection.prepareStatement(busquedaReciboPorCorreo.getSQL())) {
             busquedaReciboPorCorreo.ajustarParametro(preparedStatement);

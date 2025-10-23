@@ -24,7 +24,7 @@ public class Tienda implements Serializable {
     /**
      * Lista de usuarios registrados en la tienda.
      */
-    private ArrayList<Usuario> usuarios;
+    private List<Usuario> usuarios;
 
     /**
      * Mapa que almacena los recibos de compras por usuario.
@@ -83,7 +83,7 @@ public class Tienda implements Serializable {
      * Obtiene la lista de usuarios registrados en la tienda.
      * @return lista de usuarios
      */
-    public ArrayList<Usuario> getUsuarios() {
+    public List<Usuario> getUsuarios() {
         return usuarios;
     }
 
@@ -91,7 +91,7 @@ public class Tienda implements Serializable {
      * Establece la lista de usuarios registrados en la tienda.
      * @param usuarios lista de usuarios
      */
-    public void setUsuarios(ArrayList<Usuario> usuarios) {
+    public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
 
