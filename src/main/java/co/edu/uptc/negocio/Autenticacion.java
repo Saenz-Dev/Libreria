@@ -12,23 +12,39 @@ public class Autenticacion implements IAutenticacion {
 
     private IRepositorio<Cuenta> repositorioCuenta;
     private IRepositorio<Carrito> repositorioCarrito;
-    private IUsuarioValidator validadorUsuario;
+    private IUsuarioValidator usuarioValidator;
     private IUsuarioConverter convertidorUsuario;
     private IGestionTienda<Carrito> gestionCarrito;
     private Tienda tienda;
+    private Expresion expresion;
 
 
-    public Autenticacion(IRepositorio<Cuenta> repositorioCuenta, IUsuarioValidator validadorUsuario, IUsuarioConverter convertidorUsuario, IGestionTienda<Carrito> gestionCarrito, Tienda tienda) {
+    public Autenticacion(IRepositorio<Cuenta> repositorioCuenta, IUsuarioValidator validadorUsuario, IUsuarioConverter convertidorUsuario, IGestionTienda<Carrito> gestionCarrito, Expresion expresion, Tienda tienda) {
         this.repositorioCuenta = repositorioCuenta;
-        this.validadorUsuario = validadorUsuario;
+        this.usuarioValidator = validadorUsuario;
         this.convertidorUsuario = convertidorUsuario;
         this.gestionCarrito = gestionCarrito;
+        this.expresion = expresion;
         this.tienda = tienda;
     }
 
+    /**
+     * Autentica el usuario con la cuenta.
+     *
+     * @param cuenta cuenta del usuario para autenticar
+     * @throws RepositorioException         Excepción del repositorio.
+     * @throws UsuarioNoEncontradoException si no encuentra un usuario en persistencia.
+     */
     @Override
-    public void iniciarSesion(Cuenta cuenta) {
-        cuenta.setLog(true); //Actualizo el estado de la cuenta para iniciar sesión.
+    public void iniciarSesion(Cuenta cuenta) throws RepositorioException {
+        expresion.validarCamposVaciosCuenta(cuenta);
+        Cuenta cuentaConsultada = repositorioCuenta.consultar(cuenta);
+        usuarioValidator = new UsuarioValidatorImp();
+        Cuenta cuentaEncontrada = usuarioValidator.validarExistenciaUsuario(cuentaConsultada);
+        usuarioValidator.validarCuentaEncontrada(cuentaConsultada, cuentaEncontrada);
+        tienda.getUsuarioActual().setCuenta(cuentaEncontrada);
+        cuentaEncontrada.setLog(true); //Actualizo el estado de la cuenta para iniciar sesión.
+        repositorioCuenta.actualizar(cuentaEncontrada);
     }
 
     @Override

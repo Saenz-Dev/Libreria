@@ -1,16 +1,17 @@
 package co.edu.uptc.negocio;
 
 import co.edu.uptc.contrato.IRolAutenticacion;
-import co.edu.uptc.modelo.Administrador;
-import co.edu.uptc.modelo.Tienda;
+import co.edu.uptc.modelo.Usuario;
 
+/**
+ * Encargada de validar el rol del usuario, por ejemplo si es:
+ * - Administrador
+ * - Usuario no logueado (user_default)
+ */
 public class RolAutenticacion implements IRolAutenticacion {
 
-    private Tienda tienda;
-
-    public RolAutenticacion(Tienda tienda) {
-        this.tienda = tienda;
-    }
+    private static final String ADMIN = "administrador";
+    private static final String USUARIO_DEFAULT = "user_default";
 
     /**
      * Valida si el usuario logueado es el default
@@ -18,8 +19,8 @@ public class RolAutenticacion implements IRolAutenticacion {
      * @return retorna true si el usuario logueado es el default
      */
     @Override
-    public boolean esUsuarioDefaultLogueado() {
-        return "user_default".equals(tienda.getUsuarioActual().getCuenta().getCorreo());
+    public boolean esUsuarioDefaultLogueado(Usuario usuario) {
+        return "user_default".equals(usuario.getCuenta().getCorreo());
     }
 
     /**
@@ -29,7 +30,7 @@ public class RolAutenticacion implements IRolAutenticacion {
      * logueado
      */
     @Override
-    public boolean isAdminLogueado() {
-        return "administrador".equals(tienda.getUsuarioActual().getCuenta().getCorreo());
+    public boolean isAdminLogueado(Usuario usuario) {
+        return "administrador".equals(usuario.getCuenta().getCorreo());
     }
 }

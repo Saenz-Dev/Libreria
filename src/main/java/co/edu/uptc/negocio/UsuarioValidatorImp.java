@@ -7,15 +7,9 @@ import co.edu.uptc.excepcion.UsuarioNoEncontradoException;
 import co.edu.uptc.log.RegistroLog;
 import co.edu.uptc.modelo.Administrador;
 import co.edu.uptc.modelo.Cuenta;
-import co.edu.uptc.modelo.Usuario;
 
-public class UsuarioValidator implements IUsuarioValidator {
+public class UsuarioValidatorImp implements IUsuarioValidator {
 
-    private IRepositorio<Cuenta> repositorioCuenta;
-
-    public UsuarioValidator(IRepositorio<Cuenta> repositorioCuenta) {
-        this.repositorioCuenta = repositorioCuenta;
-    }
 
     /**
      * Valida si la cuenta buscada es nula o si la contraseña es incorrecta
@@ -50,9 +44,8 @@ public class UsuarioValidator implements IUsuarioValidator {
      * @throws IllegalArgumentException si el usuario no existe
      */
     @Override
-    public Cuenta validarExistenciaUsuario(Cuenta cuenta) throws UsuarioNoEncontradoException, RepositorioException {
-        Cuenta cuentaConsultada = repositorioCuenta.consultar(cuenta); //Consulta la cuenta y la asigno a un objeto de tipo Cuenta
-        if (cuentaConsultada == null)
+    public Cuenta validarExistenciaUsuario(Cuenta cuenta) throws UsuarioNoEncontradoException {
+        if (cuenta == null)
             throw new UsuarioNoEncontradoException("Esta cuenta no ha sido encontrada."); // Si la cuenta consultada es nula es porque no existe.
         return cuenta; //Retorna la cuenta.
     }
@@ -60,8 +53,8 @@ public class UsuarioValidator implements IUsuarioValidator {
     @Override
     public void validarCuentaNula(Cuenta cuenta) throws UsuarioNoEncontradoException {
         if (cuenta != null) {
-            RegistroLog.registrarAdvertencia("Intento de registrar un correo ya existente: " + usuario.getCuenta().getCorreo());
-            throw new IllegalArgumentException("El correo '" + usuario.getCuenta().getCorreo() + "' ya está vinculado a otra cuenta");
+            RegistroLog.registrarAdvertencia("Intento de registrar un correo ya existente: " + cuenta.getCorreo());
+            throw new IllegalArgumentException("El correo '" + cuenta.getCorreo() + "' ya está vinculado a otra cuenta");
         }
     }
 }

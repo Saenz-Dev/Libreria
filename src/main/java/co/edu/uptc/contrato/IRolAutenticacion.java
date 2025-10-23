@@ -1,7 +1,9 @@
 package co.edu.uptc.contrato;
 
-public interface IRolAutenticacion {
-    boolean esUsuarioDefaultLogueado();
+import co.edu.uptc.modelo.Usuario;
 
-    boolean isAdminLogueado();
+public interface IRolAutenticacion {
+    boolean esUsuarioDefaultLogueado(Usuario usuario);
+
+    boolean isAdminLogueado(Usuario usuario);
 }

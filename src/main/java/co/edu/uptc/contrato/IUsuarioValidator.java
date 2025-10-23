@@ -7,7 +7,7 @@ import co.edu.uptc.modelo.Cuenta;
 public interface IUsuarioValidator {
     boolean validarCuentaEncontrada(Cuenta cuentaBuscada, Cuenta cuentaEncontrada);
 
-    Cuenta validarExistenciaUsuario(Cuenta cuenta) throws UsuarioNoEncontradoException, RepositorioException;
+    Cuenta validarExistenciaUsuario(Cuenta cuenta);
 
-    void validarCuentaNula(Cuenta cuenta) throws UsuarioNoEncontradoException;
+    void validarCuentaNula(Cuenta cuenta);
 }

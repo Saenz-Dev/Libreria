@@ -16,6 +16,7 @@ import co.edu.uptc.persistencia.UsuarioDAO;
  * Utiliza DAOs para la persistencia de usuarios, cuentas y carritos, y utilidades para la validación de datos.
  */
 public class GestionUsuario implements IGestionTienda<Usuario> {
+
     private IRolAutenticacion rolAutenticacion;
     private IUsuarioConverter usuarioConverter;
     private IUsuarioValidator usuarioValidator;
@@ -48,7 +49,7 @@ public class GestionUsuario implements IGestionTienda<Usuario> {
      * @param carritoDAO DAO para carritos
      * @throws SQLException si ocurre un error de base de datos
      */
-    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, IRepositorio<Usuario> repositorioUsuario, IRepositorio<Cuenta> repositorioCuenta, IRolAutenticacion rolAutenticacion, IUsuarioConverter usuarioConverter, IUsuarioValidator usuarioValidator, IAutenticacion autenticacion) throws SQLException {
+    public GestionUsuario(Tienda tienda, UsuarioDAO usuarioDAO, IRepositorio<Usuario> repositorioUsuario, IRepositorio<Cuenta> repositorioCuenta, IRolAutenticacion rolAutenticacion, IUsuarioConverter usuarioConverter, IAutenticacion autenticacion, UsuarioValidatorImp usuarioValidator) throws SQLException {
         this.rolAutenticacion = rolAutenticacion;
         this.usuarioConverter = usuarioConverter;
         this.usuarioValidator = usuarioValidator;
@@ -72,12 +73,9 @@ public class GestionUsuario implements IGestionTienda<Usuario> {
      *                                  con las reglas
      */
     public void iniciarSesion(String correo, String contrasena) throws IllegalArgumentException, SQLException {
-        Cuenta cuentaBuscada = crearEntidadCuenta(correo, contrasena);
-        expresion.validarCamposVaciosCuenta(cuentaBuscada);
-        Cuenta cuentaEncontrada = usuarioValidator.validarExistenciaUsuario(cuentaBuscada);
-        usuarioValidator.validarCuentaEncontrada(cuentaBuscada, cuentaEncontrada);
-        tienda.getUsuarioActual().setCuenta(cuentaEncontrada);
-        autenticacion.iniciarSesion(cuentaEncontrada);
+        Cuenta cuenta = new Cuenta(correo, contrasena);
+        autenticacion.iniciarSesion(cuenta);
+        //TODO terminé aquí, entonces vamos a continuar mañana desde aquí, no se si migrarLibrosCarrito() va aquí, sin embargo mañana veo
         migrarLibrosCarrito();
     }
 

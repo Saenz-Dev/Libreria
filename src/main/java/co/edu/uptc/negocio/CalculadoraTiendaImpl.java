@@ -4,6 +4,7 @@ import java.util.List;
 
 import co.edu.uptc.contrato.ICalculadoraTienda;
 import co.edu.uptc.contrato.IDescuentoFrecuencia;
+import co.edu.uptc.contrato.IValorProducto;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.Recibo;
 import co.edu.uptc.modelo.Usuario;
@@ -11,17 +12,17 @@ import co.edu.uptc.modelo.Usuario;
 /**
  * Clase que se encarga de realizar los cálculos de la librería como el carrito, el catálogo, los recibos.
  */
-public class CalculadoraTiendaImpl implements ICalculadoraTienda, IDescuentoFrecuencia {
+public class CalculadoraTiendaImpl implements ICalculadoraTienda {
 
-    private SelectorValorProducto selectorValorProducto;
-    private SelectorDescuentoFrecuencia selectorDescuentoFrecuencia;
+    private IDescuentoFrecuencia iDescuentoFrecuencia;
+    private IValorProducto iValorProducto;
 
     /**
      * Constructor por defecto. Inicializa la instancia de descuentos por frecuencia.
      */
-    public CalculadoraTiendaImpl(SelectorValorProducto selectorValorProducto, SelectorDescuentoFrecuencia selectorDescuentoFrecuencia) {
-        this.selectorValorProducto = selectorValorProducto;
-        this.selectorDescuentoFrecuencia = selectorDescuentoFrecuencia;
+    public CalculadoraTiendaImpl(IValorProducto iValorProducto, IDescuentoFrecuencia iDescuentoFrecuencia) {
+        this.iValorProducto = iValorProducto;
+        this.iDescuentoFrecuencia = iDescuentoFrecuencia;
     }
 
     /**
@@ -31,7 +32,8 @@ public class CalculadoraTiendaImpl implements ICalculadoraTienda, IDescuentoFrec
      * @param impuestos  impuestos de los productos del carrito
      * @return suma de subtotal e impuestos
      */
-    public double total(double precioBase, double impuestos) {
+    @Override
+    public double calcularTotal(double precioBase, double impuestos) {
         return precioBase + impuestos;
     }
 
@@ -42,6 +44,7 @@ public class CalculadoraTiendaImpl implements ICalculadoraTienda, IDescuentoFrec
      * @param usuario     usuario logueado
      * @return descuento total del carrito
      */
+    @Override
     public double descuentoPremiumTotal(double precioTotal, Usuario usuario) {
         return precioTotal * usuario.getDescuentoTipoUsuario();
     }
@@ -54,7 +57,7 @@ public class CalculadoraTiendaImpl implements ICalculadoraTienda, IDescuentoFrec
      */
     @Override
     public double calcularImpuestoTotalProducto(Libro libro) {
-        return selectorValorProducto.obtenerEstrategia(libro).calcularImpuesto(libro) * libro.getStockReservado();
+        return iValorProducto.calcularImpuesto(libro) * libro.getStockReservado();
     }
 
     /**
@@ -65,7 +68,7 @@ public class CalculadoraTiendaImpl implements ICalculadoraTienda, IDescuentoFrec
      */
     @Override
     public double calcularBaseTotalProducto(Libro libro) {
-        return selectorValorProducto.obtenerEstrategia(libro).calcularBase(libro) * libro.getStockReservado();
+        return iValorProducto.calcularBase(libro) * libro.getStockReservado();
     }
 
     /**
@@ -79,7 +82,7 @@ public class CalculadoraTiendaImpl implements ICalculadoraTienda, IDescuentoFrec
     public double calcularImpuestoTotalCompra(List<Libro> librosReservados) {
         double impuestoTotalCompra = 0;
         for (Libro libroReservado : librosReservados) {
-            impuestoTotalCompra += selectorValorProducto.obtenerEstrategia(libroReservado).calcularImpuesto(libroReservado) * libroReservado.getStockReservado();
+            impuestoTotalCompra += iValorProducto.calcularImpuesto(libroReservado) * libroReservado.getStockReservado();
         }
         return impuestoTotalCompra;
     }
@@ -95,20 +98,9 @@ public class CalculadoraTiendaImpl implements ICalculadoraTienda, IDescuentoFrec
     public double calcularBaseTotalCompra(List<Libro> librosReservados) {
         double baseTotalCompra = 0;
         for (Libro libroReservado : librosReservados) {
-            baseTotalCompra += selectorValorProducto.obtenerEstrategia(libroReservado).calcularBase(libroReservado) * libroReservado.getStockReservado();
+            baseTotalCompra += iValorProducto.calcularBase(libroReservado) * libroReservado.getStockReservado();
         }
         return baseTotalCompra;
-    }
-
-    /**
-     * Verifica si el tipo de libro aplica a las estrategias creadas.
-     *
-     * @param libro el libro a consultar si aplica a alguna de las estrategias.
-     * @return {@code true} si el libro aplica a alguna estrategia creada.
-     */
-    @Override
-    public boolean aplica(Libro libro) {
-        return selectorValorProducto.obtenerEstrategia(libro).aplica(libro);
     }
 
     /**
@@ -120,7 +112,7 @@ public class CalculadoraTiendaImpl implements ICalculadoraTienda, IDescuentoFrec
      */
     @Override
     public double calcularImpuesto(Libro libro) {
-        return selectorValorProducto.obtenerEstrategia(libro).calcularImpuesto(libro);
+        return iValorProducto.calcularImpuesto(libro);
     }
 
     /**
@@ -135,18 +127,26 @@ public class CalculadoraTiendaImpl implements ICalculadoraTienda, IDescuentoFrec
      */
     @Override
     public double calcularBase(Libro libro) {
-        return selectorValorProducto.obtenerEstrategia(libro).calcularBase(libro);
+        return iValorProducto.calcularBase(libro);
     }
 
     /**
      * Calcula el descuento según la frecuencia con que realiza
      * compras de libros.
+     *
      * @param listaRecibos lista de recibos de compra.
-     * @param total total de compra para realizar el cálculo.
+     * @param total        total de compra para realizar el cálculo.
      * @return descuento de frecuencia de compra.
      */
     @Override
-    public double calcularDescuentoFrecuencia(List<Recibo> listaRecibos, double total) {
-        return selectorDescuentoFrecuencia.calcular(listaRecibos, total);
+    public double calcularDescuentoContinuidad(List<Recibo> listaRecibos, double total) {
+        double descuento = 0;
+        iDescuentoFrecuencia = new DescuentoFrecuenciaDiez();
+        descuento += iDescuentoFrecuencia.calcularDescuentoFrecuencia(listaRecibos, total);
+        iDescuentoFrecuencia = new DescuentoFrecuenciaVeinte();
+        descuento += iDescuentoFrecuencia.calcularDescuentoFrecuencia(listaRecibos, total);
+        iDescuentoFrecuencia = new DescuentoFrecuenciaCincuenta();
+        descuento += iDescuentoFrecuencia.calcularDescuentoFrecuencia(listaRecibos, total);
+        return descuento;
     }
 }

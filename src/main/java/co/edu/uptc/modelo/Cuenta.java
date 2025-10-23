@@ -44,6 +44,11 @@ public class Cuenta implements Serializable {
         this.isLog = isLog;
     }
 
+    public Cuenta(String correo, String contrasena) {
+        this.correo = correo;
+        this.contrasena = contrasena;
+    }
+
     /**
      * Metodo que devuelve el correo del usuario
      * @return correo del usuario

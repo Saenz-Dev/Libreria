@@ -7,17 +7,11 @@ import java.util.List;
 
 public class DescuentoFrecuenciaDiez implements IDescuentoFrecuencia {
 
-    private double descuento;
-
-    public DescuentoFrecuenciaDiez(double descuento) {
-        this.descuento = descuento;
-    }
+    private static final double DESCUENTO = 0.1;
 
     @Override
     public double calcularDescuentoFrecuencia(List<Recibo> listaRecibos, double total) {
-        if (listaRecibos.size() == 10) {
-            return total * descuento;
-        }
+        if (listaRecibos.size() == 10) return total * DESCUENTO;
         return 0;
     }
 }
