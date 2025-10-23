@@ -23,7 +23,7 @@ public class EventoLista implements ItemListener {
      * @param itemEvent el evento de acción que se ha disparado.
      */
     public void itemStateChanged(ItemEvent itemEvent) {
-        if (itemEvent.getStateChange() == itemEvent.SELECTED) {
+        if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
             String seleccion = itemEvent.getItem().toString();
             ventanaPrincipal.llenarCamposModificarLibros(seleccion);
         }

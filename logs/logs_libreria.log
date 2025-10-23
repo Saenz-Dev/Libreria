@@ -1,0 +1,2648 @@
+jun 10, 2025 5:55:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 10, 2025 5:55:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 5:55:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 10, 2025 5:55:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 6:39:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 10, 2025 6:39:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780000000035,  usuario: user_default.
+
+jun 10, 2025 6:39:28 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 10, 2025 6:39:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 10, 2025 6:39:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 10, 2025 6:39:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+jun 10, 2025 6:39:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: user_default
+
+jun 10, 2025 6:39:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 10, 2025 6:39:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 10, 2025 6:39:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 10, 2025 6:39:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780000000035, Usuario: user_default).
+
+jun 10, 2025 6:39:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 10, 2025 6:39:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+jun 10, 2025 6:39:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: user_default
+
+jun 10, 2025 6:39:33 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 6:39:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: saenzm@gmail.com
+
+jun 10, 2025 6:39:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: saenzm@gmail.com
+
+jun 10, 2025 6:39:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 3 recibos del usuario: saenzm@gmail.com
+
+jun 10, 2025 6:39:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 6:39:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 3 recibos del usuario: saenzm@gmail.com
+
+jun 10, 2025 6:39:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: saenzm@gmail.com
+
+jun 10, 2025 6:39:54 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Registro de compra consultado correctamente. Número: 1
+
+jun 10, 2025 6:39:54 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se consultó el recibo N° 1 del usuario: saenzm@gmail.com
+
+jun 10, 2025 6:40:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: saenzm@gmail.com
+
+jun 10, 2025 6:40:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: saenzm@gmail.com cerró la sesión.
+
+jun 10, 2025 6:40:02 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario saenzm@gmail.com, fueron afectadas 1 filas, 
+
+jun 10, 2025 6:40:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: saenzm@gmail.com
+
+jun 10, 2025 6:40:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 10, 2025 6:40:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 7:09:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 10, 2025 7:09:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: administrador
+
+jun 10, 2025 7:09:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 7:09:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 7:09:58 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: ❌ Error al intentar borrar el libro 'Historia de América Latina': Cannot delete or update a parent row: a foreign key constraint fails (`db_libreria`.`carrito`, CONSTRAINT `carrito_ibfk_2` FOREIGN KEY (`isbn_libro`) REFERENCES `libros` (`isbn`))
+
+java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`db_libreria`.`carrito`, CONSTRAINT `carrito_ibfk_2` FOREIGN KEY (`isbn_libro`) REFERENCES `libros` (`isbn`))
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:109)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:990)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1168)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1103)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1450)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1086)
+	at co.edu.uptc.persistencia.LibroDAO.eliminarRegistro(LibroDAO.java:282)
+	at co.edu.uptc.negocio.GestionLibro.eliminarLibro(GestionLibro.java:135)
+	at co.edu.uptc.negocio.GestionTienda.eliminarLibro(GestionTienda.java:231)
+	at co.edu.uptc.gui.VentanaPrincipal.activarFuncionEliminarLibros(VentanaPrincipal.java:364)
+	at co.edu.uptc.gui.Evento.actionPerformed(Evento.java:131)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6621)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3398)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6386)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4996)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4575)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:98)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+jun 10, 2025 7:12:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 10, 2025 7:12:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+jun 10, 2025 7:12:57 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+jun 10, 2025 7:12:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+jun 10, 2025 7:12:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 10, 2025 7:12:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 7:13:05 P. M. co.edu.uptc.log.RegistroLog registrarAdvertencia
+WARNING: ❌ Contraseña incorrecta para el correo: garcese@gmail.com
+
+jun 10, 2025 7:13:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 10, 2025 7:13:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 10, 2025 7:13:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 10, 2025 7:13:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 7:13:33 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron comentarios en el libro
+
+jun 10, 2025 7:13:36 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron comentarios en el libro
+
+jun 10, 2025 7:13:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 10, 2025 7:13:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: garcese@gmail.com cerró la sesión.
+
+jun 10, 2025 7:13:40 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 10, 2025 7:13:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 10, 2025 7:13:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 10, 2025 7:13:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 7:13:53 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 10, 2025 7:13:53 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: administrador
+
+jun 10, 2025 7:13:54 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 7:13:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 7:15:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 7:15:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 10, 2025 7:15:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+jun 10, 2025 7:15:45 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+jun 10, 2025 7:15:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+jun 10, 2025 7:15:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 10, 2025 7:15:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 10, 2025 7:15:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 10, 2025 7:15:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+jun 10, 2025 7:15:56 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 10, 2025 7:15:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+jun 10, 2025 7:15:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 11, 2025 6:39:40 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 11, 2025 6:39:41 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 11, 2025 6:39:43 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 11, 2025 6:39:44 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 11, 2025 6:40:29 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 11, 2025 6:40:29 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 11, 2025 6:40:30 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 11, 2025 6:40:30 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 11, 2025 6:40:39 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:40:39 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780000000035,  usuario: user_default.
+
+jun 11, 2025 6:40:39 A. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 11, 2025 6:40:39 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 11, 2025 6:40:41 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:40:41 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+jun 11, 2025 6:40:41 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: user_default
+
+jun 11, 2025 6:40:41 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:40:41 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:40:43 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:40:43 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780000000035, Usuario: user_default).
+
+jun 11, 2025 6:40:43 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 11, 2025 6:40:43 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 11, 2025 6:41:40 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 11, 2025 6:43:27 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 11, 2025 6:43:28 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 11, 2025 6:43:29 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 11, 2025 6:43:29 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 11, 2025 6:45:42 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+jun 11, 2025 6:45:42 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: user_default
+
+jun 11, 2025 6:45:56 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 11, 2025 6:46:04 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:46:05 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780000000035,  usuario: user_default.
+
+jun 11, 2025 6:46:05 A. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 11, 2025 6:46:05 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 11, 2025 6:46:07 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:46:07 A. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 11, 2025 6:46:07 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 11, 2025 6:46:07 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: user_default
+
+jun 11, 2025 6:46:10 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:46:10 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+jun 11, 2025 6:46:10 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: user_default
+
+jun 11, 2025 6:46:10 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:46:10 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:46:15 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 11, 2025 6:46:17 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:46:17 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+jun 11, 2025 6:46:17 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: user_default
+
+jun 11, 2025 6:46:17 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:46:17 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:46:19 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 11, 2025 6:46:19 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780000000035, Usuario: user_default).
+
+jun 11, 2025 6:46:19 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 11, 2025 6:46:19 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 11, 2025 6:46:23 A. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:38:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:38:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:38:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:38:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:39:03 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:39:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:39:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:39:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:39:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:39:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+jun 20, 2025 12:39:17 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:39:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+jun 20, 2025 12:39:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:39:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:39:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:39:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:39:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:39:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+jun 20, 2025 12:39:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: user_default
+
+jun 20, 2025 12:39:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:39:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+jun 20, 2025 12:39:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: user_default
+
+jun 20, 2025 12:40:00 P. M. co.edu.uptc.log.RegistroLog registrarAdvertencia
+WARNING: El carrito del usuario está vacío.
+
+jun 20, 2025 12:40:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:40:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780000000035,  usuario: user_default.
+
+jun 20, 2025 12:40:08 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:40:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:11 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:40:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: user_default
+
+jun 20, 2025 12:40:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+jun 20, 2025 12:40:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: user_default
+
+jun 20, 2025 12:40:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:17 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780000000035, Usuario: user_default).
+
+jun 20, 2025 12:40:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:40:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:40:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780000000035,  usuario: user_default.
+
+jun 20, 2025 12:40:28 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:40:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: user_default
+
+jun 20, 2025 12:40:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: user_default
+
+jun 20, 2025 12:40:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:30 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 20, 2025 12:40:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780000000035,  usuario: garcese@gmail.com.
+
+jun 20, 2025 12:40:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780000000035, Usuario: user_default).
+
+jun 20, 2025 12:40:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 20, 2025 12:40:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:40:53 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:53 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:53 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:53 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:53 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:57 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:58 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:40:59 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:01 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:04 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:27 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:27 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:27 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:27 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Compra 4 registrada correctamente para el correo: garcese@gmail.com
+
+jun 20, 2025 12:41:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 2 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se insertó correctamente el recibo num: 4 del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 3 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:41:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:41:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780000000035, Usuario: garcese@gmail.com).
+
+jun 20, 2025 12:41:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:41:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:42:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Registro de compra consultado correctamente. Número: 2
+
+jun 20, 2025 12:42:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se consultó el recibo N° 2 del usuario: garcese@gmail.com
+
+jun 20, 2025 12:43:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Comentario insertado correctamente para ISBN 9780000000035, usuario: garcese@gmail.com
+
+jun 20, 2025 12:43:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:43:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se encontraron 1 comentarios.
+
+jun 20, 2025 12:43:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 20, 2025 12:43:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:43:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 3 recibos del usuario: garcese@gmail.com
+
+jun 20, 2025 12:43:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: garcese@gmail.com
+
+jun 20, 2025 12:43:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Registro de compra consultado correctamente. Número: 4
+
+jun 20, 2025 12:43:34 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se consultó el recibo N° 4 del usuario: garcese@gmail.com
+
+jun 20, 2025 12:44:19 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:44:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 20, 2025 12:44:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:44:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: garcese@gmail.com
+
+jun 20, 2025 12:44:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: garcese@gmail.com cerró la sesión.
+
+jun 20, 2025 12:44:41 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario garcese@gmail.com, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:44:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: garcese@gmail.com
+
+jun 20, 2025 12:44:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:44:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:44:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 20, 2025 12:44:55 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: administrador
+
+jun 20, 2025 12:44:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:45:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:45:26 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:45:41 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:45:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:45:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:45:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:47:23 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 34 libros de la base de datos
+
+jun 20, 2025 12:47:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro eliminado: Astronomía para niños (ISBN: 9780000000032)
+
+jun 20, 2025 12:47:48 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:47:59 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: ❌ Error al intentar borrar el libro 'Historia de América Latina': Cannot delete or update a parent row: a foreign key constraint fails (`db_libreria`.`carrito`, CONSTRAINT `carrito_ibfk_2` FOREIGN KEY (`isbn_libro`) REFERENCES `libros` (`isbn`))
+
+java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`db_libreria`.`carrito`, CONSTRAINT `carrito_ibfk_2` FOREIGN KEY (`isbn_libro`) REFERENCES `libros` (`isbn`))
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:109)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:990)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1168)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1103)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1450)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1086)
+	at co.edu.uptc.persistencia.LibroDAO.eliminarRegistro(LibroDAO.java:282)
+	at co.edu.uptc.negocio.GestionLibro.eliminarLibro(GestionLibro.java:135)
+	at co.edu.uptc.negocio.GestionTienda.eliminarLibro(GestionTienda.java:231)
+	at co.edu.uptc.gui.VentanaPrincipal.activarFuncionEliminarLibros(VentanaPrincipal.java:364)
+	at co.edu.uptc.gui.Evento.actionPerformed(Evento.java:131)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6621)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3398)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6386)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4996)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4575)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:98)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+jun 20, 2025 12:48:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 20, 2025 12:48:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+jun 20, 2025 12:48:42 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:48:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+jun 20, 2025 12:48:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:48:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:51:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:51:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:51:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:51:50 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:52:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780000000034,  usuario: fonsecaalejandro@gmail.com.
+
+jun 20, 2025 12:52:06 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario fonsecaalejandro@gmail.com, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:52:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000034
+
+jun 20, 2025 12:52:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:07 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario fonsecaalejandro@gmail.com, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:52:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000034
+
+jun 20, 2025 12:52:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000034, usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:08 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario fonsecaalejandro@gmail.com, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:52:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000034
+
+jun 20, 2025 12:52:08 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000034, usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:09 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario fonsecaalejandro@gmail.com, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:52:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000034
+
+jun 20, 2025 12:52:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000034, usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:12 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780000000034, Usuario: fonsecaalejandro@gmail.com).
+
+jun 20, 2025 12:52:13 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000034
+
+jun 20, 2025 12:52:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:52:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:52:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:52:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780000000034,  usuario: fonsecaalejandro@gmail.com.
+
+jun 20, 2025 12:52:42 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario fonsecaalejandro@gmail.com, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:52:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000034
+
+jun 20, 2025 12:52:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000034, usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000034, usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000034, usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:52:46 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:53:01 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario fonsecaalejandro@gmail.com, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:53:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:53:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:53:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:53:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:53:10 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:53:24 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000034
+
+jun 20, 2025 12:53:24 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780000000034, Usuario: fonsecaalejandro@gmail.com).
+
+jun 20, 2025 12:53:24 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000034
+
+jun 20, 2025 12:53:24 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:53:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:53:33 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:53:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:53:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:53:42 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:53:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:53:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780000000035,  usuario: fonsecaalejandro@gmail.com.
+
+jun 20, 2025 12:53:43 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario fonsecaalejandro@gmail.com, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:53:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:53:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:53:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:53:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:53:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:53:45 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:53:48 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:53:48 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:53:48 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:53:48 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:53:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:53:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780000000035, Usuario: fonsecaalejandro@gmail.com).
+
+jun 20, 2025 12:53:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:53:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:05 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:07 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:54:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:09 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:11 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:54:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:14 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:16 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:54:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780000000035,  usuario: fonsecaalejandro@gmail.com.
+
+jun 20, 2025 12:54:18 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario fonsecaalejandro@gmail.com, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:54:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:54:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Actualización exitosa del libro con ISBN: 9780000000035, usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:54:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:24 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:24 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780000000035, Usuario: fonsecaalejandro@gmail.com).
+
+jun 20, 2025 12:54:24 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:54:24 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:24 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:25 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:54:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 0 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:37 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:54:38 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:38 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se agregaron: 1 libros con ISBN: 9780000000035,  usuario: fonsecaalejandro@gmail.com.
+
+jun 20, 2025 12:54:38 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario fonsecaalejandro@gmail.com, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:54:38 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:54:39 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:39 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:39 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 📦 Se encontraron 1 libros en el carrito del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:39 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:39 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Compra 5 registrada correctamente para el correo: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se insertó correctamente el recibo num: 5 del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: Se encontraron 1 recibos del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:54:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro encontrado: 9780000000035
+
+jun 20, 2025 12:54:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: 🗑️ Libro eliminado del carrito (ISBN: 9780000000035, Usuario: fonsecaalejandro@gmail.com).
+
+jun 20, 2025 12:54:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Libro actualizado con éxito: 9780000000035
+
+jun 20, 2025 12:54:47 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:55:02 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:55:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Registro de compra consultado correctamente. Número: 5
+
+jun 20, 2025 12:55:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se consultó el recibo N° 5 del usuario: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:55:21 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:55:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:55:40 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:55:43 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:55:48 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:55:56 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:56:00 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:56:03 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:56:03 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: fonsecaalejandro@gmail.com cerró la sesión.
+
+jun 20, 2025 12:56:03 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario fonsecaalejandro@gmail.com, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:56:03 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: fonsecaalejandro@gmail.com
+
+jun 20, 2025 12:56:03 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:56:03 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:56:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 20, 2025 12:56:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: No se encontraron recibos del usuario: administrador
+
+jun 20, 2025 12:56:22 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:56:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: administrador
+
+jun 20, 2025 12:56:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: administrador cerró la sesión.
+
+jun 20, 2025 12:56:44 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario administrador, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:56:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: administrador
+
+jun 20, 2025 12:56:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:56:44 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 12:57:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 12:57:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+jun 20, 2025 12:57:06 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 20, 2025 12:57:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+jun 20, 2025 12:57:06 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 1:24:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 1:24:18 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 1:24:19 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 1:24:20 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 1:24:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 1:24:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+jun 20, 2025 1:24:32 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 20, 2025 1:24:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+jun 20, 2025 1:24:32 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 1:28:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 1:28:28 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 1:28:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 1:28:29 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Se obtuvieron 33 libros de la base de datos
+
+jun 20, 2025 1:28:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+
+jun 20, 2025 1:28:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: user_default cerró la sesión.
+
+jun 20, 2025 1:28:35 P. M. co.edu.uptc.log.RegistroLog registrarError
+SEVERE: Se ha actualizado exitosamente el usuario user_default, fueron afectadas 1 filas, 
+
+jun 20, 2025 1:28:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✔ Cuenta actualizada correctamente con correo: user_default
+
+jun 20, 2025 1:28:35 P. M. co.edu.uptc.log.RegistroLog registrarInfo
+INFO: ✅ Usuario encontrado: user_default
+

@@ -1,10 +1,13 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.negocio.TipoLibro;
+import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
-import java.awt.*;
+
+import co.edu.uptc.modelo.Categoria;
+import co.edu.uptc.modelo.Libro;
+import co.edu.uptc.modelo.TipoLibroEnum;
 
 public class PanelRegistrarLibro extends JDialog {
 
@@ -123,6 +126,7 @@ public class PanelRegistrarLibro extends JDialog {
      */
     private JButton botonCancelar;
 
+    private JButton botonRegistrarCategoria;
 
     /**
      * Obtiene el ISBN ingresado en el campo de texto.
@@ -156,8 +160,18 @@ public class PanelRegistrarLibro extends JDialog {
      *
      * @return Año de publicación como una cadena de texto.
      */
-    public String getTxtAnoPublicacion() {
-        return txtAnoPublicacion.getText();
+    public int getTxtAnoPublicacion() {
+        if (txtAnoPublicacion == null || txtAnoPublicacion.getText().isBlank() || txtAnoPublicacion.getText().isEmpty()) {
+            return 0;
+        } else if (!txtAnoPublicacion.getText().matches("^[0-9]+$")) {
+            return -1; // Indica un error en el formato del número de páginas
+        } else {
+            try {
+                return Integer.parseInt(txtAnoPublicacion.getText());
+            } catch (NumberFormatException e) {
+                throw new RuntimeException("El número de páginas debe ser un número válido.");
+            }
+        }
     }
 
     /**
@@ -165,8 +179,10 @@ public class PanelRegistrarLibro extends JDialog {
      *
      * @return Categoría del libro como una cadena de texto.
      */
-    public String getTxtCategoria() {
-        return (String) txtCategoria.getSelectedItem();
+    public Categoria getTxtCategoria() {
+        Categoria categoria = new Categoria();
+        categoria.setNombre(txtCategoria.getSelectedItem().toString());
+        return categoria;
     }
 
     /**
@@ -183,8 +199,18 @@ public class PanelRegistrarLibro extends JDialog {
      *
      * @return Número de páginas como una cadena de texto.
      */
-    public String getTxtNumeroPaginas() {
-        return txtNumeroPaginas.getText();
+    public int getTxtNumeroPaginas() {
+        if (txtNumeroPaginas == null || txtNumeroPaginas.getText().isBlank() || txtNumeroPaginas.getText().isEmpty()) {
+            return 0;
+        } else if (!txtNumeroPaginas.getText().matches("^[0-9]+$")) {
+            return -1; // Indica un error en el formato del número de páginas
+        } else {
+            try {
+                return Integer.parseInt(txtNumeroPaginas.getText());
+            } catch (NumberFormatException e) {
+                throw new RuntimeException("El número de páginas debe ser un número válido menor a 5000.");
+            }
+        }
     }
 
     /**
@@ -192,8 +218,18 @@ public class PanelRegistrarLibro extends JDialog {
      *
      * @return Precio del libro como una cadena de texto.
      */
-    public String getTxtPrecio() {
-        return txtPrecio.getText();
+    public double getTxtPrecio() {
+        if (txtPrecio == null || txtPrecio.getText().isBlank() || txtPrecio.getText().isEmpty()) {
+            return 0;
+        } else if (!txtPrecio.getText().matches("^[0-9]+$")) {
+            return -0.1; // Indica un error en el formato del número de páginas
+        } else {
+            try {
+                return Integer.parseInt(txtPrecio.getText());
+            } catch (NumberFormatException e) {
+                throw new RuntimeException("El precio debe ser un número válido menor a $10.000.000");
+            }
+        }
     }
 
     /**
@@ -201,8 +237,19 @@ public class PanelRegistrarLibro extends JDialog {
      *
      * @return Cantidad del libro como una cadena de texto.
      */
-    public String getTxtCantidad() {
-        return txtCantidad.getText();
+    public int getTxtCantidad() {
+        if (txtCantidad == null || txtCantidad.getText().isBlank() || txtCantidad.getText().isEmpty()) {
+            return -999;
+        } else if (!txtCantidad.getText().matches("^[0-9]+$")) {
+            return -1; // Indica un error en el formato del número de páginas
+        } else {
+            try {
+                return Integer.parseInt(txtCantidad.getText());
+            } catch (NumberFormatException e) {
+                throw new RuntimeException("La cantidad debe ser un número válido, menor a 5000");
+            }
+        }
+
     }
 
     /**
@@ -210,8 +257,8 @@ public class PanelRegistrarLibro extends JDialog {
      *
      * @return Formato del libro como un objeto TipoLibro.
      */
-    public TipoLibro getTxtFormato() {
-        return txtFormato.getSelectedItem().toString().equals(String.valueOf(TipoLibro.FISICO)) ? TipoLibro.FISICO : TipoLibro.DIGITAL;
+    public TipoLibroEnum getTxtFormato() {
+        return TipoLibroEnum.valueOf(txtFormato.getSelectedItem().toString());
     }
 
     /**
@@ -320,6 +367,7 @@ public class PanelRegistrarLibro extends JDialog {
 
         asignarEventoBoton(evento);
 
+
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.NONE;
@@ -350,7 +398,8 @@ public class PanelRegistrarLibro extends JDialog {
         gbc.gridx = 0;
         add(labelCategoria, gbc);
         gbc.gridx = 1;
-        add(txtCategoria, gbc);
+        JPanel panelCategoria = ajustarPanelCategoria();
+        add(panelCategoria, gbc);
         gbc.gridy = 6;
         gbc.gridx = 0;
         add(labelEditorial, gbc);
@@ -388,11 +437,21 @@ public class PanelRegistrarLibro extends JDialog {
         setLocationRelativeTo(null);
     }
 
+    private JPanel ajustarPanelCategoria() {
+        JPanel panelCategoria = new JPanel();
+        panelCategoria.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelCategoria.add(txtCategoria);
+        panelCategoria.add(botonRegistrarCategoria);
+        return panelCategoria;
+    }
+
     private void asignarEventoBoton(Evento evento) {
         botonAgregar.addActionListener(evento);
-        botonAgregar.setActionCommand(evento.REGISTRAR_LIBRO);
+        botonAgregar.setActionCommand(Evento.REGISTRAR_LIBRO);
         botonCancelar.addActionListener(evento);
-        botonCancelar.setActionCommand(evento.CANCELAR_REGISTRO_LIBRO);
+        botonCancelar.setActionCommand(Evento.CANCELAR_REGISTRO_LIBRO);
+        botonRegistrarCategoria.addActionListener(evento);
+        botonRegistrarCategoria.setActionCommand(Evento.ACTIVAR_AGREGAR_CATEGORIA);
     }
 
     /**
@@ -412,7 +471,7 @@ public class PanelRegistrarLibro extends JDialog {
         labelCantidad = new JLabel("Cantidad*:");
         labelFormato = new JLabel("Formato*:");
 
-        txtISBN = new JTextField(20);
+        txtISBN = new JTextField();
         txtNombre = new JTextField(20);
         txtAutor = new JTextField(20);
         txtAnoPublicacion = new JTextField(4);
@@ -421,14 +480,29 @@ public class PanelRegistrarLibro extends JDialog {
         txtPrecio = new JTextField(10);
         txtCantidad = new JTextField(5);
 
-        String[] categorias = {"Ficción", "No Ficción", "Misterio", "Ciencia"};
-        txtCategoria = new JComboBox<>(categorias);
-
-        String[] formatos = {String.valueOf(TipoLibro.DIGITAL), String.valueOf(TipoLibro.FISICO)};
-        txtFormato = new JComboBox<>(formatos);
+        txtCategoria = new JComboBox<>();
+        txtFormato = new JComboBox<>(TipoLibroEnum.values());
 
         botonAgregar = new JButton("Agregar");
         botonCancelar = new JButton("Cancelar");
+        botonRegistrarCategoria = new JButton("Ag.Categoría");
+    }
+
+    /**
+     * Llena el JComboBox de categorías con una lista de categorías.
+     *
+     * @param categorias Lista de categorías a mostrar en el JComboBox.
+     */
+    public void llenarComboBoxCategoria(ArrayList<Categoria> categorias) {
+        txtCategoria.removeAllItems();
+        for (Categoria categoria : categorias) {
+            txtCategoria.addItem(categoria.getNombre());
+        }
+        txtCategoria.setSelectedIndex(0);
+        txtCategoria.revalidate();
+        txtCategoria.repaint();
+        revalidate();
+        repaint();
     }
 
     /**
@@ -443,6 +517,8 @@ public class PanelRegistrarLibro extends JDialog {
         setTxtNumeroPaginas("");
         setTxtPrecio("");
         setTxtCantidad("");
+        txtCategoria.setSelectedItem(0);
+        txtFormato.setSelectedItem(0);
     }
 
     /**
@@ -459,10 +535,10 @@ public class PanelRegistrarLibro extends JDialog {
         libro.setCategoria(getTxtCategoria());
         libro.setEditorial(getTxtEditorial());
         libro.setTipoLibro(getTxtFormato());
-        libro.setAnioPublicacion(getTxtAnoPublicacion().matches("^[0-9]{4}$") ? Integer.parseInt(getTxtAnoPublicacion()) : 0);
-        libro.setNumeroPaginas(getTxtNumeroPaginas().matches("^[0-9]{1,3}$") ? Integer.parseInt(getTxtNumeroPaginas()) : 0);
-        libro.setPrecioVenta(getTxtPrecio().matches("^[0-9]+$") ? Integer.parseInt(getTxtPrecio()) : 0);
-        libro.setStockDisponible(getTxtCantidad().matches("^[0-9]+$") ? Integer.parseInt(getTxtCantidad()) : 0);
+        libro.setNumeroPaginas(getTxtNumeroPaginas());
+        libro.setPrecioVenta(getTxtPrecio());
+        libro.setStockDisponible(getTxtCantidad());
+        libro.setAnioPublicacion(getTxtAnoPublicacion());
 
         return libro;
     }

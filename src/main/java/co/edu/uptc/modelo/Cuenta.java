@@ -44,8 +44,13 @@ public class Cuenta implements Serializable {
         this.isLog = isLog;
     }
 
+    public Cuenta(String correo, String contrasena) {
+        this.correo = correo;
+        this.contrasena = contrasena;
+    }
+
     /**
-     * Método que devuelve el correo del usuario
+     * Metodo que devuelve el correo del usuario
      * @return correo del usuario
      */
     public String getCorreo() {
@@ -53,7 +58,7 @@ public class Cuenta implements Serializable {
     }
 
     /**
-     * Método que actualiza el correo del usuario
+     * Metodo que actualiza el correo del usuario
      * @param correo correo del usuario
      */
     public void setCorreo(String correo) {
@@ -61,7 +66,7 @@ public class Cuenta implements Serializable {
     }
 
     /**
-     * Método que devuelve la contraseña del usuario
+     * Devuelve la contraseña del usuario.
      * @return contraseña del usuario
      */
     public String getContrasena() {
@@ -69,7 +74,7 @@ public class Cuenta implements Serializable {
     }
 
     /**
-     * Método que actualiza la contraseña del usuario
+     * Establece la contraseña del usuario.
      * @param contrasena contraseña del usuario
      */
     public void setContrasena(String contrasena) {
@@ -77,18 +82,18 @@ public class Cuenta implements Serializable {
     }
 
     /**
-     * Método que devuelve si el usuario está logueado
-     * @return indica si el usuario está logueado
+     * Indica si el usuario está logueado.
+     * @return true si está logueado, false en caso contrario
      */
     public boolean isLog() {
         return isLog;
     }
 
     /**
-     * Método que actualiza si el usuario está logueado
-     * @param log indica si el usuario está logueado
+     * Establece el estado de logueo del usuario.
+     * @param isLog true si está logueado, false en caso contrario
      */
-    public void setLog(boolean log) {
-        isLog = log;
+    public void setLog(boolean isLog) {
+        this.isLog = isLog;
     }
 }

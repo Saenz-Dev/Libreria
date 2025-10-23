@@ -1,225 +1,190 @@
 package co.edu.uptc.negocio;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
 
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.Tienda;
+import co.edu.uptc.persistencia.LibroDAO;
 
 /**
- * Clase encargada de gestionar los libros del catálogo.
+ * Clase encargada de gestionar los libros del catálogo de la tienda virtual.
+ * Permite registrar, validar y administrar libros en el catálogo, asegurando la integridad de los datos y la persistencia.
+ * Utiliza DAOs para la persistencia de libros y utilidades para la validación de datos.
  */
 public class GestionLibro {
 
     /**
-     * Instancia Manejo de Libros con JSON
+     * DAO para operaciones de persistencia de libros.
      */
-    private ManejoLibroJSON manejoLibroJSON;
+    private LibroDAO libroDAO;
 
     /**
-     * Expresión regular
+     * Validador de datos de los libros y usuarios.
      */
     private Expresion expresion;
 
     /**
-     * Constructor de la clase
+     * Referencia a la tienda que contiene el catálogo de libros.
      */
-    public GestionLibro(Tienda tienda) {
-        manejoLibroJSON = new ManejoLibroJSON(tienda);
+    private Tienda tienda;
+
+    /**
+     * Constructor de la clase. Inicializa la gestión de libros con la tienda y el DAO de libros.
+     *
+     * @param tienda referencia a la tienda virtual
+     * @param libroDAO DAO para libros
+     * @throws SQLException si ocurre un error de base de datos
+     */
+    public GestionLibro(Tienda tienda, LibroDAO libroDAO) throws SQLException {
+        this.tienda = tienda;
         expresion = new Expresion();
+        this.libroDAO = libroDAO;
+        tienda.getCatalogo().setListaLibros(libroDAO.seleccionarRegistros());
     }
 
     /**
-     * Método que devuelve la instancia Manejo de Libros con JSON
-     * @return instancia Manejo de Libros con JSON
-     */
-    public ManejoLibroJSON getManejoLibroJSON() {
-        return manejoLibroJSON;
-    }
-
-    /**
-     * Método que actualiza la instancia Manejo de Libros con JSON
-     * @param manejoLibroJSON instancia Manejo de Libros con JSON
-     */
-    public void setManejoLibroJSON(ManejoLibroJSON manejoLibroJSON) {
-        this.manejoLibroJSON = manejoLibroJSON;
-    }
-
-    /**
-     * Método que registra un libro en el catálogo
+     * Registra un libro en el catálogo.
+     *
      * @param libro libro a registrar
      * @throws IllegalArgumentException si alguno de los campos no cumple con las reglas
-     * @throws IOException si ocurre algún error cuando no se escribe el JSON
+     * @throws SQLException si ocurre algún error al acceder a la base de datos
      */
-    public void registrarLibro(Libro libro) throws IllegalArgumentException, IOException {
+    public void registrarLibro(Libro libro) throws IllegalArgumentException, SQLException {
         expresion.validarDatosObligatorios(libro);
         expresion.validarFormatoDatosLibro(libro);
-        manejoLibroJSON.crearLibro(libro);
+        validarExistenciaLibro(libro);
+        libroDAO.insertarDatos(libro);
+        tienda.getCatalogo().getCatalogoLibros().add(libro);
+    }
+
+    /**
+     * Valida si el libro ya existe en el catálogo por su ISBN.
+     *
+     * @param libro libro a validar
+     * @throws RuntimeException si el ISBN ya está registrado en otro libro
+     */
+    public void validarExistenciaLibro(Libro libro) {
+        for (Libro libroCatalogo : tienda.getCatalogo().getCatalogoLibros()) {
+            if (libroCatalogo.getIsbn().equals(libro.getIsbn())) throw new RuntimeException("El libro '" + libroCatalogo.getTitulo() + "' ya tiene el ISBN " + libroCatalogo.getIsbn() + " asignado.\nVerifique o cambie el ISBN");
+        }
     }
 
     /**
      * Método que modifica un libro en el catálogo
+     *
      * @param libro libro a modificar
-     * @throws IllegalArgumentException si alguno de los campos no cumple con las reglas
-     * @throws IOException si ocurre algún error cuando no se escribe el JSON
+     * @throws IOException      si ocurre algún error cuando no se escribe el JSON
+     * @throws RuntimeException
+     * @throws SQLException
      */
-    public void modificarLibro(Libro libro) throws IllegalArgumentException, IOException {
+    public void modificarLibro(Libro libro) throws SQLException, RuntimeException {
         expresion.validarDatosObligatorios(libro);
         expresion.validarFormatoDatosLibro(libro);
-        manejoLibroJSON.modificarLibro(libro);
+        Libro libroExistente = libroDAO.seleccionarRegistro(libro);
+        if (libroExistente.getIsComprado()) {
+            libro.setStockReservado(libroExistente.getStockReservado());
+            libro.setIsComprado(true);
+        }
+        libroDAO.actualizarDatos(libro);
+        actualizarCatalogoMemoria(libro);
     }
 
+    /**
+     * Actualiza el catálogo en memoria con los datos del libro modificado
+     *
+     * @param libro libro modificado
+     */
+    private void actualizarCatalogoMemoria(Libro libro) {
+        ArrayList<Libro> catalogo = tienda.getCatalogo().getCatalogoLibros();
+        for (Libro libroBuscado : catalogo) {
+            if (libroBuscado.getIsbn().equals(libro.getIsbn())) {
+                libroBuscado.setStockDisponible(libro.getStockDisponible());
+                libroBuscado.setStockReservado(libro.getStockReservado());
+                libroBuscado.setTitulo(libro.getTitulo());
+                libroBuscado.setAutor(libro.getAutor());
+                libroBuscado.setAnioPublicacion(libro.getAnioPublicacion());
+                libroBuscado.setNumeroPaginas(libro.getNumeroPaginas());
+                libroBuscado.setPrecioVenta(libro.getPrecioVenta());
+                libroBuscado.setCategoria(libro.getCategoria());
+                libroBuscado.setTipoLibro(libro.getTipoLibro());
+                libroBuscado.setEditorial(libro.getEditorial());
+                libroBuscado.setIsComprado(libro.getIsComprado());
+                break;
+            }
+        }
+    }
 
     /**
-     * Método que elimina un libr del catálogo
-     * @param listaLibros lista de libros a eliminar
-     * @throws IllegalArgumentException si alguno de los libros no está en el catálogo
-     * @throws IOException si ocurre algún error cuando no se escribe el JSON
+     * Metodo que elimina un libro del catálogo
+     * @param isbnLibros ArrayList de ISBN de los libros a eliminar
+     * @throws SQLException si ocurre algún error al acceder a la base de datos
+     * @throws RuntimeException si no hay libros registrados para eliminar o si hay libros comprados.
      */
-    /*public void eliminarLibros(ArrayList<PanelLibroEliminar> listaLibros) throws IllegalArgumentException, IOException{
-        Map<String, ArrayList<Libro>> catalogo = manejoLibroJSON.leerLibro();
-        ArrayList<PanelLibroEliminar> listaLibrosLocal = (ArrayList<PanelLibroEliminar>) listaLibros.clone();
-        if (listaLibros.isEmpty()) throw new IllegalArgumentException("No hay libros registrados para eliminar");
-        for (PanelLibroEliminar pl : listaLibrosLocal) {
-            if (existeLibro(pl.getLibro()) && pl.isSelected()) {
-                int index = eliminarLibroPosicion(pl.getLibro(), catalogo);
-                listaLibros.remove(pl);
-            }
-
-        }
-        manejoLibroJSON.escribirLibros(catalogo);
-    }*/
-
-    //TODO revisar este metodo, puede ocasionar errores
-    public void eliminarLibro(ArrayList<String> isbnLibros) throws IllegalArgumentException, IOException{
-        Map<String, ArrayList<Libro>> catalogo = manejoLibroJSON.leerLibro();
+    public void eliminarLibro(ArrayList<String> isbnLibros) throws SQLException, RuntimeException {
         StringBuilder sb = new StringBuilder();
         if (isbnLibros.isEmpty()) throw new RuntimeException("No hay libros registrados para eliminar");
         for (String isbn : isbnLibros) {
-            Libro libro = buscarLibroCatalogo(isbn, catalogo);
-            if (libro.getIsComprado()){
+            Libro libro = tienda.getCatalogo().buscarLibroLocalIsbn(isbn);
+            if (libro.getIsComprado()) { //Si el libro ya ha sido comprado, no se puede eliminar
                 sb.append("\n- " + libro.getTitulo());
                 continue;
             }
-            if (existeLibro(isbn)) {
-                Libro libroEliminar = new Libro();
-                libroEliminar.setIsbn(isbn);
-                eliminarLibroPosicion(libroEliminar, catalogo);
-            }
+            libroDAO.eliminarRegistro(libro);
+            tienda.getCatalogo().getCatalogoLibros().remove(libro); // Eliminar de la memoria
         }
-        if (!sb.isEmpty()) throw new IllegalArgumentException("Estos libros no se pueden eliminar por que ya se han comprado: " + sb);
-        manejoLibroJSON.escribirLibros(catalogo);
+        if (!sb.isEmpty())
+            throw new IllegalArgumentException("Estos libros no se pueden eliminar por que ya se han comprado: " + sb);
     }
-
-    public boolean existeLibro(String isbn) {
-        for (ArrayList<Libro> libros : manejoLibroJSON.getMapLibros().values()) {
-            for (Libro libroCatalogo : libros) {
-                if (libroCatalogo.getIsbn().equals(isbn)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
 
     /**
-     * Método que devuelve un array con los títulos de los libros que se encuentran en el catálogo
+     * Metodo que devuelve un array con los títulos de los libros que se encuentran
+     * en el catálogo
+     *
      * @return array con los títulos de los libros que se encuentran en el catálogo
+     * @throws RuntimeException si no hay libros registrados
+     * @throws SQLException si ocurre algún error al acceder a la base de datos
      */
-    public String[] obtenerLibros() {
-        ArrayList<String> libros = new ArrayList<>();
+    public String[] obtenerLibros() throws RuntimeException {
         String[] arrayLibros;
-        for (ArrayList<Libro> catalogo : manejoLibroJSON.getMapLibros().values()) {
-            for (Libro libro : catalogo) {
-                libros.add(libro.getTitulo());
-            }
+        ArrayList<Libro> libros = tienda.getCatalogo().getCatalogoLibros();
+        if (libros == null || libros.isEmpty()) {
+            throw new IllegalArgumentException("No hay libros registrados aun...");
         }
         arrayLibros = new String[libros.size()];
         for (int i = 0; i < arrayLibros.length; i++) {
-            arrayLibros[i] = libros.get(i);
+            arrayLibros[i] = libros.get(i).getTitulo();
         }
         return arrayLibros;
     }
 
-    public Libro buscarLibroCatalogo(String isbn, Map<String, ArrayList<Libro>> catalogo) {
-        for (ArrayList<Libro> catalogoLib : catalogo.values()) {
-            for (Libro libroBuscado : catalogoLib) {
-                if (libroBuscado.getIsbn().equals(isbn)) {
-                    return libroBuscado;
-                }
-            }
-        }
-        return null;
-    }
-
     /**
-     * Método que devuelve el libro que se encuentra en el catálogo con el título dado
+     * Metodo que devuelve el libro que se encuentra en el catálogo con el título
+     * dado
+     *
      * @param tituloLibro título del libro que se busca
      * @return libro del catálogo
+     * @throws RuntimeException si no se encuentra el libro con el título dado
      */
-    public Libro buscarLibro(String tituloLibro) {
-        for (ArrayList<Libro> catalogo : manejoLibroJSON.getMapLibros().values()) {
-            for (Libro libroCatalogo : catalogo) {
-                if (libroCatalogo.getTitulo().equals(tituloLibro)) {
-                    return libroCatalogo;
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * MMétodo que devuelve true si el libro existe en el catálogo
-     * @param libro libro qe se busca
-     * @return true si el libro existe en el catálogo
-     */
-    public boolean existeLibro(Libro libro) {
-        for (ArrayList<Libro> libros : manejoLibroJSON.getMapLibros().values()) {
-            for (Libro libroCatalogo : libros) {
-                if (libro.getIsbn().equals(libroCatalogo.getIsbn())) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public Libro buscarLibro(String tituloLibro) throws RuntimeException {
+        //return libroDAO.seleccionarRegistro(tituloLibro);
+        return tienda.getCatalogo().buscarLibroLocalTitulo(tituloLibro);
     }
 
     /**
      * Verifica si el libro tiene stock disponible en el catálogo
-     * @param isbnLibro isbn para validar que el libro que lo contenga tenga disponibilidad para ser vendido.
+     *
+     * @param isbnLibro isbn para validar que el libro que lo contenga tenga
+     *                  disponibilidad para ser vendido.
      * @return true si el stock disponible es mayor a 0
+     * @throws RuntimeException si el libro no se encuentra en el catálogo
      */
-    public boolean validarExistencia(String isbnLibro) {
-        for (ArrayList<Libro> libros : manejoLibroJSON.getMapLibros().values()) {
-            for (Libro libro : libros) {
-                if (libro.getIsbn().equals(isbnLibro)) {
-                    return libro.getStockDisponible() > 0;
-                }
-            }
+    public boolean validarExistencia(String isbnLibro) throws RuntimeException {
+        Libro libro = tienda.getCatalogo().buscarLibroLocalIsbn(isbnLibro);
+        if (libro == null) {
+            throw new RuntimeException("El libro con ISBN " + isbnLibro + " no se encuentra en el catálogo.");
         }
-        return false;
-    }
-
-    /**
-     * Devuelve la posición del libro en el Map del catálogo
-     * @param libroParametro libro a buscar
-     * @param catalogo libros disponibles en el catálogo
-     * @return posición del libro en el Map del catálogo
-     */
-    public void eliminarLibroPosicion(Libro libroParametro, Map<String,ArrayList<Libro>> catalogo) {
-        //TODO hacer validación la cual si el producto que se va a eliminar ya tiene compras, no se puede eliminar
-        int index = 0;
-        for (ArrayList<Libro> libros : catalogo.values()) {
-            for (Libro libro : libros) {
-                if (libro.getIsbn().equals(libroParametro.getIsbn())) {
-                    libros.remove(index);
-                    return;
-                }
-                index++;
-            }
-            index = 0;
-        }
+        return libro.getStockDisponible() > 0;
     }
 }

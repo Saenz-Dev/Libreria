@@ -1,78 +1,72 @@
 package co.edu.uptc.negocio;
 
-import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
 
 import co.edu.uptc.modelo.Catalogo;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.Tienda;
+import co.edu.uptc.persistencia.LibroDAO;
 
 /**
- * Clase encargada de gestionar el catálogo de libros.
+ * Clase encargada de gestionar el catálogo de libros de la tienda virtual.
+ * Permite obtener y actualizar el catálogo, así como listar los libros disponibles en la tienda.
+ * Utiliza un DAO para acceder a la persistencia de los libros.
  */
 public class GestionCatalogo {
 
     /**
-     * Instancia Catalogo
+     * Instancia del catálogo de la tienda.
      */
     private Catalogo catalogo;
 
     /**
-     * Instancia Manejo de Libros con JSON
+     * DAO para operaciones de persistencia de libros.
      */
-    private ManejoLibroJSON manejoLibroJSON;
+    private LibroDAO libroDAO;
 
     /**
-     * Constructor de la clase
+     * Referencia a la tienda virtual.
      */
-    public GestionCatalogo(Tienda tienda) {
-        manejoLibroJSON = new ManejoLibroJSON(tienda);
+    private Tienda tienda;
+
+    /**
+     * Constructor de la clase. Inicializa la gestión del catálogo con la tienda y el DAO de libros.
+     *
+     * @param tienda referencia a la tienda virtual
+     * @param libroDAO DAO para libros
+     * @throws SQLException si ocurre un error de base de datos
+     */
+    public GestionCatalogo(Tienda tienda, LibroDAO libroDAO) throws SQLException {
+        this.tienda = tienda;
+        this.libroDAO = libroDAO;
     }
 
     /**
-     * Método que devuelve la instancia manejo de libros con JSON
+     * Obtiene el catálogo de la tienda.
      *
-     * @return instancia manejo de libros con JSON
-     */
-    public ManejoLibroJSON getManejoLibroJSON() {
-        return manejoLibroJSON;
-    }
-
-    /**
-     * Método que actualiza la instancia manejo de libros con JSON
-     *
-     * @param manejoLibroJSON instancia manejo de libros con JSON
-     */
-    public void setManejoLibroJSON(ManejoLibroJSON manejoLibroJSON) {
-        this.manejoLibroJSON = manejoLibroJSON;
-    }
-
-    /**
-     * Método que devuelve el catalogo
-     *
-     * @return catalogo
+     * @return catálogo de la tienda
      */
     public Catalogo getCatalogo() {
         return catalogo;
     }
 
     /**
-     * Método que actualiza el catalogo
+     * Establece el catálogo de la tienda.
      *
-     * @param catalogo catalogo
+     * @param catalogo catálogo a establecer
      */
     public void setCatalogo(Catalogo catalogo) {
         this.catalogo = catalogo;
     }
 
     /**
-     * Método que devuelve el catalogo de libros disponibles en la tienda
+     * Devuelve la lista de libros disponibles en la tienda.
      *
-     * @return catalogo de libros disponibles en la tienda
-     * @throws IOException si ocurre algún error cuando no se lee el JSON
+     * @return lista de libros disponibles
+     * @throws SQLException si ocurre un error al acceder a la base de datos
      */
-    public Map<String, ArrayList<Libro>> listarLibros() throws IOException {
-        return manejoLibroJSON.leerLibro();
+    public ArrayList<Libro> listarLibros() throws SQLException {
+        return libroDAO.seleccionarRegistros();
     }
 }

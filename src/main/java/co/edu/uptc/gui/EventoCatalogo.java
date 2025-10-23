@@ -11,6 +11,7 @@ public class EventoCatalogo implements ActionListener {
 
     /** Acción para agregar un libro al carrito. */
     public static final String AGREGAR_LIBRO = "Agregar Libro";
+    public static final String VER_COMENTARIOS = "Ver Comentarios";
 
     /** Referencia de VentanaPrincipal. */
     private VentanaPrincipal ventanaPrincipal;
@@ -41,7 +42,8 @@ public class EventoCatalogo implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String evento = e.getActionCommand();
         switch (evento){
-            case AGREGAR_LIBRO -> ventanaPrincipal.anadirProductosCarrito(isbnLibro, 1, panelLibro);
+            case AGREGAR_LIBRO -> ventanaPrincipal.anadirProductosCarrito(isbnLibro, panelLibro);
+            case VER_COMENTARIOS -> ventanaPrincipal.activarMostrarComentario(isbnLibro);
         }
     }
 }

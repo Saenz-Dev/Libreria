@@ -1,13 +1,15 @@
 package co.edu.uptc.gui;
 
+import co.edu.uptc.modelo.TipoUsuarioEnum;
 import co.edu.uptc.modelo.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Clase que representa el panel de registro (formulario) de usuarios en la interfaz gráfica.
- * Permite ingresar los datos del usuario y gestionar su registro.
+ * Clase que representa el panel de registro (formulario) de usuarios en la
+ * interfaz gráfica. Permite ingresar los datos del usuario y gestionar su
+ * registro.
  */
 public class PanelRegistrarUsuario extends JDialog {
 
@@ -54,7 +56,7 @@ public class PanelRegistrarUsuario extends JDialog {
     /**
      * Campo de texto para ingresar la contraseña del cliente.
      */
-    private JTextField txtContrasena;
+    private JPasswordField txtContrasena;
 
     /**
      * Campo de texto para ingresar la dirección del cliente.
@@ -136,8 +138,8 @@ public class PanelRegistrarUsuario extends JDialog {
      *
      * @return Tipo de cliente como una cadena de texto.
      */
-    public String getCbTipoCliente() {
-        return (String) cbTipoCliente.getSelectedItem();
+    public TipoUsuarioEnum getCbTipoCliente() {
+        return cbTipoCliente.getSelectedItem().toString().equals(String.valueOf(TipoUsuarioEnum.Regular)) ? TipoUsuarioEnum.Regular : TipoUsuarioEnum.Premium;
     }
 
     /**
@@ -200,10 +202,15 @@ public class PanelRegistrarUsuario extends JDialog {
 
         setResizable(false);
         setModal(true);
-        setSize(400, 300);
+        setSize(400, 350);
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Asigna las acciones a los botones del panel de registro.
+     *
+     * @param evento Manejador de eventos que contiene las acciones a asignar.
+     */
     private void asignarAccionBoton(Evento evento) {
         botonRegistrar.addActionListener(evento);
         botonRegistrar.setActionCommand(evento.REGISTRAR_USUARIO);
@@ -223,11 +230,12 @@ public class PanelRegistrarUsuario extends JDialog {
         labelTipoCliente = new JLabel("Tipo de Cliente*:");
         txtNombre = new JTextField(20);
         txtCorreo = new JTextField(20);
-        txtContrasena = new JTextField(20);
+        txtContrasena = new JPasswordField(20);
+        txtContrasena.setToolTipText("Contraseña debe tener al menos 8 caracteres");
+
         txtDireccion = new JTextField(20);
         txtTelefono = new JTextField(20);
-        String[] tiposCliente = {"Regular", "Premium"};
-        cbTipoCliente = new JComboBox<>(tiposCliente);
+        cbTipoCliente = new JComboBox<>(TipoUsuarioEnum.values());
         labelTitulo = new JLabel("Registrar Usuario");
         botonRegistrar = new JButton("Registrar");
         botonCancelar = new JButton("Cancelar");
@@ -242,6 +250,7 @@ public class PanelRegistrarUsuario extends JDialog {
         txtCorreo.setText("");
         txtTelefono.setText("");
         txtDireccion.setText("");
+        cbTipoCliente.setSelectedIndex(0);
     }
 
     /**
@@ -254,11 +263,31 @@ public class PanelRegistrarUsuario extends JDialog {
 
         usuario.setNombre(getTxtNombre());
         usuario.setDireccionEnvio(getTxtDireccion());
-        usuario.setTelefono(Long.parseLong(getTxtTelefono().matches("^[0-9]+$") ? getTxtTelefono() : "0"));
         usuario.setTipoCliente(getCbTipoCliente());
         usuario.getCuenta().setCorreo(getTxtCorreo());
         usuario.getCuenta().setContrasena(getTxtContrasena());
+        if (getTxtTelefono() == null || getTxtTelefono().isBlank() || getTxtTelefono().isEmpty()) {
+            usuario.setTelefono(0);
+        } else if (!getTxtTelefono().matches("^[0-9]+$")) {
+            usuario.setTelefono(-1);
+        } else {
+            try {
+                usuario.setTelefono(Long.parseLong(getTxtTelefono()));
+            } catch (NumberFormatException e) {
+                throw new RuntimeException("El teléfono debe ser un número válido.");
+            }
+        }
         return usuario;
 
+    }
+
+    /**
+     * Establece la visibilidad del JComboBox y la etiqueta del tipo de usuario.
+     *
+     * @param activar true para mostrar, false para ocultar.
+     */
+    public void setVisibleCbTipoUsuario(boolean activar) {
+        cbTipoCliente.setVisible(activar);
+        labelTipoCliente.setVisible(activar);
     }
 }

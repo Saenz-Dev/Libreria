@@ -1,11 +1,17 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.Libro;
-
-import javax.swing.*;
-import java.awt.*;
-
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.text.NumberFormat;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import co.edu.uptc.modelo.LibroComprado;
 
 /**
  * Clase que representa el panel de un producto en la interfaz gráfica del panel carrito.
@@ -46,21 +52,19 @@ public class PanelProducto extends JPanel {
     /**
      * Constructor del panel de un producto.
      * @param ventanaPrincipal Referencia a la ventana principal de la aplicación.
-     * @param producto Referencia al producto (libro) asociado a este panel.
+     * @param libroComprado Referencia al producto (libro) asociado a este panel.
      */
-    public PanelProducto(VentanaPrincipal ventanaPrincipal, Libro producto) {
+    public PanelProducto(VentanaPrincipal ventanaPrincipal, LibroComprado libroComprado) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         setBackground(Color.lightGray);
 
-        /*No sé si sea necesario este Map entonces por eso lo comente porque solo puedo pasar el libro y después obtener sus atributos y valores*/
-        //Map<String, ArrayList<Libro>> catalogo = librosDisp;
         format = NumberFormat.getCurrencyInstance();
         format.setMinimumFractionDigits(1);
-        this.isbnProducto = producto.getIsbn();
-        this.eventoCantidad = new EventoCantidad(ventanaPrincipal, producto.getIsbn(), this);
+        this.isbnProducto = libroComprado.getIsbn();
+        this.eventoCantidad = new EventoCantidad(ventanaPrincipal, libroComprado.getIsbn(), this);
 
-        initAtributos(producto);
+        initAtributos(libroComprado);
         asignarAccionBoton();
 
         gbc.gridy = 0;
@@ -85,21 +89,25 @@ public class PanelProducto extends JPanel {
         add(botonAumentar, gbc);
         gbc.gridx = 6;
         gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.WEST;
         add(labelPrecio, gbc);
         gbc.gridx = 7;
         gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.EAST;
         add(botonEliminar, gbc);
-        botonDisminuir.setVisible(producto.getStockReservado() > 1);
+        botonDisminuir.setVisible(libroComprado.getCantidadComprada() > 1);
         repaint();
     }
 
-    private void initAtributos(Libro producto) {
-        labelNombreProducto = new JLabel(producto.getTitulo());
+    private void initAtributos(LibroComprado libroComprado) {
+        labelNombreProducto = new JLabel(libroComprado.getTitulo());
         botonAumentar = new JButton("+");
         botonDisminuir = new JButton("-");
-        labelCantidad = new JLabel(String.valueOf(producto.getStockReservado()));
+        labelCantidad = new JLabel(String.valueOf(libroComprado.getCantidadComprada()));
+        labelCantidad.setPreferredSize(new Dimension(15, 20));
         botonEliminar = new JButton("Eliminar");
-        labelPrecio = new JLabel(format.format(producto.getPrecioVenta() * producto.getStockReservado()));
+        labelPrecio = new JLabel(format.format(libroComprado.getPrecioTotal()));
+        labelPrecio.setPreferredSize(new Dimension(75, 20));
     }
 
     private void asignarAccionBoton() {

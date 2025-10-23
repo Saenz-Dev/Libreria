@@ -29,6 +29,12 @@ public class PanelPerfil extends JPanel {
 
     /** Botón para actualizar los datos del usuario. */
     private JButton botonActualizacionDatos;
+    
+    private final Color COLOR_FONDO = new Color(244, 246, 248);
+    
+    private final Color COLOR_BOTON = new Color(25, 118, 210);
+    
+    private final Color COLOR_LETRA= new Color(38, 50, 56);
 
     /**
      * Establece el nombre del usuario en la etiqueta correspondiente.
@@ -80,6 +86,7 @@ public class PanelPerfil extends JPanel {
 
         inicializarAtributos();
         asignarAccionBoton(evento);
+        setupPanel();
 
         gbc.gridy = 0;
         gbc.gridx = 0;
@@ -111,9 +118,14 @@ public class PanelPerfil extends JPanel {
         add(botonActualizacionDatos, gbc);
     }
 
+    private void setupPanel() {
+	setBackground(COLOR_FONDO);
+	botonActualizacionDatos.setBackground(COLOR_BOTON);
+    }
+
     private void asignarAccionBoton(Evento evento) {
         botonActualizacionDatos.addActionListener(evento);
-        botonActualizacionDatos.setActionCommand(evento.ACTUALIZAR_DATOS_USUARIO);
+        botonActualizacionDatos.setActionCommand(Evento.ACTUALIZAR_DATOS_USUARIO);
     }
 
     /**
@@ -135,12 +147,18 @@ public class PanelPerfil extends JPanel {
     public void cambiarFont() {
         Font fontTitulo = new Font("Arial", Font.BOLD, 40);
         labelTitulo.setFont(fontTitulo);
+        labelTitulo.setBackground(COLOR_LETRA);
         Font fontNombre = new Font("Arial", Font.BOLD, 20);
         labelNombre.setFont(fontNombre);
+        labelNombre.setBackground(COLOR_LETRA);
         Font fontAtributos = new Font("Arial", Font.PLAIN, 15);
         labelTelefono.setFont(fontAtributos);
+        labelTelefono.setBackground(COLOR_LETRA);
         labelCorreo.setFont(fontAtributos);
+        labelCorreo.setBackground(COLOR_LETRA);
         labelDireccionEnvio.setFont(fontAtributos);
+        labelDireccionEnvio.setBackground(COLOR_LETRA);
         labelTipoUsuario.setFont(fontAtributos);
+        labelTipoUsuario.setBackground(COLOR_LETRA);
     }
 }

@@ -1,61 +1,99 @@
 package co.edu.uptc.negocio;
 
+import co.edu.uptc.log.RegistroLog;
+import co.edu.uptc.modelo.Administrador;
+import co.edu.uptc.modelo.Cuenta;
 import co.edu.uptc.modelo.Libro;
 import co.edu.uptc.modelo.Usuario;
 
 import java.time.LocalDate;
 
 /**
- * Clase encargad de validar los datos del usuario.
- * Contiene expresiones regulares para validar los datos.
+ * Clase encargada de validar los datos del usuario y otros datos del sistema.
+ * Contiene expresiones regulares para validar los datos y métodos de validación para usuarios, libros y otros campos.
  */
 public class Expresion {
 
     /**
-     * Expresiones regulares
+     * Expresión regular para validar solo letras y espacios.
      */
-    public static final String EXPRESION_ALFABETICA = "^[a-zA-Z\\s]+$";
+    public static final String EXPRESION_ALFABETICA = "^[a-zA-Z\\p{L}\\s]+$";
+    /**
+     * Expresión regular para validar números de teléfono.
+     */
     public static final String EXPRESION_NUMERICA_TELEFONO = "^3[0-9]{9}$";
+    /**
+     * Expresión regular para validar precios numéricos.
+     */
     public static final String EXPRESION_NUMERICA_PRECIO = "^[0-9]+$";
+    /**
+     * Expresión regular para validar el número de páginas de un libro.
+     */
     public static final String EXPRESION_NUMERO_PAGINAS = "^[0-9]{1,4}$";
+    /**
+     * Expresión regular para validar direcciones.
+     */
     public static final String EXPRESION_DIRECCION = "^([\\w\\s#.-]+),\\s*[\\p{L}\\s]+,\\s*[\\p{L}\\s]+$";
+    /**
+     * Expresión regular para validar correos electrónicos.
+     */
     public static final String EXPRESION_CORREO = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}+$";
-    public static final String EXPRESION_CONTRASENA = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
+    /**
+     * Expresión regular para validar contraseñas de usuario.
+     */
+    public static final String EXPRESION_CONTRASENA = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#$%^&*()\\-+\\.])[a-zA-Z\\d!@#$%^&*()\\-+\\.]{8,}$";
+    /**
+     * Expresión regular para validar ISBN de libros.
+     */
     public static final String EXPRESION_ISBN = "^(978|979)(-?[0-9]){10}$";
+    /**
+     * Expresión regular para validar el año de publicación.
+     */
     public static final String EXPRESION_ANO_PUBLICACION = "^[0-9]{4}$";
-    public static final String EXPRESION_CONTRASENA_ADMIN = "^(?=.*[a-zA-Z])[a-zA-Z\\d]{8,}$";
-
+    /**
+     * Expresión regular para validar contraseñas de administrador.
+     */
+    public static final String EXPRESION_CONTRASENA_ADMIN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+=\\-{}\\[\\]:;\"'<>.,?/\\\\])[a-zA-Z\\d!@#$%^&*()_+=\\-{}\\[\\]:;\"'<>.,?/\\\\]{16,}$";
+    /**
+     * Expresión regular para validar categorías de libros.
+     */
+    public static final String EXPRESION_CATEGORIA = "^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,25}$";
 
     /**
-     * Metodo que valida los datos del usuario en el formulario
+     * Método que valida los datos del usuario en el formulario.
      *
-     * @param usuario a validar los datos
+     * @param usuario Usuario a validar los datos
      * @throws IllegalArgumentException si alguno de los campos no cumple con las reglas
      */
     public void validarDatosUsuario(Usuario usuario) throws IllegalArgumentException {
+        validarLongitudDatos(usuario);
         StringBuilder sb = new StringBuilder();
-        if (!usuario.getCuenta().getCorreo().equals("admin@gmail.com")) {
-            if (!usuario.getCuenta().getCorreo().matches(EXPRESION_CORREO)) {
-                sb.append("El correo debe tener la estructura usuario@dominio.extension\n");
-            }
-            if (!usuario.getCuenta().getContrasena().matches(EXPRESION_CONTRASENA)) {
-                sb.append("La contraseña debe tener al menos ocho letras, un número.\n");
-            }
-        } else {
+        if (usuario.getCuenta().getCorreo().equals(Administrador.CORREO)) {
             if (!usuario.getCuenta().getContrasena().matches(EXPRESION_CONTRASENA_ADMIN)) {
-                sb.append("La contraseña debe tener al menos ocho letras.\n");
+                throw new IllegalArgumentException("La contraseña del administrador debe tener al menos ocho letras.\n");
             }
+            return;
+        }
+        if (!usuario.getCuenta().getCorreo().matches(EXPRESION_CORREO)) {
+            sb.append("Formato de correo incorrecto, ejemplo: usuario@dominio.extension\n");
+        }
+        if (!usuario.getCuenta().getContrasena().matches(EXPRESION_CONTRASENA)) {
+            sb.append("La contraseña debe tener al menos ocho letras, un número y un caracter especial.\n");
+        }
+        if (usuario.getTelefono() == -1) {
+            sb.append("El formato del teléfono es incorrecto.\n");
         }
         if (!String.valueOf(usuario.getTelefono()).matches(EXPRESION_NUMERICA_TELEFONO)) {
-            sb.append("El telefono debe comenzar con 3 y tener diez digitos sin espacios\n");
+            sb.append("Ej formato teléfono: 3 seguido de nueve números.\n");
         }
         if (!usuario.getDireccionEnvio().matches(EXPRESION_DIRECCION)) {
-            sb.append("Estructura de la dirección ej: Calle 123 #45-67, Bogotá, Colombia\n");
+            sb.append("Formato de dirección ej: Calle 123 #45-67, Bogotá, Colombia\n");
         }
         if (!usuario.getNombre().matches(EXPRESION_ALFABETICA)) {
             sb.append("El nombre solo puede llevar letras\n");
         }
         if (!sb.isEmpty()) {
+            RegistroLog.registrarAdvertencia(sb.toString());
             throw new IllegalArgumentException(sb.toString());
         }
     }
@@ -64,57 +102,165 @@ public class Expresion {
      * Metodo que valida los datos del usuario en el formulario
      *
      * @param libro libro a validar
-     * @throws IllegalArgumentException si alguno de los campos no cumple con las reglas
+     * @throws IllegalArgumentException si alguno de los campos no cumple con las
+     *                                  reglas
      */
     public void validarFormatoDatosLibro(Libro libro) throws IllegalArgumentException {
         StringBuilder sb = new StringBuilder();
         if (!libro.getIsbn().matches(EXPRESION_ISBN)) {
-            sb.append("El ISBN debe tener al menos 13 numeros y debe comenzar con 979 0 978\n");
+            sb.append("El ISBN debe tener 979 o 978 seguido de 10 números.\n");
         }
         if (!libro.getAutor().matches(EXPRESION_ALFABETICA)) {
             sb.append("El nombre del autor solo puede tener letras\n");
         }
         if (String.valueOf(libro.getAnioPublicacion()).isBlank() || libro.getAnioPublicacion() != 0) {
+            if (libro.getAnioPublicacion() == -1) {
+                sb.append("El año de publicación no es válido.\n");
+            } else if (libro.getAnioPublicacion() < -1) {
+                sb.append("El año de publicación debe ser positivo.\n");
+            }
             if (!String.valueOf(libro.getAnioPublicacion()).matches(EXPRESION_ANO_PUBLICACION) || libro.getAnioPublicacion() > LocalDate.now().getYear()) {
                 sb.append("El año de publicación debe tener cuatro digitos y debe ser igual o menor al actual.\n");
             }
         }
-        if (!String.valueOf(libro.getNumeroPaginas()).isBlank() || libro.getNumeroPaginas() == 0) {
+        if (!String.valueOf(libro.getNumeroPaginas()).isBlank() || libro.getNumeroPaginas() == -1) {
             if (!String.valueOf(libro.getNumeroPaginas()).matches(EXPRESION_NUMERO_PAGINAS)) {
                 sb.append("Numero de páginas invalido\n");
+            } else if (libro.getNumeroPaginas() < -1) {
+                sb.append("El número de páginas debe ser positivo.\n");
             }
         }
-        if (!String.valueOf((int) libro.getPrecioVenta()).matches(EXPRESION_NUMERICA_PRECIO)) {
+        if (!String.valueOf((int) libro.getPrecioVenta()).matches(EXPRESION_NUMERICA_PRECIO) || libro.getPrecioVenta() == -0.1) {
             sb.append("Precio Unitario del libro invalido.\n");
+        } else if (libro.getPrecioVenta() < -1) {
+            sb.append("El precio debe ser positivo.\n");
         }
-        if (!String.valueOf(libro.getStockDisponible()).matches(EXPRESION_NUMERICA_PRECIO)) {
+
+        if (!String.valueOf(libro.getStockDisponible()).matches(EXPRESION_NUMERICA_PRECIO) || libro.getStockDisponible() == -1) {
             sb.append("Cantidad ingresada invalida\n");
+        } else if (libro.getStockDisponible() < -1) {
+            sb.append("El stock disponible debe ser positivo.\n");
         }
+        validarLongitudDatos(libro);
         if (!sb.isEmpty()) {
+            RegistroLog.registrarAdvertencia(sb.toString());
             throw new IllegalArgumentException(sb.toString());
         }
     }
 
     /**
-     * Metodo que valida los datos del usuario en el formulario
+     * Metodo que valida los datos del libro en el formulario
      *
      * @param libro libro a validar
-     * @throws IllegalArgumentException si alguno de los campos no cumple con las reglas
+     * @throws IllegalArgumentException si alguno de los campos no cumple con las
+     *                                  reglas
      */
     public void validarDatosObligatorios(Libro libro) throws IllegalArgumentException {
-        if (libro.getIsbn().isBlank() || libro.getTitulo().isBlank() || libro.getAutor().isBlank() || (String.valueOf(libro.getPrecioVenta()).isBlank()) || (String.valueOf(libro.getStockDisponible()).isBlank()) || (String.valueOf(libro.getNumeroPaginas()).isBlank())) {
-            throw new IllegalArgumentException("Los campos con * son obligatorios.\n");
+        if (libro.getIsbn() == null || libro.getIsbn().isBlank() || libro.getTitulo() == null || libro.getTitulo().isBlank() || libro.getAutor() == null || libro.getAutor().isBlank() || libro.getNumeroPaginas() == 0 || libro.getPrecioVenta() == 0 || libro.getStockDisponible() == -999 || libro.getCategoria() == null || libro.getTipoLibro() == null || libro.getEditorial() == null) {
+            RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
+            throw new IllegalArgumentException("Los campos con * con obligatorios.");
         }
     }
 
     /**
      * Valida los datos obligatorios del usuario.
+     *
      * @param usuario usuario para validar los datos.
-     * @throws RuntimeException si algún campo de texto que es obligatorio está vacío.
+     * @throws RuntimeException si algún campo de texto que es obligatorio está
+     *                          vacío.
      */
     public void validarDatosObligatoriosUser(Usuario usuario) throws RuntimeException {
-        if (usuario.getNombre().isBlank() || String.valueOf(usuario.getTelefono()).isBlank() || usuario.getDireccionEnvio().isBlank() || usuario.getCuenta().getCorreo().isBlank() || usuario.getCuenta().getContrasena().isBlank()) {
+        if (usuario.getCuenta().getCorreo().equals(Administrador.CORREO)) {
+            if (usuario.getCuenta().getContrasena() == null || usuario.getCuenta().getContrasena().isBlank()) {
+                RegistroLog.registrarAdvertencia("La contraseña del administrador es obligatoria.");
+                throw new RuntimeException("La contraseña del administrador es obligatoria.");
+            }
+        }
+        if (usuario.getNombre().isBlank() || usuario.getNombre().isEmpty() || String.valueOf(usuario.getTelefono()).isBlank() || usuario.getTelefono() == 0 || usuario.getDireccionEnvio().isBlank() || usuario.getCuenta().getCorreo().isBlank() || usuario.getCuenta().getContrasena().isBlank()) {
+            RegistroLog.registrarAdvertencia("Los campos con * con obligatorios.");
             throw new IllegalArgumentException("Los campos con * son obligatorios.\n");
+        }
+    }
+
+    public void validarLongitudDatos(Usuario usuario) throws IllegalArgumentException {
+        StringBuilder sb = new StringBuilder();
+        if (usuario.getNombre() != null && usuario.getNombre().length() > 50) {
+            sb.append("El nombre no puede exceder los 50 caracteres.\n");
+        }
+        if (String.valueOf(usuario.getTelefono()).length() > 10 || String.valueOf(usuario.getTelefono()).trim().length() < 10)
+            sb.append("El teléfono debe tener obligatoriamente 10 numeros, sin espacios.\n");
+        if (usuario.getTelefono() < 0) sb.append("El telefono no puede ser negativo.\n");
+        if (usuario.getDireccionEnvio() != null && usuario.getDireccionEnvio().length() > 100) {
+            sb.append("La dirección de envío no puede exceder los 100 caracteres.\n");
+        }
+        if (usuario.getCuenta().getCorreo() != null && usuario.getCuenta().getCorreo().length() > 50) {
+            sb.append("El correo no puede exceder los 50 caracteres.\n");
+        }
+        if (usuario.getCuenta().getContrasena() != null && usuario.getCuenta().getContrasena().length() > 50) {
+            sb.append("La contraseña no puede exceder los 50 caracteres.\n");
+        }
+        if (!sb.isEmpty()) {
+            RegistroLog.registrarAdvertencia(sb.toString());
+            throw new IllegalArgumentException(sb.toString());
+        }
+    }
+
+    //Ahora hacer el anterior metodo pero para los datos del libro
+    public void validarLongitudDatos(Libro libro) throws IllegalArgumentException {
+        StringBuilder sb = new StringBuilder();
+        if (libro.getTitulo() != null && libro.getTitulo().length() > 60) {
+            sb.append("El título no puede exceder los 60 caracteres.\n");
+        }
+        if (libro.getAutor() != null && libro.getAutor().length() > 60) {
+            sb.append("El autor no puede exceder los 50 caracteres.\n");
+        }
+        if (libro.getCategoria().getNombre() != null && libro.getCategoria().getNombre().length() > 30) {
+            sb.append("La categoría no puede exceder los 30 caracteres.\n");
+        }
+        if (libro.getTipoLibro() != null && libro.getTipoLibro().toString().length() > 30) {
+            sb.append("El tipo de libro no puede exceder los 30 caracteres.\n");
+        }
+        if (libro.getEditorial() != null && libro.getEditorial().length() > 50) {
+            sb.append("La editorial no puede exceder los 50 caracteres.\n");
+        }
+        if (libro.getIsbn() != null && libro.getIsbn().length() > 13) {
+            sb.append("El ISBN no puede exceder los 13 caracteres.\n");
+        }
+        if (!sb.isEmpty()) {
+            RegistroLog.registrarAdvertencia(sb.toString());
+            throw new IllegalArgumentException(sb.toString());
+        }
+    }
+
+    /**
+     * Valida si los datos del usuario están vacios
+     *
+     * @param correo     correo del usuario
+     * @param contrasena contraseña del usuario
+     * @throws IllegalArgumentException si alguno de los datos del inicio de sesión no cumple con las reglas
+     */
+    public void validarCamposVaciosCuenta(Cuenta cuenta) throws IllegalArgumentException {
+        if (!cuenta.getCorreo().equals(Administrador.CORREO)) {
+            if (cuenta.getCorreo().isBlank() && cuenta.getContrasena().isBlank()) {
+                throw new IllegalArgumentException("Digite el correo y la contraseña.");
+            } else if (cuenta.getCorreo().isBlank()) {
+                throw new IllegalArgumentException("Digite el correo.");
+            } else if (cuenta.getContrasena().isBlank()) {
+                throw new IllegalArgumentException("Digite la contraseña.");
+            }
+        }
+    }
+
+    /**
+     * Valida la categoría de un libro.
+     *
+     * @param categoria la categoría a validar
+     * @throws IllegalArgumentException si la categoría no cumple con las reglas
+     */
+    public void validarCategoria(String categoria) {
+        if (!categoria.matches(EXPRESION_CATEGORIA)) {
+            RegistroLog.registrarAdvertencia("La categoría solo puede contener letras y debe tener entre 3 y 25 caracteres.");
+            throw new IllegalArgumentException("La categoría solo puede contener letras y debe tener entre 3 y 25 caracteres.");
         }
     }
 }

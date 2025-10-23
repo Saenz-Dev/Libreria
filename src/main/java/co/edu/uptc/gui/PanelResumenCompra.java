@@ -1,11 +1,10 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.ValorCompra;
+import co.edu.uptc.modelo.TotalesCompra;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 
 /**
  * Clase que representa el panel de resumen de la compra en el {@link PanelCarrito}.
@@ -41,6 +40,14 @@ public class PanelResumenCompra extends JPanel {
      * Etiqueta descriptiva para los impuestos.
      */
     private JLabel labelImpuestos;
+
+    private JLabel labelDescuento;
+
+    private JLabel labelDescuentoValor;
+
+    private JLabel labelDescuentoFrecuente;
+
+    private JLabel labelDescuentoFrecuenteValor;
 
     /**
      * Etiqueta descriptiva para el total.
@@ -86,10 +93,15 @@ public class PanelResumenCompra extends JPanel {
         labelImpuestos = new JLabel("Impuestos");
         labelSubtotal = new JLabel("Subtotal");
         labelTotal = new JLabel("Total");
+        labelDescuento = new JLabel("Desc. Premium");
+        labelDescuentoFrecuente = new JLabel("Des. Frecuencia");
         labelImpuestosValor = new JLabel(format.format(0));
         labelSubtotalValor = new JLabel(format.format(0));
         labelTotalValor = new JLabel(format.format(0));
+        labelDescuentoValor = new JLabel(format.format(0));
+        labelDescuentoFrecuenteValor = new JLabel(format.format(0));
         botonComprar = new JButton("Comprar");
+        botonComprar.setPreferredSize(new Dimension(150, 40));
         gbc = new GridBagConstraints();
     }
 
@@ -110,6 +122,7 @@ public class PanelResumenCompra extends JPanel {
         gbc.weighty = 1.0;
         gbc.weightx = 1.0;
 
+        gbc.insets = new Insets(4, 10, 4, 10);
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -126,13 +139,23 @@ public class PanelResumenCompra extends JPanel {
         add(labelImpuestosValor, gbc);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.gridy = 3;
+        add(labelDescuento, gbc);
+        gbc.anchor = GridBagConstraints.EAST;
+        add(labelDescuentoValor, gbc);
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.gridy = 4;
+        add(labelDescuentoFrecuente, gbc);
+        gbc.anchor = GridBagConstraints.EAST;
+        add(labelDescuentoFrecuenteValor, gbc);
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.gridy = 5;
         add(labelTotal, gbc);
         gbc.anchor = GridBagConstraints.EAST;
         add(labelTotalValor, gbc);
-        gbc.gridy = 4;
+        gbc.gridy = 6;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.SOUTH;
         add(botonComprar, gbc);
 
@@ -145,12 +168,14 @@ public class PanelResumenCompra extends JPanel {
 
     /**
      * Modifica los valores del resumen de compra.
-     * @param valorCompra Información del valor de la compra.
+     * @param totalesCompra Información del valor de la compra.
      */
-    public void modificarValor(ValorCompra valorCompra) {
-        labelImpuestosValor.setText(format.format(valorCompra.getImpuestos()));
-        labelSubtotalValor.setText(format.format(valorCompra.getSubtotal()));
-        labelTotalValor.setText(format.format(valorCompra.getTotal()));
+    public void modificarValor(TotalesCompra totalesCompra) {
+        labelImpuestosValor.setText( "+ " + format.format(totalesCompra.getImpuestos()));
+        labelSubtotalValor.setText(format.format(totalesCompra.getPrecioBase()));
+        labelTotalValor.setText(format.format(totalesCompra.getTotal()));
+        labelDescuentoValor.setText( "- " + format.format(totalesCompra.getDescuentoPremium()));
+        labelDescuentoFrecuenteValor.setText( "- " + format.format(totalesCompra.getDescuentoFrecuencia()));
         repaint();
     }
 }

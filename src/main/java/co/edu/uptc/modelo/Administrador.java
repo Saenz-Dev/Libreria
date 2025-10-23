@@ -8,22 +8,21 @@ import java.io.Serializable;
 public class Administrador implements Serializable {
 
     /**
-     * 
+     * Identificador de versión para la serialización.
      */
     private static final long serialVersionUID = -3956750637462768249L;
     /**
-     * Correo del administrador
+     * Correo del administrador.
      */
-    private final String CORREO = "admin@gmail.com";
+    public static final String CORREO = "administrador";
 
     /**
-     * Constructor de la clase
+     * Constructor de la clase Administrador.
      */
     public Administrador() {}
 
-
     /**
-     * Método que devuelve el correo del administrador
+     * Método que devuelve el correo del administrador.
      * @return correo del administrador
      */
     public String getCORREO() {

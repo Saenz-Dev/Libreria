@@ -1,17 +1,20 @@
 package co.edu.uptc.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Clase que representa a un usuario en el sistema.
- * Contiene información personal y de cuenta para la gestión de compras y acceso.
+ * Clase que representa a un usuario en el sistema de la tienda virtual.
+ * Contiene información personal, de contacto, tipo de usuario, cuenta asociada, historial de compras y carrito de compras.
+ * Permite la gestión de compras, descuentos y acceso al sistema.
  */
 public class Usuario implements Serializable{
 
     /**
-     * 
+     * Identificador de versión para la serialización de la clase.
      */
-    private static final long serialVersionUID = 7354483159484201335L;
+    public static final long serialVersionUID = 7354483159484201335L;
 
     /**
      * Nombre del usuario.
@@ -29,9 +32,9 @@ public class Usuario implements Serializable{
     private long telefono;
 
     /**
-     * Tipo de cliente (por ejemplo, "regular", "VIP", etc.).
+     * Tipo de cliente (por ejemplo, regular o premium).
      */
-    private String tipoCliente;
+    private TipoUsuarioEnum tipoCliente;
 
     /**
      * Cuenta asociada al usuario, que contiene información de inicio de sesión.
@@ -39,14 +42,42 @@ public class Usuario implements Serializable{
     private Cuenta cuenta;
 
     /**
+     * Descuento aplicado según el tipo de usuario.
+     * Este valor puede ser utilizado para calcular descuentos en compras.
+     */
+    private double descuentoTipoUsuario;
+
+    /**
+     * Historial de recibos de compras realizados por el usuario.
+     */
+    private List<Recibo> recibosCompras;
+
+    /**
      * Carrito de compras del usuario, donde se almacenan los libros seleccionados.
      */
     private Carrito carrito;
 
-
+    /**
+     * Constructor por defecto. Inicializa la cuenta, el carrito y la lista de recibos de compras.
+     */
     public Usuario() {
         cuenta = new Cuenta();
         carrito = new Carrito();
+        recibosCompras = new ArrayList<>();
+    }
+
+    public Usuario(Usuario usuario) {
+        cuenta = new Cuenta();
+        carrito = new Carrito();
+        nombre = usuario.getNombre();
+        direccionEnvio = usuario.getDireccionEnvio();
+        telefono = usuario.getTelefono();
+        tipoCliente = usuario.getTipoCliente();
+        cuenta.setCorreo(usuario.getCuenta().getCorreo());
+        cuenta.setContrasena(usuario.getCuenta().getContrasena());
+        descuentoTipoUsuario = 0;
+        cuenta.setLog(usuario.getCuenta().isLog());
+        recibosCompras = new ArrayList<>();
     }
 
     /**
@@ -126,7 +157,7 @@ public class Usuario implements Serializable{
      *
      * @return El tipo de cliente.
      */
-    public String getTipoCliente() {
+    public TipoUsuarioEnum getTipoCliente() {
         return tipoCliente;
     }
 
@@ -135,7 +166,7 @@ public class Usuario implements Serializable{
      *
      * @param tipoCliente El tipo de cliente a asignar.
      */
-    public void setTipoCliente(String tipoCliente) {
+    public void setTipoCliente(TipoUsuarioEnum tipoCliente) {
         this.tipoCliente = tipoCliente;
     }
 
@@ -161,4 +192,39 @@ public class Usuario implements Serializable{
         this.carrito = carrito;
     }
 
+    /**
+     * Obtiene el descuento aplicado al tipo de usuario.
+     *
+     * @return El descuento del tipo de usuario.
+     */
+    public double getDescuentoTipoUsuario() {
+        return descuentoTipoUsuario;
+    }
+
+    /**
+     * Establece el descuento para el tipo de usuario.
+     *
+     * @param descuentoTipoUsuario El descuento a asignar.
+     */
+    public void setDescuentoTipoUsuario(double descuentoTipoUsuario) {
+        this.descuentoTipoUsuario = descuentoTipoUsuario;
+    }
+
+    /**
+     * Obtiene el historial de recibos de compras del usuario.
+     *
+     * @return La lista de recibos de compras.
+     */
+    public List<Recibo> getRecibosCompras() {
+        return recibosCompras;
+    }
+
+    /**
+     * Establece el historial de recibos de compras del usuario.
+     *
+     * @param recibosCompras La lista de recibos a asignar.
+     */
+    public void setRecibosCompras(List<Recibo> recibosCompras) {
+        this.recibosCompras = recibosCompras;
+    }
 }

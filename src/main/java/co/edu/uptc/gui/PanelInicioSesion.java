@@ -2,44 +2,73 @@ package co.edu.uptc.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * Clase que representa el panel de Inicio de Sesión en la interfaz gráfica.
  */
 public class PanelInicioSesion extends JPanel {
 
-    /** Campo de texto para ingresar el correo del usuario. */
+    /**
+     * Campo de texto para ingresar el correo del usuario.
+     */
     private JTextField txtCorreo;
 
-    /** Campo de texto para ingresar la contraseña del usuario. */
-    private JTextField txtContrasena;//TODO En lugar de poner JTextFiel cambiarlo por un JPasswordField
+    /**
+     * Campo de texto para ingresar la contraseña del usuario.
+     */
+    private JPasswordField txtContrasena;//TODO En lugar de poner JTextFiel cambiarlo por un JPasswordField
 
-    /** Etiqueta del título del panel. */
+    /**
+     * Etiqueta del título del panel.
+     */
     private JLabel labelTitulo;
 
-    /** Etiqueta para el mensaje de inicio de sesión. */
+    /**
+     * Etiqueta para el mensaje de inicio de sesión.
+     */
     private JLabel labelIniciarSesion;
 
-    /** Etiqueta para mostrar un texto informativo. */
+    /**
+     * Etiqueta para mostrar un texto informativo.
+     */
     private JLabel labelTexto;
 
-    /** Etiqueta para indicar el campo de correo. */
+    /**
+     * Etiqueta para indicar el campo de correo.
+     */
     private JLabel labelCorreo;
 
-    /** Etiqueta para indicar el campo de contraseña. */
+    /**
+     * Etiqueta para indicar el campo de contraseña.
+     */
     private JLabel labelContrasena;
 
-    /** Botón para continuar con el proceso de inicio de sesión. */
+    /**
+     * Botón para continuar con el proceso de inicio de sesión.
+     */
     private JButton botonContinuar;
 
-    /** Botón para cancelar la acción y regresar a la pantalla anterior. */
+    /**
+     * Botón para cancelar la acción y regresar a la pantalla anterior.
+     */
     private JButton botonCancelar;
 
-    /** Botón para crear una nueva cuenta de usuario. */
+    /**
+     * Botón para crear una nueva cuenta de usuario.
+     */
     private JButton botonCrearCuenta;
 
     /**
+     * Imagen de fondo del panel de inicio de sesión.
+     */
+    private Image imagenFondo;
+
+    /**
      * Obtiene el campo de texto donde se ingresa la contraseña.
+     *
      * @return Campo de texto de la contraseña.
      */
     public JTextField getTxtContrasena() {
@@ -48,6 +77,7 @@ public class PanelInicioSesion extends JPanel {
 
     /**
      * Obtiene el campo de texto donde se ingresa el correo.
+     *
      * @return Campo de texto del correo.
      */
     public JTextField getTxtCorreo() {
@@ -56,22 +86,26 @@ public class PanelInicioSesion extends JPanel {
 
     /**
      * Establece el campo de texto del correo.
+     *
      * @param txtCorreo Nuevo campo de texto para el correo.
      */
-    public void setTxtCorreo(JTextField txtCorreo) {
-        this.txtCorreo = txtCorreo;
+    public void setTxtCorreo(String txtCorreo) {
+        this.txtCorreo.setText(txtCorreo);
     }
 
     /**
      * Establece el campo de texto de la contraseña.
+     *
      * @param txtContrasena Nuevo campo de texto para la contraseña.
      */
-    public void setTxtContrasena(JTextField txtContrasena) {
-        this.txtContrasena = txtContrasena;
+    public void setTxtContrasena(String txtContrasena) {
+        this.txtContrasena.setText(txtContrasena);
     }
+
 
     /**
      * Constructor del panel de inicio de sesión.
+     *
      * @param evento Manejador de eventos de la aplicación.
      */
     public PanelInicioSesion(Evento evento) {
@@ -79,10 +113,11 @@ public class PanelInicioSesion extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 1, 60, 1);
+        setBackground(Color.GRAY);
 
         initAtributos();
-        personalizarPanel();
         asignarAccionBoton(evento);
+        personalizarBotones();
 
         add(labelTitulo, gbc);
         gbc.gridy = 1;
@@ -115,29 +150,102 @@ public class PanelInicioSesion extends JPanel {
         botonCancelar.setActionCommand(evento.SALIR);
         botonCrearCuenta.addActionListener(evento);
         botonCrearCuenta.setActionCommand(evento.VENTANA_REGISTRAR_USUARIO);
+        mouseListenersBtn();
     }
 
-    private void personalizarPanel() {
-        Dimension dimensiontxt = new Dimension(500, 25);
-        Font letra = new Font("Arial", Font.BOLD, 20);
-        txtCorreo.setPreferredSize(dimensiontxt);
-        txtContrasena.setPreferredSize(dimensiontxt);
-        txtContrasena.selectAll();
-        txtCorreo.selectAll();
-        labelTitulo.setFont(letra);
-        labelIniciarSesion.setFont(new Font("Arial", Font.BOLD, 15));
+
+    /**
+     * Personaliza la apariencia de los botones y etiquetas del panel.
+     */
+    public void personalizarBotones() {
+
+        labelTitulo.setFont(new Font("Montserrat", Font.BOLD, 28));
+        labelTitulo.setForeground(Color.WHITE);
+        labelTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        labelCorreo.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        labelCorreo.setForeground(Color.WHITE);
+        labelContrasena.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        labelContrasena.setForeground(Color.WHITE);
+
+        labelIniciarSesion.setFont(new Font("Montserrat", Font.BOLD, 21));
+        labelIniciarSesion.setForeground(new Color(255, 224, 130));
+        labelIniciarSesion.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        txtCorreo.setMaximumSize(new Dimension(220, 30));
+        txtCorreo.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+
+        txtContrasena.setMaximumSize(new Dimension(220, 30));
+        txtContrasena.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+
+        botonContinuar.setBackground(new Color(33, 150, 243));
+        botonContinuar.setForeground(Color.WHITE);
+        botonContinuar.setFocusPainted(false);
+        botonContinuar.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        botonContinuar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botonContinuar.setMaximumSize(new Dimension(220, 35));
+
+        botonCancelar.setBackground(new Color(189, 189, 189));
+        botonCancelar.setForeground(Color.BLACK);
+        botonCancelar.setFocusPainted(false);
+        botonCancelar.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        botonCancelar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botonCancelar.setMaximumSize(new Dimension(220, 35));
+
+        labelTexto.setForeground(Color.WHITE);
+        labelTexto.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        botonCrearCuenta.setBackground(new Color(33, 150, 243));
+        botonCrearCuenta.setForeground(Color.WHITE);
+        botonCrearCuenta.setFocusPainted(false);
+        botonCrearCuenta.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        botonCrearCuenta.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botonCrearCuenta.setMaximumSize(new Dimension(220, 35));
+
     }
 
     private void initAtributos() {
         botonContinuar = new JButton("Continuar");
-        botonCancelar  = new JButton("Salir");
+        botonCancelar = new JButton("Salir");
         botonCrearCuenta = new JButton("Crear Cuenta");
         labelTitulo = new JLabel("Librería Virtual", SwingConstants.CENTER);
         labelIniciarSesion = new JLabel("Iniciar Sesión", SwingConstants.CENTER);
         labelTexto = new JLabel("o crea una cuenta");
         labelContrasena = new JLabel("Contraseña: ");
         labelCorreo = new JLabel("Correo: ");
-        txtCorreo = new JTextField( 25);
-        txtContrasena = new JTextField(25);
+        txtCorreo = new JTextField(25);
+        txtCorreo.putClientProperty("JTextField.placeholderText", "Correo Electrónico");
+        txtContrasena = new JPasswordField(25);
+        txtContrasena.putClientProperty("JTextField.placeholderText", "Contraseña");
+    }
+
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.BLACK);
+    }
+
+    /**
+     * Asigna los listeners de mouse a los botones del panel.
+     */
+    private void mouseListenersBtn() {
+        botonContinuar.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent event) {
+                botonContinuar.setBackground(new Color(25, 118, 210));
+            }
+
+            public void mouseExited(MouseEvent event) {
+                botonContinuar.setBackground(new Color(33, 150, 243));
+            }
+        });
+
+        botonCrearCuenta.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent event) {
+                botonCrearCuenta.setBackground(new Color(25, 118, 210));
+            }
+
+            public void mouseExited(MouseEvent event) {
+                botonCrearCuenta.setBackground(new Color(33, 150, 243));
+            }
+        });
     }
 }

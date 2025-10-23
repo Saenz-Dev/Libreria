@@ -1,11 +1,13 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.modelo.Libro;
-import co.edu.uptc.modelo.ValorCompra;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+
+import co.edu.uptc.modelo.LibroComprado;
+import co.edu.uptc.modelo.TotalesCompra;
 
 /**
  * Clase que representa el panel del carrito de compras en la interfaz gráfica.
@@ -27,6 +29,8 @@ public class PanelCarrito extends JPanel {
      * Panel que contiene los productos agregados al carrito.
      */
     private JPanel panelProductos;
+
+    private JButton botonVaciarCarrito;
 
     /**
      * Lista de paneles individuales para cada producto en el carrito.
@@ -81,7 +85,7 @@ public class PanelCarrito extends JPanel {
         listPanelesProductos = new ArrayList<>();
         gbcGeneral = new GridBagConstraints();
         gbcPanelProductos = new GridBagConstraints();
-        agregarPaneles();
+        agregarPaneles(evento);
         panelResumenCompra = new PanelResumenCompra(evento);
         this.ventanaPrincipal = ventanaPrincipal;
     }
@@ -89,20 +93,40 @@ public class PanelCarrito extends JPanel {
     /**
      * Agrega los componentes iniciales al panel.
      */
-    public void agregarPaneles() {
+    public void agregarPaneles(Evento evento) {
         setLayout(new GridBagLayout());
 
         gbcGeneral.gridy = 0;
         gbcGeneral.gridx = 0;
         gbcGeneral.weightx = 1.0;
-        gbcGeneral.fill = GridBagConstraints.HORIZONTAL;
+        gbcGeneral.fill = GridBagConstraints.NONE;
         gbcGeneral.anchor = GridBagConstraints.NORTHWEST;
-        gbcGeneral.insets = new Insets(5, 5, 5, 5);
+        gbcGeneral.insets = new Insets(10, 10, 10, 10);
 
+        personalizarComponentes(evento);
+        add(labelTitulo, gbcGeneral);
+        gbcGeneral.anchor = GridBagConstraints.EAST;
+        gbcGeneral.insets.right = 30;
+        add(botonVaciarCarrito, gbcGeneral);
+        gbcGeneral.insets.right = 10;
+    }
+
+    /**
+     * Personaliza los componentes del panel del carrito.
+     *
+     * @param evento Evento que maneja las acciones de los botones.
+     */
+    private void personalizarComponentes(Evento evento) {
         labelTitulo = new JLabel("Mi carrito");
+        botonVaciarCarrito = new JButton("Vaciar Carrito");
+        botonVaciarCarrito.addActionListener(evento);
+        botonVaciarCarrito.setActionCommand(Evento.VACIAR_CARRITO);
+        botonVaciarCarrito.setToolTipText("Vaciar el carrito de compras");
+        botonVaciarCarrito.setBackground(Color.RED);
+        botonVaciarCarrito.setForeground(Color.WHITE);
+        botonVaciarCarrito.setFont(new Font("Arial", Font.BOLD, 16));
         Font fontTitulo = new Font("Arial", Font.BOLD, 30);
         labelTitulo.setFont(fontTitulo);
-        add(labelTitulo, gbcGeneral);
     }
 
     /**
@@ -110,7 +134,7 @@ public class PanelCarrito extends JPanel {
      *
      * @param librosCarrito Lista de libros que están en el carrito.
      */
-    public void anadirProductosPanel(ArrayList<Libro> librosCarrito) {
+    public void anadirProductosPanel(ArrayList<LibroComprado> librosCarrito) {
         listPanelesProductos = new ArrayList<>();
 
         if (panelProductos != null) {
@@ -119,6 +143,7 @@ public class PanelCarrito extends JPanel {
         }
 
         panelProductos = new JPanel(new GridBagLayout());
+        panelProductos.setBorder(new LineBorder(Color.DARK_GRAY));
         gbcPanelProductos = new GridBagConstraints();
         gbcPanelProductos.insets = new Insets(5, 5, 5, 5);
         gbcPanelProductos.gridy = 0;
@@ -129,40 +154,54 @@ public class PanelCarrito extends JPanel {
         gbcGeneral.gridheight = 1;
         gbcGeneral.weighty = 1;
         gbcGeneral.fill = GridBagConstraints.BOTH;
+        gbcGeneral.insets.bottom = 0;
+
 
         agregarJScroll();
 
         gbcGeneral.weighty = 0.1;
         gbcGeneral.gridy = 2;
         gbcGeneral.gridx = 0;
-        gbcGeneral.insets = new Insets(0, 10, 0, 10);
-        gbcGeneral.anchor = GridBagConstraints.SOUTH;
+        gbcGeneral.insets = new Insets(0, 200, 10, 10);
+        gbcGeneral.anchor = GridBagConstraints.CENTER;
         gbcGeneral.fill = GridBagConstraints.HORIZONTAL;
         add(panelResumenCompra, gbcGeneral);
-        revalidate();
-        repaint();
+        panelProductos.revalidate();
+        panelProductos.repaint();
+        panelResumenCompra.revalidate();
+        panelResumenCompra.repaint();
+
     }
 
+    /**
+     * Agrega un JScrollPane al panel de productos.
+     * Si ya existe, lo reemplaza con el nuevo panel de productos.
+     */
     private void agregarJScroll() {
         if (scrollPane != null) {
+            gbcGeneral.insets.left = 5;
             remove(scrollPane);
         }
 
         scrollPane = new JScrollPane(panelProductos);
         scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-        scrollPane.setPreferredSize(new Dimension(200, 300));
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         add(scrollPane, gbcGeneral);
     }
 
-    private void agregarLibroPanel(ArrayList<Libro> librosCarrito) {
+    /**
+     * Agrega los libros comprados al panel de productos.
+     *
+     * @param librosCarrito Lista de libros comprados que se mostrarán en el panel.
+     */
+    private void agregarLibroPanel(ArrayList<LibroComprado> librosCarrito) {
         if (librosCarrito.isEmpty()) {
             validarExistenciaProductos();
         } else {
             gbcPanelProductos.fill = GridBagConstraints.HORIZONTAL;
             gbcPanelProductos.weightx = 1.0;
-            for (Libro libro : librosCarrito) {
-                PanelProducto panelProducto = new PanelProducto(ventanaPrincipal, libro);
+            for (LibroComprado libroComprado : librosCarrito) {
+                PanelProducto panelProducto = new PanelProducto(ventanaPrincipal, libroComprado);
                 gbcPanelProductos.gridy++;
                 panelProductos.add(panelProducto, gbcPanelProductos);
                 listPanelesProductos.add(panelProducto);
@@ -178,21 +217,24 @@ public class PanelCarrito extends JPanel {
      */
     private void validarExistenciaProductos() {
         if (!listPanelesProductos.isEmpty()) return;
-        panelProductos.repaint();
         gbcPanelProductos.weighty = 1.0;
         gbcPanelProductos.fill = GridBagConstraints.CENTER;
         gbcPanelProductos.anchor = GridBagConstraints.CENTER;
         JLabel label = new JLabel("No hay productos seleccionados");
+        panelProductos.removeAll();
         panelProductos.add(label, gbcPanelProductos);
+        panelProductos.repaint();
+        revalidate();
+        repaint();
     }
 
     /**
      * Actualiza la vista del panel del carrito.
      *
-     * @param valorCompra Información actualizada del valor de la compra.
+     * @param totalesCompra Información actualizada del valor de la compra.
      */
-    public void repaintPanel(ValorCompra valorCompra) {
-        modificarValores(valorCompra);
+    public void repaintPanel(TotalesCompra totalesCompra) {
+        modificarValores(totalesCompra);
         validarExistenciaProductos();
         panelResumenCompra.revalidate();
         panelResumenCompra.repaint();
@@ -203,14 +245,18 @@ public class PanelCarrito extends JPanel {
     /**
      * Modifica los valores del resumen de compra.
      *
-     * @param valorCompra Información del valor de la compra.
+     * @param totalesCompra Información del valor de la compra.
      */
-    public void modificarValores(ValorCompra valorCompra) {
-        panelResumenCompra.modificarValor(valorCompra);
-        repaint();
+    public void modificarValores(TotalesCompra totalesCompra) {
+        panelResumenCompra.modificarValor(totalesCompra);
+        panelResumenCompra.repaint();
     }
 
-
+    /**
+     * Obtiene una lista de los ISBN de los libros en el carrito.
+     *
+     * @return Lista de ISBN de los libros en el carrito, o null si no hay productos.
+     */
     public ArrayList<String> isbnLibrosCarrito() {
         ArrayList<String> titulosLibros = new ArrayList<>();
         if (listPanelesProductos.isEmpty()) return null;
